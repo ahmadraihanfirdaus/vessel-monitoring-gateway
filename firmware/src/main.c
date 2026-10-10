@@ -23,6 +23,11 @@ _Static_assert(
 );
 
 _Static_assert(
+    VG_SOURCE_UNKNOWN == 0,
+    "Default source mode must be UNKNOWN"
+);
+
+_Static_assert(
     VG_SOURCE_SIMULATION != VG_SOURCE_BENCH_TEST &&
     VG_SOURCE_SIMULATION != VG_SOURCE_PHYSICAL &&
     VG_SOURCE_BENCH_TEST != VG_SOURCE_PHYSICAL,
@@ -105,6 +110,12 @@ static void run_source_mode_selftest(void)
             VG_SOURCE_PHYSICAL,
             "physical",
             true
+        },
+        {
+            "UNKNOWN_ZERO",
+            VG_SOURCE_UNKNOWN,
+            NULL,
+            false
         },
         {
             "UNKNOWN_99",

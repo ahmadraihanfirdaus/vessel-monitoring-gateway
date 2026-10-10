@@ -13,13 +13,20 @@
 /*
  * SYS-002: Identify the provenance of monitoring data.
  *
+ * UNKNOWN is zero so a zero-initialized field does not
+ * falsely identify unassigned data as simulation data.
+ *
  * PHYSICAL is reserved for future authorized providers.
- * Its presence does not indicate physical data acquisition.
+ * Its presence does not indicate physical acquisition.
+ *
+ * Enum numeric values are internal firmware values,
+ * not an approved telemetry wire-format contract.
  */
 typedef enum {
-    VG_SOURCE_SIMULATION = 0,
-    VG_SOURCE_BENCH_TEST,
-    VG_SOURCE_PHYSICAL
+    VG_SOURCE_UNKNOWN = 0,
+    VG_SOURCE_SIMULATION = 1,
+    VG_SOURCE_BENCH_TEST = 2,
+    VG_SOURCE_PHYSICAL = 3
 } vg_source_mode_t;
 
 /*
