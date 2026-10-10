@@ -1,0 +1,74 @@
+
+# Vessel Monitoring Gateway
+# Git Ignore Rules
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+!.env.testing.example
+*.pem
+*.key
+*.p12
+*.pfx
+secrets/
+credentials/
+
+# PlatformIO
+.pio/
+.pioenvs/
+.piolibdeps/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+
+# Laravel / PHP
+vendor/
+backend/laravel/storage/logs/*.log
+backend/laravel/bootstrap/cache/*.php
+
+# Node.js
+node_modules/
+npm-debug.log*
+dist/
+
+# Operating system
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editor temporary files
+*.swp
+*.swo
+*~
+
+# Note:
+# Curated test evidence is intentionally not ignored.
+# Review all staged files before public commits.
+
+# Generic local and non-public artifacts
+# Exact machine-specific exclusions are kept in .git/info/exclude.
+
+# Database files and backups
+*.sqlite
+*.sqlite3
+*.db
+*.sql
+*.dump
+*.bak
+*.backup
+
+# Non-public working directories
+**/private/
+**/internal/
+**/confidential/
+**/backups/
+
+# Explicitly marked non-public files
+**/*-private.*
+**/*-internal.*
+**/*-confidential.*

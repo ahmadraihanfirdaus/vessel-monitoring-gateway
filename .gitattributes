@@ -1,0 +1,62 @@
+# Vessel Monitoring Gateway
+# Git Attributes Configuration
+
+# Automatic text detection
+* text=auto
+
+# Embedded Firmware
+*.c text eol=lf
+*.cpp text eol=lf
+*.h text eol=lf
+*.hpp text eol=lf
+*.ino text eol=lf
+
+# Python
+*.py text eol=lf
+
+# Laravel / PHP
+*.php text eol=lf
+*.blade.php text eol=lf
+
+# Frontend
+*.js text eol=lf
+*.ts text eol=lf
+*.vue text eol=lf
+*.css text eol=lf
+*.html text eol=lf
+
+# Configuration
+*.json text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.toml text eol=lf
+*.ini text eol=lf
+*.xml text eol=lf
+
+# Documentation
+*.md text eol=lf
+*.txt text eol=lf
+*.csv text eol=lf
+
+# Shell Scripts
+*.sh text eol=lf
+
+# Windows Scripts
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Binary Assets
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.docx binary
+*.xlsx binary
+*.zip binary
+*.bin binary
+
+# Keep repository configuration consistent
+.gitattributes text eol=lf
+.gitignore text eol=lf

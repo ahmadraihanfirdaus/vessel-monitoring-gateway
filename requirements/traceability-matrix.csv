@@ -1,0 +1,39 @@
+requirement_id,priority,requirement_text,module_area,implementation_path,test_ids,test_path,evidence_path,implementation_status,verification_status
+SYS-001,Mandatory,"System shall operate as a monitoring and diagnostic prototype, not as certified ship safety equipment.",SYS,,SUP-001,,,NOT_IMPLEMENTED,NOT_RUN
+SYS-002,Mandatory,"System shall separate source_mode = simulation, bench_test, physical for all data.",SYS,,SUP-002,,,NOT_IMPLEMENTED,NOT_RUN
+SYS-003,Mandatory,"Backend/cloud failure shall not stop local sampling, local alarms, or safety-policy evaluation.",SYS,,SIM-010;SIM-012,,,NOT_IMPLEMENTED,NOT_RUN
+SYS-004,Mandatory,"No physical engine starter, ignition, steering, radar, radio, or third-party operational or mission system shall be controlled by V1.",SYS,,SUP-003,,,NOT_IMPLEMENTED,NOT_RUN
+SAF-001,Mandatory,Ventilation hatch/door state shall be modeled as OPEN/CLOSED/UNKNOWN with quality.,SAF,,SIM-001;SIM-002,,,NOT_IMPLEMENTED,NOT_RUN
+SAF-002,Mandatory,A virtual start request shall be rejected when configured blocking conditions are not satisfied.,SAF,,SIM-001;SIM-002;SIM-003;SIM-004,,,NOT_IMPLEMENTED,NOT_RUN
+SAF-003,Mandatory,Blocking/alert-only behavior shall be configuration-driven; only field-verified rules may be labeled real-vessel rules.,SAF,,SIM-002;SIM-005,,,NOT_IMPLEMENTED,NOT_RUN
+SAF-004,Mandatory,Fuel-vapor channel shall support NORMAL/WARNING/ALARM/FAULT/UNKNOWN and shall never map missing data to safe.,SAF,,SIM-003;SIM-004,,,NOT_IMPLEMENTED,NOT_RUN
+SAF-005,Mandatory,Bilge/high-water channel shall support NORMAL/HIGH/FAULT/UNKNOWN.,SAF,,SIM-005,,,NOT_IMPLEMENTED,NOT_RUN
+SAF-006,Mandatory,Compartment temperature shall support valid/invalid/missing/stale quality and configurable demo thresholds.,SAF,,SIM-006;SIM-011,,,NOT_IMPLEMENTED,NOT_RUN
+ALM-001,Mandatory,"Alerts shall have unique ID, source, priority, state, reason, raised_at, acknowledged_at and cleared_at.",ALM,,SIM-003;SIM-005;SIM-006,,,NOT_IMPLEMENTED,NOT_RUN
+ALM-002,Mandatory,Acknowledgement shall not clear the underlying alarm condition.,ALM,,SUP-004,,,NOT_IMPLEMENTED,NOT_RUN
+ALM-003,Mandatory,Local buzzer/LED behavior shall be independent from dashboard availability.,ALM,,SIM-003;SIM-010;SIM-012,,,NOT_IMPLEMENTED,NOT_RUN
+ENG-001,Mandatory,Engine model shall support N engines; demo profile shall configure four engines.,ENG,,SIM-007,,,NOT_IMPLEMENTED,NOT_RUN
+ENG-002,Mandatory,"Each engine shall expose state, rpm, temperature, runtime, alarm and communication quality in simulation.",ENG,,SUP-005,,,NOT_IMPLEMENTED,NOT_RUN
+ENG-003,Mandatory,System shall detect configurable cross-engine RPM deviation in simulation.,ENG,,SIM-007;SIM-012,,,NOT_IMPLEMENTED,NOT_RUN
+ENG-004,Mandatory,Yamaha physical provider shall remain an interface placeholder until exact model/protocol is verified.,ENG,,SUP-006,,,NOT_IMPLEMENTED,NOT_RUN
+NAV-001,Mandatory,"Navigation module shall parse/generate NMEA 0183-style development data using Furuno GP-39 as reference, without claiming GP-39 is installed onboard.",NAV,,SIM-008,,,NOT_IMPLEMENTED,NOT_RUN
+NAV-002,Mandatory,"Navigation state shall expose latitude, longitude, SOG, COG, fix, data age and quality.",NAV,,SUP-007,,,NOT_IMPLEMENTED,NOT_RUN
+NAV-003,Mandatory,Invalid checksum/malformed input shall not replace last valid navigation state as current live data.,NAV,,SIM-008,,,NOT_IMPLEMENTED,NOT_RUN
+NAV-004,Mandatory,Navigation shall transition VALID -> STALE -> OFFLINE according to configurable data-age thresholds.,NAV,,SIM-009,,,NOT_IMPLEMENTED,NOT_RUN
+MOT-001,Mandatory,"Motion channel shall expose roll/pitch prototype values and clearly label them as attitude/motion, not vessel stability certification.",MOT,,SUP-008,,,NOT_IMPLEMENTED,NOT_RUN
+VIB-001,Mandatory,Vibration channel shall provide a demo indicator and fault state without claiming machinery diagnosis.,VIB,,SUP-009,,,NOT_IMPLEMENTED,NOT_RUN
+PWR-001,Mandatory,Bench power channel shall monitor a safe low-power circuit using INA219 or simulator; real propulsion-current measurement is out of scope.,PWR,,SUP-010,,,NOT_IMPLEMENTED,NOT_RUN
+TEL-001,Mandatory,"Telemetry payload shall carry schema_version, device_id, firmware_version, boot_id, sequence, uptime_ms, source_mode and per-channel quality.",TEL,,SUP-011,,,NOT_IMPLEMENTED,NOT_RUN
+TEL-002,Mandatory,"Invalid/missing channel values shall be null/absent with quality metadata, never silently converted to zero.",TEL,,SUP-012,,,NOT_IMPLEMENTED,NOT_RUN
+TEL-003,Mandatory,Backend shall deduplicate samples by stable identity key and reject conflicting duplicates.,TEL,,SIM-014,,,NOT_IMPLEMENTED,NOT_RUN
+NET-001,Mandatory,"Network client shall implement timeout, reconnect and bounded retry/backoff without blocking sampling.",NET,,SIM-010;SIM-012;SIM-013,,,NOT_IMPLEMENTED,NOT_RUN
+NET-002,Mandatory,Offline mode shall preserve latest state and critical event journal within bounded storage.,NET,,SUP-013,,,NOT_IMPLEMENTED,NOT_RUN
+API-001,Mandatory,"Laravel API shall validate authentication, schema, payload size, device identity and value contracts.",API,,SIM-015,,,NOT_IMPLEMENTED,NOT_RUN
+DB-001,Mandatory,All schema changes shall use Laravel migrations; no manual database shortcut is accepted.,DB,,SUP-014,,,NOT_IMPLEMENTED,NOT_RUN
+UI-001,Mandatory,"Dashboard shall distinguish live, stale, offline and simulation states visibly.",UI,,SIM-010,,,NOT_IMPLEMENTED,NOT_RUN
+UI-002,Mandatory,"Dashboard shall provide overview, safety, propulsion, navigation, power, alarms/events, device health and test evidence views.",UI,,SUP-015,,,NOT_IMPLEMENTED,NOT_RUN
+SEC-001,Mandatory,"No production secret, real operational route or coordinate, radio frequency, credential, or confidential vessel detail shall be committed to public GitHub.",SEC,,SUP-016,,,NOT_IMPLEMENTED,NOT_RUN
+SEC-002,Mandatory,Demo API shall use HTTPS/authentication and secrets shall be external to source code.,SEC,,SIM-015,,,NOT_IMPLEMENTED,NOT_RUN
+TST-001,Mandatory,"Every requirement shall map to code module, automated/manual test and evidence.",TST,,SUP-017,,,NOT_IMPLEMENTED,NOT_RUN
+TST-002,Target,CI shall build firmware and backend tests on each pull request; Wokwi CI shall be added if available for the project plan.,TST,,SUP-018,,,NOT_IMPLEMENTED,NOT_RUN
+DOC-001,Mandatory,"Repository shall contain architecture, ICD, standards matrix, FMEA, ADRs, traceability matrix, test evidence and limitations.",DOC,,SUP-019,,,NOT_IMPLEMENTED,NOT_RUN
