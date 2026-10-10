@@ -1,4 +1,3 @@
-
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdio.h>
@@ -7,6 +6,7 @@
 #include "core_types.h"
 #include "core_quality.h"
 #include "core_source_mode.h"
+#include "core_measurement.h"
 
 /*
  * Integrated Vessel Monitoring & Diagnostic Gateway
@@ -161,6 +161,137 @@ static void run_source_mode_selftest(void)
            (unsigned)count);
 }
 
+/* Core Measurement Self-Test */
+
+typedef struct {
+    const char *name;
+    vg_measurement_t measurement;
+    bool provide_measurement;
+    bool provide_output;
+    bool expected_success;
+    float expected_value;
+} vg_measurement_test_case_t;
+
+static void run_core_measurement_selftest(void)
+{
+    const vg_measurement_test_case_t cases[] = {
+        {
+            "SIMULATION_VALID",
+            {VG_SOURCE_SIMULATION, VG_QUALITY_VALID, true, 42.5f},
+            true, true, true, 42.5f
+        },
+        {
+            "BENCH_TEST_VALID",
+            {VG_SOURCE_BENCH_TEST, VG_QUALITY_VALID, true, 21.25f},
+            true, true, true, 21.25f
+        },
+        {
+            "VALID_ZERO",
+            {VG_SOURCE_SIMULATION, VG_QUALITY_VALID, true, 0.0f},
+            true, true, true, 0.0f
+        },
+        {
+            "ZERO_INITIALIZED",
+            {0},
+            true, true, false, 0.0f
+        },
+        {
+            "UNKNOWN_SOURCE_VALID",
+            {VG_SOURCE_UNKNOWN, VG_QUALITY_VALID, true, 5.0f},
+            true, true, false, 0.0f
+        },
+        {
+            "UNKNOWN_99_VALID",
+            {(vg_source_mode_t)99, VG_QUALITY_VALID, true, 5.0f},
+            true, true, false, 0.0f
+        },
+        {
+            "INVALID_WITH_VALUE",
+            {VG_SOURCE_SIMULATION, VG_QUALITY_INVALID, true, 5.0f},
+            true, true, false, 0.0f
+        },
+        {
+            "MISSING_NO_VALUE",
+            {VG_SOURCE_SIMULATION, VG_QUALITY_MISSING, false, 0.0f},
+            true, true, false, 0.0f
+        },
+        {
+            "STALE_WITH_VALUE",
+            {VG_SOURCE_SIMULATION, VG_QUALITY_STALE, true, 5.0f},
+            true, true, false, 0.0f
+        },
+        {
+            "UNKNOWN_QUALITY",
+            {VG_SOURCE_SIMULATION, VG_QUALITY_UNKNOWN, true, 5.0f},
+            true, true, false, 0.0f
+        },
+        {
+            "VALID_NO_VALUE",
+            {VG_SOURCE_SIMULATION, VG_QUALITY_VALID, false, 0.0f},
+            true, true, false, 0.0f
+        },
+        {
+            "NULL_MEASUREMENT",
+            {0},
+            false, true, false, 0.0f
+        },
+        {
+            "NULL_OUTPUT",
+            {VG_SOURCE_SIMULATION, VG_QUALITY_VALID, true, 5.0f},
+            true, false, false, 0.0f
+        }
+    };
+
+    const size_t count = sizeof(cases) / sizeof(cases[0]);
+    size_t passed = 0;
+
+    const float sentinel = -98765.0f;
+
+    for (size_t i = 0; i < count; ++i) {
+        float output = sentinel;
+
+        const vg_measurement_t *measurement_ptr =
+            cases[i].provide_measurement
+                ? &cases[i].measurement
+                : NULL;
+
+        float *output_ptr =
+            cases[i].provide_output
+                ? &output
+                : NULL;
+
+        const bool actual_success =
+            vg_measurement_try_get_current_value(
+                measurement_ptr,
+                output_ptr
+            );
+
+        const bool result_matches =
+            (actual_success == cases[i].expected_success);
+
+        const bool value_matches =
+            actual_success
+                ? (output == cases[i].expected_value)
+                : (output == sentinel);
+
+        const bool success =
+            result_matches && value_matches;
+
+        printf("MEASUREMENT_TEST %s: %s\n",
+               cases[i].name,
+               success ? "PASS" : "FAIL");
+
+        if (success) {
+            ++passed;
+        }
+    }
+
+    printf("CORE_MEASUREMENT_SELFTEST: %s (%u/%u)\n",
+           passed == count ? "PASS" : "FAIL",
+           (unsigned)passed,
+           (unsigned)count);
+}
+
 void app_main(void)
 {
     puts("Development scaffold only; "
@@ -168,4 +299,5 @@ void app_main(void)
 
     run_core_quality_selftest();
     run_source_mode_selftest();
+    run_core_measurement_selftest();
 }
