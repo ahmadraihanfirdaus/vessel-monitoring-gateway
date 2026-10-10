@@ -8,6 +8,7 @@
 #include "core_quality.h"
 #include "core_source_mode.h"
 #include "core_measurement.h"
+#include "core_range.h"
 
 /*
  * Integrated Vessel Monitoring & Diagnostic Gateway
@@ -308,6 +309,205 @@ static void run_core_measurement_selftest(void)
            (unsigned)count);
 }
 
+/* Core Range Self-Test */
+
+typedef struct {
+    const char *name;
+    vg_measurement_t measurement;
+    vg_measurement_range_t range;
+    bool provide_measurement;
+    bool provide_range;
+    bool provide_output;
+    bool expected_success;
+    float expected_value;
+} vg_range_test_case_t;
+
+static void run_core_range_selftest(void)
+{
+    const vg_range_test_case_t cases[] = {
+        {
+            "IN_RANGE",
+            {VG_SOURCE_SIMULATION, VG_QUALITY_VALID, true, 50.0f},
+            {true, 0.0f, 100.0f},
+            true, true, true, true, 50.0f
+        },
+        {
+            "MIN_BOUNDARY",
+            {VG_SOURCE_SIMULATION, VG_QUALITY_VALID, true, 0.0f},
+            {true, 0.0f, 100.0f},
+            true, true, true, true, 0.0f
+        },
+        {
+            "MAX_BOUNDARY",
+            {VG_SOURCE_SIMULATION, VG_QUALITY_VALID, true, 100.0f},
+            {true, 0.0f, 100.0f},
+            true, true, true, true, 100.0f
+        },
+        {
+            "NEGATIVE_ALLOWED",
+            {VG_SOURCE_SIMULATION, VG_QUALITY_VALID, true, -12.5f},
+            {true, -20.0f, 20.0f},
+            true, true, true, true, -12.5f
+        },
+        {
+            "BENCH_TEST_IN_RANGE",
+            {VG_SOURCE_BENCH_TEST, VG_QUALITY_VALID, true, 40.0f},
+            {true, 0.0f, 100.0f},
+            true, true, true, true, 40.0f
+        },
+        {
+            "BELOW_MINIMUM",
+            {VG_SOURCE_SIMULATION, VG_QUALITY_VALID, true, -1.0f},
+            {true, 0.0f, 100.0f},
+            true, true, true, false, 0.0f
+        },
+        {
+            "ABOVE_MAXIMUM",
+            {VG_SOURCE_SIMULATION, VG_QUALITY_VALID, true, 101.0f},
+            {true, 0.0f, 100.0f},
+            true, true, true, false, 0.0f
+        },
+        {
+            "UNCONFIGURED_RANGE",
+            {VG_SOURCE_SIMULATION, VG_QUALITY_VALID, true, 50.0f},
+            {false, 0.0f, 100.0f},
+            true, true, true, false, 0.0f
+        },
+        {
+            "ZERO_INITIALIZED_RANGE",
+            {VG_SOURCE_SIMULATION, VG_QUALITY_VALID, true, 50.0f},
+            {0},
+            true, true, true, false, 0.0f
+        },
+        {
+            "REVERSED_RANGE",
+            {VG_SOURCE_SIMULATION, VG_QUALITY_VALID, true, 50.0f},
+            {true, 100.0f, 0.0f},
+            true, true, true, false, 0.0f
+        },
+        {
+            "NAN_MINIMUM",
+            {VG_SOURCE_SIMULATION, VG_QUALITY_VALID, true, 50.0f},
+            {true, NAN, 100.0f},
+            true, true, true, false, 0.0f
+        },
+        {
+            "NAN_MAXIMUM",
+            {VG_SOURCE_SIMULATION, VG_QUALITY_VALID, true, 50.0f},
+            {true, 0.0f, NAN},
+            true, true, true, false, 0.0f
+        },
+        {
+            "POSITIVE_INFINITY_MINIMUM",
+            {VG_SOURCE_SIMULATION, VG_QUALITY_VALID, true, 50.0f},
+            {true, INFINITY, 100.0f},
+            true, true, true, false, 0.0f
+        },
+        {
+            "NEGATIVE_INFINITY_MAXIMUM",
+            {VG_SOURCE_SIMULATION, VG_QUALITY_VALID, true, 50.0f},
+            {true, 0.0f, -INFINITY},
+            true, true, true, false, 0.0f
+        },
+        {
+            "UNKNOWN_SOURCE",
+            {VG_SOURCE_UNKNOWN, VG_QUALITY_VALID, true, 50.0f},
+            {true, 0.0f, 100.0f},
+            true, true, true, false, 0.0f
+        },
+        {
+            "INVALID_QUALITY",
+            {VG_SOURCE_SIMULATION, VG_QUALITY_INVALID, true, 50.0f},
+            {true, 0.0f, 100.0f},
+            true, true, true, false, 0.0f
+        },
+        {
+            "MISSING_VALUE",
+            {VG_SOURCE_SIMULATION, VG_QUALITY_MISSING, false, 0.0f},
+            {true, 0.0f, 100.0f},
+            true, true, true, false, 0.0f
+        },
+        {
+            "NAN_MEASUREMENT",
+            {VG_SOURCE_SIMULATION, VG_QUALITY_VALID, true, NAN},
+            {true, 0.0f, 100.0f},
+            true, true, true, false, 0.0f
+        },
+        {
+            "NULL_MEASUREMENT",
+            {0},
+            {true, 0.0f, 100.0f},
+            false, true, true, false, 0.0f
+        },
+        {
+            "NULL_RANGE",
+            {VG_SOURCE_SIMULATION, VG_QUALITY_VALID, true, 50.0f},
+            {0},
+            true, false, true, false, 0.0f
+        },
+        {
+            "NULL_OUTPUT",
+            {VG_SOURCE_SIMULATION, VG_QUALITY_VALID, true, 50.0f},
+            {true, 0.0f, 100.0f},
+            true, true, false, false, 0.0f
+        }
+    };
+
+    const size_t count = sizeof(cases) / sizeof(cases[0]);
+    size_t passed = 0;
+    const float sentinel = -98765.0f;
+
+    for (size_t i = 0; i < count; ++i) {
+        float output = sentinel;
+
+        const vg_measurement_t *measurement_ptr =
+            cases[i].provide_measurement
+                ? &cases[i].measurement
+                : NULL;
+
+        const vg_measurement_range_t *range_ptr =
+            cases[i].provide_range
+                ? &cases[i].range
+                : NULL;
+
+        float *output_ptr =
+            cases[i].provide_output
+                ? &output
+                : NULL;
+
+        const bool actual_success =
+            vg_measurement_try_get_in_range(
+                measurement_ptr,
+                range_ptr,
+                output_ptr
+            );
+
+        const bool result_matches =
+            actual_success == cases[i].expected_success;
+
+        const bool value_matches =
+            actual_success
+                ? (output == cases[i].expected_value)
+                : (output == sentinel);
+
+        const bool success =
+            result_matches && value_matches;
+
+        printf("RANGE_TEST %s: %s\n",
+               cases[i].name,
+               success ? "PASS" : "FAIL");
+
+        if (success) {
+            ++passed;
+        }
+    }
+
+    printf("CORE_RANGE_SELFTEST: %s (%u/%u)\n",
+           passed == count ? "PASS" : "FAIL",
+           (unsigned)passed,
+           (unsigned)count);
+}
+
 void app_main(void)
 {
     puts("Development scaffold only; "
@@ -316,4 +516,5 @@ void app_main(void)
     run_core_quality_selftest();
     run_source_mode_selftest();
     run_core_measurement_selftest();
+    run_core_range_selftest();
 }
