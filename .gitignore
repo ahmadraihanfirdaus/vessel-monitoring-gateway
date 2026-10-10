@@ -72,3 +72,11 @@ Desktop.ini
 **/*-private.*
 **/*-internal.*
 **/*-confidential.*
+
+# ESP-IDF firmware generated artifacts
+/firmware/build/
+/firmware/managed_components/
+/firmware/sdkconfig
+/firmware/sdkconfig.*
+!/firmware/sdkconfig.defaults
+!/firmware/sdkconfig.defaults.esp32
