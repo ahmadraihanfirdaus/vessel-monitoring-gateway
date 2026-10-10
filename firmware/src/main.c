@@ -2,6 +2,7 @@
 #include <stddef.h>
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 
 #include "core_types.h"
 #include "core_quality.h"
@@ -189,6 +190,21 @@ static void run_core_measurement_selftest(void)
             "VALID_ZERO",
             {VG_SOURCE_SIMULATION, VG_QUALITY_VALID, true, 0.0f},
             true, true, true, 0.0f
+        },
+        {
+            "NAN_REJECTED",
+            {VG_SOURCE_SIMULATION, VG_QUALITY_VALID, true, NAN},
+            true, true, false, 0.0f
+        },
+        {
+            "POSITIVE_INFINITY_REJECTED",
+            {VG_SOURCE_SIMULATION, VG_QUALITY_VALID, true, INFINITY},
+            true, true, false, 0.0f
+        },
+        {
+            "NEGATIVE_INFINITY_REJECTED",
+            {VG_SOURCE_SIMULATION, VG_QUALITY_VALID, true, -INFINITY},
+            true, true, false, 0.0f
         },
         {
             "ZERO_INITIALIZED",
