@@ -1,0 +1,9 @@
+# ESP32 simulation-only configuration.
+# Framework: ESP-IDF via PlatformIO.
+# The merged image represents the current 2 MiB build.
+# Physical module flash capacity remains unverified.
+
+[wokwi]
+version = 1
+firmware = '.pio/build/esp32dev_espidf/firmware.merged.bin'
+elf = '.pio/build/esp32dev_espidf/firmware.elf'
