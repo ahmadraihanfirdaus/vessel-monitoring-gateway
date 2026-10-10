@@ -42,7 +42,6 @@ Some directories and files may not exist during the initial project phases.
 vessel-monitoring-gateway/
 ├── README.md
 ├── CHANGELOG.md                 # Planned
-├── LICENSE                       # Pending license decision
 ├── .gitignore
 ├── .gitattributes
 ├── requirements/
@@ -240,7 +239,7 @@ Before changing repository visibility, confirm and document:
 - **Material rights and provenance:** Authorship or explicit permission to publish each relevant design, text, diagram, source file, image, dataset, and third-party inclusion. Exclude or replace any material with unresolved disclosure or reuse rights.
 - **Public exposure review:** Review all files, tracked history, branches, tags, commit metadata, and any GitHub-exposed attachments or activity (including releases, issues, pull requests, and Actions artifacts or logs, where applicable).
 - **Evidence provenance:** Restrict public examples to synthetic data or separately authorized bench material. Internal baseline records and private archives remain outside the public repository.
-- **License decision:** Decide separately whether reuse permissions will be granted. Public GitHub visibility allows viewing and forking under GitHub's terms; it does not by itself establish an open-source license or third-party redistribution rights.
+- **License decision:** All Rights Reserved; no open-source license or general reuse permission is granted. Public GitHub visibility does not override applicable law or GitHub's Terms of Service, nor grant rights to reproduce third-party material.
 - **Explicit authorization:** Record a dated publication decision by the person or party authorized to approve disclosure. This is distinct from system verification, engineering approval, and any hardware integration authorization.
 
 If the required rights or publication authorization cannot be confirmed, the repository shall remain **PRIVATE** and publication approval shall remain **PENDING**. This subsection is a disclosure-control checkpoint; it does not amend the engineering baseline or mark development and verification work as complete.

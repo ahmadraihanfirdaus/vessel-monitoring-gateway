@@ -238,4 +238,4 @@ The repository does not claim an operational deployment, affiliation with an ext
 
 ## License
 
-License selection is pending review. No open-source license has been granted at this stage.
+All rights reserved. This repository is maintained as an engineering-planning portfolio. No open-source license or general permission to reuse, modify, or redistribute its contents is granted. Viewing and GitHub platform features remain subject to applicable law and GitHub's Terms of Service.
