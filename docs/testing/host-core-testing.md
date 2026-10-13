@@ -40,3 +40,11 @@ This host runner verifies the current software predicates only. It does **not** 
 - Expected native self-test total: **201** (`169 + 32`). On ESP-IDF the same self-tests run before the separate six-step `CORE_RUNTIME_TIMED_DEMO` that uses real `esp_timer` time and yields cooperatively via FreeRTOS.
 - The timed demo is a finite simulation and is **not** included in the 201 native cases. The separately archived C3 ESP-IDF/Wokwi evidence records 201/201 native-compatible self-tests and 6/6 finite timed-demo steps following a main-task stack-overflow hotfix. This remains outside formal SIM/SUP.
 - This does not satisfy formal SIM/SUP, operational continuous sampling, power-loss persistence, calibration, vessel I/O, or approved safety policy.
+
+## Batch C4 — finite-runtime failure guard (development self-tested)
+
+- `CORE_RUNTIME_GUARD_SELFTEST`: 25 additional host-compatible cases covering terminal completion, due-time steps, journal-full latch/no retry, time-regression latch, physical-mode rejection and counter saturation.
+- Expected combined native self-test total: **226** (`201 + 25`). A successful native run does **not** verify ESP-IDF target memory, FreeRTOS stack health, or Wokwi runtime behavior.
+- ESP-IDF timed demo uses the guard rather than polling the runtime directly, and reports raw `uxTaskGetStackHighWaterMark(NULL)` values before/after. These implementation-specific values are diagnostic, with **no invented acceptable minimum**.
+- Stop means no subsequent automatic poll. A future recovery and persistent replay policy requires separate design review; the journal remains volatile and bounded at eight events.
+- Native C11 **226/226 PASS** and ESP-IDF/Wokwi **226/226 PASS**, plus finite timed demo **6/6 PASS** have separate C4 UART/evidence. The first C4 Wokwi build reported 256 bytes minimum free main stack; moving four *test-only* flow objects to static storage yielded 1952 bytes for the successful finite demo. Main-stack high-water-mark is a diagnostic observation (ESP-IDF bytes), not an approved production threshold. Formal SIM/SUP, bench, hardware, long-duration and power-cycle tests remain NOT_RUN.

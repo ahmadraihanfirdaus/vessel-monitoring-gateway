@@ -15,6 +15,7 @@
 #include "core_event_journal.h"
 #include "core_flow.h"
 #include "core_runtime_sim.h"
+#include "core_runtime_guard.h"
 
 #ifdef ESP_PLATFORM
 #include "esp_timer.h"
@@ -817,7 +818,8 @@ static void run_core_flow_selftest(void)
     printf("FLOW_TEST %s: %s\n", name, ok ? "PASS" : "FAIL"); \
 } while (0)
 
-    vg_core_flow_t flow = {0};
+    static vg_core_flow_t flow = {0};
+    memset(&flow, 0, sizeof(flow));
     vg_measurement_t good = {VG_SOURCE_SIMULATION, VG_QUALITY_VALID, true, 42.0f};
     vg_measurement_t missing = {VG_SOURCE_SIMULATION, VG_QUALITY_MISSING, false, 0.0f};
     vg_measurement_t invalid = {VG_SOURCE_SIMULATION, VG_QUALITY_INVALID, true, 0.0f};
@@ -884,12 +886,14 @@ static void run_core_flow_selftest(void)
         NULL, &diagnostic) == VG_FLOW_REJECTED);
     FLOW_CHECK("NULL_DIAG_REJECTED", vg_flow_sample(&flow, &good, 100,
         &skipped, NULL) == VG_FLOW_REJECTED);
-    vg_core_flow_t bench_flow = {0};
+    static vg_core_flow_t bench_flow = {0};
+    memset(&bench_flow, 0, sizeof(bench_flow));
     FLOW_CHECK("BENCH_MODE_ACCEPTED", vg_flow_init(&bench_flow, 7,
         VG_SOURCE_BENCH_TEST, 3, 9, 10, 10) &&
         vg_flow_sample(&bench_flow, &bench, 10, &skipped, &diagnostic) ==
         VG_FLOW_PROCESSED && bench_flow.diagnostic.health == VG_DIAG_HEALTHY);
-    vg_core_flow_t tight = {0};
+    static vg_core_flow_t tight = {0};
+    memset(&tight, 0, sizeof(tight));
     (void)vg_flow_init(&tight, 5, VG_SOURCE_SIMULATION, 1, 2, 1, 0);
     FLOW_CHECK("FULL_PREP_FIRST", vg_flow_sample(&tight, &missing, 0,
         &skipped, &diagnostic) == VG_FLOW_PROCESSED && tight.journal.count == 1);
@@ -913,7 +917,8 @@ static void run_core_flow_selftest(void)
     FLOW_CHECK("FULL_RETRY_IDEMPOTENT", vg_flow_sample(&tight, &missing, 8,
         &skipped, &diagnostic) == VG_FLOW_JOURNAL_FULL &&
         tight.scheduler.next_due_ms == old_deadline && tight.journal.count == old_count);
-    vg_core_flow_t ack_full = {0};
+    static vg_core_flow_t ack_full = {0};
+    memset(&ack_full, 0, sizeof(ack_full));
     (void)vg_flow_init(&ack_full, 8, VG_SOURCE_SIMULATION, 1, 2, 1, 10);
     (void)vg_flow_sample(&ack_full, &missing, 10, &skipped, &diagnostic);
     bool ack_setup = (ack_full.journal.count == 1 &&
@@ -1066,6 +1071,95 @@ static void run_core_runtime_sim_selftest(void)
 #undef RUNTIME_CHECK
 }
 
+
+/* C4 simulation-only supervisory stop semantics. Never a safety policy. */
+static void run_core_runtime_guard_selftest(void)
+{
+    unsigned passed = 0, total = 0;
+#define GUARD_CHECK(name, expr) do { \
+    const bool ok = (expr); \
+    printf("GUARD_TEST %s: %s\n", name, ok ? "PASS" : "FAIL"); \
+    ++total; if (ok) ++passed; \
+} while (0)
+    static vg_runtime_sim_t runtime = {0};
+    static vg_runtime_guard_t guard = {0};
+    uint64_t skipped = 77;
+    vg_diag_result_t diag = VG_DIAG_REJECTED;
+    GUARD_CHECK("ZERO_UNINITIALIZED_REJECTED",
+        vg_guard_poll(&guard, &runtime, 0, &skipped, &diag) == VG_GUARD_INVALID);
+    GUARD_CHECK("NULL_GUARD_INIT", !vg_guard_init(NULL, &runtime));
+    GUARD_CHECK("NULL_RUNTIME_INIT", !vg_guard_init(&guard, NULL));
+    GUARD_CHECK("UNINITIALIZED_RUNTIME_REJECTED", !vg_guard_init(&guard, &runtime));
+    GUARD_CHECK("INIT_RUNTIME", vg_runtime_sim_init(&runtime, 88, 10, 10));
+    GUARD_CHECK("INIT_GUARD", vg_guard_init(&guard, &runtime) &&
+        guard.state == VG_GUARD_RUNNING && guard.processed_count == 0);
+    GUARD_CHECK("NULL_SKIPPED_REFUSED", vg_guard_poll(&guard, &runtime,
+        0, NULL, &diag) == VG_GUARD_INVALID && guard.state == VG_GUARD_RUNNING);
+    GUARD_CHECK("NULL_DIAG_REFUSED", vg_guard_poll(&guard, &runtime,
+        0, &skipped, NULL) == VG_GUARD_INVALID && guard.state == VG_GUARD_RUNNING);
+    GUARD_CHECK("WAIT_COUNTED", vg_guard_poll(&guard, &runtime,
+        0, &skipped, &diag) == VG_GUARD_WAIT && guard.wait_count == 1);
+    GUARD_CHECK("FIRST_SAMPLE", vg_guard_poll(&guard, &runtime,
+        10, &skipped, &diag) == VG_GUARD_PROCESSED && guard.processed_count == 1 &&
+        diag == VG_DIAG_GOOD);
+    GUARD_CHECK("SECOND_SAMPLE_FAULT", vg_guard_poll(&guard, &runtime,
+        20, &skipped, &diag) == VG_GUARD_PROCESSED && guard.processed_count == 2 &&
+        runtime.flow.has_alarm && runtime.flow.last_alarm.condition_active);
+    GUARD_CHECK("THIRD_SAMPLE_FAULT_CONTINUES", vg_guard_poll(&guard, &runtime,
+        30, &skipped, &diag) == VG_GUARD_PROCESSED && guard.processed_count == 3);
+    GUARD_CHECK("FOURTH_SAMPLE_RECOVERY", vg_guard_poll(&guard, &runtime,
+        40, &skipped, &diag) == VG_GUARD_PROCESSED && guard.processed_count == 4);
+    GUARD_CHECK("FIFTH_SAMPLE_NEW_FAULT", vg_guard_poll(&guard, &runtime,
+        50, &skipped, &diag) == VG_GUARD_PROCESSED && guard.processed_count == 5);
+    GUARD_CHECK("SIXTH_SAMPLE_RECOVERY", vg_guard_poll(&guard, &runtime,
+        60, &skipped, &diag) == VG_GUARD_PROCESSED && guard.processed_count == 6 &&
+        runtime.flow.journal.count == 4);
+    GUARD_CHECK("COMPLETE_EXPLICIT", vg_guard_poll(&guard, &runtime,
+        70, &skipped, &diag) == VG_GUARD_FINISHED && guard.state == VG_GUARD_COMPLETE);
+    GUARD_CHECK("COMPLETE_NO_REPEAT", vg_guard_poll(&guard, &runtime,
+        80, &skipped, &diag) == VG_GUARD_ALREADY_STOPPED && guard.processed_count == 6);
+
+    static vg_runtime_sim_t full = {0};
+    static vg_runtime_guard_t backpressure = {0};
+    uint64_t id = 0;
+    bool prepared = vg_runtime_sim_init(&full, 89, 1, 0);
+    for (size_t i = 0; prepared && i < VG_JOURNAL_CAPACITY; ++i)
+        prepared = vg_journal_append(&full.flow.journal, 0, 89,
+            VG_SOURCE_SIMULATION, VG_EVENT_FAULT, 0, &id);
+    GUARD_CHECK("FULL_JOURNAL_PREP", prepared && vg_guard_init(&backpressure, &full));
+    GUARD_CHECK("FULL_GOOD_NO_EVENT", vg_guard_poll(&backpressure, &full,
+        0, &skipped, &diag) == VG_GUARD_PROCESSED && full.next_step == 1);
+    GUARD_CHECK("FULL_LATCH_BLOCKED", vg_guard_poll(&backpressure, &full,
+        1, &skipped, &diag) == VG_GUARD_STOPPED_JOURNAL &&
+        backpressure.state == VG_GUARD_BLOCKED_JOURNAL &&
+        backpressure.journal_full_count == 1 && full.next_step == 1);
+    GUARD_CHECK("FULL_NO_RETRY", vg_guard_poll(&backpressure, &full,
+        2, &skipped, &diag) == VG_GUARD_ALREADY_STOPPED &&
+        backpressure.journal_full_count == 1 && full.next_step == 1);
+
+    static vg_runtime_sim_t regression = {0};
+    static vg_runtime_guard_t clock_guard = {0};
+    (void)vg_runtime_sim_init(&regression, 90, 10, 10);
+    (void)vg_guard_init(&clock_guard, &regression);
+    (void)vg_guard_poll(&clock_guard, &regression, 10, &skipped, &diag);
+    GUARD_CHECK("TIME_REGRESSION_LATCH_ERROR", vg_guard_poll(&clock_guard,
+        &regression, 9, &skipped, &diag) == VG_GUARD_STOPPED_FAULT &&
+        clock_guard.state == VG_GUARD_STOPPED_ERROR && clock_guard.error_count == 1);
+    GUARD_CHECK("ERROR_NO_RETRY", vg_guard_poll(&clock_guard,
+        &regression, 20, &skipped, &diag) == VG_GUARD_ALREADY_STOPPED &&
+        regression.next_step == 1);
+    clock_guard.wait_count = UINT64_MAX;
+    GUARD_CHECK("SATURATING_COUNTER", (
+        vg_guard_increment(&clock_guard.wait_count), clock_guard.wait_count == UINT64_MAX));
+    static vg_runtime_sim_t physical = {0};
+    (void)vg_runtime_sim_init(&physical, 91, 10, 10);
+    physical.flow.source_mode = VG_SOURCE_PHYSICAL;
+    GUARD_CHECK("PHYSICAL_REJECTED", !vg_guard_init(&guard, &physical));
+    printf("CORE_RUNTIME_GUARD_SELFTEST: %s (%u/%u)\n",
+        passed == total ? "PASS" : "FAIL", passed, total);
+#undef GUARD_CHECK
+}
+
 #ifdef ESP_PLATFORM
 /* Demonstrates ACTUAL cooperative ESP-IDF timer polling with a synthetic
  * six-step source. Bounded in time and samples; NOT a deployed monitor or
@@ -1074,9 +1168,11 @@ static void run_core_runtime_sim_selftest(void)
 static void run_esp32_synthetic_timed_demo(void)
 {
     static vg_runtime_sim_t runtime = {0};
+    static vg_runtime_guard_t guard = {0};
     int64_t start_us = esp_timer_get_time();
     if (start_us < 0 || !vg_runtime_sim_init(&runtime, 101, 200,
-                               (uint64_t)start_us / 1000u + 200u)) {
+                               (uint64_t)start_us / 1000u + 200u) ||
+        !vg_guard_init(&guard, &runtime)) {
         puts("CORE_RUNTIME_TIMED_DEMO: FAIL (0/6)");
         return;
     }
@@ -1091,20 +1187,28 @@ static void run_esp32_synthetic_timed_demo(void)
         if (now_us < 0) break;
         uint64_t skipped = 0;
         vg_diag_result_t actual_diag = VG_DIAG_REJECTED;
-        vg_runtime_sim_result_t result = vg_runtime_sim_poll(
-            &runtime, (uint64_t)now_us / 1000u, &skipped, &actual_diag);
-        if (result == VG_RUNTIME_SIM_PROCESSED) {
+        vg_guard_result_t result = vg_guard_poll(
+            &guard, &runtime, (uint64_t)now_us / 1000u, &skipped, &actual_diag);
+        if (result == VG_GUARD_PROCESSED) {
             bool ok = (actual_diag == expected[success] && skipped == 0);
             printf("RUNTIME_TIMED_STEP %u: %s\n", success, ok ? "PASS" : "FAIL");
             if (!ok) break;
             success++;
-        } else if (result != VG_RUNTIME_SIM_WAIT) {
+        } else if (result != VG_GUARD_WAIT) {
             printf("RUNTIME_TIMED_STATUS: FAIL (%d)\n", (int)result);
             break;
         }
         vTaskDelay(pdMS_TO_TICKS(20) > 0 ? pdMS_TO_TICKS(20) : 1);
     }
-    bool ok = success == VG_RUNTIME_SIM_STEPS &&
+    uint64_t ignored_skipped = 0;
+    vg_diag_result_t ignored_diag = VG_DIAG_REJECTED;
+    bool finished = success == VG_RUNTIME_SIM_STEPS &&
+        vg_guard_poll(&guard, &runtime,
+            (uint64_t)esp_timer_get_time() / 1000u,
+            &ignored_skipped, &ignored_diag) == VG_GUARD_FINISHED;
+    bool ok = finished && guard.state == VG_GUARD_COMPLETE &&
+              guard.processed_count == VG_RUNTIME_SIM_STEPS &&
+              guard.journal_full_count == 0 && guard.error_count == 0 &&
               runtime.flow.journal.count == 4 &&
               runtime.flow.last_alarm.state == VG_ALARM_STATE_CLEARED;
     printf("CORE_RUNTIME_TIMED_DEMO: %s (%u/%u)\n",
@@ -1127,7 +1231,14 @@ void app_main(void)
     run_core_journal_selftest();
     run_core_flow_selftest();
     run_core_runtime_sim_selftest();
+    run_core_runtime_guard_selftest();
 #ifdef ESP_PLATFORM
+    /* Diagnostic-only watermark; units are ESP-IDF FreeRTOS implementation
+     * specific. No safety acceptance threshold is established. */
+    printf("C4_MAIN_STACK_WATERMARK_RAW_BEFORE: %u\n",
+           (unsigned)uxTaskGetStackHighWaterMark(NULL));
     run_esp32_synthetic_timed_demo();
+    printf("C4_MAIN_STACK_WATERMARK_RAW_AFTER: %u\n",
+           (unsigned)uxTaskGetStackHighWaterMark(NULL));
 #endif
 }

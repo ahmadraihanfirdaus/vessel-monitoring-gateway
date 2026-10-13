@@ -2,6 +2,12 @@
 
 This log distinguishes planning/documentation work from verified software behavior. Dates are local engineering record dates, not deployment dates.
 
+## 2026-10-13 — Batch C4 (finite runtime guard; development Wokwi verified)
+
+- Add a simulation-only, fail-stop supervisory guard for the existing finite six-sample runtime. Explicitly latch `JOURNAL_FULL` and unexpected runtime errors; never auto-retry, drop event evidence, acknowledge alarms or silently advance the scripted cursor.
+- Add 25 pure C11 guard self-tests to the previous 201 cases (**226 expected**); integrate guard into the ESP-IDF timed demonstration and report raw main-task stack watermark before and after the demo.
+- Native C11 and ESP-IDF/Wokwi developer self-tests **226/226 PASS**; finite timed demonstration **6/6 PASS** on the matching ELF. Initial main-task stack high-water mark was **256 bytes**; after moving four test-only flow workspaces to static storage, the new Wokwi build reported **1952 bytes** before/after the finite demo and returned normally. This is not an approved production stack threshold or stress test. Hardware, persistence, operational resilience, safety-control and formal SIM/SUP remain NOT_RUN.
+
 ## 2026-10-13 — Batch C3 (bounded synthetic runtime, Wokwi development verified)
 
 - Add finite scripted SIMULATION-only source fed into C2 flow with timed due-time processing, fault/recovery journal event checks, and explicit fail/hold behavior.

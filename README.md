@@ -4,7 +4,7 @@
 
 **Portfolio category:** Embedded firmware prototype and traceable engineering development (simulation only).
 
-This repository contains a **planning baseline plus partial development-only firmware implementation**, not a completed monitoring system. The ESP32 firmware has recorded Wokwi self-tests for data quality, source mode, numeric measurements, configurable ranges, alarm lifecycle, pure scheduler arithmetic, diagnostics, and an eight-entry volatile journal. Batch C2 connects these components for caller-injected simulation samples and has 169/169 native and ESP-IDF/Wokwi development self-tests PASS. Batch C3 has 201/201 development self-tests PASS on native GCC and Wokwi, plus an ESP-IDF timed synthetic demonstration PASS (6/6); formal SIM/SUP remains NOT_RUN. A continuous operational sampling loop, physical sensor providers, output alarms, nonvolatile journal storage, NMEA/engine simulators, telemetry API, Laravel backend, dashboard, and end-to-end verification are not implemented.
+This repository contains a **planning baseline plus partial development-only firmware implementation**, not a completed monitoring system. The ESP32 firmware has recorded Wokwi self-tests for data quality, source mode, numeric measurements, configurable ranges, alarm lifecycle, pure scheduler arithmetic, diagnostics, and an eight-entry volatile journal. Batch C2 connects these components for caller-injected simulation samples and has 169/169 native and ESP-IDF/Wokwi development self-tests PASS. Batch C3 has 201/201 development self-tests PASS on native GCC and Wokwi. Batch C4 adds 25 guard cases: **226/226** development self-tests PASS plus **6/6** ESP-IDF timed synthetic steps; formal SIM/SUP remains NOT_RUN. A continuous operational sampling loop, physical sensor providers, output alarms, nonvolatile journal storage, NMEA/engine simulators, telemetry API, Laravel backend, dashboard, and end-to-end verification are not implemented.
 
 The design emphasizes modular embedded software, sensor quality, fault handling, data-source separation, and requirement traceability. Public examples are intended to use synthetic or laboratory-generated data; no operational vessel deployment is claimed.
 
@@ -20,9 +20,11 @@ The design emphasizes modular embedded software, sensor quality, fault handling,
 | Standards research | [Standards applicability matrix](docs/standards/standards-applicability-matrix.md), for conceptual reference only |
 | Executable repository tooling | Python scripts for [security screening](scripts/audit_precommit_security.py), [documentation review](scripts/audit_public_documentation.py), [host firmware self-tests](scripts/test_firmware_core_host.py), and [living traceability checks](scripts/check_living_traceability.py) |
 
-**Available firmware evidence:** [C3 Wokwi evidence](evidence/test-results/firmware-core-c3-wokwi-20261013.md) records 201/201 self-tests plus six actual-timer simulated steps, after a verified stack overflow hotfix; [C2 evidence](evidence/test-results/firmware-core-c2-wokwi-20261013.md) records the prior 169/169 run and [C1 evidence](evidence/test-results/firmware-core-c1-wokwi-20261013.md) the prior 133/133 run. This is not full system or requirement verification. **Not available yet:** operational monitoring loop, connected sensors, Laravel application, dashboard, formal SIM/SUP execution, calibration, or hardware test evidence.
+**Available firmware evidence:** [C4 Wokwi evidence](evidence/test-results/firmware-core-c4-wokwi-20261013.md) records 226/226 self-tests, six timed steps, and stack high-water-mark diagnostic; [C3 Wokwi evidence](evidence/test-results/firmware-core-c3-wokwi-20261013.md) records 201/201 self-tests plus six actual-timer simulated steps, after a verified stack overflow hotfix; [C2 evidence](evidence/test-results/firmware-core-c2-wokwi-20261013.md) records the prior 169/169 run and [C1 evidence](evidence/test-results/firmware-core-c1-wokwi-20261013.md) the prior 133/133 run. This is not full system or requirement verification. **Not available yet:** operational monitoring loop, connected sensors, Laravel application, dashboard, formal SIM/SUP execution, calibration, or hardware test evidence.
 
 ## Project Status
+
+**Batch C4 development verified on Wokwi:** finite guard and journal-full/error latching, **226/226** native+Wokwi self-tests and **6/6** simulated timed steps, with matching firmware identity. Main-task high-water mark was 1952 bytes on the passing build versus 256 bytes before the test-only stack allocation fix. It is an observation for this bounded scenario, **not** an approved operational stack margin. Formal SIM/SUP, hardware and continuous monitoring remain NOT_RUN.
 
 **Phase 3 — Firmware Core (PARTIAL; exit criteria NOT MET)**
 
@@ -36,8 +38,8 @@ Current development status:
 | Planned verification cases | 34 |
 | Requirement-to-test mapping | 38/38 planned |
 | Semantic verification coverage | PARTIAL |
-| Firmware implementation | PARTIAL: ten firmware self-test suites plus finite ESP32 timed synthetic demo; no continuous operational acquisition loop |
-| Wokwi firmware simulation | 201/201 development-only self-tests and finite timed demo 6/6 recorded; formal SIM/SUP NOT_RUN |
+| Firmware implementation | PARTIAL: eleven firmware self-test suites and bounded ESP32 simulated timed demo; no continuous operational acquisition loop |
+| Wokwi firmware simulation | 226/226 development-only self-tests and finite timed demo 6/6 recorded; formal SIM/SUP NOT_RUN |
 | Backend implementation | NOT_IMPLEMENTED |
 | Formal SIM/SUP and end-to-end system verification | NOT_RUN |
 | Physical integration | NOT_AUTHORIZED / NOT_RUN |

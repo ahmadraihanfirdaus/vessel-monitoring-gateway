@@ -51,8 +51,8 @@ This establishes structural traceability coverage. It does not demonstrate compl
 
 | Component | Current Status |
 |---|---|
-| Firmware implementation | PARTIAL: quality, source mode, measurement, range |
-| Simulator implementation | NOT_IMPLEMENTED |
+| Firmware implementation | PARTIAL: self-tested core plus C4 fail-stop finite-runtime guard and Wokwi evidence; no continuous operational loop, persistence or formal SIM/SUP |
+| Simulator implementation | PARTIAL: Wokwi firmware test scaffold only; no formal SIM-001..SIM-015 implementation |
 | Laravel backend | NOT_IMPLEMENTED |
 | Monitoring dashboard | NOT_IMPLEMENTED |
 | End-to-end integration | NOT_RUN |

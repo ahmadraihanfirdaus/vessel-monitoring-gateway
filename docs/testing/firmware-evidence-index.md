@@ -24,3 +24,9 @@ The latest recorded **49/49 PASS** is one self-test run containing these four su
 - Finite ESP-IDF runtime with synthetic source: [Batch C3 Wokwi 201/201 and timed demonstration 6/6](../../evidence/test-results/firmware-core-c3-wokwi-20261013.md), with [successful latest-boot UART](../../evidence/logs/firmware-core-c3-wokwi-serial-20261013.txt); earlier stack overflow build is excluded from passing evidence. Runtime is bounded, journal remains volatile, and formal SIM/SUP NOT_RUN.
 
 Recorded counts are cumulative software self-tests on a single build, **not additive across historical runs**. The index and living traceability do not approve or complete formal SIM/SUP tests, hardware calibration, persistence, or operational sampling.
+
+## Development evidence — Batch C4
+
+- [Batch C4 Wokwi 226/226 self-tests, timed demo 6/6, and stack watermark](../../evidence/test-results/firmware-core-c4-wokwi-20261013.md), with [archived operator UART](../../evidence/logs/firmware-core-c4-wokwi-serial-20261013.txt) (LF-normalized for Git).
+- The passing hotfix build showed 1952-byte main-task stack high-water mark (pre-hotfix 256 bytes); finite test only, no approved minimum for production.
+- Formal SIM/SUP, continuous monitoring, persistent journal, physical hardware and system safety approvals remain NOT_RUN/NOT_IMPLEMENTED.
