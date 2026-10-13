@@ -14,6 +14,13 @@
 #include "core_diagnostics.h"
 #include "core_event_journal.h"
 #include "core_flow.h"
+#include "core_runtime_sim.h"
+
+#ifdef ESP_PLATFORM
+#include "esp_timer.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#endif
 
 /*
  * Integrated Vessel Monitoring & Diagnostic Gateway
@@ -930,6 +937,181 @@ static void run_core_flow_selftest(void)
 #undef FLOW_CHECK
 }
 
+
+/* Finite synthetic runtime regression: real flow and journal, NO vessel I/O. */
+static void run_core_runtime_sim_selftest(void)
+{
+    unsigned passed = 0;
+    unsigned total = 0;
+#define RUNTIME_CHECK(name, expression) do { \
+    bool ok = (expression); \
+    printf("RUNTIME_TEST %s: %s\n", (name), ok ? "PASS" : "FAIL"); \
+    ++total; if (ok) ++passed; \
+} while (0)
+    static vg_runtime_sim_t runtime = {0};
+    vg_diag_result_t diag = VG_DIAG_REJECTED;
+    uint64_t skipped = 99;
+    vg_measurement_t sample = {0};
+    RUNTIME_CHECK("ZERO_UNINITIALIZED_REJECTED",
+        vg_runtime_sim_poll(&runtime, 0, &skipped, &diag) == VG_RUNTIME_SIM_REJECTED);
+    RUNTIME_CHECK("NULL_INIT_REJECTED", !vg_runtime_sim_init(NULL, 1, 10, 10));
+    RUNTIME_CHECK("ZERO_INTERVAL_REJECTED", !vg_runtime_sim_init(&runtime, 1, 0, 10));
+    RUNTIME_CHECK("ZERO_SOURCE_REJECTED", !vg_runtime_sim_init(&runtime, 0, 10, 10));
+    RUNTIME_CHECK("INIT", vg_runtime_sim_init(&runtime, 17, 10, 10) &&
+        runtime.initialized && runtime.next_step == 0 &&
+        runtime.flow.journal.count == 0);
+    RUNTIME_CHECK("INVALID_SAMPLE_INDEX",
+        !vg_runtime_sim_measurement(VG_RUNTIME_SIM_STEPS, &sample));
+    RUNTIME_CHECK("NULL_SAMPLE_OUT", !vg_runtime_sim_measurement(0, NULL));
+    RUNTIME_CHECK("SYNTHETIC_DATA_SOURCE",
+        vg_runtime_sim_measurement(0, &sample) &&
+        sample.source_mode == VG_SOURCE_SIMULATION &&
+        sample.quality == VG_QUALITY_VALID && sample.has_value);
+    RUNTIME_CHECK("MISSING_METADATA",
+        vg_runtime_sim_measurement(1, &sample) &&
+        sample.quality == VG_QUALITY_MISSING && !sample.has_value);
+    RUNTIME_CHECK("INVALID_METADATA",
+        vg_runtime_sim_measurement(2, &sample) &&
+        sample.quality == VG_QUALITY_INVALID && sample.has_value);
+    RUNTIME_CHECK("STALE_METADATA",
+        vg_runtime_sim_measurement(4, &sample) &&
+        sample.quality == VG_QUALITY_STALE && sample.has_value);
+    RUNTIME_CHECK("INITIAL_WAIT",
+        vg_runtime_sim_poll(&runtime, 9, &skipped, &diag) == VG_RUNTIME_SIM_WAIT &&
+        runtime.next_step == 0 && runtime.flow.journal.count == 0);
+    RUNTIME_CHECK("INVALID_NULL_SKIPPED",
+        vg_runtime_sim_poll(&runtime, 10, NULL, &diag) == VG_RUNTIME_SIM_REJECTED &&
+        runtime.next_step == 0);
+    RUNTIME_CHECK("INVALID_NULL_DIAG",
+        vg_runtime_sim_poll(&runtime, 10, &skipped, NULL) == VG_RUNTIME_SIM_REJECTED &&
+        runtime.next_step == 0);
+    RUNTIME_CHECK("DUE_HEALTHY",
+        vg_runtime_sim_poll(&runtime, 10, &skipped, &diag) == VG_RUNTIME_SIM_PROCESSED &&
+        diag == VG_DIAG_GOOD && runtime.next_step == 1 &&
+        runtime.flow.journal.count == 0 && skipped == 0);
+    RUNTIME_CHECK("WAIT_NO_DUPLICATE",
+        vg_runtime_sim_poll(&runtime, 11, &skipped, &diag) == VG_RUNTIME_SIM_WAIT &&
+        runtime.next_step == 1 && runtime.flow.journal.count == 0);
+    RUNTIME_CHECK("FAULT_RAISED",
+        vg_runtime_sim_poll(&runtime, 20, &skipped, &diag) == VG_RUNTIME_SIM_PROCESSED &&
+        diag == VG_DIAG_FAULT_STARTED && runtime.flow.has_alarm &&
+        runtime.flow.last_alarm.condition_active &&
+        runtime.flow.journal.count == 1);
+    RUNTIME_CHECK("FAULT_PERSISTS",
+        vg_runtime_sim_poll(&runtime, 30, &skipped, &diag) == VG_RUNTIME_SIM_PROCESSED &&
+        diag == VG_DIAG_FAULT_CONTINUING && runtime.flow.journal.count == 1);
+    RUNTIME_CHECK("FAULT_RECOVERED",
+        vg_runtime_sim_poll(&runtime, 40, &skipped, &diag) == VG_RUNTIME_SIM_PROCESSED &&
+        diag == VG_DIAG_RECOVERED && !runtime.flow.last_alarm.condition_active &&
+        runtime.flow.journal.count == 2);
+    RUNTIME_CHECK("NEW_FAULT_ID",
+        vg_runtime_sim_poll(&runtime, 50, &skipped, &diag) == VG_RUNTIME_SIM_PROCESSED &&
+        diag == VG_DIAG_FAULT_STARTED && runtime.flow.last_alarm.id == 2 &&
+        runtime.flow.journal.count == 3);
+    RUNTIME_CHECK("SECOND_RECOVERY",
+        vg_runtime_sim_poll(&runtime, 60, &skipped, &diag) == VG_RUNTIME_SIM_PROCESSED &&
+        diag == VG_DIAG_RECOVERED && runtime.flow.journal.count == 4 &&
+        runtime.next_step == VG_RUNTIME_SIM_STEPS);
+    RUNTIME_CHECK("ALL_STEPS_COMPLETE",
+        vg_runtime_sim_poll(&runtime, 70, &skipped, &diag) == VG_RUNTIME_SIM_COMPLETE);
+    RUNTIME_CHECK("COMPLETE_POLL_STABLE",
+        vg_runtime_sim_poll(&runtime, 80, &skipped, &diag) == VG_RUNTIME_SIM_COMPLETE &&
+        runtime.next_step == VG_RUNTIME_SIM_STEPS && runtime.flow.journal.count == 4);
+    RUNTIME_CHECK("JOURNAL_SEQUENCE",
+        runtime.flow.journal.events[0].type == VG_EVENT_ALARM_RAISED &&
+        runtime.flow.journal.events[1].type == VG_EVENT_ALARM_CLEARED &&
+        runtime.flow.journal.events[2].type == VG_EVENT_ALARM_RAISED &&
+        runtime.flow.journal.events[3].type == VG_EVENT_ALARM_CLEARED);
+    static vg_runtime_sim_t late = {0};
+    (void)vg_runtime_sim_init(&late, 18, 10, 10);
+    RUNTIME_CHECK("MISSED_DEADLINES",
+        vg_runtime_sim_poll(&late, 49, &skipped, &diag) == VG_RUNTIME_SIM_PROCESSED &&
+        skipped == 3 && late.next_step == 1 && late.flow.scheduler.next_due_ms == 50);
+    RUNTIME_CHECK("REGRESSION_REJECTED",
+        vg_runtime_sim_poll(&late, 48, &skipped, &diag) == VG_RUNTIME_SIM_TIME_REGRESSION &&
+        late.next_step == 1 && late.flow.journal.count == 0);
+    static vg_runtime_sim_t full = {0};
+    (void)vg_runtime_sim_init(&full, 19, 1, 0);
+    uint64_t event_id = 0;
+    bool filled = true;
+    for (size_t i = 0; i < VG_JOURNAL_CAPACITY; ++i) {
+        filled = filled && vg_journal_append(&full.flow.journal, 0, 19,
+            VG_SOURCE_SIMULATION, VG_EVENT_FAULT, 0, &event_id);
+    }
+    RUNTIME_CHECK("JOURNAL_PREP_FULL", filled &&
+        full.flow.journal.count == VG_JOURNAL_CAPACITY);
+    /* A first good sample requires no event, even if journal is full. */
+    RUNTIME_CHECK("FULL_ALLOWS_NO_EVENT",
+        vg_runtime_sim_poll(&full, 0, &skipped, &diag) == VG_RUNTIME_SIM_PROCESSED &&
+        full.next_step == 1 && full.flow.journal.count == VG_JOURNAL_CAPACITY);
+    RUNTIME_CHECK("FULL_NO_ADVANCE",
+        vg_runtime_sim_poll(&full, 1, &skipped, &diag) == VG_RUNTIME_SIM_JOURNAL_FULL &&
+        full.next_step == 1 && !full.flow.has_alarm &&
+        full.flow.journal.count == VG_JOURNAL_CAPACITY);
+    RUNTIME_CHECK("FULL_RETRY_NO_ADVANCE",
+        vg_runtime_sim_poll(&full, 1, &skipped, &diag) == VG_RUNTIME_SIM_JOURNAL_FULL &&
+        full.next_step == 1 && full.flow.alarm_ids.next_id == 1);
+    static vg_runtime_sim_t corrupted = {0};
+    (void)vg_runtime_sim_init(&corrupted, 20, 10, 10);
+    corrupted.next_step = VG_RUNTIME_SIM_STEPS + 1;
+    RUNTIME_CHECK("CORRUPT_CURSOR_REJECTED",
+        vg_runtime_sim_poll(&corrupted, 10, &skipped, &diag) == VG_RUNTIME_SIM_REJECTED);
+    static vg_runtime_sim_t physical = {0};
+    (void)vg_runtime_sim_init(&physical, 21, 10, 10);
+    physical.flow.source_mode = VG_SOURCE_PHYSICAL;
+    RUNTIME_CHECK("PHYSICAL_SOURCE_REJECTED",
+        vg_runtime_sim_poll(&physical, 10, &skipped, &diag) == VG_RUNTIME_SIM_REJECTED);
+    printf("CORE_RUNTIME_SIM_SELFTEST: %s (%u/%u)\n",
+           passed == total ? "PASS" : "FAIL", passed, total);
+#undef RUNTIME_CHECK
+}
+
+#ifdef ESP_PLATFORM
+/* Demonstrates ACTUAL cooperative ESP-IDF timer polling with a synthetic
+ * six-step source. Bounded in time and samples; NOT a deployed monitor or
+ * FreeRTOS long-running acquisition task. No hardware interfaces used.
+ */
+static void run_esp32_synthetic_timed_demo(void)
+{
+    static vg_runtime_sim_t runtime = {0};
+    int64_t start_us = esp_timer_get_time();
+    if (start_us < 0 || !vg_runtime_sim_init(&runtime, 101, 200,
+                               (uint64_t)start_us / 1000u + 200u)) {
+        puts("CORE_RUNTIME_TIMED_DEMO: FAIL (0/6)");
+        return;
+    }
+    static const vg_diag_result_t expected[VG_RUNTIME_SIM_STEPS] = {
+        VG_DIAG_GOOD, VG_DIAG_FAULT_STARTED, VG_DIAG_FAULT_CONTINUING,
+        VG_DIAG_RECOVERED, VG_DIAG_FAULT_STARTED, VG_DIAG_RECOVERED
+    };
+    unsigned success = 0;
+    for (unsigned attempt = 0; attempt < 250 && success < VG_RUNTIME_SIM_STEPS;
+         ++attempt) {
+        int64_t now_us = esp_timer_get_time();
+        if (now_us < 0) break;
+        uint64_t skipped = 0;
+        vg_diag_result_t actual_diag = VG_DIAG_REJECTED;
+        vg_runtime_sim_result_t result = vg_runtime_sim_poll(
+            &runtime, (uint64_t)now_us / 1000u, &skipped, &actual_diag);
+        if (result == VG_RUNTIME_SIM_PROCESSED) {
+            bool ok = (actual_diag == expected[success] && skipped == 0);
+            printf("RUNTIME_TIMED_STEP %u: %s\n", success, ok ? "PASS" : "FAIL");
+            if (!ok) break;
+            success++;
+        } else if (result != VG_RUNTIME_SIM_WAIT) {
+            printf("RUNTIME_TIMED_STATUS: FAIL (%d)\n", (int)result);
+            break;
+        }
+        vTaskDelay(pdMS_TO_TICKS(20) > 0 ? pdMS_TO_TICKS(20) : 1);
+    }
+    bool ok = success == VG_RUNTIME_SIM_STEPS &&
+              runtime.flow.journal.count == 4 &&
+              runtime.flow.last_alarm.state == VG_ALARM_STATE_CLEARED;
+    printf("CORE_RUNTIME_TIMED_DEMO: %s (%u/%u)\n",
+           ok ? "PASS" : "FAIL", success, (unsigned)VG_RUNTIME_SIM_STEPS);
+}
+#endif
+
 void app_main(void)
 {
     puts("Development self-test scaffold only; "
@@ -944,4 +1126,8 @@ void app_main(void)
     run_core_diagnostics_selftest();
     run_core_journal_selftest();
     run_core_flow_selftest();
+    run_core_runtime_sim_selftest();
+#ifdef ESP_PLATFORM
+    run_esp32_synthetic_timed_demo();
+#endif
 }

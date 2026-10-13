@@ -33,3 +33,10 @@ This host runner verifies the current software predicates only. It does **not** 
 - Compilation in a native C11 environment and Wokwi ESP32 execution are separate gates.
 - This does not demonstrate a running acquisition/sampling loop, data-age freshness,
   NVS persistence, backend outages, buzzer/LED behavior, sensor calibration, or formal SIM/SUP tests.
+
+## Batch C3 — bounded synthetic scheduler demo
+
+- `CORE_RUNTIME_SIM_SELFTEST`: 32 native / ESP32-compatible C11 cases for six synthetic source samples, quality provenance, due/wait, fault/recovery, journal transactions, missed deadlines, time regression, and rejection on journal-full.
+- Expected native self-test total: **201** (`169 + 32`). On ESP-IDF the same self-tests run before the separate six-step `CORE_RUNTIME_TIMED_DEMO` that uses real `esp_timer` time and yields cooperatively via FreeRTOS.
+- The timed demo is a finite simulation and is **not** included in the 201 native cases. The separately archived C3 ESP-IDF/Wokwi evidence records 201/201 native-compatible self-tests and 6/6 finite timed-demo steps following a main-task stack-overflow hotfix. This remains outside formal SIM/SUP.
+- This does not satisfy formal SIM/SUP, operational continuous sampling, power-loss persistence, calibration, vessel I/O, or approved safety policy.

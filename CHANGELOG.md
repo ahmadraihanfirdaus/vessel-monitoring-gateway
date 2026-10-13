@@ -2,6 +2,12 @@
 
 This log distinguishes planning/documentation work from verified software behavior. Dates are local engineering record dates, not deployment dates.
 
+## 2026-10-13 — Batch C3 (bounded synthetic runtime, Wokwi development verified)
+
+- Add finite scripted SIMULATION-only source fed into C2 flow with timed due-time processing, fault/recovery journal event checks, and explicit fail/hold behavior.
+- Add 32 self-tests and an ESP-IDF-only six-step demonstration driven by `esp_timer_get_time()` with cooperative FreeRTOS waiting.
+- Native C11 and ESP-IDF/Wokwi development self-tests **201/201 PASS**, plus a separate six-step timed demonstration **6/6 PASS**. An initial Wokwi build reset from an ESP-IDF main-task stack overflow; relocating C3 test workspaces to static storage resolved the observed failure on the new build. This does not prove indefinite operation, thread safety, real sensors, persistent journal, auto-acknowledgement, or approved safety thresholds. Formal SIM/SUP remains NOT_RUN.
+
 ## 2026-10-13 — Batch C2 (integrated simulated core, development self-tested)
 
 - Add transactional orchestration of caller-injected simulated/bench measurements through scheduler, diagnostics, alarm transitions, and volatile event journal.
