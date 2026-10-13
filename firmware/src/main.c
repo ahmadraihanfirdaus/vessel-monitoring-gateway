@@ -13,6 +13,7 @@
 #include "core_scheduler.h"
 #include "core_diagnostics.h"
 #include "core_event_journal.h"
+#include "core_flow.h"
 
 /*
  * Integrated Vessel Monitoring & Diagnostic Gateway
@@ -798,6 +799,137 @@ static void run_core_journal_selftest(void)
 
 #undef VG_TEST
 
+
+/* Batch C2: deterministic, single-channel orchestration self-tests only. */
+static void run_core_flow_selftest(void)
+{
+    unsigned passed = 0, total = 0;
+#define FLOW_CHECK(name, expr) do { \
+    const bool ok = (expr); \
+    ++total; if (ok) ++passed; \
+    printf("FLOW_TEST %s: %s\n", name, ok ? "PASS" : "FAIL"); \
+} while (0)
+
+    vg_core_flow_t flow = {0};
+    vg_measurement_t good = {VG_SOURCE_SIMULATION, VG_QUALITY_VALID, true, 42.0f};
+    vg_measurement_t missing = {VG_SOURCE_SIMULATION, VG_QUALITY_MISSING, false, 0.0f};
+    vg_measurement_t invalid = {VG_SOURCE_SIMULATION, VG_QUALITY_INVALID, true, 0.0f};
+    uint64_t skipped = 999;
+    vg_diag_result_t diagnostic = VG_DIAG_GOOD;
+    FLOW_CHECK("ZERO_UNINITIALIZED", vg_flow_sample(&flow, &good, 10,
+        &skipped, &diagnostic) == VG_FLOW_REJECTED && skipped == 999);
+    FLOW_CHECK("NULL_INIT", !vg_flow_init(NULL, 4, VG_SOURCE_SIMULATION, 1, 2, 10, 10));
+    FLOW_CHECK("BAD_INTERVAL", !vg_flow_init(&flow, 4, VG_SOURCE_SIMULATION, 1, 2, 0, 10));
+    FLOW_CHECK("REJECT_PHYSICAL", !vg_flow_init(&flow, 4, VG_SOURCE_PHYSICAL, 1, 2, 10, 10));
+    FLOW_CHECK("REJECT_UNKNOWN_MODE", !vg_flow_init(&flow, 4, VG_SOURCE_UNKNOWN, 1, 2, 10, 10));
+    FLOW_CHECK("REJECT_ZERO_SOURCE", !vg_flow_init(&flow, 0, VG_SOURCE_SIMULATION, 1, 2, 10, 10));
+    FLOW_CHECK("REJECT_ZERO_PRIORITY", !vg_flow_init(&flow, 4, VG_SOURCE_SIMULATION, 0, 2, 10, 10));
+    FLOW_CHECK("REJECT_ZERO_REASON", !vg_flow_init(&flow, 4, VG_SOURCE_SIMULATION, 1, 0, 10, 10));
+    FLOW_CHECK("INIT", vg_flow_init(&flow, 4, VG_SOURCE_SIMULATION, 1, 2, 10, 10));
+    FLOW_CHECK("NULL_SAMPLE", vg_flow_sample(&flow, NULL, 10,
+        &skipped, &diagnostic) == VG_FLOW_REJECTED);
+    FLOW_CHECK("WAIT_WITHOUT_SAMPLE", vg_flow_sample(&flow, &missing, 5,
+        &skipped, &diagnostic) == VG_FLOW_WAIT &&
+        diagnostic == VG_DIAG_REJECTED && !flow.diagnostic.has_observation &&
+        flow.journal.count == 0);
+    FLOW_CHECK("FIRST_HEALTHY", vg_flow_sample(&flow, &good, 10,
+        &skipped, &diagnostic) == VG_FLOW_PROCESSED &&
+        diagnostic == VG_DIAG_GOOD && !flow.has_alarm && flow.journal.count == 0);
+    FLOW_CHECK("NO_DUPLICATE_WHILE_WAIT", vg_flow_sample(&flow, &missing, 15,
+        &skipped, &diagnostic) == VG_FLOW_WAIT && flow.journal.count == 0);
+    FLOW_CHECK("MISSING_RAISES_ALARM", vg_flow_sample(&flow, &missing, 20,
+        &skipped, &diagnostic) == VG_FLOW_PROCESSED &&
+        diagnostic == VG_DIAG_FAULT_STARTED && flow.has_alarm &&
+        flow.last_alarm.state == VG_ALARM_STATE_ACTIVE_UNACK &&
+        flow.journal.count == 1 && flow.journal.events[0].type == VG_EVENT_ALARM_RAISED &&
+        flow.journal.events[0].linked_alarm_id == flow.last_alarm.id);
+    FLOW_CHECK("ACK_JOURNALED", vg_flow_acknowledge(&flow, 21) &&
+        flow.journal.count == 2 && flow.journal.events[1].type == VG_EVENT_ALARM_ACK);
+    FLOW_CHECK("ACK_DOES_NOT_CLEAR", flow.last_alarm.condition_active &&
+        flow.last_alarm.state == VG_ALARM_STATE_ACTIVE_ACK);
+    FLOW_CHECK("DUPLICATE_ACK_REJECTED", !vg_flow_acknowledge(&flow, 22) &&
+        flow.journal.count == 2);
+    FLOW_CHECK("EARLY_ACK_REJECTED", !vg_flow_acknowledge(&flow, 19) &&
+        flow.journal.count == 2);
+    FLOW_CHECK("FAULT_CONTINUING_NO_REPEAT_EVENT", vg_flow_sample(&flow, &invalid, 30,
+        &skipped, &diagnostic) == VG_FLOW_PROCESSED &&
+        diagnostic == VG_DIAG_FAULT_CONTINUING && flow.journal.count == 2);
+    FLOW_CHECK("RECOVERY_CLEARS", vg_flow_sample(&flow, &good, 40,
+        &skipped, &diagnostic) == VG_FLOW_PROCESSED &&
+        diagnostic == VG_DIAG_RECOVERED && !flow.last_alarm.condition_active &&
+        flow.last_alarm.state == VG_ALARM_STATE_CLEARED && flow.journal.count == 3 &&
+        flow.journal.events[2].type == VG_EVENT_ALARM_CLEARED);
+    FLOW_CHECK("ACK_AFTER_CLEAR_REJECTED", !vg_flow_acknowledge(&flow, 41));
+    FLOW_CHECK("ANOTHER_FAULT_NEW_ID", vg_flow_sample(&flow, &missing, 50,
+        &skipped, &diagnostic) == VG_FLOW_PROCESSED &&
+        flow.last_alarm.id == 2 && flow.journal.count == 4 &&
+        flow.journal.events[3].linked_alarm_id == 2);
+    FLOW_CHECK("SKIP_LATE_PERIODS", vg_flow_sample(&flow, &missing, 90,
+        &skipped, &diagnostic) == VG_FLOW_PROCESSED &&
+        skipped == 3 && diagnostic == VG_DIAG_FAULT_CONTINUING);
+    FLOW_CHECK("REGRESSION_NOT_APPLIED", vg_flow_sample(&flow, &good, 70,
+        &skipped, &diagnostic) == VG_FLOW_TIME_REGRESSION &&
+        flow.last_alarm.condition_active && flow.journal.count == 4);
+    vg_measurement_t bench = {VG_SOURCE_BENCH_TEST, VG_QUALITY_VALID, true, 1.0f};
+    FLOW_CHECK("SOURCE_MISMATCH_REJECTED", vg_flow_sample(&flow, &bench, 100,
+        &skipped, &diagnostic) == VG_FLOW_REJECTED && flow.journal.count == 4);
+    FLOW_CHECK("NULL_OUTPUT_REJECTED", vg_flow_sample(&flow, &good, 100,
+        NULL, &diagnostic) == VG_FLOW_REJECTED);
+    FLOW_CHECK("NULL_DIAG_REJECTED", vg_flow_sample(&flow, &good, 100,
+        &skipped, NULL) == VG_FLOW_REJECTED);
+    vg_core_flow_t bench_flow = {0};
+    FLOW_CHECK("BENCH_MODE_ACCEPTED", vg_flow_init(&bench_flow, 7,
+        VG_SOURCE_BENCH_TEST, 3, 9, 10, 10) &&
+        vg_flow_sample(&bench_flow, &bench, 10, &skipped, &diagnostic) ==
+        VG_FLOW_PROCESSED && bench_flow.diagnostic.health == VG_DIAG_HEALTHY);
+    vg_core_flow_t tight = {0};
+    (void)vg_flow_init(&tight, 5, VG_SOURCE_SIMULATION, 1, 2, 1, 0);
+    FLOW_CHECK("FULL_PREP_FIRST", vg_flow_sample(&tight, &missing, 0,
+        &skipped, &diagnostic) == VG_FLOW_PROCESSED && tight.journal.count == 1);
+    /* Create seven valid events. The journal now has eight entries. */
+    bool filled = true;
+    for (uint64_t t = 1; t <= 7; ++t) {
+        bool sample_ok = vg_flow_sample(&tight, (t % 2) ? &good : &missing, t,
+            &skipped, &diagnostic) == VG_FLOW_PROCESSED;
+        filled = filled && sample_ok;
+    }
+    FLOW_CHECK("JOURNAL_FILLED", filled && tight.journal.count == VG_JOURNAL_CAPACITY);
+    const uint64_t old_deadline = tight.scheduler.next_due_ms;
+    const uint64_t old_id = tight.last_alarm.id;
+    const vg_diag_health_t old_health = tight.diagnostic.health;
+    const size_t old_count = tight.journal.count;
+    FLOW_CHECK("FULL_ROLLBACK", vg_flow_sample(&tight, &missing, 8,
+        &skipped, &diagnostic) == VG_FLOW_JOURNAL_FULL &&
+        tight.scheduler.next_due_ms == old_deadline &&
+        tight.last_alarm.id == old_id && tight.diagnostic.health == old_health &&
+        tight.journal.count == old_count && tight.alarm_ids.next_id == 5);
+    FLOW_CHECK("FULL_RETRY_IDEMPOTENT", vg_flow_sample(&tight, &missing, 8,
+        &skipped, &diagnostic) == VG_FLOW_JOURNAL_FULL &&
+        tight.scheduler.next_due_ms == old_deadline && tight.journal.count == old_count);
+    vg_core_flow_t ack_full = {0};
+    (void)vg_flow_init(&ack_full, 8, VG_SOURCE_SIMULATION, 1, 2, 1, 10);
+    (void)vg_flow_sample(&ack_full, &missing, 10, &skipped, &diagnostic);
+    bool ack_setup = (ack_full.journal.count == 1 &&
+        ack_full.last_alarm.state == VG_ALARM_STATE_ACTIVE_UNACK);
+    uint64_t synthetic_id = 0;
+    for (size_t i = 1; i < VG_JOURNAL_CAPACITY; ++i) {
+        ack_setup = ack_setup && vg_journal_append(&ack_full.journal, 0, 8,
+            VG_SOURCE_SIMULATION, VG_EVENT_FAULT, 10, &synthetic_id);
+    }
+    FLOW_CHECK("FULL_ACK_SETUP", ack_setup &&
+        ack_full.journal.count == VG_JOURNAL_CAPACITY);
+    FLOW_CHECK("FULL_ACK_ROLLBACK", !vg_flow_acknowledge(&ack_full, 11) &&
+        ack_full.journal.count == VG_JOURNAL_CAPACITY &&
+        ack_full.last_alarm.state == VG_ALARM_STATE_ACTIVE_UNACK &&
+        !ack_full.last_alarm.acknowledged);
+    FLOW_CHECK("NULL_ACK_REJECTED", !vg_flow_acknowledge(NULL, 99));
+    FLOW_CHECK("NULL_FLOW_REJECTED", vg_flow_sample(NULL, &good, 10,
+        &skipped, &diagnostic) == VG_FLOW_REJECTED);
+    printf("CORE_FLOW_SELFTEST: %s (%u/%u)\n",
+        passed == total ? "PASS" : "FAIL", passed, total);
+#undef FLOW_CHECK
+}
+
 void app_main(void)
 {
     puts("Development self-test scaffold only; "
@@ -811,4 +943,5 @@ void app_main(void)
     run_core_scheduler_selftest();
     run_core_diagnostics_selftest();
     run_core_journal_selftest();
+    run_core_flow_selftest();
 }

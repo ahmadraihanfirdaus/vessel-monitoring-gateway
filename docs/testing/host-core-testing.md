@@ -23,3 +23,13 @@ This host runner verifies the current software predicates only. It does **not** 
 - Diagnostics: 19 cases for quality-based fault/recovery, missing/NaN, provenance, and monotonic timestamps; no sensor-age timeout or alert output.
 - Volatile journal: 19 cases for event insertion/readback, ID order, source rejection, bounded capacity, and explicit overflow refusal; no nonvolatile persistence.
 - Native C11 gate and ESP32/Wokwi gate are separate. Neither is a formal SUP/SIM verification; check actual execution evidence before marking PASS.
+
+## Batch C2 — deterministic orchestration foundation
+
+- `CORE_FLOW_SELFTEST`: 36 development-only cases integrating scheduler due-time,
+  measurement quality diagnostics, alarm raise/ack/clear, boot-local event linkage,
+  missed sample periods and journal-full atomic rollback.
+- Expected combined self-test total: **169** (`133 + 36`).
+- Compilation in a native C11 environment and Wokwi ESP32 execution are separate gates.
+- This does not demonstrate a running acquisition/sampling loop, data-age freshness,
+  NVS persistence, backend outages, buzzer/LED behavior, sensor calibration, or formal SIM/SUP tests.

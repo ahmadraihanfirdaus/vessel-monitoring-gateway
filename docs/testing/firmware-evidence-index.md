@@ -14,3 +14,11 @@ The latest recorded **49/49 PASS** is one self-test run containing these four su
 **Locked traceability snapshot:** `requirements/traceability-matrix.csv` intentionally remains unchanged and has `NOT_IMPLEMENTED/NOT_RUN` placeholders for 38 requirement rows. No requirement is declared verified by this index.
 
 **Remaining:** Formal SIM-001..SIM-015 and SUP-001..SUP-019 not executed to completion, along with independent calibration and physical integration testing (not authorized).
+
+## Additional evidence after the original foundation
+
+- Alarm lifecycle: [Batch B1 Wokwi 79/79](../../evidence/test-results/firmware-core-alarm-wokwi-20261013.md); includes the original four suites and 30 alarm cases.
+- Pure scheduler, diagnostics, bounded RAM journal: [Batch C1 Wokwi 133/133](../../evidence/test-results/firmware-core-c1-wokwi-20261013.md), with [full latest-boot UART](../../evidence/logs/firmware-core-c1-wokwi-serial-20261013.txt). Includes earlier suites and 54 C1 cases.
+- Integrated simulated scheduler/diagnostics/alarm/journal flow: [Batch C2 Wokwi 169/169](../../evidence/test-results/firmware-core-c2-wokwi-20261013.md), with [operator-reported latest-boot UART](../../evidence/logs/firmware-core-c2-wokwi-serial-20261013.txt). Includes the prior 133 suites cases and 36 orchestrator cases; formal SIM/SUP NOT_RUN.
+
+Recorded counts are cumulative software self-tests on a single build, **not additive across historical runs**. The index and living traceability do not approve or complete formal SIM/SUP tests, hardware calibration, persistence, or operational sampling.

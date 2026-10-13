@@ -2,10 +2,16 @@
 
 This log distinguishes planning/documentation work from verified software behavior. Dates are local engineering record dates, not deployment dates.
 
-## Unreleased — Batch C1 (pure core models, under verification)
+## 2026-10-13 — Batch C2 (integrated simulated core, development self-tested)
+
+- Add transactional orchestration of caller-injected simulated/bench measurements through scheduler, diagnostics, alarm transitions, and volatile event journal.
+- Add 36 deterministic C11 integrated self-tests, including backpressure and rollback checks.
+- Native GCC and ESP-IDF/Wokwi firmware self-tests are **169/169 PASS** with C2 evidence; formal SIM/SUP remains NOT_RUN, and operational loop and journal persistence remain out of scope.
+
+## 2026-10-13 — Batch C1 (pure core models, under verification)
 
 - Add C11 cooperative due-time arithmetic, numeric-channel health transitions and a fixed-capacity **volatile** event journal with overflow reporting.
-- Add native host self-tests for these components; ESP-IDF/Wokwi target verification remains NOT_RUN until separately executed.
+- Add native host self-tests and record separate ESP-IDF/Wokwi execution (133/133 PASS; see C1 evidence). Formal SIM/SUP requirements remain NOT_RUN.
 - This does not implement running sampling, I/O, persistent offline storage, actual alarm journal integration, physical sensors, or the complete SYS-003/NET-002 requirements.
 
 ## 2026-10-13 — Batch B1 (local alarm model development)
