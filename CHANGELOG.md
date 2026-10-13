@@ -2,7 +2,13 @@
 
 This log distinguishes planning/documentation work from verified software behavior. Dates are local engineering record dates, not deployment dates.
 
-## Unreleased — Batch A2 (verification foundation)
+## Unreleased — Batch B1 (local alarm model development)
+
+- Introduce an internal alarm lifecycle that keeps acknowledgement separate from condition clearing, with boot-local ID allocation.
+- Add C11-compatible alarm state self-tests and a proposed ADR; traceability remains PARTIAL and formal SUP-004 remains NOT_RUN.
+- No device alarm outputs, event persistence, certified alert behavior, or hardware integration.
+
+## 2026-10-13 — Batch A2 (verification foundation)
 
 - Add a native host C11 regression runner for the existing 49 development self-tests, with parser negative tests.
 - Add a separate 38-row living traceability assessment; do not modify the two LOCKED baseline files.

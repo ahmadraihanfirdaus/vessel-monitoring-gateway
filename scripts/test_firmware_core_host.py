@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Compile and execute the *real* ESP-IDF-independent firmware self-tests natively.
 
-Only the existing development self-tests in firmware/src/main.c are covered.
+Only the development self-tests in firmware/src/main.c are covered.
 This does not replace target ESP-IDF, Wokwi, SIM/SUP, or physical verification.
 """
 from __future__ import annotations
@@ -21,9 +21,10 @@ SUITES = {
     "SOURCE_MODE_SELFTEST": ("SOURCE_MODE_TEST", 5),
     "CORE_MEASUREMENT_SELFTEST": ("MEASUREMENT_TEST", 16),
     "CORE_RANGE_SELFTEST": ("RANGE_TEST", 21),
+    "CORE_ALARM_SELFTEST": ("ALARM_TEST", 30),
 }
-SUMMARY_RE = re.compile(r"^(CORE_QUALITY_SELFTEST|SOURCE_MODE_SELFTEST|CORE_MEASUREMENT_SELFTEST|CORE_RANGE_SELFTEST): (PASS|FAIL) \((\d+)/(\d+)\)$")
-CASE_RE = re.compile(r"^(QUALITY_TEST|SOURCE_MODE_TEST|MEASUREMENT_TEST|RANGE_TEST) (\S+): (PASS|FAIL)$")
+SUMMARY_RE = re.compile(r"^(CORE_QUALITY_SELFTEST|SOURCE_MODE_SELFTEST|CORE_MEASUREMENT_SELFTEST|CORE_RANGE_SELFTEST|CORE_ALARM_SELFTEST): (PASS|FAIL) \((\d+)/(\d+)\)$")
+CASE_RE = re.compile(r"^(QUALITY_TEST|SOURCE_MODE_TEST|MEASUREMENT_TEST|RANGE_TEST|ALARM_TEST) (\S+): (PASS|FAIL)$")
 
 
 def verify_log(log: str) -> None:
@@ -56,7 +57,7 @@ def verify_log(log: str) -> None:
             raise ValueError(f"Wrong suite result: {suite}={summaries[suite]}")
         if cases[prefix] != expected:
             raise ValueError(f"Wrong executed case count: {prefix}={cases[prefix]}; expected {expected}")
-    if sum(cases.values()) != 49:
+    if sum(cases.values()) != 79:
         raise ValueError(f"Wrong overall case count: {sum(cases.values())}")
 
 
@@ -127,7 +128,7 @@ def main() -> int:
             print(test.stdout, file=sys.stderr)
             return 1
         print(f"HOST_C_COMPILER: {compiler}")
-        print("HOST_FIRMWARE_CORE_SELFTEST: PASS (49/49)")
+        print("HOST_FIRMWARE_CORE_SELFTEST: PASS (79/79)")
         print("NOTE: Native behavior only. Wokwi/ESP-IDF/SIM/SUP/bench verification not implied.")
     return 0
 

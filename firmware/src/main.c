@@ -9,6 +9,7 @@
 #include "core_source_mode.h"
 #include "core_measurement.h"
 #include "core_range.h"
+#include "core_alarm.h"
 
 /*
  * Integrated Vessel Monitoring & Diagnostic Gateway
@@ -508,13 +509,106 @@ static void run_core_range_selftest(void)
            (unsigned)count);
 }
 
+
+/* Development-only alarm lifecycle self-test: no physical outputs. */
+static void run_core_alarm_selftest(void)
+{
+    unsigned passed = 0;
+    unsigned total = 0;
+#define ALARM_CHECK(name, expression) do { \
+    bool success = (expression); \
+    ++total; \
+    if (success) { ++passed; } \
+    printf("ALARM_TEST %s: %s\n", name, success ? "PASS" : "FAIL"); \
+} while (0)
+
+    vg_alarm_id_allocator_t ids = {0};
+    vg_alarm_id_allocator_init(&ids);
+    vg_alarm_t alarm = {0};
+    ALARM_CHECK("ZERO_RECORD_REJECTED", !vg_alarm_is_consistent(&alarm));
+    ALARM_CHECK("NULL_CONSISTENCY_REJECTED", !vg_alarm_is_consistent(NULL));
+    ALARM_CHECK("NULL_ACK_REJECTED", !vg_alarm_try_acknowledge(NULL, 10));
+    ALARM_CHECK("NULL_CLEAR_REJECTED", !vg_alarm_try_clear_condition(NULL, 10));
+    ALARM_CHECK("RAISE_SIMULATION", vg_alarm_try_raise(
+        &ids, &alarm, 2, VG_SOURCE_SIMULATION, 1, 7, 100));
+    ALARM_CHECK("FIRST_ID_AND_STATE", alarm.id == 1 &&
+        alarm.state == VG_ALARM_STATE_ACTIVE_UNACK && alarm.condition_active);
+    ALARM_CHECK("INITIAL_TIMESTAMPS_ABSENT", !alarm.acknowledged &&
+        !alarm.has_acknowledged_at && !alarm.has_cleared_at &&
+        alarm.raised_at == 100 && vg_alarm_is_consistent(&alarm));
+    ALARM_CHECK("REJECT_EARLY_ACK", !vg_alarm_try_acknowledge(&alarm, 99) &&
+        alarm.state == VG_ALARM_STATE_ACTIVE_UNACK && !alarm.acknowledged);
+    ALARM_CHECK("ACK_ACTIVE", vg_alarm_try_acknowledge(&alarm, 110));
+    ALARM_CHECK("ACK_DOES_NOT_CLEAR", alarm.condition_active &&
+        alarm.state == VG_ALARM_STATE_ACTIVE_ACK && alarm.acknowledged &&
+        alarm.raised_at == 100 && !alarm.has_cleared_at);
+    ALARM_CHECK("ACK_TIMESTAMP", alarm.has_acknowledged_at &&
+        alarm.acknowledged_at == 110 && vg_alarm_is_consistent(&alarm));
+    ALARM_CHECK("REPEAT_ACK_REJECTED", !vg_alarm_try_acknowledge(&alarm, 111) &&
+        alarm.acknowledged_at == 110);
+    ALARM_CHECK("CLEAR_BEFORE_ACK_REJECTED", !vg_alarm_try_clear_condition(&alarm, 109) &&
+        alarm.condition_active && !alarm.has_cleared_at);
+    ALARM_CHECK("CLEAR_AFTER_RECOVERY", vg_alarm_try_clear_condition(&alarm, 130));
+    ALARM_CHECK("CLEARED_PRESERVES_ACK", alarm.state == VG_ALARM_STATE_CLEARED &&
+        !alarm.condition_active && alarm.acknowledged &&
+        alarm.acknowledged_at == 110 && alarm.has_cleared_at &&
+        alarm.cleared_at == 130 && vg_alarm_is_consistent(&alarm));
+    ALARM_CHECK("REPEAT_CLEAR_REJECTED", !vg_alarm_try_clear_condition(&alarm, 140) &&
+        alarm.cleared_at == 130);
+    ALARM_CHECK("ACK_AFTER_CLEAR_REJECTED", !vg_alarm_try_acknowledge(&alarm, 140));
+    ALARM_CHECK("REOPEN_SAME_RECORD_REJECTED", !vg_alarm_try_raise(
+        &ids, &alarm, 2, VG_SOURCE_SIMULATION, 1, 7, 150) && ids.next_id == 2);
+
+    vg_alarm_t second = {0};
+    ALARM_CHECK("SECOND_ID_UNIQUE_IN_BOOT", vg_alarm_try_raise(
+        &ids, &second, 3, VG_SOURCE_BENCH_TEST, 4, 9, 200) &&
+        second.id == 2 && alarm.id != second.id);
+    ALARM_CHECK("REJECT_BACKWARDS_CLEAR_UNACK", !vg_alarm_try_clear_condition(
+        &second, 199) && second.condition_active && !second.has_cleared_at);
+    ALARM_CHECK("CLEAR_UNACK", vg_alarm_try_clear_condition(&second, 200) &&
+        second.state == VG_ALARM_STATE_CLEARED && !second.acknowledged &&
+        !second.has_acknowledged_at && vg_alarm_is_consistent(&second));
+
+    vg_alarm_t invalid = {0};
+    ALARM_CHECK("UNKNOWN_MODE_REJECTED", !vg_alarm_try_raise(
+        &ids, &invalid, 2, VG_SOURCE_UNKNOWN, 1, 9, 10) && ids.next_id == 3);
+    ALARM_CHECK("PHYSICAL_MODE_REJECTED", !vg_alarm_try_raise(
+        &ids, &invalid, 2, VG_SOURCE_PHYSICAL, 1, 9, 10) && ids.next_id == 3);
+    ALARM_CHECK("ZERO_SOURCE_REJECTED", !vg_alarm_try_raise(
+        &ids, &invalid, 0, VG_SOURCE_SIMULATION, 1, 9, 10) && ids.next_id == 3);
+    ALARM_CHECK("ZERO_PRIORITY_REJECTED", !vg_alarm_try_raise(
+        &ids, &invalid, 2, VG_SOURCE_SIMULATION, 0, 9, 10) && ids.next_id == 3);
+    ALARM_CHECK("ZERO_REASON_REJECTED", !vg_alarm_try_raise(
+        &ids, &invalid, 2, VG_SOURCE_SIMULATION, 1, 0, 10) && ids.next_id == 3);
+    ALARM_CHECK("NULL_RAISE_REJECTED", !vg_alarm_try_raise(
+        &ids, NULL, 2, VG_SOURCE_SIMULATION, 1, 9, 10) && ids.next_id == 3);
+    ALARM_CHECK("NULL_ALLOCATOR_REJECTED", !vg_alarm_try_raise(
+        NULL, &invalid, 2, VG_SOURCE_SIMULATION, 1, 9, 10) && invalid.id == 0);
+    ids.next_id = UINT64_MAX;
+    ALARM_CHECK("ALLOCATOR_OVERFLOW_GUARD", !vg_alarm_try_raise(
+        &ids, &invalid, 2, VG_SOURCE_SIMULATION, 1, 9, 10) &&
+        invalid.id == 0 && ids.next_id == UINT64_MAX);
+    vg_alarm_t tampered = {0};
+    vg_alarm_id_allocator_init(&ids);
+    (void)vg_alarm_try_raise(&ids, &tampered, 5, VG_SOURCE_SIMULATION, 1, 3, 1);
+    tampered.state = VG_ALARM_STATE_ACTIVE_ACK;
+    ALARM_CHECK("INCONSISTENT_STATE_REJECTED", !vg_alarm_is_consistent(&tampered) &&
+        !vg_alarm_try_acknowledge(&tampered, 5) &&
+        !vg_alarm_try_clear_condition(&tampered, 6));
+
+#undef ALARM_CHECK
+    printf("CORE_ALARM_SELFTEST: %s (%u/%u)\n",
+           passed == total ? "PASS" : "FAIL", passed, total);
+}
+
 void app_main(void)
 {
-    puts("Development scaffold only; "
-         "monitoring and alarms are not implemented.");
+    puts("Development self-test scaffold only; "
+         "operational monitoring and alarm outputs are not implemented.");
 
     run_core_quality_selftest();
     run_source_mode_selftest();
     run_core_measurement_selftest();
     run_core_range_selftest();
+    run_core_alarm_selftest();
 }
