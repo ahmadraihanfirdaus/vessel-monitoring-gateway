@@ -2,7 +2,13 @@
 
 This log distinguishes planning/documentation work from verified software behavior. Dates are local engineering record dates, not deployment dates.
 
-## Unreleased — Batch B1 (local alarm model development)
+## Unreleased — Batch C1 (pure core models, under verification)
+
+- Add C11 cooperative due-time arithmetic, numeric-channel health transitions and a fixed-capacity **volatile** event journal with overflow reporting.
+- Add native host self-tests for these components; ESP-IDF/Wokwi target verification remains NOT_RUN until separately executed.
+- This does not implement running sampling, I/O, persistent offline storage, actual alarm journal integration, physical sensors, or the complete SYS-003/NET-002 requirements.
+
+## 2026-10-13 — Batch B1 (local alarm model development)
 
 - Introduce an internal alarm lifecycle that keeps acknowledgement separate from condition clearing, with boot-local ID allocation.
 - Add C11-compatible alarm state self-tests and a proposed ADR; traceability remains PARTIAL and formal SUP-004 remains NOT_RUN.

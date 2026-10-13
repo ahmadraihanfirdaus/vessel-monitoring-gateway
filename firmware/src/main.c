@@ -10,6 +10,9 @@
 #include "core_measurement.h"
 #include "core_range.h"
 #include "core_alarm.h"
+#include "core_scheduler.h"
+#include "core_diagnostics.h"
+#include "core_event_journal.h"
 
 /*
  * Integrated Vessel Monitoring & Diagnostic Gateway
@@ -601,6 +604,200 @@ static void run_core_alarm_selftest(void)
            passed == total ? "PASS" : "FAIL", passed, total);
 }
 
+
+/* Pure firmware-core model self-tests. No operational scheduler or GPIO. */
+static void vg_core_test_record(const char *category, const char *name,
+    bool success, unsigned *passed, unsigned *total)
+{
+    ++*total;
+    if (success) ++*passed;
+    printf("%s %s: %s\n", category, name, success ? "PASS" : "FAIL");
+}
+
+#define VG_TEST(category, name, expr) do { \
+    const bool ok = (expr); \
+    vg_core_test_record(category, name, ok, &passed, &total); \
+} while (0)
+
+static void run_core_scheduler_selftest(void)
+{
+    unsigned passed = 0, total = 0;
+    vg_scheduler_t s = {0};
+    uint64_t skipped = 99;
+    VG_TEST("SCHED_TEST", "ZERO_INITIALIZED_REJECTED",
+        vg_scheduler_poll(&s, 99, &skipped) == VG_SCHED_INVALID && skipped == 99);
+    VG_TEST("SCHED_TEST", "NULL_SCHED_REJECTED",
+        vg_scheduler_poll(NULL, 100, &skipped) == VG_SCHED_INVALID);
+    VG_TEST("SCHED_TEST", "ZERO_INTERVAL_REJECTED",
+        !vg_scheduler_init(&s, 0, 100) && !s.initialized);
+    VG_TEST("SCHED_TEST", "INIT", vg_scheduler_init(&s, 10, 100));
+    VG_TEST("SCHED_TEST", "INITIAL_WAIT",
+        vg_scheduler_poll(&s, 99, &skipped) == VG_SCHED_WAIT && skipped == 0);
+    VG_TEST("SCHED_TEST", "EXACT_DUE",
+        vg_scheduler_poll(&s, 100, &skipped) == VG_SCHED_DUE && skipped == 0);
+    VG_TEST("SCHED_TEST", "NEXT_DEADLINE", s.next_due_ms == 110);
+    VG_TEST("SCHED_TEST", "WAIT_NO_SPIN",
+        vg_scheduler_poll(&s, 105, &skipped) == VG_SCHED_WAIT && s.next_due_ms == 110);
+    VG_TEST("SCHED_TEST", "SKIP_LATE_PERIODS",
+        vg_scheduler_poll(&s, 132, &skipped) == VG_SCHED_DUE && skipped == 2 &&
+        s.next_due_ms == 140);
+    VG_TEST("SCHED_TEST", "TIME_REGRESSION_REJECTED",
+        vg_scheduler_poll(&s, 131, &skipped) == VG_SCHED_TIME_REGRESSION &&
+        s.next_due_ms == 140 && s.last_now_ms == 132);
+    VG_TEST("SCHED_TEST", "DUE_AFTER_REGRESSION",
+        vg_scheduler_poll(&s, 140, &skipped) == VG_SCHED_DUE && s.next_due_ms == 150);
+    VG_TEST("SCHED_TEST", "NULL_SKIPPED_PTR",
+        vg_scheduler_poll(&s, 149, NULL) == VG_SCHED_INVALID && s.last_now_ms == 140);
+    vg_scheduler_t edge = {0};
+    VG_TEST("SCHED_TEST", "EDGE_INIT",
+        vg_scheduler_init(&edge, 5, UINT64_MAX - 1));
+    VG_TEST("SCHED_TEST", "OVERFLOW_FINITE_DUE",
+        vg_scheduler_poll(&edge, UINT64_MAX - 1, &skipped) == VG_SCHED_DUE &&
+        edge.exhausted && skipped == 0);
+    VG_TEST("SCHED_TEST", "EXHAUSTED_EXPLICIT",
+        vg_scheduler_poll(&edge, UINT64_MAX, &skipped) == VG_SCHED_EXHAUSTED);
+    VG_TEST("SCHED_TEST", "NULL_INIT_REJECTED",
+        !vg_scheduler_init(NULL, 1, 0));
+    printf("CORE_SCHEDULER_SELFTEST: %s (%u/%u)\n",
+        passed == total ? "PASS" : "FAIL", passed, total);
+}
+
+static void run_core_diagnostics_selftest(void)
+{
+    unsigned passed = 0, total = 0;
+    vg_diagnostic_t d = {0};
+    vg_measurement_t valid = {VG_SOURCE_SIMULATION, VG_QUALITY_VALID, true, 5.0f};
+    vg_measurement_t missing = {VG_SOURCE_SIMULATION, VG_QUALITY_MISSING, false, 0.0f};
+    vg_measurement_t stale = {VG_SOURCE_SIMULATION, VG_QUALITY_STALE, true, 5.0f};
+    vg_measurement_t invalid = {VG_SOURCE_SIMULATION, VG_QUALITY_VALID, true, NAN};
+    VG_TEST("DIAG_TEST", "ZERO_UNKNOWN", d.health == VG_DIAG_UNKNOWN && !d.has_observation);
+    VG_TEST("DIAG_TEST", "NULL_STATE_REJECTED",
+        vg_diagnostic_observe(NULL, &valid, 1) == VG_DIAG_REJECTED);
+    VG_TEST("DIAG_TEST", "NULL_MEASUREMENT_REJECTED",
+        vg_diagnostic_observe(&d, NULL, 1) == VG_DIAG_REJECTED);
+    VG_TEST("DIAG_TEST", "FIRST_VALID_GOOD",
+        vg_diagnostic_observe(&d, &valid, 10) == VG_DIAG_GOOD);
+    VG_TEST("DIAG_TEST", "HEALTHY_STATE",
+        d.health == VG_DIAG_HEALTHY && d.consecutive_failures == 0 &&
+        d.source_mode == VG_SOURCE_SIMULATION);
+    VG_TEST("DIAG_TEST", "MISSING_FAULT_STARTED",
+        vg_diagnostic_observe(&d, &missing, 20) == VG_DIAG_FAULT_STARTED &&
+        d.health == VG_DIAG_FAULT && d.consecutive_failures == 1);
+    VG_TEST("DIAG_TEST", "STALE_FAULT_CONTINUING",
+        vg_diagnostic_observe(&d, &stale, 30) == VG_DIAG_FAULT_CONTINUING &&
+        d.consecutive_failures == 2);
+    VG_TEST("DIAG_TEST", "NAN_FAULT_CONTINUING",
+        vg_diagnostic_observe(&d, &invalid, 40) == VG_DIAG_FAULT_CONTINUING &&
+        d.consecutive_failures == 3);
+    VG_TEST("DIAG_TEST", "RECOVERY",
+        vg_diagnostic_observe(&d, &valid, 50) == VG_DIAG_RECOVERED &&
+        d.health == VG_DIAG_HEALTHY && d.consecutive_failures == 0);
+    VG_TEST("DIAG_TEST", "REPEATED_VALID_GOOD",
+        vg_diagnostic_observe(&d, &valid, 60) == VG_DIAG_GOOD);
+    VG_TEST("DIAG_TEST", "BACKWARDS_TIME_REJECTED",
+        vg_diagnostic_observe(&d, &missing, 59) == VG_DIAG_REJECTED &&
+        d.health == VG_DIAG_HEALTHY && d.last_observed_ms == 60);
+    vg_measurement_t bench = {VG_SOURCE_BENCH_TEST, VG_QUALITY_VALID, true, 4.0f};
+    VG_TEST("DIAG_TEST", "MODE_SWITCH_REJECTED",
+        vg_diagnostic_observe(&d, &bench, 61) == VG_DIAG_REJECTED &&
+        d.source_mode == VG_SOURCE_SIMULATION);
+    vg_measurement_t physical = {VG_SOURCE_PHYSICAL, VG_QUALITY_VALID, true, 4.0f};
+    VG_TEST("DIAG_TEST", "PHYSICAL_REJECTED",
+        vg_diagnostic_observe(&d, &physical, 61) == VG_DIAG_REJECTED);
+    vg_measurement_t unknown = {VG_SOURCE_UNKNOWN, VG_QUALITY_VALID, true, 4.0f};
+    VG_TEST("DIAG_TEST", "UNKNOWN_MODE_REJECTED",
+        vg_diagnostic_observe(&d, &unknown, 61) == VG_DIAG_REJECTED);
+    vg_diagnostic_t fresh = {0};
+    VG_TEST("DIAG_TEST", "FIRST_MISSING_IS_FAULT",
+        vg_diagnostic_observe(&fresh, &missing, 0) == VG_DIAG_FAULT_STARTED);
+    fresh.consecutive_failures = UINT32_MAX;
+    VG_TEST("DIAG_TEST", "FAILURE_COUNTER_SATURATES",
+        vg_diagnostic_observe(&fresh, &missing, 1) == VG_DIAG_FAULT_CONTINUING &&
+        fresh.consecutive_failures == UINT32_MAX);
+    VG_TEST("DIAG_TEST", "FIRST_BENCH_SUPPORTED",
+        vg_diagnostic_observe(&(vg_diagnostic_t){0}, &bench, 1) == VG_DIAG_GOOD);
+    VG_TEST("DIAG_TEST", "MISSING_IS_NOT_NUMERIC_ZERO",
+        vg_diagnostic_observe(&d, &missing, 60) == VG_DIAG_FAULT_STARTED &&
+        d.health == VG_DIAG_FAULT);
+    VG_TEST("DIAG_TEST", "SAME_TIMESTAMP_ALLOWED",
+        vg_diagnostic_observe(&d, &valid, 60) == VG_DIAG_RECOVERED);
+    printf("CORE_DIAGNOSTICS_SELFTEST: %s (%u/%u)\n",
+        passed == total ? "PASS" : "FAIL", passed, total);
+}
+
+static void run_core_journal_selftest(void)
+{
+    unsigned passed = 0, total = 0;
+    vg_event_journal_t journal = {0};
+    uint64_t output = 999;
+    vg_journal_event_t event = {0};
+    VG_TEST("JOURNAL_TEST", "ZERO_UNINITIALIZED_REJECTED",
+        !vg_journal_append(&journal, 0, 2, VG_SOURCE_SIMULATION,
+            VG_EVENT_FAULT, 10, &output) && output == 999);
+    VG_TEST("JOURNAL_TEST", "NULL_INIT_REJECTED", !vg_journal_init(NULL));
+    VG_TEST("JOURNAL_TEST", "INIT", vg_journal_init(&journal));
+    VG_TEST("JOURNAL_TEST", "FIRST_EVENT",
+        vg_journal_append(&journal, 3, 2, VG_SOURCE_SIMULATION,
+            VG_EVENT_ALARM_RAISED, 10, &output) && output == 1 && journal.count == 1);
+    VG_TEST("JOURNAL_TEST", "READ_FIRST",
+        vg_journal_read(&journal, 0, &event) && event.event_id == 1 &&
+        event.linked_alarm_id == 3 && event.source_id == 2 &&
+        event.source_mode == VG_SOURCE_SIMULATION && event.occurred_at_ms == 10);
+    VG_TEST("JOURNAL_TEST", "INVALID_MODE_REJECTED",
+        !vg_journal_append(&journal, 0, 2, VG_SOURCE_UNKNOWN,
+            VG_EVENT_FAULT, 11, &output) && journal.count == 1);
+    VG_TEST("JOURNAL_TEST", "PHYSICAL_REJECTED",
+        !vg_journal_append(&journal, 0, 2, VG_SOURCE_PHYSICAL,
+            VG_EVENT_FAULT, 11, &output) && journal.count == 1);
+    VG_TEST("JOURNAL_TEST", "ZERO_SOURCE_REJECTED",
+        !vg_journal_append(&journal, 0, 0, VG_SOURCE_SIMULATION,
+            VG_EVENT_FAULT, 11, &output));
+    VG_TEST("JOURNAL_TEST", "UNKNOWN_EVENT_REJECTED",
+        !vg_journal_append(&journal, 0, 2, VG_SOURCE_SIMULATION,
+            VG_EVENT_UNKNOWN, 11, &output));
+    VG_TEST("JOURNAL_TEST", "TIME_REGRESSION_REJECTED",
+        !vg_journal_append(&journal, 0, 2, VG_SOURCE_SIMULATION,
+            VG_EVENT_FAULT, 9, &output));
+    VG_TEST("JOURNAL_TEST", "NULL_OUTPUT_REJECTED",
+        !vg_journal_append(&journal, 0, 2, VG_SOURCE_SIMULATION,
+            VG_EVENT_FAULT, 11, NULL));
+    VG_TEST("JOURNAL_TEST", "SECOND_EVENT_ID",
+        vg_journal_append(&journal, 0, 2, VG_SOURCE_BENCH_TEST,
+            VG_EVENT_FAULT, 10, &output) && output == 2 && journal.count == 2);
+    VG_TEST("JOURNAL_TEST", "READ_OOB_REJECTED",
+        !vg_journal_read(&journal, journal.count, &event));
+    VG_TEST("JOURNAL_TEST", "NULL_READ_REJECTED",
+        !vg_journal_read(&journal, 0, NULL));
+    bool fill_ok = true;
+    for (size_t i = journal.count; i < VG_JOURNAL_CAPACITY; ++i) {
+        fill_ok &= vg_journal_append(&journal, 0, 2, VG_SOURCE_SIMULATION,
+            VG_EVENT_FAULT, (uint64_t)(11 + i), &output);
+    }
+    VG_TEST("JOURNAL_TEST", "FILL_BOUNDED_CAPACITY",
+        fill_ok && journal.count == VG_JOURNAL_CAPACITY);
+    VG_TEST("JOURNAL_TEST", "FULL_REJECTS_NO_OVERWRITE",
+        !vg_journal_append(&journal, 0, 2, VG_SOURCE_SIMULATION,
+            VG_EVENT_FAULT, 40, &output) && journal.count == VG_JOURNAL_CAPACITY &&
+        journal.rejected_full == 1 && journal.events[0].event_id == 1 &&
+        journal.next_id == VG_JOURNAL_CAPACITY + 1);
+    VG_TEST("JOURNAL_TEST", "FULL_COUNT_INCREASES",
+        !vg_journal_append(&journal, 0, 2, VG_SOURCE_SIMULATION,
+            VG_EVENT_FAULT, 41, &output) && journal.rejected_full == 2);
+    vg_event_journal_t wrap = {0};
+    (void)vg_journal_init(&wrap);
+    wrap.next_id = UINT64_MAX;
+    VG_TEST("JOURNAL_TEST", "ID_EXHAUSTION_REJECTED",
+        !vg_journal_append(&wrap, 0, 2, VG_SOURCE_SIMULATION,
+            VG_EVENT_FAULT, 0, &output));
+    VG_TEST("JOURNAL_TEST", "BOOT_ZERO_TIMESTAMP_VALID",
+        vg_journal_append(&(vg_event_journal_t){.initialized=true,.next_id=1},
+            0, 2, VG_SOURCE_SIMULATION, VG_EVENT_FAULT, 0, &output) && output == 1);
+    printf("CORE_JOURNAL_SELFTEST: %s (%u/%u)\n",
+        passed == total ? "PASS" : "FAIL", passed, total);
+}
+
+#undef VG_TEST
+
 void app_main(void)
 {
     puts("Development self-test scaffold only; "
@@ -611,4 +808,7 @@ void app_main(void)
     run_core_measurement_selftest();
     run_core_range_selftest();
     run_core_alarm_selftest();
+    run_core_scheduler_selftest();
+    run_core_diagnostics_selftest();
+    run_core_journal_selftest();
 }

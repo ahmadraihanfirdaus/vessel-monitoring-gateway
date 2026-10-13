@@ -22,9 +22,12 @@ SUITES = {
     "CORE_MEASUREMENT_SELFTEST": ("MEASUREMENT_TEST", 16),
     "CORE_RANGE_SELFTEST": ("RANGE_TEST", 21),
     "CORE_ALARM_SELFTEST": ("ALARM_TEST", 30),
+    "CORE_SCHEDULER_SELFTEST": ("SCHED_TEST", 16),
+    "CORE_DIAGNOSTICS_SELFTEST": ("DIAG_TEST", 19),
+    "CORE_JOURNAL_SELFTEST": ("JOURNAL_TEST", 19),
 }
-SUMMARY_RE = re.compile(r"^(CORE_QUALITY_SELFTEST|SOURCE_MODE_SELFTEST|CORE_MEASUREMENT_SELFTEST|CORE_RANGE_SELFTEST|CORE_ALARM_SELFTEST): (PASS|FAIL) \((\d+)/(\d+)\)$")
-CASE_RE = re.compile(r"^(QUALITY_TEST|SOURCE_MODE_TEST|MEASUREMENT_TEST|RANGE_TEST|ALARM_TEST) (\S+): (PASS|FAIL)$")
+SUMMARY_RE = re.compile(r"^(CORE_QUALITY_SELFTEST|SOURCE_MODE_SELFTEST|CORE_MEASUREMENT_SELFTEST|CORE_RANGE_SELFTEST|CORE_ALARM_SELFTEST|CORE_SCHEDULER_SELFTEST|CORE_DIAGNOSTICS_SELFTEST|CORE_JOURNAL_SELFTEST): (PASS|FAIL) \((\d+)/(\d+)\)$")
+CASE_RE = re.compile(r"^(QUALITY_TEST|SOURCE_MODE_TEST|MEASUREMENT_TEST|RANGE_TEST|ALARM_TEST|SCHED_TEST|DIAG_TEST|JOURNAL_TEST) (\S+): (PASS|FAIL)$")
 
 
 def verify_log(log: str) -> None:
@@ -57,7 +60,7 @@ def verify_log(log: str) -> None:
             raise ValueError(f"Wrong suite result: {suite}={summaries[suite]}")
         if cases[prefix] != expected:
             raise ValueError(f"Wrong executed case count: {prefix}={cases[prefix]}; expected {expected}")
-    if sum(cases.values()) != 79:
+    if sum(cases.values()) != sum(count for _, count in SUITES.values()):
         raise ValueError(f"Wrong overall case count: {sum(cases.values())}")
 
 
@@ -128,7 +131,8 @@ def main() -> int:
             print(test.stdout, file=sys.stderr)
             return 1
         print(f"HOST_C_COMPILER: {compiler}")
-        print("HOST_FIRMWARE_CORE_SELFTEST: PASS (79/79)")
+        total = sum(count for _, count in SUITES.values())
+        print(f"HOST_FIRMWARE_CORE_SELFTEST: PASS ({total}/{total})")
         print("NOTE: Native behavior only. Wokwi/ESP-IDF/SIM/SUP/bench verification not implied.")
     return 0
 
