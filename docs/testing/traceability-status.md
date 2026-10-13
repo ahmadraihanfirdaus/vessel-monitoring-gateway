@@ -12,9 +12,9 @@
 
 **Semantic Coverage:** PARTIAL
 
-**Implementation Status:** NOT_IMPLEMENTED
+**Implementation Status:** PARTIAL_FIRMWARE_CORE (locked matrix is an initial snapshot)
 
-**Verification Status:** NOT_RUN
+**Verification Status:** NOT_RUN for formal SIM/SUP verification; low-level self-tests recorded separately
 
 **Final Verification Approval:** NOT_APPROVED
 
@@ -49,7 +49,7 @@ This establishes structural traceability coverage. It does not demonstrate compl
 
 | Component | Current Status |
 |---|---|
-| Firmware implementation | NOT_IMPLEMENTED |
+| Firmware implementation | PARTIAL: quality, source mode, measurement, range |
 | Simulator implementation | NOT_IMPLEMENTED |
 | Laravel backend | NOT_IMPLEMENTED |
 | Monitoring dashboard | NOT_IMPLEMENTED |
@@ -64,13 +64,14 @@ Development plans and interface specifications shall not be reported as implemen
 |---|---|
 | Simulation scenarios SIM-001 to SIM-015 | NOT_RUN |
 | Supplemental tests SUP-001 to SUP-019 | PLANNED |
-| Functional test evidence | NOT_AVAILABLE |
+| Firmware predicate self-test evidence | AVAILABLE: `evidence/test-results/firmware-core-range-wokwi-20261010.md` (49/49) |
+| Formal SIM/SUP test evidence | NOT_AVAILABLE |
 | Semantic verification coverage | PARTIAL |
 | Final verification approval | NOT_APPROVED |
 
 Structural traceability audits have been completed.
 
-No successful firmware, simulator, backend, integration, or hardware test result is claimed.
+Firmware **low-level Wokwi self-test evidence exists**, but it does not satisfy formal SIM/SUP acceptance or end-to-end validation. No backend, operational monitoring, physical calibration, or vessel integration result is claimed.
 
 Actual verification results must be recorded only after execution, observation, and evidence review.
 
@@ -165,9 +166,9 @@ The controlled internal engineering baseline is not included in the public repos
 
 **Semantic Coverage:** PARTIAL
 
-**Implementation:** NOT_IMPLEMENTED
+**Implementation:** PARTIAL_FIRMWARE_CORE (matrix itself remains unchanged)
 
-**Verification:** NOT_RUN
+**Verification:** NOT_RUN for formal SIM/SUP; firmware self-tests are recorded separately
 
 **Final Verification Approval:** NOT_APPROVED
 

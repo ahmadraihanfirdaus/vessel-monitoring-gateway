@@ -11,7 +11,7 @@ TEXT_EXTENSIONS = {
     ".md", ".txt", ".py", ".csv", ".json",
     ".jsonl", ".yaml", ".yml", ".toml",
     ".ini", ".php", ".js", ".ts", ".html",
-    ".css", ".xml", ".svg", ".sh",
+    ".css", ".xml", ".svg", ".sh", ".c", ".h",
 }
 
 TEXT_FILENAMES = {

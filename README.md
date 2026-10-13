@@ -2,9 +2,9 @@
 
 **Integrated Vessel Monitoring & Diagnostic Gateway**
 
-**Portfolio category:** Engineering design, requirements, architecture, and verification planning.
+**Portfolio category:** Embedded firmware prototype and traceable engineering development (simulation only).
 
-This repository contains a **planning baseline**, not a completed monitoring system. It defines a proposed ESP32-based monitoring gateway with simulated propulsion, NMEA 0183-style navigation data, configurable local safety policies, offline telemetry, and a Laravel backend. Firmware, simulator, backend, dashboard, and system tests have **not** been implemented or executed.
+This repository contains a **planning baseline plus partial development-only firmware implementation**, not a completed monitoring system. The ESP32 firmware currently implements data-quality, source-mode, numeric-measurement, and configurable-range validation with recorded Wokwi self-tests. Sensor providers, alarms, event journaling, scheduling, the NMEA/engine simulators, telemetry API, Laravel backend, dashboard, and end-to-end verification remain planned.
 
 The design emphasizes modular embedded software, sensor quality, fault handling, data-source separation, and requirement traceability. Public examples are intended to use synthetic or laboratory-generated data; no operational vessel deployment is claimed.
 
@@ -20,11 +20,11 @@ The design emphasizes modular embedded software, sensor quality, fault handling,
 | Standards research | [Standards applicability matrix](docs/standards/standards-applicability-matrix.md), for conceptual reference only |
 | Executable repository tooling | Two Python scripts for [security screening](scripts/audit_precommit_security.py) and [documentation review](scripts/audit_public_documentation.py) |
 
-**What is not available yet:** executable ESP32 firmware, a running simulator, Laravel application, monitoring dashboard, functional test results, or hardware test evidence. The Python audit tools check repository content; they do not test the proposed monitoring system.
+**Available firmware evidence:** [Core Range Wokwi tests](evidence/test-results/firmware-core-range-wokwi-20261010.md) record 49/49 development-only checks for four low-level suites. This is not full system or requirement verification. **Not available yet:** operational monitoring loop, connected sensors, Laravel application, dashboard, formal SIM/SUP execution, calibration, or hardware test evidence.
 
 ## Project Status
 
-**Phase 2 — Repository Foundation and Documentation Review (In Progress)**
+**Phase 3 — Firmware Core (PARTIAL; exit criteria NOT MET)**
 
 This repository is under active development. The capabilities described below represent engineering requirements and planned functionality unless explicitly identified as implemented and verified.
 
@@ -36,11 +36,11 @@ Current development status:
 | Planned verification cases | 34 |
 | Requirement-to-test mapping | 38/38 planned |
 | Semantic verification coverage | PARTIAL |
-| Firmware implementation | NOT_IMPLEMENTED |
-| Simulator implementation | NOT_IMPLEMENTED |
+| Firmware implementation | PARTIAL: quality/source/measurement/range foundation |
+| Wokwi firmware simulation | 49/49 low-level self-tests recorded, not a complete monitoring system |
 | Backend implementation | NOT_IMPLEMENTED |
-| System verification | NOT_RUN |
-| Physical integration | NOT_IMPLEMENTED |
+| Formal SIM/SUP and end-to-end system verification | NOT_RUN |
+| Physical integration | NOT_AUTHORIZED / NOT_RUN |
 
 Structural traceability audits have been completed. These audits do not constitute functional verification of the proposed system.
 
@@ -165,15 +165,15 @@ The following limitations apply:
 | Directory | Purpose |
 |---|---|
 | `requirements/` | System requirements and traceability matrices |
-| `firmware/` | Planned edge firmware and automated tests |
+| `firmware/` | ESP-IDF development firmware and Wokwi config; low-level self-tests present |
 | `simulator/` | Planned hardware, engine, navigation, and fault simulation |
 | `backend/` | Planned Laravel API, database integration, and dashboard |
 | `docs/` | Architecture, interfaces, engineering decisions, standards, and verification plans |
-| `evidence/` | Test results, logs, and screenshots when available |
+| `evidence/` | Recorded historical and current firmware self-test evidence |
 | `.github/workflows/` | Planned continuous integration workflows |
 | `scripts/` | Repository maintenance, validation, and audit utilities |
 
-Directory descriptions include **planned locations**. In this engineering-planning snapshot, the `firmware/`, `simulator/`, `backend/`, `evidence/`, and `.github/workflows/` paths do not contain published implementation or test evidence. Their appearance in the table is a roadmap, not a claim that those directories or components exist.
+Directory descriptions distinguish present source/evidence from future locations. `simulator/`, `backend/`, and `.github/workflows/` remain planned; firmware files and low-level evidence are already tracked.
 
 ## Verification and Traceability
 
@@ -198,7 +198,7 @@ The current working traceability matrix is accepted for development tracking. Fi
 
 ## How to Review This Repository
 
-Start with the [system requirements](requirements/system-requirements.md), [architecture and interfaces](docs/architecture/architecture-and-icd.md), and [traceability status](docs/testing/traceability-status.md). The [development roadmap](docs/github-repository-plan.md) distinguishes future implementation phases from the current planning baseline.
+Start with the [system requirements](requirements/system-requirements.md), [architecture and interfaces](docs/architecture/architecture-and-icd.md), and [traceability status](docs/testing/traceability-status.md). The [development roadmap](docs/github-repository-plan.md) distinguishes future phases from the partial Phase 3 firmware implementation.
 
 With Python 3 and Git available, the two **repository-content checks** can be run from the repository root:
 
@@ -211,7 +211,7 @@ The first script screens Git candidates for prohibited paths and selected secret
 
 ## Next Engineering Milestones
 
-The next work is to refine executable acceptance criteria, add automated tests for the repository audit tools, implement simulation and firmware modules, and record genuine verification evidence. Backend and dashboard implementation remain later development work as described in the [roadmap](docs/github-repository-plan.md).
+The next work is to complete Firmware Core Phase 3 (alarm lifecycle, scheduler, diagnostics, bounded journal) with executable tests and evidence before proceeding to planned providers and safety simulation. See the [roadmap](docs/github-repository-plan.md).
 
 ## Engineering Baseline and Scope Control
 

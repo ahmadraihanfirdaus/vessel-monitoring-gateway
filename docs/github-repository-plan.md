@@ -4,11 +4,11 @@
 
 **Document Status:** Engineering Development Roadmap
 
-**Current Phase:** Phase 2 — Repository Foundation and Public Documentation Review
+**Current Phase:** Phase 3 — Firmware Core (PARTIAL; exit criteria pending)
 
-**Implementation Status:** NOT_IMPLEMENTED
+**Implementation Status:** PARTIAL_FIRMWARE_CORE
 
-**System Verification Status:** NOT_RUN
+**System Verification Status:** NOT_RUN (49/49 low-level Wokwi firmware self-tests recorded separately)
 
 ## 1. Purpose
 
@@ -115,9 +115,7 @@ Each phase has defined work and exit criteria. Advancement requires review of th
 
 ## 5. Current Development Status
 
-The project is currently in Phase 2.
-
-Repository foundation, requirement traceability, documentation preparation, and public-content review are underway.
+The project is currently working within Phase 3, but **Phase 3 exit criteria are not met**. Requirements and documentation foundations exist; only low-level data quality, source mode, measurement, and range predicates have been implemented and self-tested. Alarm model, scheduler, diagnostics, and bounded event journal remain to be built. Earlier phase approval/evidence still requires independent review.
 
 The working traceability matrix contains:
 
@@ -129,7 +127,8 @@ The working traceability matrix contains:
 | Total planned test cases | 34 |
 | Requirements with planned verification mappings | 38/38 |
 | Semantic verification coverage | PARTIAL |
-| Functional test execution | NOT_RUN |
+| Formal SIM/SUP functional test execution | NOT_RUN |
+| Latest firmware low-level Wokwi self-tests | 49/49 PASS (recorded; not full requirement verification) |
 | Final verification approval | NOT_APPROVED |
 
 Requirement mapping and structural audits do not demonstrate functional implementation or successful system testing.
@@ -248,11 +247,11 @@ If the required rights or publication authorization cannot be confirmed, the rep
 
 The repository is under preparation for engineering development and public portfolio use.
 
-**Current Phase:** 2 — Repository Foundation and Public Documentation Review
+**Current Phase:** 3 — Firmware Core (PARTIAL; exit criteria pending)
 
-**Implementation Status:** NOT_IMPLEMENTED
+**Implementation Status:** PARTIAL_FIRMWARE_CORE
 
-**Functional Verification Status:** NOT_RUN
+**Functional Verification Status:** NOT_RUN (formal SIM/SUP; low-level Wokwi checks recorded separately)
 
 **Public Publication Approval:** PENDING
 
