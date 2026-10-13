@@ -2,7 +2,14 @@
 
 This log distinguishes planning/documentation work from verified software behavior. Dates are local engineering record dates, not deployment dates.
 
-## Unreleased — Batch A1 (pre-commit review)
+## Unreleased — Batch A2 (verification foundation)
+
+- Add a native host C11 regression runner for the existing 49 development self-tests, with parser negative tests.
+- Add a separate 38-row living traceability assessment; do not modify the two LOCKED baseline files.
+- Document a preliminary simulation FMEA and a read-only ESP32/Wokwi build-configuration review.
+- Formal SIM/SUP execution, calibration, and physical integration remain NOT_RUN / NOT_AUTHORIZED.
+
+## 2026-10-13 — Batch A1 (`develop@2af05ab`)
 
 - Correct documentation that previously described all firmware as unimplemented.
 - Permit `.c` and `.h` text source review in the repository security screen.

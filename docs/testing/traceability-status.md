@@ -26,6 +26,8 @@ The working matrix supports development planning and requirement-to-test traceab
 
 It does not constitute evidence of implemented functionality, completed testing, standards conformity, or operational deployment.
 
+The editable [living implementation assessment](living-traceability-guide.md) supplements the LOCKED initial matrix without changing its historical statuses. No SIM/SUP execution has been claimed.
+
 ## 2. Requirement Coverage
 
 | Metric | Current Value |

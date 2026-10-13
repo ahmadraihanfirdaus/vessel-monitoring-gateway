@@ -1,0 +1,39 @@
+requirement_id,planned_test_ids,implementation_assessment,formal_verification,implementation_path,internal_evidence_path,qualification
+SYS-001,SUP-001,NOT_STARTED,NOT_RUN,,,No complete implementation evidence for this requirement; mapped SIM/SUP planned only.
+SYS-002,SUP-002,PARTIAL,NOT_RUN,firmware/src/core_types.h;firmware/src/core_source_mode.h,evidence/test-results/firmware-source-mode-wokwi-20261010.md,Source-mode enum/validation tested; not on every payload or complete SUP-002.
+SYS-003,SIM-010;SIM-012,NOT_STARTED,NOT_RUN,,,No complete implementation evidence for this requirement; mapped SIM/SUP planned only.
+SYS-004,SUP-003,NOT_STARTED,NOT_RUN,,,No complete implementation evidence for this requirement; mapped SIM/SUP planned only.
+SAF-001,SIM-001;SIM-002,NOT_STARTED,NOT_RUN,,,No complete implementation evidence for this requirement; mapped SIM/SUP planned only.
+SAF-002,SIM-001;SIM-002;SIM-003;SIM-004,NOT_STARTED,NOT_RUN,,,No complete implementation evidence for this requirement; mapped SIM/SUP planned only.
+SAF-003,SIM-002;SIM-005,NOT_STARTED,NOT_RUN,,,No complete implementation evidence for this requirement; mapped SIM/SUP planned only.
+SAF-004,SIM-003;SIM-004,NOT_STARTED,NOT_RUN,,,No complete implementation evidence for this requirement; mapped SIM/SUP planned only.
+SAF-005,SIM-005,NOT_STARTED,NOT_RUN,,,No complete implementation evidence for this requirement; mapped SIM/SUP planned only.
+SAF-006,SIM-006;SIM-011,PARTIAL,NOT_RUN,firmware/src/core_quality.h;firmware/src/core_range.h,evidence/test-results/firmware-core-range-wokwi-20261010.md,Generic finite/range/quality predicates only; no actual temperature channel/threshold alarm.
+ALM-001,SIM-003;SIM-005;SIM-006,NOT_STARTED,NOT_RUN,,,No complete implementation evidence for this requirement; mapped SIM/SUP planned only.
+ALM-002,SUP-004,NOT_STARTED,NOT_RUN,,,No complete implementation evidence for this requirement; mapped SIM/SUP planned only.
+ALM-003,SIM-003;SIM-010;SIM-012,NOT_STARTED,NOT_RUN,,,No complete implementation evidence for this requirement; mapped SIM/SUP planned only.
+ENG-001,SIM-007,NOT_STARTED,NOT_RUN,,,No complete implementation evidence for this requirement; mapped SIM/SUP planned only.
+ENG-002,SUP-005,NOT_STARTED,NOT_RUN,,,No complete implementation evidence for this requirement; mapped SIM/SUP planned only.
+ENG-003,SIM-007;SIM-012,NOT_STARTED,NOT_RUN,,,No complete implementation evidence for this requirement; mapped SIM/SUP planned only.
+ENG-004,SUP-006,NOT_STARTED,NOT_RUN,,,No complete implementation evidence for this requirement; mapped SIM/SUP planned only.
+NAV-001,SIM-008,NOT_STARTED,NOT_RUN,,,No complete implementation evidence for this requirement; mapped SIM/SUP planned only.
+NAV-002,SUP-007,NOT_STARTED,NOT_RUN,,,No complete implementation evidence for this requirement; mapped SIM/SUP planned only.
+NAV-003,SIM-008,NOT_STARTED,NOT_RUN,,,No complete implementation evidence for this requirement; mapped SIM/SUP planned only.
+NAV-004,SIM-009,NOT_STARTED,NOT_RUN,,,No complete implementation evidence for this requirement; mapped SIM/SUP planned only.
+MOT-001,SUP-008,NOT_STARTED,NOT_RUN,,,No complete implementation evidence for this requirement; mapped SIM/SUP planned only.
+VIB-001,SUP-009,NOT_STARTED,NOT_RUN,,,No complete implementation evidence for this requirement; mapped SIM/SUP planned only.
+PWR-001,SUP-010,NOT_STARTED,NOT_RUN,,,No complete implementation evidence for this requirement; mapped SIM/SUP planned only.
+TEL-001,SUP-011,NOT_STARTED,NOT_RUN,,,No complete implementation evidence for this requirement; mapped SIM/SUP planned only.
+TEL-002,SUP-012,PARTIAL,NOT_RUN,firmware/src/core_measurement.h;firmware/src/core_quality.h,evidence/test-results/firmware-core-measurement-wokwi-20261010.md,Invalid/missing numeric values cannot be read as current; JSON null/absent not implemented.
+TEL-003,SIM-014,NOT_STARTED,NOT_RUN,,,No complete implementation evidence for this requirement; mapped SIM/SUP planned only.
+NET-001,SIM-010;SIM-012;SIM-013,NOT_STARTED,NOT_RUN,,,No complete implementation evidence for this requirement; mapped SIM/SUP planned only.
+NET-002,SUP-013,NOT_STARTED,NOT_RUN,,,No complete implementation evidence for this requirement; mapped SIM/SUP planned only.
+API-001,SIM-015,NOT_STARTED,NOT_RUN,,,No complete implementation evidence for this requirement; mapped SIM/SUP planned only.
+DB-001,SUP-014,NOT_STARTED,NOT_RUN,,,No complete implementation evidence for this requirement; mapped SIM/SUP planned only.
+UI-001,SIM-010,NOT_STARTED,NOT_RUN,,,No complete implementation evidence for this requirement; mapped SIM/SUP planned only.
+UI-002,SUP-015,NOT_STARTED,NOT_RUN,,,No complete implementation evidence for this requirement; mapped SIM/SUP planned only.
+SEC-001,SUP-016,NOT_STARTED,NOT_RUN,,,No complete implementation evidence for this requirement; mapped SIM/SUP planned only.
+SEC-002,SIM-015,NOT_STARTED,NOT_RUN,,,No complete implementation evidence for this requirement; mapped SIM/SUP planned only.
+TST-001,SUP-017,PARTIAL,NOT_RUN,docs/testing/firmware-evidence-index.md,evidence/test-results/firmware-core-range-wokwi-20261010.md,Planned baseline mappings and internal firmware evidence exist; full per-requirement SUP-017 mapping incomplete.
+TST-002,SUP-018,NOT_STARTED,NOT_RUN,,,No complete implementation evidence for this requirement; mapped SIM/SUP planned only.
+DOC-001,SUP-019,PARTIAL,NOT_RUN,docs/architecture/architecture-and-icd.md;docs/fmea/fmea-prototype.md,evidence/test-results/firmware-core-range-wokwi-20261010.md,Planning documents and a preliminary FMEA are present; document verification/approval remains incomplete.

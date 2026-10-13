@@ -207,7 +207,17 @@ python scripts/audit_precommit_security.py
 python scripts/audit_public_documentation.py
 ```
 
-The first script screens Git candidates for prohibited paths and selected secret patterns. The second produces an inventory of terms requiring contextual review. **A passing audit does not authorize publication, prove confidentiality, or indicate firmware/backend test success.** Manual review is still required.
+Batch A2 development-only verification aids can be run separately:
+
+```bash
+python scripts/test_firmware_core_host.py
+python scripts/check_living_traceability.py
+python scripts/audit_esp32_build_config.py
+```
+
+Native C test execution requires a GCC/Clang compiler on PATH; without one, the runner returns `BLOCKED` rather than a false PASS. See [host testing](docs/testing/host-core-testing.md), [editable traceability register](docs/testing/living-traceability-guide.md), [preliminary FMEA](docs/fmea/fmea-prototype.md), and [ESP32 configuration review](docs/engineering/esp32-build-configuration-review.md).
+
+The first repository-content script screens Git candidates for prohibited paths and selected secret patterns. The second produces an inventory of terms requiring contextual review. **A passing audit does not authorize publication, prove confidentiality, or indicate firmware/backend test success.** Manual review is still required.
 
 ## Next Engineering Milestones
 
