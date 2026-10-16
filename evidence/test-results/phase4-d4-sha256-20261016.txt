@@ -1,0 +1,5 @@
+8b3655fa7ed59e3c5c5b8cea6985ea479b04fa890f2ff62946cca9c59b9de677 *evidence/logs/phase4-d4-wokwi-serial-20261016.txt
+f28fa4e2123767458612b30319b717a4d1ffce93c6c1c32d932f044a41557053 *evidence/test-results/phase4-d4-host-regression-20261016.txt
+53c282ece102c25096a43b15c8221c113d089df99a31205cd2421ed3c22de5a5 *evidence/test-results/phase4-d4-host-20261016.txt
+bb655783c83f67d59899b0c83f0bb80b569c2935dde7d661584fe201fb99825f *evidence/test-results/phase4-d4-wokwi-verifier-20261016.txt
+273c342457ddd9397a20cfe8076ffe3c4073b80107cb88ecf9909a592f5b895a *evidence/test-results/phase4-d4-summary-20261016.md
