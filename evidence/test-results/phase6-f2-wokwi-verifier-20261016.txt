@@ -1,0 +1,8 @@
+F2_WOKWI_LOG_PARSER_SELFTEST: PASS (25/25)
+F2_WOKWI_F1_REGRESSION: PASS (62/62)
+F2_WOKWI_FORMAL_SIM007: PASS (1/1)
+F2_WOKWI_TIMED_DEMO: PASS (6/6)
+F2_WOKWI_STACK_WATERMARK_RAW_BEFORE: 432
+F2_WOKWI_STACK_WATERMARK_RAW_AFTER: 432
+F2_WOKWI_LOG_CHECK: PASS
+NOTE: This is formal software-simulation evidence for SIM-007 only. It does not imply physical engine control, bench completion, calibration, certification or production readiness.

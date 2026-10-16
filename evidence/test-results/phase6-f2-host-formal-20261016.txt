@@ -1,0 +1,4 @@
+F2_HOST_C_COMPILER: C:\msys64\ucrt64\bin\gcc.EXE
+F2_F1_REGRESSION: PASS (62/62)
+PHASE6_F2_HOST_FORMAL_SCENARIOS: PASS (1/1)
+NOTE: Host execution is preparation only. Formal SIM-007 roadmap evidence requires fresh target/Wokwi execution and persisted evidence.
