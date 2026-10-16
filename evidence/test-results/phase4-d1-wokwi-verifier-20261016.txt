@@ -1,0 +1,8 @@
+D1_WOKWI_LOG_PARSER_SELFTEST: PASS (6/6)
+D1_WOKWI_LEGACY_SELFTESTS: PASS (226/226)
+D1_WOKWI_PROVIDER_SELFTEST: PASS (38/38)
+D1_WOKWI_TIMED_DEMO: PASS (6/6)
+D1_WOKWI_STACK_WATERMARK_RAW_BEFORE: 1952
+D1_WOKWI_STACK_WATERMARK_RAW_AFTER: 1952
+D1_WOKWI_LOG_CHECK: PASS
+NOTE: Log-level development evidence only; bench hardware, calibration, formal SIM/SUP, physical integration and production readiness are not implied.

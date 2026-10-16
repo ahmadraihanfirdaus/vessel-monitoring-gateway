@@ -1,0 +1,4 @@
+D1_HOST_C_COMPILER: C:\msys64\ucrt64\bin\gcc.EXE
+D1_LEGACY_SELFTESTS_PRESERVED: PASS (226/226)
+PHASE4_D1_HOST_SELFTEST: PASS (38/38)
+NOTE: Host-only development evidence. ESP-IDF/Wokwi/bench/SIM/SUP/physical verification is not implied.

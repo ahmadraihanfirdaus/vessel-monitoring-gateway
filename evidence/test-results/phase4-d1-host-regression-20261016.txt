@@ -1,0 +1,4 @@
+HOST_CORE_PARSER_REGRESSION: PASS (5/5)
+HOST_C_COMPILER: C:\msys64\ucrt64\bin\gcc.EXE
+HOST_FIRMWARE_CORE_SELFTEST: PASS (226/226)
+NOTE: Native behavior only. Wokwi/ESP-IDF/SIM/SUP/bench verification not implied.
