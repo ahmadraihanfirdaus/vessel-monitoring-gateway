@@ -1,0 +1,4 @@
+F1_HOST_C_COMPILER: C:\msys64\ucrt64\bin\gcc.EXE
+F1_PRIOR_REGRESSIONS: PASS
+PHASE6_F1_HOST_SELFTEST: PASS (62/62)
+NOTE: Development host evidence only; formal SIM-007, physical engine integration, bench hardware and production readiness are not implied.
