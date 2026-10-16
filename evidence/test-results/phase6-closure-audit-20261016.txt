@@ -1,0 +1,107 @@
+=== BASELINE ===
+branch=develop
+head=b60aff7
+
+=== LOCKED SHA ===
+a60167d9f2a1f852a091048447f6f4acf8d2cbfd6d11f04c2a6e2f6896f5b92b *requirements/system-requirements.md
+bc1fc7ce697fc6180cab760320de2a1bd814f9bc78731d4a22fdae838c303fe3 *requirements/traceability-matrix.csv
+
+=== PHASE 6 ROADMAP EXIT CRITERION ===
+106:| 6 | Four-Engine Model | Implement configurable N-engine abstraction, four-engine demonstration profile, and deviation detection. | SIM-007 passes with evidence. |
+
+=== SIM-007 PLAN / TRACEABILITY ===
+35:| SIM-007 | Engine 3 RPM deviation | Engine 1/2/4 near same RPM, engine 3 lower | Cross-engine deviation warning. |
+63:SIM-007 uses the planned configurable N-engine model with a four-engine demonstration profile.
+15:ENG-001,Mandatory,Engine model shall support N engines; demo profile shall configure four engines.,ENG,,SIM-007,,,NOT_IMPLEMENTED,NOT_RUN
+16:ENG-002,Mandatory,"Each engine shall expose state, rpm, temperature, runtime, alarm and communication quality in simulation.",ENG,,SUP-005,,,NOT_IMPLEMENTED,NOT_RUN
+17:ENG-003,Mandatory,System shall detect configurable cross-engine RPM deviation in simulation.,ENG,,SIM-007;SIM-012,,,NOT_IMPLEMENTED,NOT_RUN
+
+=== F1/F2 COMMITS ===
+b60aff7 (HEAD -> develop) test(phase6): add F2 formal SIM-007 evidence
+cc7606c feat(phase6): add F1 four-engine model development gate
+a008e39 docs(verification): close phase 5 safety policy roadmap gate
+f0cc36b test(phase5): add E4 formal SIM-001 to SIM-006 evidence
+
+=== F1 DEVELOPMENT EVIDENCE ===
+PRESENT docs/testing/phase6-f1-plan.md
+PRESENT evidence/test-results/phase6-f1-summary-20261016.md
+PRESENT evidence/test-results/phase6-f1-build-audit-20261016.txt
+PRESENT evidence/test-results/phase6-f1-wokwi-verifier-20261016.txt
+docs/testing/phase6-f1-plan.md:3:**Status:** BATCH COMPLETE — development host/Wokwi gate PASS; formal SIM-007 NOT_RUN
+docs/testing/phase6-f1-plan.md:19:F1 development self-tests prepare SIM-007 but do **not** make formal SIM-007 PASS.
+evidence/test-results/phase6-f1-summary-20261016.md:5:**PASS — development host/Wokwi gate only.**
+evidence/test-results/phase6-f1-summary-20261016.md:7:- Prior host regressions: PASS.
+evidence/test-results/phase6-f1-summary-20261016.md:8:- Phase 6 F1 host self-test: 62/62 PASS.
+evidence/test-results/phase6-f1-summary-20261016.md:9:- Wokwi log parser: 17/17 PASS.
+evidence/test-results/phase6-f1-summary-20261016.md:10:- Phase 6 F1 target self-test: 62/62 PASS.
+evidence/test-results/phase6-f1-summary-20261016.md:11:- Timed runtime regression: 6/6 PASS.
+evidence/test-results/phase6-f1-summary-20261016.md:27:Formal **SIM-007 remains NOT_RUN** in F1. F1 is a development gate, not the
+evidence/test-results/phase6-f1-build-audit-20261016.txt:12:formal_SIM_007=NOT_RUN
+evidence/test-results/phase6-f1-build-audit-20261016.txt:14:PHASE6_F1_BUILD_AUDIT: PASS
+evidence/test-results/phase6-f1-wokwi-verifier-20261016.txt:1:F1_WOKWI_LOG_PARSER_SELFTEST: PASS (17/17)
+evidence/test-results/phase6-f1-wokwi-verifier-20261016.txt:2:F1_WOKWI_ENGINE_MODEL_SELFTEST: PASS (62/62)
+evidence/test-results/phase6-f1-wokwi-verifier-20261016.txt:3:F1_WOKWI_TIMED_DEMO: PASS (6/6)
+evidence/test-results/phase6-f1-wokwi-verifier-20261016.txt:6:F1_WOKWI_LOG_CHECK: PASS
+evidence/test-results/phase6-f1-wokwi-verifier-20261016.txt:7:NOTE: Target-side development check only; formal SIM-007 remains NOT_RUN until dedicated scenario evidence is executed.
+
+=== F2 FORMAL SIM-007 EVIDENCE ===
+PRESENT docs/testing/phase6-f2-plan.md
+PRESENT evidence/test-results/phase6-f2-summary-20261016.md
+PRESENT evidence/test-results/phase6-f2-build-audit-20261016.txt
+PRESENT evidence/test-results/phase6-f2-host-formal-20261016.txt
+PRESENT evidence/test-results/phase6-f2-wokwi-verifier-20261016.txt
+PRESENT evidence/logs/phase6-f2-wokwi-serial-20261016.txt
+docs/testing/phase6-f2-plan.md:1:# Phase 6 F2 — Formal SIM-007 Scenario Evidence
+docs/testing/phase6-f2-plan.md:3:**Status:** BATCH COMPLETE — dedicated formal host/Wokwi SIM-007 gate PASS
+docs/testing/phase6-f2-plan.md:9:`SIM-007 | Engine 3 RPM deviation | Engine 1/2/4 near same RPM, engine 3 lower | Cross-engine deviation warning.`
+docs/testing/phase6-f2-plan.md:29:SIM-007 passes this F2 scenario gate only when a fresh target execution proves:
+docs/testing/phase6-f2-plan.md:40:`F2_FORMAL_SCENARIO SIM-007: PASS`
+docs/testing/phase6-f2-plan.md:44:`PHASE6_F2_FORMAL_SCENARIOS: PASS (1/1)`
+docs/testing/phase6-f2-plan.md:50:- ENG-001 maps to SIM-007. F1 separately demonstrated bounded configurable
+docs/testing/phase6-f2-plan.md:52:- ENG-003 maps to SIM-007 and SIM-012. Passing SIM-007 does not complete the
+docs/testing/phase6-f2-plan.md:54:- ENG-002 maps to SUP-005 and is not closed by SIM-007.
+docs/testing/phase6-f2-plan.md:68:Phase 6 roadmap closure may be considered only after formal SIM-007 target
+evidence/test-results/phase6-f2-summary-20261016.md:5:**PASS — formal software-simulation evidence for SIM-007.**
+evidence/test-results/phase6-f2-summary-20261016.md:8:- F2 host formal scenario: SIM-007 1/1 PASS.
+evidence/test-results/phase6-f2-summary-20261016.md:10:- F2 Wokwi formal SIM-007: 1/1 PASS.
+evidence/test-results/phase6-f2-summary-20261016.md:17:## SIM-007 demonstrated
+evidence/test-results/phase6-f2-summary-20261016.md:29:This evidence supports formal **SIM-007 PASS** as a software-simulation
+evidence/test-results/phase6-f2-build-audit-20261016.txt:12:formal_SIM_007=PASS
+evidence/test-results/phase6-f2-build-audit-20261016.txt:14:ENG_003_SIM_012=NOT_RUN
+evidence/test-results/phase6-f2-build-audit-20261016.txt:15:ENG_002_SUP_005=NOT_RUN
+evidence/test-results/phase6-f2-host-formal-20261016.txt:3:PHASE6_F2_HOST_FORMAL_SCENARIOS: PASS (1/1)
+evidence/test-results/phase6-f2-host-formal-20261016.txt:4:NOTE: Host execution is preparation only. Formal SIM-007 roadmap evidence requires fresh target/Wokwi execution and persisted evidence.
+evidence/test-results/phase6-f2-wokwi-verifier-20261016.txt:3:F2_WOKWI_FORMAL_SIM007: PASS (1/1)
+evidence/test-results/phase6-f2-wokwi-verifier-20261016.txt:7:F2_WOKWI_LOG_CHECK: PASS
+evidence/test-results/phase6-f2-wokwi-verifier-20261016.txt:8:NOTE: This is formal software-simulation evidence for SIM-007 only. It does not imply physical engine control, bench completion, calibration, certification or production readiness.
+
+=== F2 HASH MANIFEST CHECK ===
+docs/testing/phase6-f2-plan.md: OK
+firmware/src/main.c: OK
+firmware/src/phase6_f2_formal_scenarios.h: OK
+scripts/test_phase6_f2_formal_host.py: OK
+scripts/verify_phase6_f2_wokwi_log.py: OK
+evidence/logs/phase6-f2-wokwi-serial-20261016.txt: OK
+evidence/test-results/phase6-f2-host-formal-20261016.txt: OK
+evidence/test-results/phase6-f2-wokwi-verifier-20261016.txt: OK
+evidence/test-results/phase6-f2-build-audit-20261016.txt: OK
+evidence/test-results/phase6-f2-summary-20261016.md: OK
+
+=== LIVING STATUS — READ ONLY ===
+15:ENG-001,SIM-007,NOT_STARTED,NOT_RUN,,,No complete implementation evidence for this requirement; mapped SIM/SUP planned only.
+16:ENG-002,SUP-005,NOT_STARTED,NOT_RUN,,,No complete implementation evidence for this requirement; mapped SIM/SUP planned only.
+17:ENG-003,SIM-007;SIM-012,NOT_STARTED,NOT_RUN,,,No complete implementation evidence for this requirement; mapped SIM/SUP planned only.
+
+=== CLOSURE BOUNDARY ===
+Roadmap Phase 6 exit criterion: SIM-007 PASS with evidence.
+F2 formal software-simulation SIM-007 evidence: expected PASS.
+ENG-003 also maps SIM-012: remains NOT_RUN.
+ENG-002 maps SUP-005: remains NOT_RUN.
+Living requirement-status ledger must NOT be edited by this audit.
+No physical engine control, bench completion, calibration, certification, field validation, or production readiness claim.
+
+=== STATUS RECHECK ===
+?? firmware/.gitignore
+?? firmware/.vscode/extensions.json
+
+PHASE6_CLOSURE_AUDIT: READ_ONLY_COMPLETE

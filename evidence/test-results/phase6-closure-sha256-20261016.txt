@@ -1,0 +1,3 @@
+81fd280f2e4c9663e180f7a043c64c4ebc79c88e11fddf4940a0e2a99de9caa7 *docs/testing/phase6-closure.md
+5e579199ee2e4e3b9eda9bc96e193b1b89ec536ecbf8ac88a806c84a99588c4a *evidence/test-results/phase6-closure-audit-20261016.txt
+5b2cc7363e302903debe0bbd72b9b58dfb701e04ce11f01400331e0ba071ae11 *evidence/test-results/phase6-closure-summary-20261016.md
