@@ -17,6 +17,7 @@
 #include "core_runtime_sim.h"
 #include "core_runtime_guard.h"
 #include "phase4_d1_selftest.h"
+#include "phase4_d2_selftest.h"
 
 #ifdef ESP_PLATFORM
 #include "esp_timer.h"
@@ -1234,6 +1235,7 @@ void app_main(void)
     run_core_runtime_sim_selftest();
     run_core_runtime_guard_selftest();
     run_phase4_d1_door_provider_selftest();
+    run_phase4_d2_fuel_vapor_provider_selftest();
 #ifdef ESP_PLATFORM
     /* Diagnostic-only watermark; units are ESP-IDF FreeRTOS implementation
      * specific. No safety acceptance threshold is established. */
