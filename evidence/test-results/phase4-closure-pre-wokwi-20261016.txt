@@ -1,0 +1,272 @@
+=== BASELINE GUARD ===
+PHASE4_CLOSURE_BASELINE: PASS branch=develop head=f25936a
+
+=== LOCKED REQUIREMENTS ===
+a60167d9f2a1f852a091048447f6f4acf8d2cbfd6d11f04c2a6e2f6896f5b92b *requirements/system-requirements.md
+bc1fc7ce697fc6180cab760320de2a1bd814f9bc78731d4a22fdae838c303fe3 *requirements/traceability-matrix.csv
+
+=== REQUIRED COMMIT CHAIN ===
+f25936a (HEAD -> develop) feat(phase4): add D7 power provider development gate
+96e2165 feat(phase4): add D6 vibration provider development gate
+a45f37b feat(phase4): add D5 attitude provider development gate
+0df81fd feat(phase4): add D4 temperature provider development gate
+70581ac feat(phase4): add D3 bilge provider development gate
+cd7ee6f feat(phase4): add D2 fuel vapor provider development gate
+bab5564 feat(phase4): add D1 door provider development gate
+6069f89 docs(verification): close phase 3 development core-unit gate with evidence
+
+=== D1-D7 SOURCE / PLAN / EVIDENCE PRESENCE ===
+D1_REQUIRED_FILES: PASS
+D2_REQUIRED_FILES: PASS
+D3_REQUIRED_FILES: PASS
+D4_REQUIRED_FILES: PASS
+D5_REQUIRED_FILES: PASS
+D6_REQUIRED_FILES: PASS
+D7_REQUIRED_FILES: PASS
+
+=== D1-D7 COMMITTED EVIDENCE HASH MANIFESTS ===
+--- D1 ---
+evidence/logs/phase4-d1-wokwi-serial-20261016.txt: OK
+evidence/test-results/phase4-d1-host-regression-20261016.txt: OK
+evidence/test-results/phase4-d1-host-20261016.txt: OK
+evidence/test-results/phase4-d1-wokwi-verifier-20261016.txt: OK
+evidence/test-results/phase4-d1-summary-20261016.md: OK
+--- D2 ---
+evidence/logs/phase4-d2-wokwi-serial-20261016.txt: OK
+evidence/test-results/phase4-d2-host-regression-20261016.txt: OK
+evidence/test-results/phase4-d2-host-20261016.txt: OK
+evidence/test-results/phase4-d2-wokwi-verifier-20261016.txt: OK
+evidence/test-results/phase4-d2-summary-20261016.md: OK
+--- D3 ---
+evidence/logs/phase4-d3-wokwi-serial-20261016.txt: OK
+evidence/test-results/phase4-d3-host-regression-20261016.txt: OK
+evidence/test-results/phase4-d3-host-20261016.txt: OK
+evidence/test-results/phase4-d3-wokwi-verifier-20261016.txt: OK
+evidence/test-results/phase4-d3-summary-20261016.md: OK
+--- D4 ---
+evidence/logs/phase4-d4-wokwi-serial-20261016.txt: OK
+evidence/test-results/phase4-d4-host-regression-20261016.txt: OK
+evidence/test-results/phase4-d4-host-20261016.txt: OK
+evidence/test-results/phase4-d4-wokwi-verifier-20261016.txt: OK
+evidence/test-results/phase4-d4-summary-20261016.md: OK
+--- D5 ---
+evidence/logs/phase4-d5-wokwi-serial-20261016.txt: OK
+evidence/test-results/phase4-d5-host-regression-20261016.txt: OK
+evidence/test-results/phase4-d5-host-20261016.txt: OK
+evidence/test-results/phase4-d5-wokwi-verifier-20261016.txt: OK
+evidence/test-results/phase4-d5-summary-20261016.md: OK
+--- D6 ---
+evidence/logs/phase4-d6-wokwi-serial-20261016.txt: OK
+evidence/test-results/phase4-d6-host-regression-20261016.txt: OK
+evidence/test-results/phase4-d6-host-20261016.txt: OK
+evidence/test-results/phase4-d6-wokwi-verifier-20261016.txt: OK
+evidence/test-results/phase4-d6-summary-20261016.md: OK
+--- D7 ---
+evidence/logs/phase4-d7-wokwi-serial-20261016.txt: OK
+evidence/test-results/phase4-d7-host-regression-20261016.txt: OK
+evidence/test-results/phase4-d7-host-20261016.txt: OK
+evidence/test-results/phase4-d7-wokwi-verifier-20261016.txt: OK
+evidence/test-results/phase4-d7-summary-20261016.md: OK
+
+=== HOST CORE REGRESSION ===
+HOST_CORE_PARSER_REGRESSION: PASS (5/5)
+HOST_C_COMPILER: C:\msys64\ucrt64\bin\gcc.EXE
+HOST_FIRMWARE_CORE_SELFTEST: PASS (226/226)
+NOTE: Native behavior only. Wokwi/ESP-IDF/SIM/SUP/bench verification not implied.
+
+=== PHASE 4 D1 HOST REGRESSION ===
+D1_HOST_C_COMPILER: C:\msys64\ucrt64\bin\gcc.EXE
+D1_LEGACY_SELFTESTS_PRESERVED: PASS (226/226)
+PHASE4_D1_HOST_SELFTEST: PASS (38/38)
+NOTE: Host-only development evidence. ESP-IDF/Wokwi/bench/SIM/SUP/physical verification is not implied.
+
+=== PHASE 4 D2 HOST REGRESSION ===
+D2_HOST_C_COMPILER: C:\msys64\ucrt64\bin\gcc.EXE
+D2_LEGACY_SELFTESTS_PRESERVED: PASS (226/226)
+D2_D1_SELFTEST_PRESERVED: PASS (38/38)
+PHASE4_D2_HOST_SELFTEST: PASS (53/53)
+NOTE: Host-only development evidence. ESP-IDF/Wokwi/bench/SIM/SUP/physical verification is not implied.
+
+=== PHASE 4 D3 HOST REGRESSION ===
+D3_HOST_C_COMPILER: C:\msys64\ucrt64\bin\gcc.EXE
+D3_LEGACY_SELFTESTS_PRESERVED: PASS (226/226)
+D3_D1_SELFTEST_PRESERVED: PASS (38/38)
+D3_D2_SELFTEST_PRESERVED: PASS (53/53)
+PHASE4_D3_HOST_SELFTEST: PASS (47/47)
+NOTE: Host-only development evidence. ESP-IDF/Wokwi/bench/SIM/SUP/physical verification is not implied.
+
+=== PHASE 4 D4 HOST REGRESSION ===
+D4_HOST_C_COMPILER: C:\msys64\ucrt64\bin\gcc.EXE
+D4_LEGACY_SELFTESTS_PRESERVED: PASS (226/226)
+D4_D1_SELFTEST_PRESERVED: PASS (38/38)
+D4_D2_SELFTEST_PRESERVED: PASS (53/53)
+D4_D3_SELFTEST_PRESERVED: PASS (47/47)
+PHASE4_D4_HOST_SELFTEST: PASS (67/67)
+NOTE: Host-only development evidence. ESP-IDF/Wokwi/bench/SIM/SUP/physical verification is not implied.
+
+=== PHASE 4 D5 HOST REGRESSION ===
+D5_HOST_C_COMPILER: C:\msys64\ucrt64\bin\gcc.EXE
+D5_LEGACY_SELFTESTS_PRESERVED: PASS (226/226)
+D5_D1_SELFTEST_PRESERVED: PASS (38/38)
+D5_D2_SELFTEST_PRESERVED: PASS (53/53)
+D5_D3_SELFTEST_PRESERVED: PASS (47/47)
+D5_D4_SELFTEST_PRESERVED: PASS (67/67)
+PHASE4_D5_HOST_SELFTEST: PASS (54/54)
+NOTE: Host-only development evidence. ESP-IDF/Wokwi/bench/SIM/SUP/physical verification is not implied.
+
+=== PHASE 4 D6 HOST REGRESSION ===
+D6_HOST_C_COMPILER: C:\msys64\ucrt64\bin\gcc.EXE
+D6_LEGACY_SELFTESTS_PRESERVED: PASS (226/226)
+D6_D1_SELFTEST_PRESERVED: PASS (38/38)
+D6_D2_SELFTEST_PRESERVED: PASS (53/53)
+D6_D3_SELFTEST_PRESERVED: PASS (47/47)
+D6_D4_SELFTEST_PRESERVED: PASS (67/67)
+D6_D5_SELFTEST_PRESERVED: PASS (54/54)
+PHASE4_D6_HOST_SELFTEST: PASS (61/61)
+NOTE: Host-only development evidence. ESP-IDF/Wokwi/bench/SIM/SUP/physical verification is not implied.
+
+=== PHASE 4 D7 HOST REGRESSION ===
+D7_HOST_C_COMPILER: C:\msys64\ucrt64\bin\gcc.EXE
+D7_LEGACY_SELFTESTS_PRESERVED: PASS (226/226)
+D7_D1_SELFTEST_PRESERVED: PASS (38/38)
+D7_D2_SELFTEST_PRESERVED: PASS (53/53)
+D7_D3_SELFTEST_PRESERVED: PASS (47/47)
+D7_D4_SELFTEST_PRESERVED: PASS (67/67)
+D7_D5_SELFTEST_PRESERVED: PASS (54/54)
+D7_D6_SELFTEST_PRESERVED: PASS (61/61)
+PHASE4_D7_HOST_SELFTEST: PASS (61/61)
+NOTE: Host-only development evidence. ESP-IDF/Wokwi/bench/SIM/SUP/physical verification is not implied.
+
+=== COMMITTED D7 CUMULATIVE WOKWI EVIDENCE RECHECK ===
+D7_WOKWI_LOG_PARSER_SELFTEST: PASS (12/12)
+D7_WOKWI_LEGACY_SELFTESTS: PASS (226/226)
+D7_WOKWI_D1_SELFTEST: PASS (38/38)
+D7_WOKWI_D2_SELFTEST: PASS (53/53)
+D7_WOKWI_D3_SELFTEST: PASS (47/47)
+D7_WOKWI_D4_SELFTEST: PASS (67/67)
+D7_WOKWI_D5_SELFTEST: PASS (54/54)
+D7_WOKWI_D6_SELFTEST: PASS (61/61)
+D7_WOKWI_PROVIDER_SELFTEST: PASS (61/61)
+D7_WOKWI_TIMED_DEMO: PASS (6/6)
+D7_WOKWI_STACK_WATERMARK_RAW_BEFORE: 1952
+D7_WOKWI_STACK_WATERMARK_RAW_AFTER: 1952
+D7_WOKWI_LOG_CHECK: PASS
+NOTE: Log-level development evidence only; bench hardware, calibration, formal SIM/SUP, physical integration and production readiness are not implied.
+
+=== LIVING TRACEABILITY CHECK ===
+BASELINE_SHA256: PASS (2/2)
+LIVING_TRACEABILITY: PASS (38/38 mapped, 34 unique planned cases)
+ASSESSMENTS: {'PARTIAL': 7, 'VERIFIED': 0, 'IMPLEMENTED_UNVERIFIED': 0, 'NOT_STARTED': 31}
+FORMAL_SIM_SUP_VERIFICATION: NOT_RUN (not a formal execution gate)
+
+=== ESP32 BUILD CONFIG AUDIT ===
+ESP32_CANDIDATE_TARGET: esp32dev, Espressif32 7.1.3, ESP-IDF
+WOKWI_ARTIFACT_CONTRACT: PASS (merged BIN and ELF named)
+LOCAL_IGNORED_SDKCONFIG_FLASH: 2MB
+LOCAL_IGNORED_PARTITION_TABLE: partitions_singleapp.csv
+LOCAL_SIM_MERGED_ARTIFACT_BYTES: 261888
+HARDWARE_FLASH_CAPACITY: TBD; no physical flash verification
+BUILD_CONFIG_AUDIT: PASS (static baseline only; board flash and simulator image not reconciled as hardware)
+
+=== SECURITY AUDIT UNIT TESTS ===
+----------------------------------------------------------------------
+Ran 4 tests in 0.918s
+
+OK
+
+=== SECURITY AUDIT ===
+=== PHASE 2.7B.5K.5 - PUBLIC SECURITY AUDIT ===
+Git index entries: 148
+Untracked candidates: 2
+Total candidates: 150
+
+Potential security findings: 0
+Manual review warnings: 0
+
+
+PASS: No prohibited files detected
+PASS: No obvious secrets detected
+PASS: Git index and working content checked
+RESULT: AUTOMATED SECURITY SCREEN PASSED
+
+NOTE: This scan is not a confidentiality guarantee
+NOTE: Unsupported binary files are blocked
+NOTE: Manual semantic review is still mandatory
+NOTE: No files were modified
+NOTE: Passing does not authorize publication
+=== PHASE 2.7B.5K.5 COMPLETE ===
+
+=== DIFF WHITESPACE CHECK ===
+
+=== CLEAN-COMMIT PLATFORMIO ESP-IDF BUILD ===
+Processing esp32dev_espidf (platform: espressif32@7.1.3; board: esp32dev; framework: espidf)
+--------------------------------------------------------------------------------
+Verbose mode can be enabled via `-v, --verbose` option
+CONFIGURATION: https://docs.platformio.org/page/boards/espressif32/esp32dev.html
+PLATFORM: Espressif 32 (7.1.3) > Espressif ESP32 Dev Module
+HARDWARE: ESP32 240MHz, 320KB RAM, 4MB Flash
+DEBUG: Current (cmsis-dap) External (cmsis-dap, esp-bridge, esp-prog, iot-bus-jtag, jlink, minimodule, olimex-arm-usb-ocd, olimex-arm-usb-ocd-h, olimex-arm-usb-tiny-h, olimex-jtag-tiny, tumpa)
+PACKAGES: 
+ - framework-espidf @ 4.60100.0 (6.1.0) 
+ - tool-cmake @ 3.30.2 
+ - tool-esp-rom-elfs @ 0.0.1+20241011 
+ - tool-esptoolpy @ 2.41100.260830 (4.11.0) 
+ - tool-idf @ 1.0.1 
+ - tool-mconf @ 1.4060000.20190628 (406.0.0) 
+ - tool-ninja @ 1.9.0 
+ - tool-riscv32-esp-elf-gdb @ 11.2.0+20220823 
+ - tool-xtensa-esp-elf-gdb @ 11.2.0+20230208 
+ - toolchain-esp32ulp @ 1.23800.240113 (2.38.0) 
+ - toolchain-xtensa-esp-elf @ 15.2.0+20251204
+Reading CMake configuration...
+Warning! Flash memory size mismatch detected. Expected 4MB, found 2MB!
+Please select a proper value in your `sdkconfig.defaults` or via the `menuconfig` target!
+LDF: Library Dependency Finder -> https://bit.ly/configure-pio-ldf
+LDF Modes: Finder ~ chain, Compatibility ~ soft
+Found 0 compatible libraries
+Scanning dependencies...
+No dependencies
+Building in release mode
+Retrieving maximum program size .pio\build\esp32dev_espidf\firmware.elf
+Checking size .pio\build\esp32dev_espidf\firmware.elf
+Advanced Memory Usage is available via "PlatformIO Home > Project Inspect"
+RAM:   [=         ]   6.5% (used 21276 bytes from 327680 bytes)
+Flash: [==        ]  18.7% (used 195917 bytes from 1048576 bytes)
+========================= [SUCCESS] Took 3.95 seconds =========================
+
+=== WOKWI MERGED IMAGE ===
+Using tool-esptoolpy@2.41100.260830 package
+esptool.py v4.11.0
+Flash params set to 0x0210
+SHA digest in image updated
+Wrote 0x3ff00 bytes to file firmware/.pio/build/esp32dev_espidf/firmware.merged.bin, ready to flash to offset 0x0
+
+=== CLOSURE BUILD ARTIFACT HASHES ===
+b1618614c77a1d1a783c9b57fabd6b0c853fa7da56ed9426db70874c8af3cb9b *firmware/.pio/build/esp32dev_espidf/firmware.elf
+81aa1c0ea3093e8aed76afbf5aa3e269fe91446f98e8d2d9b113e772b129c443 *firmware/.pio/build/esp32dev_espidf/firmware.bin
+fd76a84b5686e0afc3d5f128dabbdf2d949d193f1294202f09bbdc2ce732a403 *firmware/.pio/build/esp32dev_espidf/bootloader.bin
+7f00b6c042a89b15b0cac534f82ed988caf29278ff5700b0c511eb1b5bb7c820 *firmware/.pio/build/esp32dev_espidf/partitions.bin
+9cbd9659b38b502999b468537ffa045665ad34c3cdcd6a85747a270ee5441d0f *firmware/.pio/build/esp32dev_espidf/firmware.merged.bin
+261888 firmware/.pio/build/esp32dev_espidf/firmware.merged.bin
+
+=== WOKWI ARTIFACT PATH CHECK ===
+WOKWI_ARTIFACTS_READY: PASS
+
+=== FINAL LOCKED SHA RECHECK ===
+a60167d9f2a1f852a091048447f6f4acf8d2cbfd6d11f04c2a6e2f6896f5b92b *requirements/system-requirements.md
+bc1fc7ce697fc6180cab760320de2a1bd814f9bc78731d4a22fdae838c303fe3 *requirements/traceability-matrix.csv
+
+=== FINAL GIT STATUS ===
+?? firmware/.gitignore
+?? firmware/.vscode/extensions.json
+
+PHASE4_CLOSURE_PRE_WOKWI: PASS_FOR_COMMITTED_PROVIDER_GATE_ONLY
+
+NEXT MANUAL GATE:
+1. VS Code -> Wokwi: Start Simulator.
+2. Capture FULL UART from this fresh clean-commit build.
+3. The boot should report App version f25936a (not -dirty).
+4. Do not commit/push anything yet.
+
+This result does not imply physical bench execution, calibration, formal SIM/SUP,
+physical integration, electrical-safety approval, or production readiness.

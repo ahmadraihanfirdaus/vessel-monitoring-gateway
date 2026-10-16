@@ -1,0 +1,5 @@
+62b22d818b050db66f93eb5d5491d1016a57cfbb795ac600b1d6c73804f7dfcb *docs/testing/phase4-closure.md
+a94e1d45bafd82e0be94d5aee4cd18b02ac91cebd45ad891b3999088f67b45cb *evidence/logs/phase4-closure-wokwi-serial-20261016.txt
+ceb470a414f007a1002755d6db468745045d08c471a9c8854a4e016669790f4a *evidence/test-results/phase4-closure-pre-wokwi-20261016.txt
+4deba82d638fc63a8ed82a221f22cdcde472a409c2f88540a5c2eab90861ee58 *evidence/test-results/phase4-closure-wokwi-verifier-20261016.txt
+467d17be2bbbd5741e3e9d000d7fff89d136c339da4520f1c743166b47e58fb5 *evidence/test-results/phase4-closure-summary-20261016.md
