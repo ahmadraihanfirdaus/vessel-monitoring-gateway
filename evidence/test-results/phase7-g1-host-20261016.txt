@@ -1,0 +1,4 @@
+G1_HOST_C_COMPILER: C:\msys64\ucrt64\bin\gcc.EXE
+G1_PHASE6_REGRESSION: PASS
+PHASE7_G1_HOST_SELFTEST: PASS (64/64)
+NOTE: Development host evidence only. Formal SIM-008/SIM-009, SUP-007, physical GNSS/NMEA bench verification and production readiness are not implied.
