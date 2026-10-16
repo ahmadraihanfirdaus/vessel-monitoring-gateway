@@ -1,0 +1,4 @@
+ddd0561a71117401b800eb313ef20183efd98585df9c59cfbd4c36ddd022b7b5 *docs/testing/phase7-closure.md
+407cf96c05e9d279df09cb32ec4e842276bbaca9da971946f95df92187377635 *evidence/test-results/phase7-closure-audit-20261016.txt
+f6c0d6e0b5085978b1114fc0e02548dedeeb477fbfcabdf23cedd936464bf194 *evidence/test-results/phase7-closure-decision-20261016.txt
+e2009eef0d2a62790f4d8a40eaafd5e5833133a928bc09749e5371815779062f *evidence/test-results/phase7-closure-summary-20261016.md

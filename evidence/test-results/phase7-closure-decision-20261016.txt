@@ -1,0 +1,12 @@
+phase=7
+baseline_head=6df208a
+roadmap_gate=NMEA_NAVIGATION
+roadmap_exit_SIM_008=PASS
+roadmap_exit_SIM_009=PASS
+SUP_007=NOT_RUN
+physical_gnss_nmea_bench=NOT_RUN
+living_requirement_status_ledger=UNCHANGED
+total_system_status=PARTIAL
+production_readiness=NOT_CLAIMED
+decision=CLOSE_PHASE7_NMEA_NAVIGATION_ROADMAP_GATE
+PHASE7_CLOSURE_DECISION: PASS

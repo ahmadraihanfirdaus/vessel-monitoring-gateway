@@ -1,0 +1,150 @@
+========== 00 / BASELINE ==========
+BRANCH: develop
+HEAD: 6df208a (HEAD -> develop) test(phase7): add G2 formal SIM-008 and SIM-009 evidence
+STATUS:
+?? firmware/.gitignore
+?? firmware/.vscode/extensions.json
+LOCKED SHA:
+a60167d9f2a1f852a091048447f6f4acf8d2cbfd6d11f04c2a6e2f6896f5b92b *requirements/system-requirements.md
+bc1fc7ce697fc6180cab760320de2a1bd814f9bc78731d4a22fdae838c303fe3 *requirements/traceability-matrix.csv
+
+========== 01 / PHASE 7 COMMITS ==========
+6df208a (HEAD -> develop) test(phase7): add G2 formal SIM-008 and SIM-009 evidence
+a7ffc9d feat(phase7): add G1 NMEA navigation development gate
+129e443 docs(verification): close phase 6 four-engine roadmap gate
+b60aff7 test(phase6): add F2 formal SIM-007 evidence
+cc7606c feat(phase6): add F1 four-engine model development gate
+a008e39 docs(verification): close phase 5 safety policy roadmap gate
+f0cc36b test(phase5): add E4 formal SIM-001 to SIM-006 evidence
+d04a014 feat(phase5): add E3 bilge temperature safety development gate
+
+========== 02 / ROADMAP EXIT CRITERION ==========
+107:| 7 | NMEA Navigation | Implement development sentence generation/parsing, data-age handling, and checksum validation. | SIM-008 and SIM-009 pass with evidence. |
+
+========== 03 / G1 DEVELOPMENT EVIDENCE ==========
+PRESENT docs/testing/phase7-g1-plan.md
+PRESENT evidence/test-results/phase7-g1-summary-20261016.md
+PRESENT evidence/test-results/phase7-g1-build-audit-20261016.txt
+PRESENT evidence/test-results/phase7-g1-wokwi-verifier-20261016.txt
+docs/testing/phase7-g1-plan.md:3:**Status:** BATCH COMPLETE — development host/Wokwi gate PASS; formal SIM-008/SIM-009 NOT_RUN
+docs/testing/phase7-g1-plan.md:43:scenario gates PASS.
+docs/testing/phase7-g1-plan.md:45:- SIM-008 remains NOT_RUN until a later dedicated scenario-evidence gate proves
+docs/testing/phase7-g1-plan.md:47:- SIM-009 remains NOT_RUN until a later dedicated scenario-evidence gate proves
+docs/testing/phase7-g1-plan.md:49:- NAV-002 maps to SUP-007; SUP-007 remains NOT_RUN.
+evidence/test-results/phase7-g1-summary-20261016.md:3:**PASS — development host/Wokwi gate only.**
+evidence/test-results/phase7-g1-summary-20261016.md:14:- Host G1 self-test: 64/64 PASS.
+evidence/test-results/phase7-g1-summary-20261016.md:15:- Wokwi G1 target self-test: 64/64 PASS.
+evidence/test-results/phase7-g1-summary-20261016.md:16:- Timed runtime regression: 6/6 PASS.
+evidence/test-results/phase7-g1-summary-20261016.md:23:- Formal SIM-008 remains NOT_RUN.
+evidence/test-results/phase7-g1-summary-20261016.md:24:- Formal SIM-009 remains NOT_RUN.
+evidence/test-results/phase7-g1-summary-20261016.md:25:- SUP-007 remains NOT_RUN.
+evidence/test-results/phase7-g1-build-audit-20261016.txt:5:host_selftest=PASS_64_OF_64
+evidence/test-results/phase7-g1-build-audit-20261016.txt:6:wokwi_selftest=PASS_64_OF_64
+evidence/test-results/phase7-g1-build-audit-20261016.txt:7:timed_demo=PASS_6_OF_6
+evidence/test-results/phase7-g1-build-audit-20261016.txt:10:formal_SIM_008=NOT_RUN
+evidence/test-results/phase7-g1-build-audit-20261016.txt:11:formal_SIM_009=NOT_RUN
+evidence/test-results/phase7-g1-build-audit-20261016.txt:12:SUP_007=NOT_RUN
+evidence/test-results/phase7-g1-build-audit-20261016.txt:21:physical_gnss_nmea_bench=NOT_RUN
+evidence/test-results/phase7-g1-build-audit-20261016.txt:23:PHASE7_G1_BUILD_AUDIT: PASS
+evidence/test-results/phase7-g1-wokwi-verifier-20261016.txt:1:G1_WOKWI_LOG_PARSER_SELFTEST: PASS (19/19)
+evidence/test-results/phase7-g1-wokwi-verifier-20261016.txt:2:G1_WOKWI_PHASE6_REGRESSION: PASS
+evidence/test-results/phase7-g1-wokwi-verifier-20261016.txt:3:G1_WOKWI_NAVIGATION_SELFTEST: PASS (64/64)
+evidence/test-results/phase7-g1-wokwi-verifier-20261016.txt:4:G1_WOKWI_TIMED_DEMO: PASS (6/6)
+evidence/test-results/phase7-g1-wokwi-verifier-20261016.txt:7:G1_WOKWI_LOG_CHECK: PASS
+evidence/test-results/phase7-g1-wokwi-verifier-20261016.txt:8:NOTE: Target-side development evidence only. Formal SIM-008/SIM-009 and SUP-007 remain NOT_RUN.
+
+========== 04 / G2 FORMAL EVIDENCE ==========
+PRESENT docs/testing/phase7-g2-plan.md
+PRESENT evidence/test-results/phase7-g2-summary-20261016.md
+PRESENT evidence/test-results/phase7-g2-build-audit-20261016.txt
+PRESENT evidence/test-results/phase7-g2-wokwi-verifier-20261016.txt
+docs/testing/phase7-g2-plan.md:1:# Phase 7 G2 — Formal SIM-008 / SIM-009 Scenario Evidence
+docs/testing/phase7-g2-plan.md:3:**Status:** BATCH COMPLETE — dedicated formal host/Wokwi SIM-008/SIM-009 gate PASS
+docs/testing/phase7-g2-plan.md:10:- SIM-008 — NMEA checksum error / malformed-invalid sentence injection;
+docs/testing/phase7-g2-plan.md:11:- SIM-009 — navigation stream loss and data-age transition.
+docs/testing/phase7-g2-plan.md:16:## SIM-008
+docs/testing/phase7-g2-plan.md:20:`SIM-008 | NMEA checksum error | Malformed/invalid sentence injected | Rejected input; last valid state not refreshed.`
+docs/testing/phase7-g2-plan.md:32:## SIM-009
+docs/testing/phase7-g2-plan.md:36:`SIM-009 | Navigation stream loss | Stop NMEA input | VALID -> STALE -> OFFLINE.`
+docs/testing/phase7-g2-plan.md:54:- NAV-001 maps to SIM-008.
+docs/testing/phase7-g2-plan.md:55:- NAV-003 maps to SIM-008.
+docs/testing/phase7-g2-plan.md:56:- NAV-004 maps to SIM-009.
+docs/testing/phase7-g2-plan.md:57:- NAV-002 maps to SUP-007 and is not closed by this G2 formal scenario gate.
+docs/testing/phase7-g2-plan.md:62:Formal SIM-008/SIM-009 may be marked PASS only after fresh target/Wokwi
+evidence/test-results/phase7-g2-summary-20261016.md:3:**PASS — formal software-simulation evidence for SIM-008 and SIM-009.**
+evidence/test-results/phase7-g2-summary-20261016.md:7:- SIM-008: 1/1 PASS.
+evidence/test-results/phase7-g2-summary-20261016.md:14:- SIM-009: 1/1 PASS.
+evidence/test-results/phase7-g2-summary-20261016.md:21:- Combined Phase 7 formal target scenarios: 2/2 PASS.
+evidence/test-results/phase7-g2-summary-20261016.md:22:- Timed runtime regression: 6/6 PASS.
+evidence/test-results/phase7-g2-summary-20261016.md:27:This evidence supports formal software-simulation **SIM-008 PASS** and
+evidence/test-results/phase7-g2-summary-20261016.md:28:**SIM-009 PASS**, which are the Phase 7 roadmap exit scenarios.
+evidence/test-results/phase7-g2-summary-20261016.md:32:- NAV-002 maps to SUP-007; SUP-007 remains NOT_RUN.
+evidence/test-results/phase7-g2-summary-20261016.md:37:- Physical GNSS/NMEA bench verification remains NOT_RUN.
+evidence/test-results/phase7-g2-build-audit-20261016.txt:5:host_formal_scenarios=PASS_2_OF_2
+evidence/test-results/phase7-g2-build-audit-20261016.txt:6:wokwi_formal_SIM_008=PASS_1_OF_1
+evidence/test-results/phase7-g2-build-audit-20261016.txt:7:wokwi_formal_SIM_009=PASS_1_OF_1
+evidence/test-results/phase7-g2-build-audit-20261016.txt:8:wokwi_formal_phase7_scenarios=PASS_2_OF_2
+evidence/test-results/phase7-g2-build-audit-20261016.txt:9:timed_demo=PASS_6_OF_6
+evidence/test-results/phase7-g2-build-audit-20261016.txt:12:formal_SIM_008=PASS
+evidence/test-results/phase7-g2-build-audit-20261016.txt:13:formal_SIM_009=PASS
+evidence/test-results/phase7-g2-build-audit-20261016.txt:14:SUP_007=NOT_RUN
+evidence/test-results/phase7-g2-build-audit-20261016.txt:23:physical_gnss_nmea_bench=NOT_RUN
+evidence/test-results/phase7-g2-build-audit-20261016.txt:25:PHASE7_G2_BUILD_AUDIT: PASS
+evidence/test-results/phase7-g2-wokwi-verifier-20261016.txt:1:G2_WOKWI_LOG_PARSER_SELFTEST: PASS (22/22)
+evidence/test-results/phase7-g2-wokwi-verifier-20261016.txt:2:G2_WOKWI_G1_REGRESSION: PASS
+evidence/test-results/phase7-g2-wokwi-verifier-20261016.txt:3:G2_WOKWI_FORMAL_SIM008: PASS (1/1)
+evidence/test-results/phase7-g2-wokwi-verifier-20261016.txt:4:G2_WOKWI_FORMAL_SIM009: PASS (1/1)
+evidence/test-results/phase7-g2-wokwi-verifier-20261016.txt:5:G2_WOKWI_FORMAL_PHASE7_SCENARIOS: PASS (2/2)
+evidence/test-results/phase7-g2-wokwi-verifier-20261016.txt:6:G2_WOKWI_TIMED_DEMO: PASS (6/6)
+evidence/test-results/phase7-g2-wokwi-verifier-20261016.txt:9:G2_WOKWI_LOG_CHECK: PASS
+evidence/test-results/phase7-g2-wokwi-verifier-20261016.txt:10:NOTE: Formal software-simulation evidence for SIM-008/SIM-009 only. SUP-007 and physical GNSS/NMEA bench verification remain NOT_RUN.
+
+========== 05 / FORMAL SCENARIO DEFINITIONS ==========
+36:| SIM-008 | NMEA checksum error | Malformed/invalid sentence injected | Rejected input; last valid state not refreshed. |
+37:| SIM-009 | Navigation stream loss | Stop NMEA input | VALID -> STALE -> OFFLINE. |
+71:SIM-008 and SIM-009 use NMEA 0183-style development sentences.
+
+========== 06 / NAV REQUIREMENTS / TRACEABILITY ==========
+20:- **NAV-001** [Mandatory] Navigation module shall parse/generate NMEA 0183-style development data using Furuno GP-39 as reference, without claiming GP-39 is installed onboard.
+21:- **NAV-002** [Mandatory] Navigation state shall expose latitude, longitude, SOG, COG, fix, data age and quality.
+22:- **NAV-003** [Mandatory] Invalid checksum/malformed input shall not replace last valid navigation state as current live data.
+23:- **NAV-004** [Mandatory] Navigation shall transition VALID -> STALE -> OFFLINE according to configurable data-age thresholds.
+19:NAV-001,Mandatory,"Navigation module shall parse/generate NMEA 0183-style development data using Furuno GP-39 as reference, without claiming GP-39 is installed onboard.",NAV,,SIM-008,,,NOT_IMPLEMENTED,NOT_RUN
+20:NAV-002,Mandatory,"Navigation state shall expose latitude, longitude, SOG, COG, fix, data age and quality.",NAV,,SUP-007,,,NOT_IMPLEMENTED,NOT_RUN
+21:NAV-003,Mandatory,Invalid checksum/malformed input shall not replace last valid navigation state as current live data.,NAV,,SIM-008,,,NOT_IMPLEMENTED,NOT_RUN
+22:NAV-004,Mandatory,Navigation shall transition VALID -> STALE -> OFFLINE according to configurable data-age thresholds.,NAV,,SIM-009,,,NOT_IMPLEMENTED,NOT_RUN
+
+========== 07 / SEMANTIC / SUPPLEMENTAL BOUNDARY ==========
+docs/testing/traceability-semantic-review.md:47:| SIM-008 | PARTIAL | Verify invalid input rejection and navigation data age; separately test generator/reference constraints |
+docs/testing/traceability-semantic-review.md:48:| SIM-009 | DIRECT | Verify configurable VALID to STALE to OFFLINE thresholds |
+docs/testing/traceability-semantic-review.md:80:| SUP-007 | NAV-002 | Navigation state fields and data quality |
+docs/testing/supplemental-verification-plan.csv:8:SUP-007,NAV-002,unit,"Validate latitude, longitude, SOG, COG, fix, age and quality",Navigation state exposes all required properties,PLANNED,
+
+========== 08 / LIVING STATUS (READ ONLY) ==========
+19:NAV-001,SIM-008,NOT_STARTED,NOT_RUN,,,No complete implementation evidence for this requirement; mapped SIM/SUP planned only.
+20:NAV-002,SUP-007,NOT_STARTED,NOT_RUN,,,No complete implementation evidence for this requirement; mapped SIM/SUP planned only.
+21:NAV-003,SIM-008,NOT_STARTED,NOT_RUN,,,No complete implementation evidence for this requirement; mapped SIM/SUP planned only.
+22:NAV-004,SIM-009,NOT_STARTED,NOT_RUN,,,No complete implementation evidence for this requirement; mapped SIM/SUP planned only.
+
+========== 09 / CLOSURE DECISION CHECK ==========
+ROADMAP_EXIT_SIM_008: PASS
+ROADMAP_EXIT_SIM_009: PASS
+SUP_007: NOT_RUN
+PHYSICAL_GNSS_NMEA_BENCH: NOT_RUN
+TOTAL_SYSTEM_STATUS: PARTIAL
+PRODUCTION_READINESS: NOT_CLAIMED
+
+========== 10 / CLOSURE SCOPE GUARD ==========
+Phase 7 roadmap gate may close because its explicit exit criterion is SIM-008 and SIM-009 PASS with evidence.
+NAV-002 / SUP-007 remains a separate outstanding supplemental verification item.
+Do not rewrite LOCKED requirements or traceability.
+Do not change living requirement-status ledger during closure unless a dedicated ledger audit is explicitly approved.
+Do not claim full NMEA 0183 conformance, installed Furuno GP-39, physical GNSS/NMEA bench completion, vessel-approved thresholds, calibration, certification, field validation or production readiness.
+Preserve SYS-004 no-control boundary.
+System overall remains PARTIAL.
+
+========== 11 / FINAL STATUS ==========
+?? firmware/.gitignore
+?? firmware/.vscode/extensions.json
+
+PHASE7_CLOSURE_AUDIT: READ_ONLY_COMPLETE
