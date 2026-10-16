@@ -1,0 +1,4 @@
+G2_HOST_C_COMPILER: C:\msys64\ucrt64\bin\gcc.EXE
+G2_G1_REGRESSION: PASS
+PHASE7_G2_HOST_FORMAL_SCENARIOS: PASS (2/2)
+NOTE: Host execution is preparation only. Formal roadmap evidence requires fresh target/Wokwi execution and persisted evidence.
