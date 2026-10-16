@@ -22,6 +22,7 @@
 #include "phase4_d4_selftest.h"
 #include "phase4_d5_selftest.h"
 #include "phase4_d6_selftest.h"
+#include "phase4_d7_selftest.h"
 
 #ifdef ESP_PLATFORM
 #include "esp_timer.h"
@@ -1244,6 +1245,7 @@ void app_main(void)
     run_phase4_d4_temperature_provider_selftest();
     run_phase4_d5_attitude_provider_selftest();
     run_phase4_d6_vibration_provider_selftest();
+    run_phase4_d7_power_provider_selftest();
 #ifdef ESP_PLATFORM
     /* Diagnostic-only watermark; units are ESP-IDF FreeRTOS implementation
      * specific. No safety acceptance threshold is established. */
