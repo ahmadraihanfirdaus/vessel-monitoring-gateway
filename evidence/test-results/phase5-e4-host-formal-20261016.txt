@@ -1,0 +1,14 @@
+E4_HOST_C_COMPILER: C:\msys64\ucrt64\bin\gcc.EXE
+E4_LEGACY_SELFTESTS_PRESERVED: PASS (226/226)
+E4_D1_DOOR_PRESERVED: PASS (38/38)
+E4_D2_FUEL_VAPOR_PRESERVED: PASS (53/53)
+E4_D3_BILGE_PRESERVED: PASS (47/47)
+E4_D4_TEMPERATURE_PRESERVED: PASS (67/67)
+E4_D5_ATTITUDE_PRESERVED: PASS (54/54)
+E4_D6_VIBRATION_PRESERVED: PASS (61/61)
+E4_D7_POWER_PRESERVED: PASS (61/61)
+E4_E1_PRESERVED: PASS (51/51)
+E4_E2_PRESERVED: PASS (60/60)
+E4_E3_PRESERVED: PASS (85/85)
+PHASE5_E4_HOST_FORMAL_SCENARIOS: PASS (6/6)
+NOTE: Dedicated formal scenario harness executed on the native host. Phase 5 formal scenario gate is not closed until fresh target/Wokwi execution, log verification, and evidence finalization also pass.
