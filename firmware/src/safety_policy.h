@@ -5,18 +5,16 @@
 #include <stdint.h>
 
 #include "provider_door.h"
+#include "provider_fuel_vapor.h"
 
 /*
- * Phase 5 E1 development-only pre-start safety policy foundation.
+ * Phase 5 development-only pre-start safety policy foundation.
  *
- * Scope in this batch is deliberately narrow: hatch/door pre-start policy
- * evaluation for SIM-001 and SIM-002 preparation. The result is a virtual
- * decision only. No physical starter/ignition output, GPIO, relay, vessel
- * interlock, certified rule, or field-verified operating limit is provided.
- *
- * Rules are explicitly configuration-driven to preserve SAF-003. A rule may
- * be disabled, alert-only, or blocking. "Blocking" here means only that the
- * returned virtual start_permitted flag is false.
+ * E1 introduced hatch/door policy evaluation. E2 extends the same explicit,
+ * configuration-driven contract to the fuel-vapor provider for SIM-003 and
+ * SIM-004 preparation. Results remain virtual decisions only: no starter,
+ * ignition, GPIO, relay, certified vessel rule, calibrated fuel-vapor limit,
+ * or field-verified operating interlock is implemented here.
  */
 
 typedef enum {
@@ -28,11 +26,14 @@ typedef enum {
 typedef enum {
     VG_SAFETY_REASON_NONE = 0,
     VG_SAFETY_REASON_HATCH_CLOSED = 1001,
-    VG_SAFETY_REASON_HATCH_NOT_CURRENT = 1002
+    VG_SAFETY_REASON_HATCH_NOT_CURRENT = 1002,
+    VG_SAFETY_REASON_FUEL_VAPOR_ALARM = 2001,
+    VG_SAFETY_REASON_FUEL_VAPOR_NOT_CURRENT = 2002
 } vg_safety_reason_code_t;
 
 typedef struct {
     vg_policy_rule_mode_t hatch_rule_mode;
+    vg_policy_rule_mode_t fuel_vapor_rule_mode;
 } vg_prestart_policy_config_t;
 
 typedef struct {
@@ -66,13 +67,27 @@ static inline bool vg_prestart_policy_config_is_consistent(
     const vg_prestart_policy_config_t *config)
 {
     return config != NULL &&
-           vg_policy_rule_mode_is_known(config->hatch_rule_mode);
+           vg_policy_rule_mode_is_known(config->hatch_rule_mode) &&
+           vg_policy_rule_mode_is_known(config->fuel_vapor_rule_mode);
 }
 
 static inline bool vg_safety_reason_is_hatch(vg_safety_reason_code_t reason)
 {
     return reason == VG_SAFETY_REASON_HATCH_CLOSED ||
            reason == VG_SAFETY_REASON_HATCH_NOT_CURRENT;
+}
+
+static inline bool vg_safety_reason_is_fuel_vapor(vg_safety_reason_code_t reason)
+{
+    return reason == VG_SAFETY_REASON_FUEL_VAPOR_ALARM ||
+           reason == VG_SAFETY_REASON_FUEL_VAPOR_NOT_CURRENT;
+}
+
+static inline bool vg_safety_reason_is_known_condition(
+    vg_safety_reason_code_t reason)
+{
+    return vg_safety_reason_is_hatch(reason) ||
+           vg_safety_reason_is_fuel_vapor(reason);
 }
 
 static inline bool vg_prestart_decision_is_consistent(
@@ -90,7 +105,7 @@ static inline bool vg_prestart_decision_is_consistent(
                decision->reason_code == VG_SAFETY_REASON_NONE;
     }
 
-    if (!vg_safety_reason_is_hatch(decision->reason_code)) {
+    if (!vg_safety_reason_is_known_condition(decision->reason_code)) {
         return false;
     }
 
@@ -145,6 +160,57 @@ static inline bool vg_prestart_evaluate_hatch(
 
     if (decision.condition_present &&
         config->hatch_rule_mode == VG_POLICY_RULE_BLOCK) {
+        decision.start_permitted = false;
+    }
+
+    if (!vg_prestart_decision_is_consistent(&decision)) {
+        return false;
+    }
+
+    *out = decision;
+    return true;
+}
+
+static inline bool vg_prestart_evaluate_fuel_vapor(
+    const vg_prestart_policy_config_t *config,
+    const vg_fuel_vapor_sample_t *fuel_vapor,
+    vg_prestart_decision_t *out)
+{
+    if (!vg_prestart_policy_config_is_consistent(config) ||
+        fuel_vapor == NULL || out == NULL ||
+        !vg_fuel_vapor_sample_is_consistent(fuel_vapor)) {
+        return false;
+    }
+
+    vg_prestart_decision_t decision = {
+        .evaluated = true,
+        .start_permitted = true,
+        .condition_present = false,
+        .applied_rule_mode = config->fuel_vapor_rule_mode,
+        .reason_code = VG_SAFETY_REASON_NONE,
+        .source_mode = fuel_vapor->meta.source_mode,
+        .input_quality = fuel_vapor->meta.quality
+    };
+
+    if (config->fuel_vapor_rule_mode == VG_POLICY_RULE_DISABLED) {
+        if (!vg_prestart_decision_is_consistent(&decision)) {
+            return false;
+        }
+        *out = decision;
+        return true;
+    }
+
+    /* Any non-current fuel-vapor sample is fail-safe, never NORMAL/safe. */
+    if (!vg_fuel_vapor_sample_is_current(fuel_vapor)) {
+        decision.condition_present = true;
+        decision.reason_code = VG_SAFETY_REASON_FUEL_VAPOR_NOT_CURRENT;
+    } else if (fuel_vapor->state == VG_FUEL_VAPOR_ALARM) {
+        decision.condition_present = true;
+        decision.reason_code = VG_SAFETY_REASON_FUEL_VAPOR_ALARM;
+    }
+
+    if (decision.condition_present &&
+        config->fuel_vapor_rule_mode == VG_POLICY_RULE_BLOCK) {
         decision.start_permitted = false;
     }
 

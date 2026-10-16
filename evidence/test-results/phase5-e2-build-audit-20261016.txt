@@ -1,0 +1,33 @@
+PHASE5_E2_BASELINE_PARENT: e75e592
+PHASE5_E2_WORKTREE_STATE: UNCOMMITTED_CANDIDATE
+LOCKED_SYSTEM_SHA: a60167d9f2a1f852a091048447f6f4acf8d2cbfd6d11f04c2a6e2f6896f5b92b
+LOCKED_TRACEABILITY_SHA: bc1fc7ce697fc6180cab760320de2a1bd814f9bc78731d4a22fdae838c303fe3
+SOURCE_MAIN_SHA: 2a0b06fb0ca57707ada2d6c2f0c4691fa7314e4743ea950ac1cbfd0118cb86f1
+SOURCE_POLICY_SHA: e53dd6c1faa6ba4d9ea7a455a032c19cca37992347785883b7d632c5a240cea6
+SOURCE_SELFTEST_SHA: 2416485b4d504facbed37b338749a623e8453ee3d912daddacada13f2466f0f5
+SOURCE_LOCAL_ALARM_SHA: 39726fb4eaff2acf32f9ac0aa3ec93e6c074ccbb533bf9da7f3b238076a65018
+SOURCE_POLICY_RUNTIME_SHA: 72920406c736a41b30f7f5b148d32b338e980d8779c24dd91ea444e66652767c
+ELF_SHA: 103c4415209b5d7e24a56d8b3da176d88cdfa245c8cc3a1cf7eae9fd41830581
+FIRMWARE_BIN_SHA: 54e4ce18cd189462227c4cc9c142d2c7b1e40fbfe8fd80b29cc015ae6021106c
+BOOTLOADER_SHA: 2d9f526e0fed7484545843aea4f1787cd62516b6d9bd4e832f898b5ff094d688
+PARTITIONS_SHA: 7f00b6c042a89b15b0cac534f82ed988caf29278ff5700b0c511eb1b5bb7c820
+MERGED_SHA: c78d3f7c1a41617cdbcef4ca9aeb8d5b8213f6b7feb73b10ffc611f5662512a2
+MERGED_BYTES: 271616
+WOKWI_STACK_WATERMARK_BEFORE: 496
+WOKWI_STACK_WATERMARK_AFTER: 496
+
+GIT_STATUS:
+ M firmware/src/main.c
+ M firmware/src/safety_policy.h
+?? docs/testing/phase5-e2-plan.md
+?? evidence/logs/phase5-e2-wokwi-serial-20261016.txt
+?? evidence/test-results/phase5-e2-build-audit-20261016.txt
+?? evidence/test-results/phase5-e2-host-20261016.txt
+?? evidence/test-results/phase5-e2-wokwi-verifier-20261016.txt
+?? firmware/.gitignore
+?? firmware/.vscode/extensions.json
+?? firmware/src/phase5_e2_selftest.h
+?? firmware/src/safety_local_alarm.h
+?? firmware/src/safety_policy_runtime.h
+?? scripts/test_phase5_e2_host.py
+?? scripts/verify_phase5_e2_wokwi_log.py

@@ -1,0 +1,12 @@
+E2_HOST_C_COMPILER: C:\msys64\ucrt64\bin\gcc.EXE
+E2_LEGACY_SELFTESTS_PRESERVED: PASS (226/226)
+E2_D1_DOOR_PRESERVED: PASS (38/38)
+E2_D2_FUEL_VAPOR_PRESERVED: PASS (53/53)
+E2_D3_BILGE_PRESERVED: PASS (47/47)
+E2_D4_TEMPERATURE_PRESERVED: PASS (67/67)
+E2_D5_ATTITUDE_PRESERVED: PASS (54/54)
+E2_D6_VIBRATION_PRESERVED: PASS (61/61)
+E2_D7_POWER_PRESERVED: PASS (61/61)
+E2_E1_SAFETY_POLICY_PRESERVED: PASS (51/51)
+PHASE5_E2_HOST_SELFTEST: PASS (60/60)
+NOTE: Host-only development evidence. Formal SIM-003/SIM-004, physical starter control, certified vessel rules, physical local outputs, bench hardware, physical integration and production readiness are not implied.
