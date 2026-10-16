@@ -1,0 +1,3 @@
+280399934a3e842db93559641173a416b6edc8e90444a3b11e45525d89bc3725 *docs/testing/phase5-closure.md
+824b167aaba882080f412900a31b676a83d38ec61fc7ab8115dfb943a4a115ea *evidence/test-results/phase5-closure-audit-20261016.txt
+ec65523c8095441a0b60996397dda967d3a75f48217326cabe2c5d630e5fe342 *evidence/test-results/phase5-closure-summary-20261016.md
