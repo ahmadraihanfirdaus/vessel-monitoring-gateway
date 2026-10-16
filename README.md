@@ -26,7 +26,7 @@ The design emphasizes modular embedded software, sensor quality, fault handling,
 
 **Batch C4 development verified on Wokwi:** finite guard and journal-full/error latching, **226/226** native+Wokwi self-tests and **6/6** simulated timed steps, with matching firmware identity. Main-task high-water mark was 1952 bytes on the passing build versus 256 bytes before the test-only stack allocation fix. It is an observation for this bounded scenario, **not** an approved operational stack margin. Formal SIM/SUP, hardware and continuous monitoring remain NOT_RUN.
 
-**Phase 3 — Firmware Core (PARTIAL; exit criteria NOT MET)**
+**Phase 3 — Firmware Core: CORE-UNIT EXIT GATE COMPLETE (development-only; 2026-10-16).** This milestone covers the five specific firmware-core groups in the roadmap and their recorded C4 unit/simulation evidence. It does **not** mean full firmware feature completion, formal requirement verification, physical readiness, or a production stack margin. Phase 4 remains **NOT_STARTED**; the overall monitoring system remains **PARTIAL**. See [Phase 3 closure report](docs/testing/phase3-closure-report-20261016.md) and its explicit limitations.
 
 This repository is under active development. The capabilities described below represent engineering requirements and planned functionality unless explicitly identified as implemented and verified.
 
@@ -38,7 +38,7 @@ Current development status:
 | Planned verification cases | 34 |
 | Requirement-to-test mapping | 38/38 planned |
 | Semantic verification coverage | PARTIAL |
-| Firmware implementation | PARTIAL: eleven firmware self-test suites and bounded ESP32 simulated timed demo; no continuous operational acquisition loop |
+| Firmware implementation | PHASE_3_CORE_UNIT_GATE_COMPLETE; overall firmware PARTIAL: eleven development self-test suites and bounded ESP32 synthetic demo; no continuous operational acquisition loop |
 | Wokwi firmware simulation | 226/226 development-only self-tests and finite timed demo 6/6 recorded; formal SIM/SUP NOT_RUN |
 | Backend implementation | NOT_IMPLEMENTED |
 | Formal SIM/SUP and end-to-end system verification | NOT_RUN |

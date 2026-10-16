@@ -4,7 +4,7 @@
 
 **Engineering Baseline:** Internal Engineering Blueprint v1.0
 
-**Review Date:** 2026-10-10
+**Review Date:** 2026-10-16 (phase-unit milestone editorial update; locked matrix unchanged)
 
 **Matrix Version:** Working v2 — Public Editorial Edition
 
@@ -12,7 +12,7 @@
 
 **Semantic Coverage:** PARTIAL
 
-**Implementation Status:** PARTIAL_FIRMWARE_CORE (locked matrix is an initial snapshot)
+**Implementation Status:** PHASE3_CORE_UNIT_GATE_COMPLETE / OVERALL_SYSTEM_PARTIAL (locked matrix is an initial snapshot)
 
 **Verification Status:** NOT_RUN for formal SIM/SUP verification; low-level self-tests recorded separately
 
@@ -51,7 +51,7 @@ This establishes structural traceability coverage. It does not demonstrate compl
 
 | Component | Current Status |
 |---|---|
-| Firmware implementation | PARTIAL: self-tested core plus C4 fail-stop finite-runtime guard and Wokwi evidence; no continuous operational loop, persistence or formal SIM/SUP |
+| Firmware implementation | Phase 3 CORE-UNIT EXIT COMPLETE (development-only); total firmware PARTIAL: no continuous operational loop, persistence or formal SIM/SUP |
 | Simulator implementation | PARTIAL: Wokwi firmware test scaffold only; no formal SIM-001..SIM-015 implementation |
 | Laravel backend | NOT_IMPLEMENTED |
 | Monitoring dashboard | NOT_IMPLEMENTED |
@@ -168,7 +168,7 @@ The controlled internal engineering baseline is not included in the public repos
 
 **Semantic Coverage:** PARTIAL
 
-**Implementation:** PARTIAL_FIRMWARE_CORE (matrix itself remains unchanged)
+**Implementation:** Phase 3 CORE-UNIT EXIT COMPLETE; complete system still PARTIAL (matrix itself remains unchanged)
 
 **Verification:** NOT_RUN for formal SIM/SUP; firmware self-tests are recorded separately
 
@@ -176,4 +176,4 @@ The controlled internal engineering baseline is not included in the public repos
 
 **Physical Integration:** NOT_AUTHORIZED
 
-The current documentation supports continued engineering development planning. It does not authorize operational installation, physical integration, or claims of completed system verification.
+The 2026-10-16 [Phase 3 core-unit closeout](phase3-closure-report-20261016.md) satisfies the **roadmap core-unit milestone only**. The living register remains 7 PARTIAL, 31 NOT_STARTED, 0 VERIFIED and 34 planned formal tests remain NOT_RUN. This documentation does not authorize operational installation, physical integration, or claims of completed system verification.

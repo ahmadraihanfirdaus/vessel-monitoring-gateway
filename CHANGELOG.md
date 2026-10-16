@@ -2,6 +2,12 @@
 
 This log distinguishes planning/documentation work from verified software behavior. Dates are local engineering record dates, not deployment dates.
 
+## 2026-10-16 — Phase 3 core-unit gate closeout (development milestone)
+
+- Reviewed the operator's `develop@ec32315` read-only gate bundle: 19/19 automated checks PASS, 226/226 C4 self-tests PASS on native GCC and Wokwi, six ESP-IDF simulator steps PASS, and 1952-byte main-task minimum stack remaining observed on this finite scenario.
+- Reconciled outdated non-LOCKED roadmap/README/traceability wording with B1–C4 implementation evidence; preserved the two LOCKED engineering inputs and the 38-row living requirement statuses.
+- Scope **only**: roadmap Phase 3 firmware-core unit exit criterion. Formal SIM/SUP, physical hardware, calibration, operational acquisition, persistent journal, network/backend/dashboard, publication approval and production readiness remain NOT_RUN / incomplete. The C4 simulator was built from a precommit dirty worktree; source-file hashes in `ec32315` and the recorded ELF/UART identities are corroborated, but a source-to-binary reproducible build has not been proven. Local operator acknowledgement is captured in the Phase 3 acceptance evidence.
+
 ## 2026-10-13 — Batch C4 (finite runtime guard; development Wokwi verified)
 
 - Add a simulation-only, fail-stop supervisory guard for the existing finite six-sample runtime. Explicitly latch `JOURNAL_FULL` and unexpected runtime errors; never auto-retry, drop event evidence, acknowledge alarms or silently advance the scripted cursor.

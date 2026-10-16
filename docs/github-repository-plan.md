@@ -4,9 +4,9 @@
 
 **Document Status:** Engineering Development Roadmap
 
-**Current Phase:** Phase 3 — Firmware Core (PARTIAL; exit criteria pending)
+**Current Phase:** Phase 3 core-unit exit gate COMPLETE (2026-10-16); Phase 4 NOT_STARTED
 
-**Implementation Status:** PARTIAL_FIRMWARE_CORE
+**Implementation Status:** PHASE3_CORE_UNIT_GATE_COMPLETE / OVERALL_SYSTEM_PARTIAL
 
 **System Verification Status:** NOT_RUN (49/49 low-level Wokwi firmware self-tests recorded separately)
 
@@ -115,7 +115,7 @@ Each phase has defined work and exit criteria. Advancement requires review of th
 
 ## 5. Current Development Status
 
-The project is currently working within Phase 3, but **Phase 3 exit criteria are not met**. Requirements and documentation foundations exist; only low-level data quality, source mode, measurement, and range predicates have been implemented and self-tested. Alarm model, scheduler, diagnostics, and bounded event journal remain to be built. Earlier phase approval/evidence still requires independent review.
+**Phase 3's roadmap-defined core-unit exit criterion is complete for the development-only scope.** Data-quality predicates, source mode, measurements, configurable ranges, alarm lifecycle, scheduler arithmetic, diagnostics, bounded volatile event journal, transactional simulated core flow, finite timed simulator driver, and C4 fail-stop guard have code and recorded tests. The 2026-10-16 independent artifact audit returned 19/19 automated checks PASS against `develop@ec32315`, and the latest native/Wokwi evidence records 226/226 development self-tests plus a separate 6/6 synthetic timed demonstration. See [Phase 3 closure report](testing/phase3-closure-report-20261016.md). This closes **only** the named core-unit milestone, not firmware operational readiness or any system requirement. Continuous acquisition, physical sensor providers, persistent storage, approved alarm outputs, calibration, formal SIM/SUP, backend and dashboard remain pending in their applicable future scopes; their requirement-level statuses remain unchanged.
 
 The working traceability matrix contains:
 
@@ -128,7 +128,7 @@ The working traceability matrix contains:
 | Requirements with planned verification mappings | 38/38 |
 | Semantic verification coverage | PARTIAL |
 | Formal SIM/SUP functional test execution | NOT_RUN |
-| Latest firmware low-level Wokwi self-tests | 49/49 PASS (recorded; not full requirement verification) |
+| Latest firmware development-only Wokwi self-tests | 226/226 PASS, plus finite timed demonstration 6/6 PASS (C4; not full requirement verification) |
 | Final verification approval | NOT_APPROVED |
 
 Requirement mapping and structural audits do not demonstrate functional implementation or successful system testing.
@@ -247,11 +247,11 @@ If the required rights or publication authorization cannot be confirmed, the rep
 
 The repository is under preparation for engineering development and public portfolio use.
 
-**Current Phase:** 3 — Firmware Core (PARTIAL; exit criteria pending)
+**Current Phase:** 3 — Firmware Core (core-unit exit gate COMPLETE, 2026-10-16); Phase 4 NOT_STARTED
 
-**Implementation Status:** PARTIAL_FIRMWARE_CORE
+**Implementation Status:** PHASE3_CORE_UNIT_GATE_COMPLETE / OVERALL_SYSTEM_PARTIAL
 
-**Functional Verification Status:** NOT_RUN (formal SIM/SUP; low-level Wokwi checks recorded separately)
+**Functional Verification Status:** Formal SIM/SUP NOT_RUN (core-unit development self-tests recorded; no complete requirement verification)
 
 **Public Publication Approval:** PENDING
 
