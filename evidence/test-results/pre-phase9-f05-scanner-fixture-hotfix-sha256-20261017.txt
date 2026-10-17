@@ -1,0 +1,4 @@
+77c2f7470901fccbfe9e47084fcab8f503cdd687e5768c71fd1a294ccc17a5d0 *docs/testing/pre-phase9-f05-plan.md
+cdacfbd156853a8620d70a97925c21318bbe6c3caf4d86ba44fb07f4ca245400 *scripts/test_public_archive_scanner.py
+91dd9b4746b7ada33ab50320f917f33992c4fa1be3bc918d8eb0254f26e556a6 *evidence/test-results/pre-phase9-f05-scanner-fixture-hotfix-check-20261017.txt
+738f4da163084a2a9a4704ea4230819e0cdc72b3f110ffec3e0dc8aaaeb57fa6 *evidence/test-results/pre-phase9-f05-scanner-fixture-hotfix-summary-20261017.md

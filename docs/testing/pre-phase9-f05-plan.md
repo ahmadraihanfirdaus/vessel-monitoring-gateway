@@ -66,3 +66,18 @@ Git Bash paths, the `<user>` placeholder, and scanner self-source behavior.
 Hotfix pre-commit checks: PASS.
 
 Post-commit archive evidence remains NOT_RUN until this hotfix is committed.
+
+## Scanner fixture hotfix after second post-commit attempt — 2026-10-17
+
+The second post-commit archive run stopped because the scanner regression test
+source itself contained literal concrete machine-local path fixtures. The
+scanner correctly flagged those literals.
+
+The fixture tests now assemble concrete path samples at runtime, and a sixth
+regression test verifies that the fixture source itself contains no
+scanner-detectable machine-local path. Scanner rules were not weakened.
+
+Fixture hotfix pre-commit checks: PASS (6/6).
+
+Post-commit archive evidence remains NOT_RUN until this fixture hotfix is
+committed.
