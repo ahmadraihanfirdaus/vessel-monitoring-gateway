@@ -1,0 +1,62 @@
+BASELINE_HEAD=2cd289d8a66a728c78e5413d67cf73a16a0e06b1
+BASELINE_SHORT=2cd289d
+BRANCH=develop
+
+=== SOURCE DIFF STAT ===
+ backend/laravel/.env.example        | 12 ++++++------
+ backend/laravel/bootstrap/app.php   |  6 +++++-
+ backend/laravel/composer.json       |  5 +----
+ backend/laravel/config/database.php |  8 ++++----
+ backend/laravel/phpunit.xml         |  3 +--
+ docs/testing/phase9-p2-design.md    | 22 +++++++++++++++-------
+ scripts/test_phase9_p2_design.py    | 11 ++++++++++-
+ 7 files changed, 42 insertions(+), 25 deletions(-)
+
+=== SOURCE NAME STATUS ===
+ M backend/laravel/.env.example
+ M backend/laravel/bootstrap/app.php
+ M backend/laravel/composer.json
+ M backend/laravel/config/database.php
+ M backend/laravel/phpunit.xml
+ M docs/testing/phase9-p2-design.md
+ M scripts/test_phase9_p2_design.py
+?? backend/laravel/app/Http/Controllers/Api/TelemetryIngestController.php
+?? backend/laravel/app/Http/Middleware/AuthenticateDeviceToken.php
+?? backend/laravel/app/Http/Middleware/EnsureTelemetryPayloadSize.php
+?? backend/laravel/app/Http/Requests/TelemetryIngestRequest.php
+?? backend/laravel/app/Models/Device.php
+?? backend/laravel/app/Models/TelemetryChannel.php
+?? backend/laravel/app/Models/TelemetrySample.php
+?? backend/laravel/app/Services/DeviceTokenAuthenticator.php
+?? backend/laravel/app/Services/TelemetryIngestService.php
+?? backend/laravel/database/migrations/2026_10_17_100001_create_devices_table.php
+?? backend/laravel/database/migrations/2026_10_17_100002_create_telemetry_samples_table.php
+?? backend/laravel/database/migrations/2026_10_17_100003_create_telemetry_channels_table.php
+?? backend/laravel/routes/api.php
+?? backend/laravel/tests/Feature/TelemetryIngestTest.php
+?? docs/testing/phase9-p2-implementation-plan.md
+?? firmware/.gitignore
+?? firmware/.vscode/extensions.json
+?? scripts/test_phase9_p2_mysql_source.py
+
+=== IDENTITY CONSISTENCY ===
+- `device_id` — external telemetry identity, string(48), unique, non-null;
+- `device_id` — the same external telemetry identity string(48), foreign key
+  to `devices.device_id`;
+            $table->string('device_id', 48)->collation('utf8mb4_bin');
+                ->references('device_id')
+            'device_id' => $device->device_id,
+EXTERNAL_DEVICE_ID_SCHEMA_CONSISTENCY: PASS
+STABLE_IDENTITY_TUPLE_LITERAL_ALIGNMENT: PASS
+
+=== MYSQL POLICY ===
+23:DB_CONNECTION=mysql
+24:DB_HOST=127.0.0.1
+25:DB_PORT=3306
+26:DB_DATABASE=
+27:DB_USERNAME=
+28:DB_PASSWORD=
+20:    'default' => env('DB_CONNECTION', 'mysql'),
+22:        <env name="DB_CONNECTION" value="mysql"/>
+BACKEND_DATABASE_POLICY: MYSQL_ONLY
+SQLITE_APPLICATION_DB: PROHIBITED

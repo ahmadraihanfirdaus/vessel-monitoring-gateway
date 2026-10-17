@@ -43,9 +43,18 @@ required = [
     'database unique constraint',
     'Laravel migrations only',
     'System status remains `PARTIAL`',
+    'external telemetry identity',
+    'foreign key to `devices.device_id`',
+    'CHAR(64)',
+    'SHA-256',
+    'cryptographically random high-entropy bearer token',
+    'raw bearer token is never stored',
+    'not a LOCKED requirement',
+    'unsigned 64-bit JSON integer',
+    'channel order does not affect semantic equality',
 ]
 for token in required:
-    check("TOKEN_" + token.replace("`","").replace(" ","_")[:48], token in text)
+    check("TOKEN_" + token.replace("`","").replace(" ","_")[:48], token in flat)
 
 check("NO_DB_EXECUTION_CLAIM",
       "does not connect to or write any database" in flat)

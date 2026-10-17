@@ -77,7 +77,9 @@ Value/quality rules:
 - duplicate channel names in one payload are rejected;
 - invalid or missing values are never silently converted to numeric zero.
 
-Transport payload limit for this API design: at most 4096 bytes.
+Transport payload limit for this API design: at most 4096 bytes. This is a
+P2 API design decision derived from the Phase 8 telemetry JSON maximum; it is
+not a LOCKED requirement.
 
 ## 3. Device authentication design
 
@@ -115,8 +117,10 @@ communication-state metadata.
 Columns:
 
 - `id` — primary key;
-- `device_id` — string(48), unique, non-null;
-- `token_digest` — fixed-length digest field, unique, non-null;
+- `device_id` — external telemetry identity, string(48), unique, non-null;
+- `token_digest` — `CHAR(64)` lowercase `SHA-256` digest of an externally
+  provisioned cryptographically random high-entropy bearer token, unique,
+  non-null; the raw bearer token is never stored, logged, or source-controlled;
 - `enabled` — boolean, default false;
 - `last_seen_at` — nullable timestamp;
 - `last_boot_id` — nullable string(48);
@@ -133,7 +137,8 @@ Purpose: one persistent historical row per accepted stable telemetry identity.
 Columns:
 
 - `id` — primary key;
-- `device_id` — foreign key to `devices.id`;
+- `device_id` — the same external telemetry identity string(48), foreign key
+  to `devices.device_id`;
 - `schema_version` — string;
 - `firmware_version` — string(48);
 - `boot_id` — string(48);
@@ -197,7 +202,7 @@ Before persistence, the backend must validate:
 2. JSON object shape;
 3. `schema_version == "1.0"`;
 4. identifier lengths and safe-token characters;
-5. non-negative integer `sequence` and `uptime_ms`;
+5. unsigned 64-bit JSON integer `sequence` and `uptime_ms`;
 6. recognized `source_mode`;
 7. channels object count is 1..16;
 8. unique channel names;
@@ -221,8 +226,11 @@ For a request whose tuple does not yet exist:
 
 For a request whose tuple already exists:
 
-- compare persisted semantic fields and channels with the normalized incoming
-  payload;
+- compare `schema_version`, `firmware_version`, `uptime_ms`, `source_mode`, and
+  channel count with the normalized incoming payload;
+- compare channels as an unordered map keyed by channel name; channel order
+  does not affect semantic equality, while each channel must preserve the same
+  quality, value presence, and numeric value;
 - if semantically identical, create no new rows and return `200`;
 - if any semantic field or channel differs, create no new rows and return `409`.
 

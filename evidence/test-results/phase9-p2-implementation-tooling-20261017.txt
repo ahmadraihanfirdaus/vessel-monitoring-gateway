@@ -1,0 +1,34 @@
+=== PHP LINT ===
+No syntax errors detected in backend/laravel/app/Models/Device.php
+No syntax errors detected in backend/laravel/app/Models/TelemetryChannel.php
+No syntax errors detected in backend/laravel/app/Models/TelemetrySample.php
+No syntax errors detected in backend/laravel/app/Models/User.php
+No syntax errors detected in backend/laravel/app/Services/DeviceTokenAuthenticator.php
+No syntax errors detected in backend/laravel/app/Services/TelemetryIngestService.php
+No syntax errors detected in backend/laravel/app/Http/Middleware/AuthenticateDeviceToken.php
+No syntax errors detected in backend/laravel/app/Http/Middleware/EnsureTelemetryPayloadSize.php
+No syntax errors detected in backend/laravel/app/Http/Requests/TelemetryIngestRequest.php
+No syntax errors detected in backend/laravel/app/Http/Controllers/Api/TelemetryIngestController.php
+No syntax errors detected in backend/laravel/database/migrations/2026_10_17_100001_create_devices_table.php
+No syntax errors detected in backend/laravel/database/migrations/2026_10_17_100002_create_telemetry_samples_table.php
+No syntax errors detected in backend/laravel/database/migrations/2026_10_17_100003_create_telemetry_channels_table.php
+No syntax errors detected in backend/laravel/routes/api.php
+No syntax errors detected in backend/laravel/routes/console.php
+No syntax errors detected in backend/laravel/routes/web.php
+No syntax errors detected in backend/laravel/tests/Feature/ExampleTest.php
+No syntax errors detected in backend/laravel/tests/Feature/TelemetryIngestTest.php
+PHASE9_P2_MYSQL_PHP_LINT_FILES=18
+PHASE9_P2_MYSQL_PHP_LINT: PASS
+
+=== COMPOSER VALIDATE ===
+[32m./composer.json is valid[39m
+COMPOSER_GATE: PASS
+
+=== DATABASE EXECUTION BOUNDARY ===
+MIGRATIONS_DEFINED=3
+MIGRATIONS_EXECUTED=NO
+MYSQL_SERVER_CONNECTION: NOT_ATTEMPTED
+DATABASE_CONNECTION: NOT_ATTEMPTED
+DATABASE_WRITE: NOT_ATTEMPTED
+LARAVEL_FEATURE_TESTS: DEFINED_NOT_RUN
+VENDOR_DIRECTORY: ABSENT
