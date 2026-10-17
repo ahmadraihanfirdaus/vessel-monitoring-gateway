@@ -1,0 +1,2 @@
+ada195103f40cdfbc862c0ffdffdf3f91b4016c7db9dd62771f92c370e304015 *evidence/test-results/phase8-closure-audit-20261017.txt
+59f5832796cef9b7b77e9665eb6e4812fe1ae5f2c263252f5e3d7ea340e9c696 *evidence/test-results/phase8-closure-summary-20261017.md
