@@ -377,7 +377,9 @@ static inline void run_phase8_h1_telemetry_contract_selftest(void)
     x = base;
     x.channel_count = VG_TELEMETRY_MAX_CHANNELS + 1u;
     vg_h1_check("PAYLOAD_TOO_MANY_CHANNELS_REJECTED",
-                !vg_tel_payload_is_consistent(&x), &p, &t);
+                !vg_tel_payload_is_consistent(&x) &&
+                vg_tel_find_channel(&x, "temperature_c") == NULL,
+                &p, &t);
 
     vg_h1_check("IDENTITY_KEY_TINY_BUFFER_REJECTED",
                 !vg_tel_build_identity_key(&base, tiny, 8u), &p, &t);

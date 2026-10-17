@@ -213,7 +213,9 @@ static inline const vg_telemetry_channel_t *vg_tel_find_channel(
     const vg_telemetry_payload_t *payload,
     const char *name)
 {
-    if (payload == NULL || name == NULL) {
+    if (payload == NULL || name == NULL ||
+        payload->channel_count == 0u ||
+        payload->channel_count > VG_TELEMETRY_MAX_CHANNELS) {
         return NULL;
     }
 

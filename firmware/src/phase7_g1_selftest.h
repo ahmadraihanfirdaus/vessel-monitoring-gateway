@@ -55,10 +55,38 @@ static inline void run_phase7_g1_navigation_selftest(void)
         .fix_valid = true
     };
     char sentence[VG_NAV_SENTENCE_MAX] = {0};
-    vg_g1_check("GENERATOR_VALID", vg_nav_format_rmc_development(&data, sentence, sizeof(sentence)), &p, &t);
-    vg_g1_check("GENERATOR_PREFIX", strncmp(sentence, "$GPRMC,", 7) == 0, &p, &t);
+    const bool generator_valid =
+        vg_nav_format_rmc_development(&data, sentence, sizeof(sentence));
+    vg_g1_check("GENERATOR_VALID",
+                generator_valid && strncmp(sentence, "$GPRMC,", 7) == 0,
+                &p, &t);
     vg_g1_check("GENERATOR_CHECKSUM_PRESENT", strchr(sentence, '*') != NULL, &p, &t);
     vg_g1_check("GENERATOR_CHECKSUM_VALID", vg_nav_sentence_checksum_valid(sentence), &p, &t);
+
+    bool rollover_ok = true;
+    const double rollover_values[][2] = {
+        {12.999999999, 106.8272},
+        {-12.999999999, 106.8272},
+        {89.999999999, 179.999999999},
+        {-89.999999999, -179.999999999},
+    };
+    for (size_t i = 0u; i < sizeof(rollover_values) / sizeof(rollover_values[0]); ++i) {
+        vg_nav_rmc_data_t edge = data;
+        edge.latitude_deg = rollover_values[i][0];
+        edge.longitude_deg = rollover_values[i][1];
+        char edge_sentence[VG_NAV_SENTENCE_MAX] = {0};
+        vg_nav_rmc_data_t edge_parsed = {0};
+
+        rollover_ok =
+            rollover_ok &&
+            vg_nav_format_rmc_development(&edge, edge_sentence,
+                                          sizeof(edge_sentence)) &&
+            strstr(edge_sentence, "60.0000") == NULL &&
+            vg_nav_parse_rmc_development(edge_sentence, &edge_parsed) &&
+            vg_g1_close(edge_parsed.latitude_deg, edge.latitude_deg, 0.0001) &&
+            vg_g1_close(edge_parsed.longitude_deg, edge.longitude_deg, 0.0001);
+    }
+    vg_g1_check("GENERATOR_COORD_ROLLOVER_NORMALIZED", rollover_ok, &p, &t);
 
     vg_nav_rmc_data_t bad = data;
     bad.latitude_deg = 91.0;

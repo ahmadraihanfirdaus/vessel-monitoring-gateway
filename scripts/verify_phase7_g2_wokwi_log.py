@@ -5,6 +5,8 @@ import pathlib
 import re
 import sys
 
+from wokwi_log_boot import WokwiLogError, has_elf_sha, markers_in_order, select_latest_complete_boot
+
 def die(msg):
     print(f"G2_WOKWI_LOG_CHECK: FAIL - {msg}")
     raise SystemExit(1)
@@ -16,7 +18,11 @@ p = pathlib.Path(sys.argv[1])
 if not p.is_file():
     die(f"log not found: {p}")
 
-text = p.read_text(encoding="utf-8", errors="replace").replace("\r\n", "\n")
+raw = p.read_text(encoding="utf-8", errors="replace")
+try:
+    text = select_latest_complete_boot(raw, expected_app_version="a7ffc9d-dirty")
+except WokwiLogError as exc:
+    die(str(exc))
 
 required = [
     "Project name:     vessel_gateway_firmware",
@@ -41,23 +47,15 @@ required = [
     "CORE_RUNTIME_TIMED_DEMO: PASS (6/6)",
     "main_task: Returned from app_main()",
 ]
-
+ok, missing = markers_in_order(text, required)
 parser_total = len(required) + 1
-parser_pass = sum(1 for marker in required if marker in text)
-parser_pass += bool(re.search(r"ELF file SHA256:\s+[0-9a-f]{9,}", text))
+parser_pass = len(required) - len(missing) + has_elf_sha(text)
 
-print(
-    f"G2_WOKWI_LOG_PARSER_SELFTEST: "
-    f"{'PASS' if parser_pass == parser_total else 'FAIL'} "
-    f"({parser_pass}/{parser_total})"
-)
-if parser_pass != parser_total:
-    missing = [marker for marker in required if marker not in text]
-    if missing:
-        print("G2_WOKWI_MISSING_MARKERS:")
-        for marker in missing:
-            print(f"  - {marker}")
-    die("required markers missing")
+print(f"G2_WOKWI_LOG_PARSER_SELFTEST: {'PASS' if parser_pass == parser_total else 'FAIL'} ({parser_pass}/{parser_total})")
+if not ok or not has_elf_sha(text):
+    for marker in missing:
+        print(f"G2_WOKWI_MISSING_OR_REORDERED: {marker}")
+    die("required markers missing or reordered")
 
 before = re.search(r"C4_MAIN_STACK_WATERMARK_RAW_BEFORE:\s*(\d+)", text)
 after = re.search(r"C4_MAIN_STACK_WATERMARK_RAW_AFTER:\s*(\d+)", text)

@@ -259,7 +259,7 @@ static inline void run_phase5_e4_formal_scenarios(void)
     const bool all_ok = count_ok && passed == total;
     printf("PHASE5_E4_FORMAL_SCENARIOS: %s (%u/%u)\n",
            all_ok ? "PASS" : "FAIL",
-           all_ok ? passed : passed,
+           passed,
            (unsigned)VG_E4_FORMAL_SCENARIO_COUNT);
 }
 

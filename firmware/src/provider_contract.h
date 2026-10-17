@@ -2,6 +2,7 @@
 #define VG_PROVIDER_CONTRACT_H
 
 #include <stdbool.h>
+#include <stddef.h>
 #include <stdint.h>
 
 #include "core_types.h"

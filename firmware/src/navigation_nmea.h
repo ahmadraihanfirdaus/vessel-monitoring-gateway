@@ -136,8 +136,25 @@ static inline bool vg_nav_format_coord(double degrees,
         return false;
     }
     const double abs_deg = fabs(degrees);
-    const int whole_deg = (int)floor(abs_deg);
-    const double minutes = (abs_deg - (double)whole_deg) * 60.0;
+    int whole_deg = (int)floor(abs_deg);
+    double minutes = (abs_deg - (double)whole_deg) * 60.0;
+
+    /*
+     * The wire format prints minutes to four decimal places. Normalize the
+     * value at that same precision before formatting so a value such as
+     * 59.99999994 minutes cannot be emitted as 60.0000 without carrying into
+     * the degree field.
+     */
+    minutes = round(minutes * 10000.0) / 10000.0;
+    if (minutes >= 60.0) {
+        minutes = 0.0;
+        ++whole_deg;
+    }
+
+    if ((double)whole_deg > limit) {
+        return false;
+    }
+
     int n;
     if (latitude) {
         n = snprintf(number, number_size, "%02d%07.4f", whole_deg, minutes);

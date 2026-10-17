@@ -1,6 +1,16 @@
 #!/usr/bin/env python3
 from __future__ import annotations
-import pathlib, re, sys
+
+import pathlib
+import re
+import sys
+
+from wokwi_log_boot import (
+    WokwiLogError,
+    has_elf_sha,
+    markers_in_order,
+    select_latest_complete_boot,
+)
 
 def die(msg):
     print(f"F1_WOKWI_LOG_CHECK: FAIL - {msg}")
@@ -13,7 +23,13 @@ p = pathlib.Path(sys.argv[1])
 if not p.is_file():
     die(f"log not found: {p}")
 
-text = p.read_text(encoding="utf-8", errors="replace").replace("\r\n", "\n")
+raw = p.read_text(encoding="utf-8", errors="replace")
+try:
+    text = select_latest_complete_boot(
+        raw, expected_app_version="a008e39-dirty"
+    )
+except WokwiLogError as exc:
+    die(str(exc))
 
 required = [
     "Project name:     vessel_gateway_firmware",
@@ -29,18 +45,30 @@ required = [
     "PHASE5_E2_FUEL_SAFETY_SELFTEST: PASS (60/60)",
     "PHASE5_E3_MONITOR_SAFETY_SELFTEST: PASS (85/85)",
     "PHASE5_E4_FORMAL_SCENARIOS: PASS (6/6)",
-    "CORE_RUNTIME_TIMED_DEMO: PASS (6/6)",
-    "main_task: Returned from app_main()"
 ]
-parser_total = len(required) + 2
-parser_pass = sum(1 for x in required if x in text)
-parser_pass += bool(re.search(r"ELF file SHA256:\s+[0-9a-f]{9,}", text))
+ok, missing = markers_in_order(text, required)
 m = re.search(r"PHASE6_F1_ENGINE_MODEL_SELFTEST: PASS \((\d+)/(\d+)\)", text)
-parser_pass += bool(m and m.group(1) == m.group(2) and int(m.group(2)) >= 50)
+engine_ok = bool(m and m.group(1) == m.group(2) and int(m.group(2)) >= 50)
+tail_required = [
+    "CORE_RUNTIME_TIMED_DEMO: PASS (6/6)",
+    "main_task: Returned from app_main()",
+]
+tail_ok, tail_missing = markers_in_order(
+    text[text.find(m.group(0)) + len(m.group(0)):] if m else text,
+    tail_required,
+)
+parser_total = len(required) + 4
+parser_pass = len(required) - len(missing)
+parser_pass += has_elf_sha(text)
+parser_pass += engine_ok
+parser_pass += tail_ok
+parser_pass += "main_task: Returned from app_main()" in text
 
 print(f"F1_WOKWI_LOG_PARSER_SELFTEST: {'PASS' if parser_pass == parser_total else 'FAIL'} ({parser_pass}/{parser_total})")
-if parser_pass != parser_total:
-    die("required regression/F1 markers missing")
+if not ok or not engine_ok or not tail_ok or not has_elf_sha(text):
+    for marker in missing + tail_missing:
+        print(f"F1_WOKWI_MISSING_OR_REORDERED: {marker}")
+    die("required regression/F1 markers missing or reordered")
 
 before = re.search(r"C4_MAIN_STACK_WATERMARK_RAW_BEFORE:\s*(\d+)", text)
 after = re.search(r"C4_MAIN_STACK_WATERMARK_RAW_AFTER:\s*(\d+)", text)
