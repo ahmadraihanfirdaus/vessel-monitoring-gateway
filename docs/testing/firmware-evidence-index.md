@@ -1,6 +1,6 @@
 # Firmware Development Evidence Index
 
-**Basis:** Historical first-four-suite snapshot `develop@cad6505` (2026-10-10), followed by B1–C4 evidence through `develop@ec32315` (2026-10-13). Latest cumulative development self-tests: **226/226 PASS**, plus **6/6** finite timed demonstration. This is an evidence index, not formal SIM/SUP completion.
+**Basis:** Historical firmware-core evidence starts at `develop@cad6505` and B1–C4, followed by committed Phase 4–8 scoped development/software-simulation evidence through 2026-10-17. The original C4 cumulative core remains **226/226 PASS** plus **6/6** finite timed demonstration; later phases add their own provider, safety, engine, navigation, and telemetry-contract suites and must not be arithmetically added to that historical C4 count.
 
 | Foundation suite | Historical 2026-10-10 tests | Evidence | Formal requirement verified? |
 |---|---:|---|---|
@@ -13,7 +13,7 @@ The historical baseline **49/49 PASS** was one self-test run containing the firs
 
 **Locked traceability snapshot:** `requirements/traceability-matrix.csv` intentionally remains unchanged and has `NOT_IMPLEMENTED/NOT_RUN` placeholders for 38 requirement rows. No requirement is declared verified by this index.
 
-**Remaining:** Formal SIM-001..SIM-015 and SUP-001..SUP-019 not executed to completion, along with independent calibration and physical integration testing (not authorized).
+**Remaining:** formal SIM-010..SIM-015, SUP-001..SUP-019, Phase 9+ backend/dashboard/E2E work, independent bench/hardware evidence, calibration and physical integration (not authorized).
 
 ## Additional evidence after the original foundation
 
@@ -29,4 +29,14 @@ Recorded counts are cumulative software self-tests on a single build, **not addi
 
 - [Batch C4 Wokwi 226/226 self-tests, timed demo 6/6, and stack watermark](../../evidence/test-results/firmware-core-c4-wokwi-20261013.md), with [archived operator UART](../../evidence/logs/firmware-core-c4-wokwi-serial-20261013.txt) (LF-normalized for Git).
 - The passing hotfix build showed 1952-byte main-task stack high-water mark (pre-hotfix 256 bytes); finite test only, no approved minimum for production.
-- Formal SIM/SUP, continuous monitoring, persistent journal, physical hardware and system safety approvals remain NOT_RUN/NOT_IMPLEMENTED.
+- C4 remains historical core evidence. Later formal SIM-001..SIM-009 evidence is listed below; continuous operational monitoring, backend persistence, physical hardware and final system approval remain incomplete.
+## Roadmap evidence after Phase 3
+
+- Phase 4 provider development/simulator closure: `evidence/test-results/phase4-closure-summary-20261016.md`; D1–D7 provider self-tests PASS. Physical bench execution remains NOT_RUN.
+- Phase 5 safety-policy formal software simulation: `evidence/test-results/phase5-e4-summary-20261016.md`; SIM-001..SIM-006 PASS.
+- Phase 6 engine-model formal software simulation: `evidence/test-results/phase6-f2-summary-20261016.md`; SIM-007 PASS.
+- Phase 7 navigation formal software simulation: `evidence/test-results/phase7-g2-summary-20261016.md`; SIM-008 and SIM-009 PASS.
+- Phase 8 telemetry contract: `evidence/test-results/phase8-h1-summary-20261017.md` and `evidence/test-results/phase8-closure-summary-20261017.md`; versioned schema/fixtures/contract self-tests PASS at the scoped development gate. SUP-011, SUP-012, TEL-003 backend deduplication and SIM-014 remain NOT_RUN.
+- Pre-Phase-9 R1 hardening: `evidence/test-results/pre-phase9-r1-summary-20261017.md`; firmware edge-case fixes and later-verifier boot isolation regression PASS.
+
+Formal test execution is now recorded in `docs/testing/formal-scenario-status.csv`. Current formal SIM result is SIM-001..SIM-009 PASS and SIM-010..SIM-015 NOT_RUN. Supplemental SUP-001..SUP-019 remain planned/not run. These records do not imply complete requirement verification, physical readiness, or production readiness.

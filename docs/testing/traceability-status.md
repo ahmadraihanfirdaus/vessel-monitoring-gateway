@@ -4,7 +4,7 @@
 
 **Engineering Baseline:** Internal Engineering Blueprint v1.0
 
-**Review Date:** 2026-10-16 (phase-unit milestone editorial update; locked matrix unchanged)
+**Review Date:** 2026-10-17 (post-Phase-8 / pre-Phase-9 reconciliation; locked matrix unchanged)
 
 **Matrix Version:** Working v2 — Public Editorial Edition
 
@@ -12,9 +12,9 @@
 
 **Semantic Coverage:** PARTIAL
 
-**Implementation Status:** PHASE3_CORE_UNIT_GATE_COMPLETE / OVERALL_SYSTEM_PARTIAL (locked matrix is an initial snapshot)
+**Implementation Status:** PHASE3_TO_PHASE8_SCOPED_GATES_COMPLETE / OVERALL_SYSTEM_PARTIAL (locked matrix remains the initial snapshot)
 
-**Verification Status:** NOT_RUN for formal SIM/SUP verification; low-level self-tests recorded separately
+**Verification Status:** PARTIAL — formal SIM-001..SIM-009 PASS; SIM-010..SIM-015 and SUP-001..SUP-019 remain open
 
 **Final Verification Approval:** NOT_APPROVED
 
@@ -26,7 +26,7 @@ The working matrix supports development planning and requirement-to-test traceab
 
 It does not constitute evidence of implemented functionality, completed testing, standards conformity, or operational deployment.
 
-The editable [living implementation assessment](living-traceability-guide.md) supplements the LOCKED initial matrix without changing its historical statuses. No SIM/SUP execution has been claimed.
+The editable [living implementation assessment](living-traceability-guide.md) supplements the LOCKED initial matrix without changing its historical statuses. Formal SIM execution is recorded separately and currently includes SIM-001..SIM-009 PASS; later SIM and all SUP items remain open unless explicitly recorded.
 
 ## 2. Requirement Coverage
 
@@ -51,31 +51,33 @@ This establishes structural traceability coverage. It does not demonstrate compl
 
 | Component | Current Status |
 |---|---|
-| Firmware implementation | Phase 3 CORE-UNIT EXIT COMPLETE (development-only); total firmware PARTIAL: no continuous operational loop, persistence or formal SIM/SUP |
-| Simulator implementation | PARTIAL: Wokwi firmware test scaffold only; no formal SIM-001..SIM-015 implementation |
-| Laravel backend | NOT_IMPLEMENTED |
-| Monitoring dashboard | NOT_IMPLEMENTED |
+| Firmware core | Phase 3 scoped core-unit gate COMPLETE; overall system still PARTIAL |
+| Simulator / provider interfaces | Phase 4 scoped development/simulator provider gate COMPLETE; physical bench execution NOT_RUN |
+| Safety policy | Phase 5 scoped software-simulation gate COMPLETE; SIM-001..SIM-006 PASS |
+| Engine model | Phase 6 scoped gate COMPLETE; SIM-007 PASS; ENG-003 also maps to SIM-012 which remains NOT_RUN |
+| Navigation | Phase 7 scoped gate COMPLETE; SIM-008/SIM-009 PASS; SUP-007 remains NOT_RUN |
+| Telemetry contract | Phase 8 scoped contract gate COMPLETE; SUP-011/SUP-012, TEL-003 backend dedup and SIM-014 remain NOT_RUN |
+| Laravel backend | NOT_STARTED |
+| Monitoring dashboard | NOT_STARTED |
 | End-to-end integration | NOT_RUN |
 | Hardware bench verification | NOT_RUN |
 
-Development plans and interface specifications shall not be reported as implemented functionality.
+Roadmap gate completion is scoped evidence, not a declaration that every mapped mandatory requirement is fully verified.
 
 ## 4. Verification Status
 
 | Verification Activity | Current Status |
 |---|---|
-| Simulation scenarios SIM-001 to SIM-015 | NOT_RUN |
-| Supplemental tests SUP-001 to SUP-019 | PLANNED |
-| Firmware predicate self-test evidence | AVAILABLE: `evidence/test-results/firmware-core-range-wokwi-20261010.md` (49/49) |
-| Formal SIM/SUP test evidence | NOT_AVAILABLE |
-| Semantic verification coverage | PARTIAL |
-| Final verification approval | NOT_APPROVED |
+| Formal simulation SIM-001..SIM-006 | PASS — Phase 5 E4 dedicated host/Wokwi evidence |
+| Formal simulation SIM-007 | PASS — Phase 6 F2 dedicated host/Wokwi evidence |
+| Formal simulation SIM-008..SIM-009 | PASS — Phase 7 G2 dedicated host/Wokwi evidence |
+| Formal simulation SIM-010..SIM-015 | NOT_RUN |
+| Supplemental tests SUP-001..SUP-019 | PLANNED / NOT_RUN |
+| Phase 8 telemetry contract fixtures/self-tests | PASS at scoped development-contract gate; not formal SUP-011/SUP-012 or SIM-014 |
+| Final requirement verification approval | NOT_APPROVED |
+| Total system verification | PARTIAL |
 
-Structural traceability audits have been completed.
-
-Firmware **low-level Wokwi self-test evidence exists**, but it does not satisfy formal SIM/SUP acceptance or end-to-end validation. No backend, operational monitoring, physical calibration, or vessel integration result is claimed.
-
-Actual verification results must be recorded only after execution, observation, and evidence review.
+Formal scenario PASS is tracked at test level in `formal-scenario-status.csv`. The living requirement register derives requirement-level `formal_verification` as PASS only when every mapped test for that requirement has accepted PASS evidence, or PARTIAL when only some mapped tests have passed. This does not automatically promote `implementation_assessment` to `VERIFIED`.
 
 ## 5. Public Requirements and Matrix Integrity
 
@@ -138,15 +140,14 @@ No physical vessel integration is authorized by the current project documentatio
 
 The following work remains necessary:
 
-1. Review incomplete semantic acceptance-criteria coverage.
-2. Establish implementation-module references for the applicable requirements.
-3. Implement the planned firmware, simulator, backend, and dashboard components.
-4. Execute SIM-001 through SIM-015 in the designated simulation environments.
-5. Execute SUP-001 through SUP-019 using their specified verification methods.
-6. Record actual results, source commit SHA, test configurations, and supporting evidence.
-7. Reassess coverage and update verification status only after actual execution.
-8. Complete repository security and documentation review before public publication.
-9. Perform final verification review before claiming requirement satisfaction.
+1. Complete the clean tracked-only public archive procedure before publication use.
+2. Begin Phase 9 Laravel/MySQL using migrations only; no manual database shortcut.
+3. Implement and test network/backend behavior, dashboard, and end-to-end integration in their roadmap phases.
+4. Execute remaining formal scenarios SIM-010 through SIM-015.
+5. Execute supplemental tests SUP-001 through SUP-019 using their specified verification methods.
+6. Record actual results, source commit SHA, test environment, expected/actual outcomes, and supporting evidence.
+7. Perform hardware/bench work only under the later authorized hardware gate.
+8. Complete final requirement verification review before any `VERIFIED`, certification, deployment, or production-readiness claim.
 
 ## 8. Related Public Documents
 
@@ -168,12 +169,12 @@ The controlled internal engineering baseline is not included in the public repos
 
 **Semantic Coverage:** PARTIAL
 
-**Implementation:** Phase 3 CORE-UNIT EXIT COMPLETE; complete system still PARTIAL (matrix itself remains unchanged)
+**Implementation:** scoped roadmap gates Phases 3–8 COMPLETE; complete system still PARTIAL; Phase 9 NOT_STARTED
 
-**Verification:** NOT_RUN for formal SIM/SUP; firmware self-tests are recorded separately
+**Formal Verification:** SIM-001..SIM-009 PASS; SIM-010..SIM-015 NOT_RUN; SUP-001..SUP-019 PLANNED / NOT_RUN
 
 **Final Verification Approval:** NOT_APPROVED
 
-**Physical Integration:** NOT_AUTHORIZED
+**Physical Integration:** NOT_AUTHORIZED / NOT_RUN
 
-The 2026-10-16 [Phase 3 core-unit closeout](phase3-closure-report-20261016.md) satisfies the **roadmap core-unit milestone only**. The living register remains 7 PARTIAL, 31 NOT_STARTED, 0 VERIFIED and 34 planned formal tests remain NOT_RUN. This documentation does not authorize operational installation, physical integration, or claims of completed system verification.
+The LOCKED matrix remains unchanged as the historical initial snapshot. The editable living register and test-level execution records are the current companion status. No requirement is promoted to `VERIFIED` by this reconciliation, and no operational installation, physical integration, calibration, certification or production-readiness claim is authorized.

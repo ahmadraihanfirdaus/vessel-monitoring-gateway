@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-10-17 — Pre-Phase-9 F01 status/traceability reconciliation
+
+- Reconcile stale Phase 3/A2 status text with committed scoped roadmap closures through Phase 8 and pre-Phase-9 R1 hardening.
+- Add a test-level formal scenario registry recording SIM-001..SIM-009 PASS and SIM-010..SIM-015 NOT_RUN; supplemental SUP-001..SUP-019 remain planned/not run.
+- Update the editable living requirement register and checker so per-requirement formal status is derived from mapped SIM/SUP execution while keeping `VERIFIED` prohibited until a dedicated requirement-approval gate.
+- Preserve the LOCKED requirements and traceability matrix unchanged; no backend, database, dashboard, physical integration, certification, or production-readiness claim is introduced.
+
 This log distinguishes planning/documentation work from verified software behavior. Dates are local engineering record dates, not deployment dates.
 
 ## 2026-10-16 — Phase 3 core-unit gate closeout (development milestone)

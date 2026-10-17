@@ -4,11 +4,11 @@
 
 **Document Status:** Engineering Development Roadmap
 
-**Current Phase:** Phase 3 core-unit exit gate COMPLETE (2026-10-16); Phase 4 NOT_STARTED
+**Current Phase:** Phases 3–8 scoped roadmap gates COMPLETE; pre-Phase-9 hardening in progress; Phase 9 NOT_STARTED
 
-**Implementation Status:** PHASE3_CORE_UNIT_GATE_COMPLETE / OVERALL_SYSTEM_PARTIAL
+**Implementation Status:** PHASE3_TO_PHASE8_SCOPED_GATES_COMPLETE / OVERALL_SYSTEM_PARTIAL
 
-**System Verification Status:** NOT_RUN (49/49 low-level Wokwi firmware self-tests recorded separately)
+**System Verification Status:** PARTIAL — formal software-simulation SIM-001..SIM-009 PASS; SIM-010..SIM-015 and SUP-001..SUP-019 remain open
 
 ## 1. Purpose
 
@@ -115,9 +115,11 @@ Each phase has defined work and exit criteria. Advancement requires review of th
 
 ## 5. Current Development Status
 
-**Phase 3's roadmap-defined core-unit exit criterion is complete for the development-only scope.** Data-quality predicates, source mode, measurements, configurable ranges, alarm lifecycle, scheduler arithmetic, diagnostics, bounded volatile event journal, transactional simulated core flow, finite timed simulator driver, and C4 fail-stop guard have code and recorded tests. The 2026-10-16 independent artifact audit returned 19/19 automated checks PASS against `develop@ec32315`, and the latest native/Wokwi evidence records 226/226 development self-tests plus a separate 6/6 synthetic timed demonstration. See [Phase 3 closure report](testing/phase3-closure-report-20261016.md). This closes **only** the named core-unit milestone, not firmware operational readiness or any system requirement. Continuous acquisition, physical sensor providers, persistent storage, approved alarm outputs, calibration, formal SIM/SUP, backend and dashboard remain pending in their applicable future scopes; their requirement-level statuses remain unchanged.
+Roadmap Phases 3 through 8 have each satisfied their **scoped development/software-simulation exit criterion** with committed evidence. This includes the firmware-core gate, development simulator/bench-interface providers, safety-policy scenarios, four-engine model, NMEA-style navigation, and telemetry-contract foundation. Pre-Phase-9 repair R1 subsequently corrected identified firmware edge cases and hardened Wokwi log verification without changing the LOCKED baseline.
 
-The working traceability matrix contains:
+This does **not** mean the complete system or every requirement is verified. Phase 9 Laravel/MySQL, Phase 10 dashboard, Phase 11 end-to-end scenarios, CI/evidence consolidation, bench hardware, and survey-readiness work remain ahead. Physical integration, calibration, certification, field validation and production readiness remain unclaimed.
+
+The working traceability state is:
 
 | Metric | Current Value |
 |---|---|
@@ -126,14 +128,12 @@ The working traceability matrix contains:
 | Supplemental planned tests | 19 |
 | Total planned test cases | 34 |
 | Requirements with planned verification mappings | 38/38 |
-| Semantic verification coverage | PARTIAL |
-| Formal SIM/SUP functional test execution | NOT_RUN |
-| Latest firmware development-only Wokwi self-tests | 226/226 PASS, plus finite timed demonstration 6/6 PASS (C4; not full requirement verification) |
-| Final verification approval | NOT_APPROVED |
+| Formal SIM execution | SIM-001..SIM-009 PASS; SIM-010..SIM-015 NOT_RUN |
+| Supplemental execution | SUP-001..SUP-019 PLANNED / NOT_RUN |
+| Requirement-level final approval | NOT_APPROVED |
+| Total system status | PARTIAL |
 
-Requirement mapping and structural audits do not demonstrate functional implementation or successful system testing.
-
-No later development phase shall be reported as complete without satisfying its applicable exit criteria.
+The LOCKED matrix remains a historical initial snapshot. Current implementation/formal status is maintained in `docs/testing/living-requirement-status.csv` and test-level execution records. Roadmap closure never overrides unresolved requirement scope.
 
 ## 6. Verification and Evidence Requirements
 
@@ -245,14 +245,16 @@ If the required rights or publication authorization cannot be confirmed, the rep
 
 ## 12. Current Decision
 
-The repository is under preparation for engineering development and public portfolio use.
+The repository is under preparation for continued engineering development and public portfolio review.
 
-**Current Phase:** 3 — Firmware Core (core-unit exit gate COMPLETE, 2026-10-16); Phase 4 NOT_STARTED
+**Current Phase:** Phases 3–8 scoped roadmap gates COMPLETE; pre-Phase-9 hardening active; Phase 9 NOT_STARTED
 
-**Implementation Status:** PHASE3_CORE_UNIT_GATE_COMPLETE / OVERALL_SYSTEM_PARTIAL
+**Implementation Status:** PHASE3_TO_PHASE8_SCOPED_GATES_COMPLETE / OVERALL_SYSTEM_PARTIAL
 
-**Functional Verification Status:** Formal SIM/SUP NOT_RUN (core-unit development self-tests recorded; no complete requirement verification)
+**Functional Verification Status:** PARTIAL — SIM-001..SIM-009 PASS with formal software-simulation evidence; SIM-010..SIM-015 and SUP-001..SUP-019 remain open
+
+**Final Requirement Verification Approval:** NOT_APPROVED
 
 **Public Publication Approval:** PENDING
 
-**Physical Integration:** NOT_AUTHORIZED
+**Physical Integration:** NOT_AUTHORIZED / NOT_RUN

@@ -4,7 +4,8 @@
 
 **Portfolio category:** Embedded firmware prototype and traceable engineering development (simulation only).
 
-This repository contains a **planning baseline plus partial development-only firmware implementation**, not a completed monitoring system. The ESP32 firmware has recorded Wokwi self-tests for data quality, source mode, numeric measurements, configurable ranges, alarm lifecycle, pure scheduler arithmetic, diagnostics, and an eight-entry volatile journal. Batch C2 connects these components for caller-injected simulation samples and has 169/169 native and ESP-IDF/Wokwi development self-tests PASS. Batch C3 has 201/201 development self-tests PASS on native GCC and Wokwi. Batch C4 adds 25 guard cases: **226/226** development self-tests PASS plus **6/6** ESP-IDF timed synthetic steps; formal SIM/SUP remains NOT_RUN. A continuous operational sampling loop, physical sensor providers, output alarms, nonvolatile journal storage, NMEA/engine simulators, telemetry API, Laravel backend, dashboard, and end-to-end verification are not implemented.
+This repository contains a **partial development-only monitoring prototype**, not a completed or production-ready vessel system. Roadmap Phases 3 through 8 have closed their scoped development/software-simulation exit gates: firmware core, simulator/bench-interface providers, safety policy, four-engine model, NMEA-style navigation, and telemetry contract. Dedicated formal software-simulation scenarios **SIM-001 through SIM-009 are recorded PASS**; SIM-010 through SIM-015 and all supplemental SUP-001 through SUP-019 remain open unless separately recorded. The Laravel/MySQL backend, dashboard, network transport, end-to-end validation, physical bench execution, calibration, vessel integration, certification, and production readiness are not complete.
+
 
 The design emphasizes modular embedded software, sensor quality, fault handling, data-source separation, and requirement traceability. Public examples are intended to use synthetic or laboratory-generated data; no operational vessel deployment is claimed.
 
@@ -20,31 +21,27 @@ The design emphasizes modular embedded software, sensor quality, fault handling,
 | Standards research | [Standards applicability matrix](docs/standards/standards-applicability-matrix.md), for conceptual reference only |
 | Executable repository tooling | Python scripts for [security screening](scripts/audit_precommit_security.py), [documentation review](scripts/audit_public_documentation.py), [host firmware self-tests](scripts/test_firmware_core_host.py), and [living traceability checks](scripts/check_living_traceability.py) |
 
-**Available firmware evidence:** [C4 Wokwi evidence](evidence/test-results/firmware-core-c4-wokwi-20261013.md) records 226/226 self-tests, six timed steps, and stack high-water-mark diagnostic; [C3 Wokwi evidence](evidence/test-results/firmware-core-c3-wokwi-20261013.md) records 201/201 self-tests plus six actual-timer simulated steps, after a verified stack overflow hotfix; [C2 evidence](evidence/test-results/firmware-core-c2-wokwi-20261013.md) records the prior 169/169 run and [C1 evidence](evidence/test-results/firmware-core-c1-wokwi-20261013.md) the prior 133/133 run. This is not full system or requirement verification. **Not available yet:** operational monitoring loop, connected sensors, Laravel application, dashboard, formal SIM/SUP execution, calibration, or hardware test evidence.
+**Available development evidence:** the [firmware evidence index](docs/testing/firmware-evidence-index.md) links the Phase 3 core history and the later Phase 4–8 development/formal-simulation evidence. Phase 5 records SIM-001..SIM-006 PASS, Phase 6 records SIM-007 PASS, and Phase 7 records SIM-008/SIM-009 PASS. Phase 8 records the telemetry-contract development gate; its backend deduplication obligation and SIM-014 remain open. This evidence does not establish full-system verification, hardware readiness, certification, or production readiness.
 
 ## Project Status
 
-**Batch C4 development verified on Wokwi:** finite guard and journal-full/error latching, **226/226** native+Wokwi self-tests and **6/6** simulated timed steps, with matching firmware identity. Main-task high-water mark was 1952 bytes on the passing build versus 256 bytes before the test-only stack allocation fix. It is an observation for this bounded scenario, **not** an approved operational stack margin. Formal SIM/SUP, hardware and continuous monitoring remain NOT_RUN.
-
-**Phase 3 — Firmware Core: CORE-UNIT EXIT GATE COMPLETE (development-only; 2026-10-16).** This milestone covers the five specific firmware-core groups in the roadmap and their recorded C4 unit/simulation evidence. It does **not** mean full firmware feature completion, formal requirement verification, physical readiness, or a production stack margin. Phase 4 remains **NOT_STARTED**; the overall monitoring system remains **PARTIAL**. See [Phase 3 closure report](docs/testing/phase3-closure-report-20261016.md) and its explicit limitations.
-
-This repository is under active development. The capabilities described below represent engineering requirements and planned functionality unless explicitly identified as implemented and verified.
+**Current roadmap position:** scoped roadmap gates for Phases 3–8 are closed with committed evidence. Pre-Phase-9 correctness hardening R1 is also complete. **Phase 9 Laravel/MySQL has not started.** Repository status remains **PARTIAL** and final verification approval remains **NOT_APPROVED**.
 
 Current development status:
 
 | Item | Status |
 |---|---|
-| Engineering requirements | 38 defined |
-| Planned verification cases | 34 |
+| Engineering requirements | 38 defined; LOCKED baseline unchanged |
+| Planned verification cases | 15 SIM + 19 SUP = 34 |
 | Requirement-to-test mapping | 38/38 planned |
-| Semantic verification coverage | PARTIAL |
-| Firmware implementation | PHASE_3_CORE_UNIT_GATE_COMPLETE; overall firmware PARTIAL: eleven development self-test suites and bounded ESP32 synthetic demo; no continuous operational acquisition loop |
-| Wokwi firmware simulation | 226/226 development-only self-tests and finite timed demo 6/6 recorded; formal SIM/SUP NOT_RUN |
-| Backend implementation | NOT_IMPLEMENTED |
-| Formal SIM/SUP and end-to-end system verification | NOT_RUN |
+| Firmware/provider/safety/engine/navigation/telemetry development | Scoped roadmap gates Phases 3–8 complete; total system still PARTIAL |
+| Formal SIM execution | SIM-001..SIM-009 PASS; SIM-010..SIM-015 NOT_RUN |
+| Supplemental SUP execution | SUP-001..SUP-019 PLANNED / NOT_RUN |
+| Laravel/MySQL backend | NOT_STARTED |
+| Dashboard / end-to-end integration | NOT_STARTED / NOT_RUN |
 | Physical integration | NOT_AUTHORIZED / NOT_RUN |
 
-Structural traceability audits have been completed. These audits do not constitute functional verification of the proposed system.
+Roadmap-gate completion is not equivalent to complete requirement verification. The editable living register records current implementation assessments and derives per-requirement formal status from the executed SIM/SUP records. No requirement is marked `VERIFIED` by this reconciliation.
 
 ## Project Objectives
 
@@ -200,7 +197,7 @@ The current working traceability matrix is accepted for development tracking. Fi
 
 ## How to Review This Repository
 
-Start with the [system requirements](requirements/system-requirements.md), [architecture and interfaces](docs/architecture/architecture-and-icd.md), and [traceability status](docs/testing/traceability-status.md). The [development roadmap](docs/github-repository-plan.md) distinguishes future phases from the partial Phase 3 firmware implementation.
+Start with the [system requirements](requirements/system-requirements.md), [architecture and interfaces](docs/architecture/architecture-and-icd.md), and [traceability status](docs/testing/traceability-status.md). The [development roadmap](docs/github-repository-plan.md) records scoped Phase 3–8 closure evidence and keeps Phase 9 and later work separate from completed development gates.
 
 With Python 3 and Git available, the two **repository-content checks** can be run from the repository root:
 
@@ -209,7 +206,7 @@ python scripts/audit_precommit_security.py
 python scripts/audit_public_documentation.py
 ```
 
-Batch A2 development-only verification aids can be run separately:
+Current development verification aids can be run separately:
 
 ```bash
 python scripts/test_firmware_core_host.py
@@ -223,7 +220,7 @@ The first repository-content script screens Git candidates for prohibited paths 
 
 ## Next Engineering Milestones
 
-The next work is to complete Firmware Core Phase 3 (alarm lifecycle, scheduler, diagnostics, bounded journal) with executable tests and evidence before proceeding to planned providers and safety simulation. See the [roadmap](docs/github-repository-plan.md).
+Before Phase 9 begins, complete the remaining pre-Phase-9 repository-hardening gate for clean tracked-only public archive generation. Then begin Phase 9 Laravel/MySQL with migration-controlled schema work, authenticated ingestion, persistence, device health, API validation, and isolated backend tests. Formal SIM-010..SIM-015 and SUP-001..SUP-019 remain governed by their dedicated later gates.
 
 ## Engineering Baseline and Scope Control
 

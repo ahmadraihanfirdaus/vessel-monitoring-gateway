@@ -1,0 +1,16 @@
+test_id,execution_status,evidence_path,qualification
+SIM-001,PASS,evidence/test-results/phase5-e4-summary-20261016.md,Dedicated host + fresh Wokwi formal software-simulation evidence; Phase 5 E4 6/6 PASS.
+SIM-002,PASS,evidence/test-results/phase5-e4-summary-20261016.md,Dedicated host + fresh Wokwi formal software-simulation evidence; Phase 5 E4 6/6 PASS.
+SIM-003,PASS,evidence/test-results/phase5-e4-summary-20261016.md,Dedicated host + fresh Wokwi formal software-simulation evidence; Phase 5 E4 6/6 PASS.
+SIM-004,PASS,evidence/test-results/phase5-e4-summary-20261016.md,Dedicated host + fresh Wokwi formal software-simulation evidence; Phase 5 E4 6/6 PASS.
+SIM-005,PASS,evidence/test-results/phase5-e4-summary-20261016.md,Dedicated host + fresh Wokwi formal software-simulation evidence; Phase 5 E4 6/6 PASS.
+SIM-006,PASS,evidence/test-results/phase5-e4-summary-20261016.md,Dedicated host + fresh Wokwi formal software-simulation evidence; Phase 5 E4 6/6 PASS.
+SIM-007,PASS,evidence/test-results/phase6-f2-summary-20261016.md,Dedicated host + fresh Wokwi formal software-simulation evidence; Phase 6 F2 SIM-007 PASS.
+SIM-008,PASS,evidence/test-results/phase7-g2-summary-20261016.md,Dedicated host + fresh Wokwi formal software-simulation evidence; Phase 7 G2 SIM-008/SIM-009 PASS.
+SIM-009,PASS,evidence/test-results/phase7-g2-summary-20261016.md,Dedicated host + fresh Wokwi formal software-simulation evidence; Phase 7 G2 SIM-008/SIM-009 PASS.
+SIM-010,NOT_RUN,,No dedicated accepted formal execution evidence recorded yet.
+SIM-011,NOT_RUN,,No dedicated accepted formal execution evidence recorded yet.
+SIM-012,NOT_RUN,,No dedicated accepted formal execution evidence recorded yet.
+SIM-013,NOT_RUN,,No dedicated accepted formal execution evidence recorded yet.
+SIM-014,NOT_RUN,,No dedicated accepted formal execution evidence recorded yet.
+SIM-015,NOT_RUN,,No dedicated accepted formal execution evidence recorded yet.
