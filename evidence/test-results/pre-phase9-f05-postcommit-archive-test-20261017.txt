@@ -1,0 +1,7 @@
+PUBLIC_ARCHIVE_TEST tracked_files=309: PASS
+PUBLIC_ARCHIVE_TEST exact_tracked_set: PASS
+PUBLIC_ARCHIVE_TEST forbidden_entries=0: PASS
+PUBLIC_ARCHIVE_TEST machine_local_user_paths=0: PASS
+PUBLIC_ARCHIVE_TEST high_confidence_secret_hits=0: PASS
+PUBLIC_ARCHIVE_TEST git_metadata=ABSENT: PASS
+PUBLIC_ARCHIVE_TEST: PASS

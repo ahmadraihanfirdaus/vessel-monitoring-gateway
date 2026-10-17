@@ -1,0 +1,6 @@
+b8f2f710e74f46660c72f399d50d7856e06b64aee6e71ef539c29aefb076ee75 *docs/testing/pre-phase9-f05-plan.md
+5c23721688cbb1179b82038dc0cf4ee81ebe1902501b1d6c80a258e766bd0d53 *evidence/test-results/pre-phase9-f05-postcommit-archive-create-20261017.txt
+0b61e68dc96c66efe11ed5d85b5a9f870a00b1fdce1e4bedaa1274b509331474 *evidence/test-results/pre-phase9-f05-postcommit-archive-test-20261017.txt
+26237473ddad27c6d52fc52d663144d41e78e51044a53d9d462d0cb773317e5c *evidence/test-results/pre-phase9-f05-postcommit-security-20261017.txt
+a0be9f14dfe32fa6c29e392ff96ef76c52b50735cad13c9422987cce051c99e5 *evidence/test-results/pre-phase9-f05-postcommit-audit-20261017.txt
+e045f58a1fba1541becad2fad2b1853929a0f88d142fbb031588ae0dcab1baed *evidence/test-results/pre-phase9-f05-postcommit-summary-20261017.md

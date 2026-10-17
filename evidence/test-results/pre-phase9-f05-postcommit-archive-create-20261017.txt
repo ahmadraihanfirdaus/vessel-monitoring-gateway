@@ -1,0 +1,14 @@
+PUBLIC_ARCHIVE_TEST tracked_files=309: PASS
+PUBLIC_ARCHIVE_TEST exact_tracked_set: PASS
+PUBLIC_ARCHIVE_TEST forbidden_entries=0: PASS
+PUBLIC_ARCHIVE_TEST machine_local_user_paths=0: PASS
+PUBLIC_ARCHIVE_TEST high_confidence_secret_hits=0: PASS
+PUBLIC_ARCHIVE_TEST git_metadata=ABSENT: PASS
+PUBLIC_ARCHIVE_TEST: PASS
+PUBLIC_ARCHIVE: CREATED
+source_commit=b784a78819d01e81c2620a5e9b2f52ce7ae8ca4d
+tracked_files=309
+archive_bytes=558264
+archive_sha256=b46ec209714d163d713459e68dfec7fda609572138a3eea392b0e7e69aa91f21
+output=<operator-local-downloads>/vessel-monitoring-gateway-public-b784a78.zip
+NOTE: This archive contains tracked Git content only; it is not deployment or production approval.

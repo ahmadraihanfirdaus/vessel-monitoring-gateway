@@ -1,6 +1,6 @@
 # Pre-Phase 9 F05 — Clean Public Archive Procedure
 
-**Status:** IMPLEMENTATION CHECK PASS — post-commit archive evidence pending
+**Status:** BATCH COMPLETE — post-commit tracked-only archive evidence PASS
 
 ## Scope
 
@@ -81,3 +81,25 @@ Fixture hotfix pre-commit checks: PASS (6/6).
 
 Post-commit archive evidence remains NOT_RUN until this fixture hotfix is
 committed.
+
+## Final post-commit archive evidence — 2026-10-17
+
+- F05 implementation commit: `55c8ef6`.
+- Scanner hotfix commit: `e7e2b6b`.
+- Scanner fixture hotfix commit: `b784a78`.
+- Focused scanner/fixture regression: PASS (6/6).
+- Tracked-only public archive generation from committed HEAD: PASS.
+- Exact archive-to-Git tracked-file parity: PASS.
+- Forbidden archive entries: 0.
+- Machine-local user path hits: 0.
+- High-confidence secret hits: 0.
+- Git metadata entries: 0.
+- F01 status/traceability regression: PASS.
+- Automated security regression: PASS.
+- LOCKED SHA gate: PASS (2/2).
+- Total system status remains PARTIAL.
+- Phase 9 remains NOT_STARTED until this closure evidence is committed.
+
+This closes the pre-Phase-9 F05 repair scope only. It does not authorize
+publication, deployment, physical integration, certification, calibration,
+field operation, or production readiness.
