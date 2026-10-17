@@ -1,0 +1,34 @@
+=== PHASE 2.7B.5K.5 - PUBLIC SECURITY AUDIT ===
+Git index entries: 407
+Untracked candidates: 2
+Total candidates: 409
+
+Potential security findings: 14
+Manual review warnings: 0
+
+REVIEW REQUIRED: backend/laravel/.editorconfig:0 [path] - Unsupported format; manual approval required
+REVIEW REQUIRED: backend/laravel/app/Models/User.php:46 [index] - Possible hardcoded secret
+REVIEW REQUIRED: backend/laravel/artisan:0 [path] - Unsupported format; manual approval required
+REVIEW REQUIRED: backend/laravel/composer.lock:0 [path] - Unsupported format; manual approval required
+REVIEW REQUIRED: backend/laravel/config/database.php:54 [index] - Possible hardcoded secret
+REVIEW REQUIRED: backend/laravel/config/database.php:74 [index] - Possible hardcoded secret
+REVIEW REQUIRED: backend/laravel/config/database.php:94 [index] - Possible hardcoded secret
+REVIEW REQUIRED: backend/laravel/config/database.php:109 [index] - Possible hardcoded secret
+REVIEW REQUIRED: backend/laravel/config/database.php:160 [index] - Possible hardcoded secret
+REVIEW REQUIRED: backend/laravel/config/database.php:173 [index] - Possible hardcoded secret
+REVIEW REQUIRED: backend/laravel/config/mail.php:47 [index] - Possible hardcoded secret
+REVIEW REQUIRED: backend/laravel/public/.htaccess:0 [path] - Unsupported format; manual approval required
+REVIEW REQUIRED: scripts/test_phase9_p2_mysql_source.py:57 [index] - Possible hardcoded secret
+REVIEW REQUIRED: scripts/test_phase9_p2_mysql_source.py:57 [working] - Possible hardcoded secret
+
+RESULT: SECURITY REVIEW REQUIRED
+
+NOTE: This scan is not a confidentiality guarantee
+NOTE: Unsupported binary files are blocked
+NOTE: Manual semantic review is still mandatory
+NOTE: No files were modified
+NOTE: Passing does not authorize publication
+=== PHASE 2.7B.5K.5 COMPLETE ===
+PHASE9_P2_VALUE_RECONCILIATION_SECURITY_REVIEWED_FINDINGS: 14_OF_14_CLASSIFIED
+PHASE9_P2_VALUE_RECONCILIATION_SECURITY_REVIEW_WARNINGS: 0
+PHASE9_P2_VALUE_RECONCILIATION_SECURITY_REVIEW_GATE: PASS

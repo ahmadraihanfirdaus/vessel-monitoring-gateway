@@ -71,9 +71,14 @@ Allowed channel quality labels:
 
 Value/quality rules:
 
+- every v1 wire-channel object contains exactly `value` and `quality`;
+- the v1 serializer emits an explicit `value` member for every channel;
+- firmware `has_value = false` is represented on the wire as `value = null`;
 - `valid` requires a finite numeric value;
 - `invalid`, `missing`, and `unknown` require `value = null`;
 - `stale` may retain a finite numeric value or use `null`;
+- an absent `value` member is invalid v1 input rather than a second
+  representation of `null`;
 - duplicate channel names in one payload are rejected;
 - invalid or missing values are never silently converted to numeric zero.
 
@@ -208,7 +213,11 @@ Before persistence, the backend must validate:
 8. unique channel names;
 9. recognized quality value;
 10. value/quality consistency;
-11. authenticated-device identity matches payload device identity.
+11. authenticated-device identity matches payload device identity;
+12. raw JSON identity fields are inspected structurally at the top level so a
+    nested channel key cannot satisfy identity-field validation;
+13. duplicate JSON object keys are rejected at the telemetry top level, in the
+    `channels` object, and inside each channel object.
 
 Validation must fail before any accepted-sample persistence.
 
@@ -230,7 +239,13 @@ For a request whose tuple already exists:
   channel count with the normalized incoming payload;
 - compare channels as an unordered map keyed by channel name; channel order
   does not affect semantic equality, while each channel must preserve the same
-  quality, value presence, and numeric value;
+  quality and wire value state (`null` versus finite numeric), including the same numeric value when one is present;
+- channel order does not affect semantic equality, while each channel must
+  preserve the same quality and wire value state (`null` versus finite
+  numeric), including the same numeric value when one is present;
+- there is no separate backend wire-level value-presence bit because the v1
+  `value` member is mandatory; firmware `has_value = false` serializes as
+  explicit JSON `null`;
 - if semantically identical, create no new rows and return `200`;
 - if any semantic field or channel differs, create no new rows and return `409`.
 

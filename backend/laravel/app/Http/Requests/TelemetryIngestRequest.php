@@ -119,6 +119,7 @@ class TelemetryIngestRequest extends FormRequest
     {
         $validator->after(function (Validator $validator): void {
             $this->validateTopLevelFields($validator);
+            $this->validateRawObjectKeyUniqueness($validator);
             $this->validateRawUnsignedInteger($validator, 'sequence');
             $this->validateRawUnsignedInteger($validator, 'uptime_ms');
             $this->validateChannels($validator);
@@ -163,18 +164,353 @@ class TelemetryIngestRequest extends FormRequest
         Validator $validator,
         string $field
     ): void {
-        $raw = $this->getContent();
-        $quotedField = preg_quote($field, '/');
+        $members = $this->rawTopLevelMembers();
 
-        if (preg_match(
-            '/"'.$quotedField.'"\s*:\s*(?:0|[1-9][0-9]*)(?=\s*[,}])/',
-            $raw
-        ) !== 1) {
+        if ($members === null) {
+            return;
+        }
+
+        $matchingMembers = array_values(array_filter(
+            $members,
+            static fn (array $member): bool => $member['key'] === $field
+        ));
+
+        if (count($matchingMembers) !== 1
+            || preg_match(
+                '/\A(?:0|[1-9][0-9]*)\z/',
+                trim($matchingMembers[0]['value'] ?? '')
+            ) !== 1) {
             $validator->errors()->add(
                 $field,
-                $field.' must be encoded as an unsigned JSON integer.'
+                $field.' must be encoded exactly once as an unsigned JSON integer.'
             );
         }
+    }
+
+    private function validateRawObjectKeyUniqueness(
+        Validator $validator
+    ): void {
+        if (! $this->isJson()) {
+            return;
+        }
+
+        $members = $this->rawTopLevelMembers();
+
+        if ($members === null) {
+            if ($this->rawJsonIsValid()) {
+                $validator->errors()->add(
+                    'payload',
+                    'Telemetry JSON structure could not be inspected safely.'
+                );
+            }
+
+            return;
+        }
+
+        foreach ($this->duplicateRawKeys($members) as $key) {
+            $validator->errors()->add(
+                'payload',
+                'Duplicate top-level JSON key is not allowed: '.$key.'.'
+            );
+        }
+
+        $channelMembers = array_values(array_filter(
+            $members,
+            static fn (array $member): bool => $member['key'] === 'channels'
+        ));
+
+        if (count($channelMembers) !== 1) {
+            return;
+        }
+
+        $channels = $this->parseRawObjectMembers(
+            trim($channelMembers[0]['value'])
+        );
+
+        if ($channels === null) {
+            return;
+        }
+
+        foreach ($this->duplicateRawKeys($channels) as $name) {
+            $validator->errors()->add(
+                'channels',
+                'Duplicate channel JSON key is not allowed: '.$name.'.'
+            );
+        }
+
+        foreach ($channels as $channel) {
+            $channelFields = $this->parseRawObjectMembers(
+                trim($channel['value'])
+            );
+
+            if ($channelFields === null) {
+                continue;
+            }
+
+            foreach ($this->duplicateRawKeys($channelFields) as $field) {
+                $validator->errors()->add(
+                    'channels.'.$channel['key'],
+                    'Duplicate channel field is not allowed: '.$field.'.'
+                );
+            }
+        }
+    }
+
+    private function rawTopLevelMembers(): ?array
+    {
+        if (! $this->isJson() || ! $this->rawJsonIsValid()) {
+            return null;
+        }
+
+        return $this->parseRawObjectMembers($this->getContent());
+    }
+
+    private function rawJsonIsValid(): bool
+    {
+        try {
+            json_decode(
+                $this->getContent(),
+                true,
+                512,
+                JSON_THROW_ON_ERROR | JSON_BIGINT_AS_STRING
+            );
+
+            return true;
+        } catch (JsonException) {
+            return false;
+        }
+    }
+
+    /**
+     * Parse only object-member boundaries from already valid JSON.
+     *
+     * @return array<int, array{key:string,value:string}>|null
+     */
+    private function parseRawObjectMembers(string $raw): ?array
+    {
+        $length = strlen($raw);
+        $offset = 0;
+        $this->skipRawWhitespace($raw, $offset);
+
+        if ($offset >= $length || $raw[$offset] !== '{') {
+            return null;
+        }
+
+        ++$offset;
+        $members = [];
+
+        while (true) {
+            $this->skipRawWhitespace($raw, $offset);
+
+            if ($offset >= $length) {
+                return null;
+            }
+
+            if ($raw[$offset] === '}') {
+                ++$offset;
+                break;
+            }
+
+            $keyToken = $this->consumeRawJsonString($raw, $offset);
+
+            if ($keyToken === null) {
+                return null;
+            }
+
+            try {
+                $key = json_decode(
+                    $keyToken,
+                    true,
+                    512,
+                    JSON_THROW_ON_ERROR
+                );
+            } catch (JsonException) {
+                return null;
+            }
+
+            if (! is_string($key)) {
+                return null;
+            }
+
+            $this->skipRawWhitespace($raw, $offset);
+
+            if ($offset >= $length || $raw[$offset] !== ':') {
+                return null;
+            }
+
+            ++$offset;
+            $this->skipRawWhitespace($raw, $offset);
+            $valueStart = $offset;
+
+            if (! $this->consumeRawJsonValue($raw, $offset)) {
+                return null;
+            }
+
+            $members[] = [
+                'key' => $key,
+                'value' => substr($raw, $valueStart, $offset - $valueStart),
+            ];
+
+            $this->skipRawWhitespace($raw, $offset);
+
+            if ($offset >= $length) {
+                return null;
+            }
+
+            if ($raw[$offset] === ',') {
+                ++$offset;
+
+                continue;
+            }
+
+            if ($raw[$offset] === '}') {
+                ++$offset;
+                break;
+            }
+
+            return null;
+        }
+
+        $this->skipRawWhitespace($raw, $offset);
+
+        return $offset === $length ? $members : null;
+    }
+
+    private function consumeRawJsonString(
+        string $raw,
+        int &$offset
+    ): ?string {
+        $length = strlen($raw);
+
+        if ($offset >= $length || $raw[$offset] !== '"') {
+            return null;
+        }
+
+        $start = $offset;
+        ++$offset;
+
+        while ($offset < $length) {
+            if ($raw[$offset] === '\\') {
+                $offset += 2;
+
+                continue;
+            }
+
+            if ($raw[$offset] === '"') {
+                ++$offset;
+
+                return substr($raw, $start, $offset - $start);
+            }
+
+            ++$offset;
+        }
+
+        return null;
+    }
+
+    private function consumeRawJsonValue(
+        string $raw,
+        int &$offset
+    ): bool {
+        $length = strlen($raw);
+
+        if ($offset >= $length) {
+            return false;
+        }
+
+        if ($raw[$offset] === '"') {
+            return $this->consumeRawJsonString($raw, $offset) !== null;
+        }
+
+        if ($raw[$offset] === '{' || $raw[$offset] === '[') {
+            return $this->consumeRawJsonComposite($raw, $offset);
+        }
+
+        $start = $offset;
+
+        while ($offset < $length
+            && $raw[$offset] !== ','
+            && $raw[$offset] !== '}') {
+            ++$offset;
+        }
+
+        return trim(substr($raw, $start, $offset - $start)) !== '';
+    }
+
+    private function consumeRawJsonComposite(
+        string $raw,
+        int &$offset
+    ): bool {
+        $length = strlen($raw);
+        $stack = [$raw[$offset]];
+        ++$offset;
+
+        while ($offset < $length && $stack !== []) {
+            if ($raw[$offset] === '"') {
+                if ($this->consumeRawJsonString($raw, $offset) === null) {
+                    return false;
+                }
+
+                continue;
+            }
+
+            if ($raw[$offset] === '{' || $raw[$offset] === '[') {
+                $stack[] = $raw[$offset];
+                ++$offset;
+
+                continue;
+            }
+
+            if ($raw[$offset] === '}' || $raw[$offset] === ']') {
+                $opening = array_pop($stack);
+                $expected = $opening === '{' ? '}' : ']';
+
+                if ($raw[$offset] !== $expected) {
+                    return false;
+                }
+
+                ++$offset;
+
+                continue;
+            }
+
+            ++$offset;
+        }
+
+        return $stack === [];
+    }
+
+    private function skipRawWhitespace(
+        string $raw,
+        int &$offset
+    ): void {
+        $length = strlen($raw);
+
+        while ($offset < $length
+            && ($raw[$offset] === ' '
+                || $raw[$offset] === "\t"
+                || $raw[$offset] === "\r"
+                || $raw[$offset] === "\n")) {
+            ++$offset;
+        }
+    }
+
+    /**
+     * @param array<int, array{key:string,value:string}> $members
+     * @return array<int, string>
+     */
+    private function duplicateRawKeys(array $members): array
+    {
+        $counts = [];
+
+        foreach ($members as $member) {
+            $counts[$member['key']] = ($counts[$member['key']] ?? 0) + 1;
+        }
+
+        return array_keys(array_filter(
+            $counts,
+            static fn (int $count): bool => $count > 1
+        ));
     }
 
     private function validateTopLevelFields(Validator $validator): void

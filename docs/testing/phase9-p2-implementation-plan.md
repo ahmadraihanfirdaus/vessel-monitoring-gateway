@@ -76,6 +76,35 @@ Middleware order:
 No clear device token is stored. The database stores only a SHA-256 token
 digest, and real/local tokens remain outside Git.
 
+## Raw JSON validation hardening
+
+The request validator preserves full unsigned 64-bit JSON integer values for
+`sequence` and `uptime_ms`.
+
+Raw identity-field validation is structural and top-level-only. A nested
+channel key named `sequence` or `uptime_ms` cannot satisfy the corresponding
+top-level identity-field validation.
+
+Duplicate JSON keys are rejected at the telemetry top level, in the
+`channels` object, and inside each channel object so JSON last-key-wins
+decoding cannot silently change telemetry semantics.
+
+## Phase 8 wire-value reconciliation
+
+Phase 8 defines a channel object with exactly `value` and `quality`. The
+serializer always emits `value`: firmware `has_value = false` becomes explicit
+JSON `null`.
+
+Accordingly, the Laravel v1 request contract requires the `value` member for
+every channel. `valid` uses a finite numeric value; `invalid`, `missing`, and
+`unknown` use `null`; `stale` may use `null` or a finite number. Omitting
+`value` is invalid v1 input.
+
+The backend does not need a separate value-presence persistence column for
+this v1 wire format. Deduplication compares each channel's quality and wire
+value state (`null` versus finite numeric), plus the numeric value when
+present.
+
 ## Source-only verification
 
 This batch may run:

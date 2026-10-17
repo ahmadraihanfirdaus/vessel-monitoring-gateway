@@ -116,7 +116,10 @@ check("DEDUP_CONFLICT_STATUS", "conflicting_duplicate" in service)
 
 check("UINT64_BIGINT_PRESERVATION", "JSON_BIGINT_AS_STRING" in request)
 check("UINT64_MAX_BOUND", "18446744073709551615" in request)
-check("UINT64_RAW_JSON_NUMBER_GUARD", "must be encoded as an unsigned JSON integer" in request)
+check(
+    "UINT64_RAW_JSON_NUMBER_GUARD",
+    "must be encoded exactly once as an unsigned JSON integer" in request,
+)
 check("UINT64_NO_GLOBAL_FIELD_OCCURRENCE_COUNT", "preg_match_all" not in request)
 check("UINT64_SEQUENCE_CHANNEL_REGRESSION_TEST_DEFINED", "test_channel_named_sequence_does_not_conflict_with_identity_validation" in feature_test)
 check("UINT64_SERVICE_NORMALIZATION", "normalizeUnsignedInteger" in service)
@@ -131,5 +134,44 @@ check("NO_VENDOR", not (ROOT / "backend/laravel/vendor").exists())
 
 migration_files = sorted((ROOT / "backend/laravel/database/migrations").glob("*.php"))
 check("EXACTLY_THREE_APPLICATION_MIGRATIONS", len(migration_files) == 3)
+
+check("RAW_JSON_STRUCTURAL_MEMBER_PARSER", "parseRawObjectMembers" in request)
+check("RAW_JSON_TOP_LEVEL_UNIQUE_GUARD", "validateRawObjectKeyUniqueness" in request)
+check("RAW_JSON_DUPLICATE_KEY_HELPER", "duplicateRawKeys" in request)
+check(
+    "RAW_UINT64_STRUCTURAL_TOP_LEVEL_LOOKUP",
+    "matchingMembers" in request
+    and "must be encoded exactly once as an unsigned JSON integer" in request,
+)
+check(
+    "RAW_UINT64_NO_GLOBAL_SEQUENCE_REGEX",
+    'preg_quote($field' not in request,
+)
+check(
+    "RAW_UINT64_NESTED_SEQUENCE_BYPASS_TEST_DEFINED",
+    "test_quoted_top_level_sequence_with_sequence_channel_is_rejected"
+    in feature_test,
+)
+check(
+    "RAW_DUPLICATE_TOP_LEVEL_TEST_DEFINED",
+    "test_duplicate_top_level_identity_key_is_rejected" in feature_test,
+)
+check(
+    "RAW_DUPLICATE_CHANNEL_TEST_DEFINED",
+    "test_duplicate_channel_key_is_rejected" in feature_test,
+)
+
+check(
+    "WIRE_CHANNEL_EXACT_VALUE_QUALITY_MEMBERS",
+    "'channels.*' => ['required', 'array:value,quality']" in request,
+)
+check(
+    "WIRE_VALUE_MEMBER_EXPLICITLY_PRESENT",
+    "'channels.*.value' => ['present', 'nullable', 'numeric']" in request,
+)
+check(
+    "WIRE_ABSENT_VALUE_MEMBER_REJECTION_TEST_DEFINED",
+    "test_channel_value_member_must_be_explicit_even_when_null" in feature_test,
+)
 
 print("PHASE9_P2_MYSQL_SOURCE_TEST: PASS")

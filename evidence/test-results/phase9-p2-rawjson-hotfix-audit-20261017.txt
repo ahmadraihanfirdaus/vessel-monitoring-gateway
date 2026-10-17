@@ -1,0 +1,32 @@
+BASELINE_HEAD=18d65acff994cca3b9a8916b2c70d3e783ed8cc6
+BASELINE_SHORT=18d65ac
+BRANCH=develop
+
+=== HOTFIX DIFF STAT ===
+ .../app/Http/Requests/TelemetryIngestRequest.php   | 350 ++++++++++++++++++++-
+ .../laravel/tests/Feature/TelemetryIngestTest.php  |  96 ++++++
+ docs/testing/phase9-p2-design.md                   |  19 +-
+ docs/testing/phase9-p2-implementation-plan.md      |  29 ++
+ scripts/test_phase9_p2_mysql_source.py             |  44 ++-
+ 5 files changed, 528 insertions(+), 10 deletions(-)
+
+=== HOTFIX NAME STATUS ===
+ M backend/laravel/app/Http/Requests/TelemetryIngestRequest.php
+ M backend/laravel/tests/Feature/TelemetryIngestTest.php
+ M docs/testing/phase9-p2-design.md
+ M docs/testing/phase9-p2-implementation-plan.md
+ M scripts/test_phase9_p2_mysql_source.py
+?? firmware/.gitignore
+?? firmware/.vscode/extensions.json
+
+=== LOCKED SHA ===
+a60167d9f2a1f852a091048447f6f4acf8d2cbfd6d11f04c2a6e2f6896f5b92b *requirements/system-requirements.md
+bc1fc7ce697fc6180cab760320de2a1bd814f9bc78731d4a22fdae838c303fe3 *requirements/traceability-matrix.csv
+
+=== BOUNDARY ===
+BACKEND_DATABASE_POLICY: MYSQL_ONLY
+MIGRATIONS_EXECUTED: NO
+MYSQL_SERVER_CONNECTION: NOT_ATTEMPTED
+DATABASE_CONNECTION: NOT_ATTEMPTED
+DATABASE_WRITE: NOT_ATTEMPTED
+LARAVEL_FEATURE_TESTS: DEFINED_NOT_RUN

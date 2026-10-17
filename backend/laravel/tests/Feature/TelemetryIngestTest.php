@@ -191,6 +191,102 @@ class TelemetryIngestTest extends TestCase
         $this->assertDatabaseCount('telemetry_samples', 0);
     }
 
+    public function test_quoted_top_level_sequence_with_sequence_channel_is_rejected(): void
+    {
+        [$device, $bearer] = $this->createDevice();
+        $payload = $this->payload($device->device_id);
+        $payload['channels']['sequence'] = [
+            'value' => 7.0,
+            'quality' => 'valid',
+        ];
+
+        $raw = json_encode($payload, JSON_THROW_ON_ERROR);
+        $raw = str_replace(
+            '"sequence":42',
+            '"sequence":"18446744073709551615"',
+            $raw
+        );
+
+        $this
+            ->withHeader('Authorization', 'Bearer '.$bearer)
+            ->withHeader('Content-Type', 'application/json')
+            ->call('POST', '/api/v1/telemetry', [], [], [], [], $raw)
+            ->assertUnprocessable();
+
+        $this->assertDatabaseCount('telemetry_samples', 0);
+    }
+
+    public function test_channel_value_member_must_be_explicit_even_when_null(): void
+    {
+        [$device, $bearer] = $this->createDevice();
+        $payload = $this->payload($device->device_id);
+
+        unset($payload['channels']['bilge_level']['value']);
+
+        $this->withToken($bearer)
+            ->postJson('/api/v1/telemetry', $payload)
+            ->assertUnprocessable();
+
+        $this->assertDatabaseCount('telemetry_samples', 0);
+    }
+
+    public function test_duplicate_top_level_identity_key_is_rejected(): void
+    {
+        [$device, $bearer] = $this->createDevice();
+        $raw = json_encode(
+            $this->payload($device->device_id),
+            JSON_THROW_ON_ERROR
+        );
+
+        $raw = str_replace(
+            '"sequence":42',
+            '"sequence":42,"sequence":43',
+            $raw
+        );
+
+        $this
+            ->withHeader('Authorization', 'Bearer '.$bearer)
+            ->withHeader('Content-Type', 'application/json')
+            ->call('POST', '/api/v1/telemetry', [], [], [], [], $raw)
+            ->assertUnprocessable();
+
+        $this->assertDatabaseCount('telemetry_samples', 0);
+    }
+
+    public function test_duplicate_channel_key_is_rejected(): void
+    {
+        [$device, $bearer] = $this->createDevice();
+        $payload = $this->payload($device->device_id);
+        $raw = json_encode($payload, JSON_THROW_ON_ERROR);
+
+        $duplicateChannel = trim(
+            json_encode(
+                [
+                    'temperature_c' => [
+                        'value' => 31.25,
+                        'quality' => 'valid',
+                    ],
+                ],
+                JSON_THROW_ON_ERROR
+            ),
+            '{}'
+        );
+
+        $raw = str_replace(
+            '"channels":{',
+            '"channels":{'.$duplicateChannel.',',
+            $raw
+        );
+
+        $this
+            ->withHeader('Authorization', 'Bearer '.$bearer)
+            ->withHeader('Content-Type', 'application/json')
+            ->call('POST', '/api/v1/telemetry', [], [], [], [], $raw)
+            ->assertUnprocessable();
+
+        $this->assertDatabaseCount('telemetry_samples', 0);
+    }
+
     private function createDevice(bool $enabled = true): array
     {
         $bearer = Str::random(64);
