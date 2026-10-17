@@ -1,0 +1,6 @@
+a7de1b2cc73f290b5a783ff539699cc9ccb9df5f42b60b5e76940d163c77cd38 *backend/laravel/tests/Feature/TelemetryIngestTest.php
+468def76b033350378a333ef9702b25136f1b0490f51d5e52c081f51bb3d3d09 *evidence/test-results/phase9-p2-feature-test-fix-audit-20261017.txt
+8ddfbce66c5e21a8712dca336cb6d1f05a690f004e9290fa0b980c48ca8ee72e *evidence/test-results/phase9-p2-feature-test-fix-db-integrity-20261017.txt
+a6d06240b7016e451cad6e49a5ebfccbfc68a3d135cb2ad8c9856ae57bb8846a *evidence/test-results/phase9-p2-feature-test-fix-regression-20261017.txt
+a1e992c60b76b9aec264c9530b8919850ceffcb6b30525182e3af3e0d733d377 *evidence/test-results/phase9-p2-feature-test-fix-security-20261017.txt
+2a505908e202ef1149fa2c843b71d089e785f9de01e28f476c2d6a4c3436a3ab *evidence/test-results/phase9-p2-feature-test-fix-summary-20261017.md

@@ -1,0 +1,19 @@
+PHASE9_P2_FEATURE_TEST_FIX_DB_INTEGRITY
+HOST=127.0.0.1
+PORT=3307
+APPLICATION_DATABASE=vessel_monitoring_gateway
+TEST_DATABASE=vessel_monitoring_gateway_test
+app_tables	4
+app_migrations	3
+app_devices	0
+app_samples	0
+app_channels	0
+test_tables	4
+test_migrations	3
+test_devices	0
+test_samples	0
+test_channels	0
+APPLICATION_DATABASE_UNCHANGED=PASS
+TEST_DATABASE_TRANSACTION_CLEANUP=PASS
+APPLICATION_DATA_ROWS=0
+TEST_DATA_ROWS=0

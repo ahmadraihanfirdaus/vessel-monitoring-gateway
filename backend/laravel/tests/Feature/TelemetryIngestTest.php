@@ -147,9 +147,11 @@ class TelemetryIngestTest extends TestCase
         );
 
         $this
-            ->withHeader('Authorization', 'Bearer '.$bearer)
-            ->withHeader('Content-Type', 'application/json')
-            ->call('POST', '/api/v1/telemetry', [], [], [], [], $raw)
+            ->call('POST', '/api/v1/telemetry', [], [], [], [
+                'HTTP_AUTHORIZATION' => 'Bearer '.$bearer,
+                'CONTENT_TYPE' => 'application/json',
+                'HTTP_ACCEPT' => 'application/json',
+            ], $raw)
             ->assertCreated();
 
         $this->assertDatabaseHas('telemetry_samples', [
@@ -208,9 +210,11 @@ class TelemetryIngestTest extends TestCase
         );
 
         $this
-            ->withHeader('Authorization', 'Bearer '.$bearer)
-            ->withHeader('Content-Type', 'application/json')
-            ->call('POST', '/api/v1/telemetry', [], [], [], [], $raw)
+            ->call('POST', '/api/v1/telemetry', [], [], [], [
+                'HTTP_AUTHORIZATION' => 'Bearer '.$bearer,
+                'CONTENT_TYPE' => 'application/json',
+                'HTTP_ACCEPT' => 'application/json',
+            ], $raw)
             ->assertUnprocessable();
 
         $this->assertDatabaseCount('telemetry_samples', 0);
@@ -245,9 +249,11 @@ class TelemetryIngestTest extends TestCase
         );
 
         $this
-            ->withHeader('Authorization', 'Bearer '.$bearer)
-            ->withHeader('Content-Type', 'application/json')
-            ->call('POST', '/api/v1/telemetry', [], [], [], [], $raw)
+            ->call('POST', '/api/v1/telemetry', [], [], [], [
+                'HTTP_AUTHORIZATION' => 'Bearer '.$bearer,
+                'CONTENT_TYPE' => 'application/json',
+                'HTTP_ACCEPT' => 'application/json',
+            ], $raw)
             ->assertUnprocessable();
 
         $this->assertDatabaseCount('telemetry_samples', 0);
@@ -279,9 +285,11 @@ class TelemetryIngestTest extends TestCase
         );
 
         $this
-            ->withHeader('Authorization', 'Bearer '.$bearer)
-            ->withHeader('Content-Type', 'application/json')
-            ->call('POST', '/api/v1/telemetry', [], [], [], [], $raw)
+            ->call('POST', '/api/v1/telemetry', [], [], [], [
+                'HTTP_AUTHORIZATION' => 'Bearer '.$bearer,
+                'CONTENT_TYPE' => 'application/json',
+                'HTTP_ACCEPT' => 'application/json',
+            ], $raw)
             ->assertUnprocessable();
 
         $this->assertDatabaseCount('telemetry_samples', 0);
