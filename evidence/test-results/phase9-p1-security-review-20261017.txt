@@ -1,0 +1,51 @@
+REVIEW_HASH backend/laravel/.editorconfig f78cc5a2ef8ba61ad956d0f5db453748a981270f6a1b9f4a5a00df8690e7946d
+REVIEW_HASH backend/laravel/app/Models/User.php 41d800ffd4887c75e66af8eaedc756edce052eb662baae357308c6e364a6c9d2
+REVIEW_HASH backend/laravel/artisan f91a517c0c5d3a904c3f390933964a5e08ec1fc68146882730daac4aca4ffcec
+REVIEW_HASH backend/laravel/composer.lock 6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2
+REVIEW_HASH backend/laravel/config/database.php 06759b7b36b8641e9025fe03dd728970c4cb02d5b58ff709cbb0649987b4bfc2
+REVIEW_HASH backend/laravel/config/mail.php c43ff49a31c5f32ce21eb7159f2a4b3cd2f4074eaed5838d265646dbfedd3474
+REVIEW_HASH backend/laravel/public/.htaccess b7e379c77639fd56144947dbae84c84eb466d9c686ea81f2f013ae85421da923
+REVIEW_SEMANTIC backend/laravel/app/Models/User.php:46: PASS
+REVIEW_SEMANTIC backend/laravel/config/database.php:54: PASS
+REVIEW_SEMANTIC backend/laravel/config/database.php:74: PASS
+REVIEW_SEMANTIC backend/laravel/config/database.php:94: PASS
+REVIEW_SEMANTIC backend/laravel/config/database.php:109: PASS
+REVIEW_SEMANTIC backend/laravel/config/database.php:160: PASS
+REVIEW_SEMANTIC backend/laravel/config/database.php:173: PASS
+REVIEW_SEMANTIC backend/laravel/config/mail.php:47: PASS
+REVIEW_COMPOSER_LOCK_JSON: PASS
+REVIEW_LARAVEL_FRAMEWORK_VERSION: v12.70.0
+REVIEW_PINNED_FRAMEWORK_FILES: PASS
+=== PHASE 2.7B.5K.5 - PUBLIC SECURITY AUDIT ===
+Git index entries: 315
+Untracked candidates: 60
+Total candidates: 375
+
+Potential security findings: 12
+Manual review warnings: 0
+
+REVIEW REQUIRED: backend/laravel/.editorconfig:0 [path] - Unsupported format; manual approval required
+REVIEW REQUIRED: backend/laravel/app/Models/User.php:46 [untracked] - Possible hardcoded secret
+REVIEW REQUIRED: backend/laravel/artisan:0 [path] - Unsupported format; manual approval required
+REVIEW REQUIRED: backend/laravel/composer.lock:0 [path] - Unsupported format; manual approval required
+REVIEW REQUIRED: backend/laravel/config/database.php:54 [untracked] - Possible hardcoded secret
+REVIEW REQUIRED: backend/laravel/config/database.php:74 [untracked] - Possible hardcoded secret
+REVIEW REQUIRED: backend/laravel/config/database.php:94 [untracked] - Possible hardcoded secret
+REVIEW REQUIRED: backend/laravel/config/database.php:109 [untracked] - Possible hardcoded secret
+REVIEW REQUIRED: backend/laravel/config/database.php:160 [untracked] - Possible hardcoded secret
+REVIEW REQUIRED: backend/laravel/config/database.php:173 [untracked] - Possible hardcoded secret
+REVIEW REQUIRED: backend/laravel/config/mail.php:47 [untracked] - Possible hardcoded secret
+REVIEW REQUIRED: backend/laravel/public/.htaccess:0 [path] - Unsupported format; manual approval required
+
+RESULT: SECURITY REVIEW REQUIRED
+
+NOTE: This scan is not a confidentiality guarantee
+NOTE: Unsupported binary files are blocked
+NOTE: Manual semantic review is still mandatory
+NOTE: No files were modified
+NOTE: Passing does not authorize publication
+=== PHASE 2.7B.5K.5 COMPLETE ===
+PHASE9_P1_SECURITY_BASE_SCANNER: REVIEW_REQUIRED_EXPECTED
+PHASE9_P1_SECURITY_REVIEWED_FINDINGS: 12_OF_12_CLASSIFIED
+PHASE9_P1_SECURITY_REVIEW_WARNINGS: 0
+PHASE9_P1_SECURITY_REVIEW_GATE: PASS
