@@ -31,6 +31,7 @@
 #include "phase6_f2_formal_scenarios.h"
 #include "phase7_g1_selftest.h"
 #include "phase7_g2_formal_scenarios.h"
+#include "phase8_h1_selftest.h"
 
 #ifdef ESP_PLATFORM
 #include "esp_timer.h"
@@ -1262,6 +1263,7 @@ void app_main(void)
     run_phase6_f2_formal_scenarios();
     run_phase7_g1_navigation_selftest();
     run_phase7_g2_formal_scenarios();
+    run_phase8_h1_telemetry_contract_selftest();
 #ifdef ESP_PLATFORM
     /* Diagnostic-only watermark; units are ESP-IDF FreeRTOS implementation
      * specific. No safety acceptance threshold is established. */

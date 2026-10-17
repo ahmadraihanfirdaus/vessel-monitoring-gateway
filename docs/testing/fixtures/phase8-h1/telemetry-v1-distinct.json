@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "device_id": "demo-device-001",
+  "firmware_version": "f78e172-dev",
+  "boot_id": "boot-demo-0001",
+  "sequence": 43,
+  "uptime_ms": 123556,
+  "source_mode": "simulation",
+  "channels": {
+    "temperature_c": {
+      "value": 31.25,
+      "quality": "valid"
+    }
+  }
+}
