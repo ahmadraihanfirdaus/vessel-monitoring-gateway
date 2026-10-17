@@ -1,0 +1,5 @@
+a070553440dde8cffbaf125dbabb117cdf2d761e68402776a1902a92f04529e6 *docs/testing/pre-phase9-f05-plan.md
+877e92519e615179118f1235a8311e695fbd0c2fa38650366fd4944cd09a96f2 *scripts/test_public_archive.py
+768dbe541a6fd85e622882dd5aa417275fd542b1c82fc9a1b0f369a04305f20b *scripts/test_public_archive_scanner.py
+28011f052b60b91ba0bd0942689d0331649e265f4bd0d7d20c04ba4f5a355cb9 *evidence/test-results/pre-phase9-f05-scanner-hotfix-check-20261017.txt
+750e3412f1c0c97bfe857c9426623d0d0f5e55ac524e4e0c65570651f97d3332 *evidence/test-results/pre-phase9-f05-scanner-hotfix-summary-20261017.md

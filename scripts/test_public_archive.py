@@ -21,17 +21,37 @@ FORBIDDEN_PATHS = [
     re.compile(r"\.py[co]$", re.I),
 ]
 
-MACHINE_PATHS = [
-    re.compile(rb"C:\\Users\\[^\\\r\n]+", re.I),
-    re.compile(rb"/c/Users/[^/\r\n]+", re.I),
-    re.compile(rb"[A-Z]:\\Users\\[^\\\r\n]+", re.I),
-]
-
 SECRET_PATTERNS = [
     re.compile(rb"-----BEGIN (?:RSA |EC |OPENSSH |DSA )?PRIVATE KEY-----"),
     re.compile(rb"\bgh[pousr]_[A-Za-z0-9]{20,}\b"),
     re.compile(rb"\bAKIA[0-9A-Z]{16}\b"),
 ]
+
+
+def machine_local_user_path_hits(data: bytes) -> list[bytes]:
+    """Return concrete machine-local user-profile path matches.
+
+    The path prefixes are assembled at runtime so this scanner does not match
+    its own source text. The username component intentionally requires a
+    concrete Windows-style account token, so documentation placeholders such
+    as <user> are not treated as leaks.
+    """
+
+    username = rb"([A-Za-z0-9._-]{1,64})"
+    backslash_users = re.escape(b"\\" + b"Users" + b"\\")
+    slash_users = re.escape(b"/" + b"Users" + b"/")
+    msys_users = re.escape(b"/" + b"c" + b"/" + b"Users" + b"/")
+
+    patterns = [
+        re.compile(rb"[A-Za-z]:" + backslash_users + username, re.I),
+        re.compile(rb"[A-Za-z]:" + slash_users + username, re.I),
+        re.compile(msys_users + username, re.I),
+    ]
+
+    hits: list[bytes] = []
+    for pattern in patterns:
+        hits.extend(match.group(0) for match in pattern.finditer(data))
+    return hits
 
 
 def tracked_files() -> list[str]:
@@ -69,8 +89,10 @@ def check_archive(path: Path) -> None:
         for info in infos:
             if info.is_dir():
                 continue
+
             name = info.filename[len(PREFIX):]
-            if any(p.search(name) for p in FORBIDDEN_PATHS):
+
+            if any(pattern.search(name) for pattern in FORBIDDEN_PATHS):
                 forbidden.append(name)
 
             if info.file_size > 8_000_000:
@@ -80,10 +102,10 @@ def check_archive(path: Path) -> None:
             if b"\x00" in data[:4096]:
                 continue
 
-            if any(p.search(data) for p in MACHINE_PATHS):
+            if machine_local_user_path_hits(data):
                 machine_hits.append(name)
 
-            if any(p.search(data) for p in SECRET_PATTERNS):
+            if any(pattern.search(data) for pattern in SECRET_PATTERNS):
                 secret_hits.append(name)
 
     assert not forbidden, f"forbidden archive entries: {forbidden[:10]}"
@@ -101,7 +123,10 @@ def check_archive(path: Path) -> None:
 
 def main() -> int:
     if len(sys.argv) != 2:
-        print("usage: python scripts/test_public_archive.py path/to/archive.zip", file=sys.stderr)
+        print(
+            "usage: python scripts/test_public_archive.py path/to/archive.zip",
+            file=sys.stderr,
+        )
         return 2
 
     path = Path(sys.argv[1])

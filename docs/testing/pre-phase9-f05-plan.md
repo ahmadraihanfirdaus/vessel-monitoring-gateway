@@ -50,3 +50,19 @@ No LOCKED file is modified.
 
 Phase 9 remains blocked until this F05 implementation is committed and the
 post-commit tracked-only archive is generated and verified from that commit.
+
+## Scanner hotfix after first post-commit attempt — 2026-10-17
+
+The first post-commit archive finalizer stopped because the machine-local path
+scanner matched two non-secret literals inside the archive itself: the
+documentation placeholder `/c/Users/<user>/...` and path-pattern text in the
+scanner source.
+
+The scanner was hardened to require a concrete account token and to assemble
+its path prefixes at runtime so it does not match its own source. Focused
+regression tests cover Windows backslash paths, Windows forward-slash paths,
+Git Bash paths, the `<user>` placeholder, and scanner self-source behavior.
+
+Hotfix pre-commit checks: PASS.
+
+Post-commit archive evidence remains NOT_RUN until this hotfix is committed.
