@@ -36,4 +36,14 @@ class Device extends Model
             'device_id'
         );
     }
+
+    public function monitoringEvents(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(
+            MonitoringEvent::class,
+            'device_id',
+            'device_id'
+        );
+    }
+
 }
