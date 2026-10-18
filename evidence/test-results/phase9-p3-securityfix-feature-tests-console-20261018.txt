@@ -1,0 +1,24 @@
+
+   PASS  Tests\Feature\DeviceReadApiTest
+  âœ“ state is null before first sample                                                                                                         0.64s
+  âœ“ state returns latest sample only                                                                                                          0.03s
+  âœ“ history is newest first and bounded                                                                                                       0.05s
+  âœ“ history cursor continuation does not duplicate rows                                                                                       0.03s
+  âœ“ health never seen is explicitly nullable                                                                                                  0.01s
+  âœ“ health exposes last seen and latest sample metadata                                                                                       0.01s
+  âœ“ read endpoints require device authentication                                                                                              0.01s
+
+   PASS  Tests\Feature\EventIngestTest
+  âœ“ distinct event is persisted once                                                                                                          0.02s
+  âœ“ identical duplicate is idempotent                                                                                                         0.01s
+  âœ“ conflicting duplicate is rejected                                                                                                         0.01s
+  âœ“ auth disabled and identity mismatch are rejected                                                                                          0.01s
+  âœ“ invalid and physical source are rejected                                                                                                  0.03s
+  âœ“ payload over 4096 bytes is rejected                                                                                                       0.01s
+  âœ“ uint64 max event identity is preserved                                                                                                    0.01s
+  âœ“ linked alarm zero is accepted for fault event                                                                                             0.01s
+  âœ“ duplicate raw event identity key is rejected                                                                                              0.01s
+  âœ“ unicode escaped duplicate event fields are rejected                                                                                       0.01s
+
+  Tests:    17 passed (53 assertions)
+  Duration: 1.21s

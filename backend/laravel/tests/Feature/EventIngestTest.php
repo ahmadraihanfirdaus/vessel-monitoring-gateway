@@ -206,6 +206,48 @@ class EventIngestTest extends TestCase
         $this->assertDatabaseCount('monitoring_events', 0);
     }
 
+    public function test_unicode_escaped_duplicate_event_fields_are_rejected(): void
+    {
+        [$device, $bearer] = $this->createDevice();
+        $base = json_encode(
+            $this->payload($device->device_id),
+            JSON_THROW_ON_ERROR
+        );
+
+        // Both pairs have the same decoded JSON property name.
+        // The second spelling must not overwrite the first silently.
+        $cases = [
+            str_replace(
+                '"event_id":42',
+                '"event_id":42,"\\u0065vent_id":43',
+                $base
+            ),
+            str_replace(
+                '"source_mode":"simulation"',
+                '"source_mode":"simulation","source_\\u006dode":"bench_test"',
+                $base
+            ),
+        ];
+
+        foreach ($cases as $raw) {
+            $this->call(
+                'POST',
+                '/api/v1/events',
+                [],
+                [],
+                [],
+                [
+                    'HTTP_AUTHORIZATION' => 'Bearer '.$bearer,
+                    'CONTENT_TYPE' => 'application/json',
+                    'HTTP_ACCEPT' => 'application/json',
+                ],
+                $raw
+            )->assertUnprocessable();
+        }
+
+        $this->assertDatabaseCount('monitoring_events', 0);
+    }
+
     private function createDevice(bool $enabled = true): array
     {
         $bearer = Str::random(64);

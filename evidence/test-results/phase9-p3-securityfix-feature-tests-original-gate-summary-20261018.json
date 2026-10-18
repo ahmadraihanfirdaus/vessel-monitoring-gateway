@@ -1,0 +1,31 @@
+{
+  "gate": "PHASE9_P3_SECURITY_FIX_MYSQL_FEATURE_GATE",
+  "date_utc": "2026-10-18T14:08:46.227957+00:00",
+  "git_head": "72f602c483987e5eebaa99137c34e03a7e935a5c",
+  "source_sha256": {
+    "backend/laravel/app/Http/Requests/EventIngestRequest.php": "0ab47bacd938ce262be181ed1a994f2a4783df377982f1b6944d76b28d9ca60c",
+    "backend/laravel/tests/Feature/EventIngestTest.php": "697ef08c3624fd6fbfec0123deec1ce2c9573a3dc545e8b8d3c8fda2bde2915d"
+  },
+  "locked_sha256": {
+    "requirements/system-requirements.md": "a60167d9f2a1f852a091048447f6f4acf8d2cbfd6d11f04c2a6e2f6896f5b92b",
+    "requirements/traceability-matrix.csv": "bc1fc7ce697fc6180cab760320de2a1bd814f9bc78731d4a22fdae838c303fe3"
+  },
+  "mysql_port": 3307,
+  "db_test": "vessel_monitoring_gateway_test",
+  "feature_tests": {
+    "exit_code": 0,
+    "passed": 0,
+    "assertions": 0,
+    "expected_definitions": 17
+  },
+  "posttest_db_check": "PASS",
+  "test_db_restoration": "PASS_P3_BATCH_2_RESTORED",
+  "final_guard": true,
+  "final_db_guard": true,
+  "pass": false,
+  "db_write_scope": "TEST_DB_SCHEMA_ONLY_VIA_LARAVEL_REFRESH_AND_MIGRATIONS",
+  "application_db_write": false,
+  "source_modification": false,
+  "stage_commit_push": false,
+  "formal_SUP014": "NOT_RUN"
+}

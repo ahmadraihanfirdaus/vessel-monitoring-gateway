@@ -1,0 +1,26 @@
+{
+  "audit": "PASS",
+  "database_access": false,
+  "database_snapshot": {
+    "app": "5_tables_4_migrations_zero_rows_P3_batch2",
+    "test": "5_tables_4_migrations_zero_rows_P3_batch2"
+  },
+  "evidence_sha256": "5df5d856c79fa1f4559596384763a37abe9ea6f2800a9e0c44ea473918130805",
+  "feature_tests": {
+    "assertions": 53,
+    "device_read_tests": 7,
+    "event_tests": 10,
+    "passed": 17,
+    "process_exit_code": 0
+  },
+  "formal_SUP014": "NOT_RUN",
+  "git_head": "72f602c483987e5eebaa99137c34e03a7e935a5c",
+  "original_gate_block_reason": "ANSI_TEST_CONSOLE_PARSER_FALSE_NEGATIVE",
+  "original_gate_pass": false,
+  "repository_modified": false,
+  "source_sha256": {
+    "backend/laravel/app/Http/Requests/EventIngestRequest.php": "0ab47bacd938ce262be181ed1a994f2a4783df377982f1b6944d76b28d9ca60c",
+    "backend/laravel/tests/Feature/EventIngestTest.php": "697ef08c3624fd6fbfec0123deec1ce2c9573a3dc545e8b8d3c8fda2bde2915d"
+  },
+  "tests_reexecuted": false
+}

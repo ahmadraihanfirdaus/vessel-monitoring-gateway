@@ -207,9 +207,71 @@ class EventIngestRequest extends FormRequest
 
     private function rawKeyCount(string $raw, string $field): int
     {
-        $pattern = '/"' . preg_quote($field, '/') . '"\s*:/';
+        // Scan actual top-level JSON member names, rather than text matches.
+        // JSON permits escaped spellings of the same key (for example
+        // "event_id" and "\\u0065vent_id"). json_decode collapses those
+        // names, so regex-counting literal spellings misses duplicates.
+        // Caller has already required a valid JSON object.
+        $length = strlen($raw);
+        $offset = 0;
+        $depth = 0;
+        $count = 0;
 
-        return preg_match_all($pattern, $raw) ?: 0;
+        while ($offset < $length) {
+            $char = $raw[$offset];
+
+            if ($char === '{' || $char === '[') {
+                ++$depth;
+                ++$offset;
+                continue;
+            }
+
+            if ($char === '}' || $char === ']') {
+                --$depth;
+                ++$offset;
+                continue;
+            }
+
+            if ($char !== '"') {
+                ++$offset;
+                continue;
+            }
+
+            $start = $offset;
+            ++$offset;
+            while ($offset < $length) {
+                if ($raw[$offset] === '\\') {
+                    $offset += 2;
+                    continue;
+                }
+
+                if ($raw[$offset] === '"') {
+                    ++$offset;
+                    break;
+                }
+
+                ++$offset;
+            }
+
+            // Only object property names at root depth one count.
+            if ($depth !== 1) {
+                continue;
+            }
+
+            $next = $offset;
+            while ($next < $length && str_contains(" \t\r\n", $raw[$next])) {
+                ++$next;
+            }
+
+            if ($next < $length && $raw[$next] === ':') {
+                $key = json_decode(substr($raw, $start, $offset - $start));
+                if ($key === $field) {
+                    ++$count;
+                }
+            }
+        }
+
+        return $count;
     }
 
     private function assertRawUnsignedInteger(

@@ -1,0 +1,12 @@
+--- rollback ---
+
+   INFO  Rolling back migrations.
+
+  2026_10_18_100004_create_monitoring_events_table .................................................................................... 9.37ms DONE
+
+
+--- reapply ---
+
+   INFO  Running migrations.
+
+  2026_10_18_100004_create_monitoring_events_table ................................................................................... 81.51ms DONE
