@@ -1,0 +1,2 @@
+9eb923d9769e01c1b15ab8910cc779f281fbb466b5499ba175c00cb311de1d5e  evidence/test-results/phase9-scoped-roadmap-closure-record-decision-20261019.txt
+94ea5848ff16696a93329db69efed03106fcbf059114b36426b97a0b658711bd  evidence/test-results/phase9-scoped-roadmap-closure-record-summary-20261019.md
