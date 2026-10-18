@@ -1,0 +1,29 @@
+SUPPORT_EXECUTION_EVIDENCE_MARKERS: PASS
+SUPPORT_SUMMARY_BOUNDARY: PASS
+SUPPORT_EVIDENCE_SECRET_SCAN: PASS
+FORMAL_SUP014_STATUS_CONFIRMED=NOT_RUN
+PHASE9_P3_MIGRATION_ROLLBACK_SUPPORT_EVIDENCE_SEMANTIC_AUDIT: PASS
+server	10.4.32-MariaDB	3307
+app_tables	5
+app_migrations	4
+app_events_table	1
+app_data_rows	0
+app_p3_record	1
+app_p3_batch	2
+test_tables	5
+test_migrations	4
+test_events_table	1
+test_data_rows	0
+test_p1_record	1
+test_p2a_record	1
+test_p2b_record	1
+test_p3_record	1
+test_p3_batch	2
+test_column_count	11
+identity_unique_count	1
+device_occurred_index_count	1
+device_type_occurred_index_count	1
+device_fk_cascade_count	1
+LIVE_POST_SUPPORT_DB_AUDIT: PASS
+TEST_P3_REAPPLY_BATCH=2
+APPLICATION_DB_POST_SUPPORT=UNCHANGED_ZERO_DATA

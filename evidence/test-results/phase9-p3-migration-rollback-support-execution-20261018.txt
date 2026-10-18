@@ -1,0 +1,72 @@
+PRE_ROLLBACK_DATABASE_GUARD=PASS
+PRE_ROLLBACK_TEST_TABLES=5
+PRE_ROLLBACK_TEST_MIGRATIONS=4
+PRE_ROLLBACK_TEST_DATA_ROWS=0
+PRE_ROLLBACK_APPLICATION_DB=UNCHANGED_BASELINE
+TEST_DB_PROCESS_LOCAL_OVERRIDE=PASS
+
+   INFO  Rolling back migrations.
+
+  2026_10_18_100004_create_monitoring_events_table ................................................................................... 31.36ms DONE
+ROLLBACK_EXIT_CODE=0
+ROLLBACK_TARGET=2026_10_18_100004_create_monitoring_events_table
+test_tables	4
+test_migrations	3
+test_events_table	0
+test_devices_table	1
+test_samples_table	1
+test_channels_table	1
+test_p1_record	1
+test_p2a_record	1
+test_p2b_record	1
+test_p3_record	0
+test_p2_data_rows	0
+app_tables	5
+app_migrations	4
+app_events_table	1
+app_data_rows	0
+ROLLBACK_STATE_VERIFY=PASS
+ROLLBACK_TEST_TABLES=4
+ROLLBACK_TEST_MIGRATIONS=3
+ROLLBACK_MONITORING_EVENTS_TABLE=ABSENT
+ROLLBACK_P1_P2_TABLES_PRESERVED=YES
+ROLLBACK_P1_P2_MIGRATION_RECORDS_PRESERVED=YES
+APPLICATION_DB_UNCHANGED_AFTER_ROLLBACK=PASS
+
+  Migration name ................................................................................................................... Batch / Status
+  2026_10_17_100001_create_devices_table .................................................................................................. [1] Ran
+  2026_10_17_100002_create_telemetry_samples_table ........................................................................................ [1] Ran
+  2026_10_17_100003_create_telemetry_channels_table ....................................................................................... [1] Ran
+  2026_10_18_100004_create_monitoring_events_table ........................................................................................ Pending
+P3_STATUS_AFTER_ROLLBACK=PENDING
+
+   INFO  Running migrations.
+
+  2026_10_18_100004_create_monitoring_events_table ................................................................................... 92.22ms DONE
+REAPPLY_EXIT_CODE=0
+REAPPLY_TARGET=2026_10_18_100004_create_monitoring_events_table
+test_tables	5
+test_migrations	4
+test_events_table	1
+test_p3_record	1
+test_p3_batch	2
+test_column_count	11
+identity_unique_count	1
+device_occurred_index_count	1
+device_type_occurred_index_count	1
+device_fk_cascade_count	1
+test_data_rows	0
+app_tables	5
+app_migrations	4
+app_events_table	1
+app_data_rows	0
+REAPPLY_SCHEMA_VERIFY=PASS
+RESTORED_TEST_TABLES=5
+RESTORED_TEST_MIGRATIONS=4
+RESTORED_MONITORING_EVENTS_COLUMNS=11
+RESTORED_IDENTITY_UNIQUE_INDEX=PASS
+RESTORED_DEVICE_OCCURRED_INDEX=PASS
+RESTORED_DEVICE_TYPE_OCCURRED_INDEX=PASS
+RESTORED_DEVICE_FK_CASCADE=PASS
+RESTORED_TEST_DATA_ROWS=0
+APPLICATION_DB_UNCHANGED_AFTER_REAPPLY=PASS
