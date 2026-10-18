@@ -1,0 +1,37 @@
+PHASE9_P2_RUNTIME_HTTP_DB_INTEGRITY
+APPLICATION_DATABASE=vessel_monitoring_gateway
+TEST_DATABASE=vessel_monitoring_gateway_test
+
+=== PRE-EXECUTION ===
+app_tables	4
+app_migrations	3
+app_devices	0
+app_samples	0
+app_channels	0
+test_tables	4
+test_migrations	3
+test_devices	0
+test_samples	0
+test_channels	0
+
+=== PRE-CLEANUP TEST FIXTURE STATE ===
+devices=2
+samples=2
+channels=10
+
+=== POST-CLEANUP ===
+app_tables	4
+app_migrations	3
+app_devices	0
+app_samples	0
+app_channels	0
+test_tables	4
+test_migrations	3
+test_devices	0
+test_samples	0
+test_channels	0
+
+APPLICATION_DATABASE_UNCHANGED=PASS
+TEST_DATABASE_GATE_FIXTURES_CLEANED=PASS
+APPLICATION_DATA_ROWS=0
+TEST_DATA_ROWS=0
