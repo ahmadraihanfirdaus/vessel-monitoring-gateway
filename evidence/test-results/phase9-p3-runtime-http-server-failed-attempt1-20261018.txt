@@ -1,0 +1,321 @@
+[Sun Oct 18 16:37:23 2026] PHP 8.2.12 Development Server (http://127.0.0.1:18083) started
+[Sun Oct 18 16:37:23 2026] 127.0.0.1:50304 Accepted
+[Sun Oct 18 11:37:23 2026] 127.0.0.1:50304 [GET] URI: /api/v1/device/state
+[Sun Oct 18 16:37:23 2026] PHP Warning:  require_once(C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php): Failed to open stream: No such file or directory in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:23 2026] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php' (include_path='C:\xampp\php\PEAR') in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php:23
+Stack trace:
+#0 {main}
+  thrown in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:23 2026] 127.0.0.1:50304 Closing
+[Sun Oct 18 16:37:24 2026] 127.0.0.1:50305 Accepted
+[Sun Oct 18 11:37:24 2026] 127.0.0.1:50305 [GET] URI: /api/v1/device/state
+[Sun Oct 18 16:37:24 2026] PHP Warning:  require_once(C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php): Failed to open stream: No such file or directory in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:24 2026] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php' (include_path='C:\xampp\php\PEAR') in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php:23
+Stack trace:
+#0 {main}
+  thrown in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:24 2026] 127.0.0.1:50305 Closing
+[Sun Oct 18 16:37:24 2026] 127.0.0.1:50306 Accepted
+[Sun Oct 18 11:37:24 2026] 127.0.0.1:50306 [GET] URI: /api/v1/device/state
+[Sun Oct 18 16:37:24 2026] PHP Warning:  require_once(C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php): Failed to open stream: No such file or directory in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:24 2026] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php' (include_path='C:\xampp\php\PEAR') in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php:23
+Stack trace:
+#0 {main}
+  thrown in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:24 2026] 127.0.0.1:50306 Closing
+[Sun Oct 18 16:37:25 2026] 127.0.0.1:50307 Accepted
+[Sun Oct 18 11:37:25 2026] 127.0.0.1:50307 [GET] URI: /api/v1/device/state
+[Sun Oct 18 16:37:25 2026] PHP Warning:  require_once(C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php): Failed to open stream: No such file or directory in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:25 2026] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php' (include_path='C:\xampp\php\PEAR') in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php:23
+Stack trace:
+#0 {main}
+  thrown in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:25 2026] 127.0.0.1:50307 Closing
+[Sun Oct 18 16:37:25 2026] 127.0.0.1:50308 Accepted
+[Sun Oct 18 11:37:25 2026] 127.0.0.1:50308 [GET] URI: /api/v1/device/state
+[Sun Oct 18 16:37:25 2026] PHP Warning:  require_once(C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php): Failed to open stream: No such file or directory in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:25 2026] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php' (include_path='C:\xampp\php\PEAR') in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php:23
+Stack trace:
+#0 {main}
+  thrown in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:25 2026] 127.0.0.1:50308 Closing
+[Sun Oct 18 16:37:25 2026] 127.0.0.1:50309 Accepted
+[Sun Oct 18 11:37:25 2026] 127.0.0.1:50309 [GET] URI: /api/v1/device/state
+[Sun Oct 18 16:37:25 2026] PHP Warning:  require_once(C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php): Failed to open stream: No such file or directory in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:25 2026] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php' (include_path='C:\xampp\php\PEAR') in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php:23
+Stack trace:
+#0 {main}
+  thrown in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:25 2026] 127.0.0.1:50309 Closing
+[Sun Oct 18 16:37:26 2026] 127.0.0.1:50310 Accepted
+[Sun Oct 18 11:37:26 2026] 127.0.0.1:50310 [GET] URI: /api/v1/device/state
+[Sun Oct 18 16:37:26 2026] PHP Warning:  require_once(C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php): Failed to open stream: No such file or directory in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:26 2026] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php' (include_path='C:\xampp\php\PEAR') in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php:23
+Stack trace:
+#0 {main}
+  thrown in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:26 2026] 127.0.0.1:50310 Closing
+[Sun Oct 18 16:37:26 2026] 127.0.0.1:50311 Accepted
+[Sun Oct 18 11:37:26 2026] 127.0.0.1:50311 [GET] URI: /api/v1/device/state
+[Sun Oct 18 16:37:26 2026] PHP Warning:  require_once(C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php): Failed to open stream: No such file or directory in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:26 2026] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php' (include_path='C:\xampp\php\PEAR') in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php:23
+Stack trace:
+#0 {main}
+  thrown in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:26 2026] 127.0.0.1:50311 Closing
+[Sun Oct 18 16:37:26 2026] 127.0.0.1:50312 Accepted
+[Sun Oct 18 11:37:26 2026] 127.0.0.1:50312 [GET] URI: /api/v1/device/state
+[Sun Oct 18 16:37:26 2026] PHP Warning:  require_once(C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php): Failed to open stream: No such file or directory in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:26 2026] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php' (include_path='C:\xampp\php\PEAR') in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php:23
+Stack trace:
+#0 {main}
+  thrown in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:26 2026] 127.0.0.1:50312 Closing
+[Sun Oct 18 16:37:27 2026] 127.0.0.1:50313 Accepted
+[Sun Oct 18 11:37:27 2026] 127.0.0.1:50313 [GET] URI: /api/v1/device/state
+[Sun Oct 18 16:37:27 2026] PHP Warning:  require_once(C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php): Failed to open stream: No such file or directory in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:27 2026] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php' (include_path='C:\xampp\php\PEAR') in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php:23
+Stack trace:
+#0 {main}
+  thrown in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:27 2026] 127.0.0.1:50313 Closing
+[Sun Oct 18 16:37:27 2026] 127.0.0.1:50314 Accepted
+[Sun Oct 18 11:37:27 2026] 127.0.0.1:50314 [GET] URI: /api/v1/device/state
+[Sun Oct 18 16:37:27 2026] PHP Warning:  require_once(C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php): Failed to open stream: No such file or directory in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:27 2026] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php' (include_path='C:\xampp\php\PEAR') in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php:23
+Stack trace:
+#0 {main}
+  thrown in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:27 2026] 127.0.0.1:50314 Closing
+[Sun Oct 18 16:37:28 2026] 127.0.0.1:50315 Accepted
+[Sun Oct 18 11:37:28 2026] 127.0.0.1:50315 [GET] URI: /api/v1/device/state
+[Sun Oct 18 16:37:28 2026] PHP Warning:  require_once(C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php): Failed to open stream: No such file or directory in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:28 2026] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php' (include_path='C:\xampp\php\PEAR') in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php:23
+Stack trace:
+#0 {main}
+  thrown in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:28 2026] 127.0.0.1:50315 Closing
+[Sun Oct 18 16:37:28 2026] 127.0.0.1:50316 Accepted
+[Sun Oct 18 11:37:28 2026] 127.0.0.1:50316 [GET] URI: /api/v1/device/state
+[Sun Oct 18 16:37:28 2026] PHP Warning:  require_once(C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php): Failed to open stream: No such file or directory in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:28 2026] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php' (include_path='C:\xampp\php\PEAR') in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php:23
+Stack trace:
+#0 {main}
+  thrown in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:28 2026] 127.0.0.1:50316 Closing
+[Sun Oct 18 16:37:28 2026] 127.0.0.1:50317 Accepted
+[Sun Oct 18 11:37:28 2026] 127.0.0.1:50317 [GET] URI: /api/v1/device/state
+[Sun Oct 18 16:37:28 2026] PHP Warning:  require_once(C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php): Failed to open stream: No such file or directory in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:28 2026] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php' (include_path='C:\xampp\php\PEAR') in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php:23
+Stack trace:
+#0 {main}
+  thrown in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:28 2026] 127.0.0.1:50317 Closing
+[Sun Oct 18 16:37:29 2026] 127.0.0.1:50318 Accepted
+[Sun Oct 18 11:37:29 2026] 127.0.0.1:50318 [GET] URI: /api/v1/device/state
+[Sun Oct 18 16:37:29 2026] PHP Warning:  require_once(C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php): Failed to open stream: No such file or directory in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:29 2026] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php' (include_path='C:\xampp\php\PEAR') in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php:23
+Stack trace:
+#0 {main}
+  thrown in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:29 2026] 127.0.0.1:50318 Closing
+[Sun Oct 18 16:37:29 2026] 127.0.0.1:50319 Accepted
+[Sun Oct 18 11:37:29 2026] 127.0.0.1:50319 [GET] URI: /api/v1/device/state
+[Sun Oct 18 16:37:29 2026] PHP Warning:  require_once(C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php): Failed to open stream: No such file or directory in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:29 2026] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php' (include_path='C:\xampp\php\PEAR') in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php:23
+Stack trace:
+#0 {main}
+  thrown in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:29 2026] 127.0.0.1:50319 Closing
+[Sun Oct 18 16:37:29 2026] 127.0.0.1:50320 Accepted
+[Sun Oct 18 11:37:29 2026] 127.0.0.1:50320 [GET] URI: /api/v1/device/state
+[Sun Oct 18 16:37:29 2026] PHP Warning:  require_once(C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php): Failed to open stream: No such file or directory in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:29 2026] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php' (include_path='C:\xampp\php\PEAR') in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php:23
+Stack trace:
+#0 {main}
+  thrown in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:29 2026] 127.0.0.1:50320 Closing
+[Sun Oct 18 16:37:30 2026] 127.0.0.1:50321 Accepted
+[Sun Oct 18 11:37:30 2026] 127.0.0.1:50321 [GET] URI: /api/v1/device/state
+[Sun Oct 18 16:37:30 2026] PHP Warning:  require_once(C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php): Failed to open stream: No such file or directory in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:30 2026] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php' (include_path='C:\xampp\php\PEAR') in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php:23
+Stack trace:
+#0 {main}
+  thrown in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:30 2026] 127.0.0.1:50321 Closing
+[Sun Oct 18 16:37:30 2026] 127.0.0.1:50322 Accepted
+[Sun Oct 18 11:37:30 2026] 127.0.0.1:50322 [GET] URI: /api/v1/device/state
+[Sun Oct 18 16:37:30 2026] PHP Warning:  require_once(C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php): Failed to open stream: No such file or directory in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:30 2026] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php' (include_path='C:\xampp\php\PEAR') in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php:23
+Stack trace:
+#0 {main}
+  thrown in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:30 2026] 127.0.0.1:50322 Closing
+[Sun Oct 18 16:37:31 2026] 127.0.0.1:50323 Accepted
+[Sun Oct 18 11:37:31 2026] 127.0.0.1:50323 [GET] URI: /api/v1/device/state
+[Sun Oct 18 16:37:31 2026] PHP Warning:  require_once(C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php): Failed to open stream: No such file or directory in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:31 2026] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php' (include_path='C:\xampp\php\PEAR') in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php:23
+Stack trace:
+#0 {main}
+  thrown in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:31 2026] 127.0.0.1:50323 Closing
+[Sun Oct 18 16:37:31 2026] 127.0.0.1:50324 Accepted
+[Sun Oct 18 11:37:31 2026] 127.0.0.1:50324 [GET] URI: /api/v1/device/state
+[Sun Oct 18 16:37:31 2026] PHP Warning:  require_once(C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php): Failed to open stream: No such file or directory in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:31 2026] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php' (include_path='C:\xampp\php\PEAR') in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php:23
+Stack trace:
+#0 {main}
+  thrown in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:31 2026] 127.0.0.1:50324 Closing
+[Sun Oct 18 16:37:31 2026] 127.0.0.1:50325 Accepted
+[Sun Oct 18 11:37:31 2026] 127.0.0.1:50325 [GET] URI: /api/v1/device/state
+[Sun Oct 18 16:37:31 2026] PHP Warning:  require_once(C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php): Failed to open stream: No such file or directory in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:31 2026] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php' (include_path='C:\xampp\php\PEAR') in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php:23
+Stack trace:
+#0 {main}
+  thrown in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:31 2026] 127.0.0.1:50325 Closing
+[Sun Oct 18 16:37:32 2026] 127.0.0.1:50326 Accepted
+[Sun Oct 18 11:37:32 2026] 127.0.0.1:50326 [GET] URI: /api/v1/device/state
+[Sun Oct 18 16:37:32 2026] PHP Warning:  require_once(C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php): Failed to open stream: No such file or directory in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:32 2026] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php' (include_path='C:\xampp\php\PEAR') in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php:23
+Stack trace:
+#0 {main}
+  thrown in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:32 2026] 127.0.0.1:50326 Closing
+[Sun Oct 18 16:37:32 2026] 127.0.0.1:50327 Accepted
+[Sun Oct 18 11:37:32 2026] 127.0.0.1:50327 [GET] URI: /api/v1/device/state
+[Sun Oct 18 16:37:32 2026] PHP Warning:  require_once(C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php): Failed to open stream: No such file or directory in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:32 2026] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php' (include_path='C:\xampp\php\PEAR') in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php:23
+Stack trace:
+#0 {main}
+  thrown in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:32 2026] 127.0.0.1:50327 Closing
+[Sun Oct 18 16:37:33 2026] 127.0.0.1:50328 Accepted
+[Sun Oct 18 11:37:33 2026] 127.0.0.1:50328 [GET] URI: /api/v1/device/state
+[Sun Oct 18 16:37:33 2026] PHP Warning:  require_once(C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php): Failed to open stream: No such file or directory in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:33 2026] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php' (include_path='C:\xampp\php\PEAR') in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php:23
+Stack trace:
+#0 {main}
+  thrown in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:33 2026] 127.0.0.1:50328 Closing
+[Sun Oct 18 16:37:33 2026] 127.0.0.1:50329 Accepted
+[Sun Oct 18 11:37:33 2026] 127.0.0.1:50329 [GET] URI: /api/v1/device/state
+[Sun Oct 18 16:37:33 2026] PHP Warning:  require_once(C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php): Failed to open stream: No such file or directory in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:33 2026] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php' (include_path='C:\xampp\php\PEAR') in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php:23
+Stack trace:
+#0 {main}
+  thrown in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:33 2026] 127.0.0.1:50329 Closing
+[Sun Oct 18 16:37:33 2026] 127.0.0.1:50330 Accepted
+[Sun Oct 18 11:37:33 2026] 127.0.0.1:50330 [GET] URI: /api/v1/device/state
+[Sun Oct 18 16:37:33 2026] PHP Warning:  require_once(C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php): Failed to open stream: No such file or directory in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:33 2026] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php' (include_path='C:\xampp\php\PEAR') in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php:23
+Stack trace:
+#0 {main}
+  thrown in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:33 2026] 127.0.0.1:50330 Closing
+[Sun Oct 18 16:37:34 2026] 127.0.0.1:50331 Accepted
+[Sun Oct 18 11:37:34 2026] 127.0.0.1:50331 [GET] URI: /api/v1/device/state
+[Sun Oct 18 16:37:34 2026] PHP Warning:  require_once(C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php): Failed to open stream: No such file or directory in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:34 2026] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php' (include_path='C:\xampp\php\PEAR') in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php:23
+Stack trace:
+#0 {main}
+  thrown in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:34 2026] 127.0.0.1:50331 Closing
+[Sun Oct 18 16:37:34 2026] 127.0.0.1:50332 Accepted
+[Sun Oct 18 11:37:34 2026] 127.0.0.1:50332 [GET] URI: /api/v1/device/state
+[Sun Oct 18 16:37:34 2026] PHP Warning:  require_once(C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php): Failed to open stream: No such file or directory in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:34 2026] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php' (include_path='C:\xampp\php\PEAR') in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php:23
+Stack trace:
+#0 {main}
+  thrown in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:34 2026] 127.0.0.1:50332 Closing
+[Sun Oct 18 16:37:34 2026] 127.0.0.1:50333 Accepted
+[Sun Oct 18 11:37:34 2026] 127.0.0.1:50333 [GET] URI: /api/v1/device/state
+[Sun Oct 18 16:37:34 2026] PHP Warning:  require_once(C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php): Failed to open stream: No such file or directory in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:34 2026] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php' (include_path='C:\xampp\php\PEAR') in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php:23
+Stack trace:
+#0 {main}
+  thrown in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:34 2026] 127.0.0.1:50333 Closing
+[Sun Oct 18 16:37:35 2026] 127.0.0.1:50334 Accepted
+[Sun Oct 18 11:37:35 2026] 127.0.0.1:50334 [GET] URI: /api/v1/device/state
+[Sun Oct 18 16:37:35 2026] PHP Warning:  require_once(C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php): Failed to open stream: No such file or directory in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:35 2026] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php' (include_path='C:\xampp\php\PEAR') in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php:23
+Stack trace:
+#0 {main}
+  thrown in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:35 2026] 127.0.0.1:50334 Closing
+[Sun Oct 18 16:37:35 2026] 127.0.0.1:50335 Accepted
+[Sun Oct 18 11:37:35 2026] 127.0.0.1:50335 [GET] URI: /api/v1/device/state
+[Sun Oct 18 16:37:35 2026] PHP Warning:  require_once(C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php): Failed to open stream: No such file or directory in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:35 2026] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php' (include_path='C:\xampp\php\PEAR') in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php:23
+Stack trace:
+#0 {main}
+  thrown in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:35 2026] 127.0.0.1:50335 Closing
+[Sun Oct 18 16:37:36 2026] 127.0.0.1:50336 Accepted
+[Sun Oct 18 11:37:36 2026] 127.0.0.1:50336 [GET] URI: /api/v1/device/state
+[Sun Oct 18 16:37:36 2026] PHP Warning:  require_once(C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php): Failed to open stream: No such file or directory in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:36 2026] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php' (include_path='C:\xampp\php\PEAR') in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php:23
+Stack trace:
+#0 {main}
+  thrown in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:36 2026] 127.0.0.1:50336 Closing
+[Sun Oct 18 16:37:36 2026] 127.0.0.1:50337 Accepted
+[Sun Oct 18 11:37:36 2026] 127.0.0.1:50337 [GET] URI: /api/v1/device/state
+[Sun Oct 18 16:37:36 2026] PHP Warning:  require_once(C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php): Failed to open stream: No such file or directory in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:36 2026] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php' (include_path='C:\xampp\php\PEAR') in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php:23
+Stack trace:
+#0 {main}
+  thrown in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:36 2026] 127.0.0.1:50337 Closing
+[Sun Oct 18 16:37:36 2026] 127.0.0.1:50338 Accepted
+[Sun Oct 18 11:37:36 2026] 127.0.0.1:50338 [GET] URI: /api/v1/device/state
+[Sun Oct 18 16:37:36 2026] PHP Warning:  require_once(C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php): Failed to open stream: No such file or directory in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:36 2026] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php' (include_path='C:\xampp\php\PEAR') in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php:23
+Stack trace:
+#0 {main}
+  thrown in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:36 2026] 127.0.0.1:50338 Closing
+[Sun Oct 18 16:37:37 2026] 127.0.0.1:50339 Accepted
+[Sun Oct 18 11:37:37 2026] 127.0.0.1:50339 [GET] URI: /api/v1/device/state
+[Sun Oct 18 16:37:37 2026] PHP Warning:  require_once(C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php): Failed to open stream: No such file or directory in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:37 2026] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php' (include_path='C:\xampp\php\PEAR') in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php:23
+Stack trace:
+#0 {main}
+  thrown in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:37 2026] 127.0.0.1:50339 Closing
+[Sun Oct 18 16:37:37 2026] 127.0.0.1:50340 Accepted
+[Sun Oct 18 11:37:37 2026] 127.0.0.1:50340 [GET] URI: /api/v1/device/state
+[Sun Oct 18 16:37:37 2026] PHP Warning:  require_once(C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php): Failed to open stream: No such file or directory in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:37 2026] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php' (include_path='C:\xampp\php\PEAR') in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php:23
+Stack trace:
+#0 {main}
+  thrown in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:37 2026] 127.0.0.1:50340 Closing
+[Sun Oct 18 16:37:37 2026] 127.0.0.1:50341 Accepted
+[Sun Oct 18 11:37:37 2026] 127.0.0.1:50341 [GET] URI: /api/v1/device/state
+[Sun Oct 18 16:37:37 2026] PHP Warning:  require_once(C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php): Failed to open stream: No such file or directory in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:37 2026] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php' (include_path='C:\xampp\php\PEAR') in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php:23
+Stack trace:
+#0 {main}
+  thrown in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:37 2026] 127.0.0.1:50341 Closing
+[Sun Oct 18 16:37:38 2026] 127.0.0.1:59914 Accepted
+[Sun Oct 18 11:37:38 2026] 127.0.0.1:59914 [GET] URI: /api/v1/device/state
+[Sun Oct 18 16:37:38 2026] PHP Warning:  require_once(C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php): Failed to open stream: No such file or directory in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:38 2026] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php' (include_path='C:\xampp\php\PEAR') in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php:23
+Stack trace:
+#0 {main}
+  thrown in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:38 2026] 127.0.0.1:59914 Closing
+[Sun Oct 18 16:37:38 2026] 127.0.0.1:63777 Accepted
+[Sun Oct 18 11:37:38 2026] 127.0.0.1:63777 [GET] URI: /api/v1/device/state
+[Sun Oct 18 16:37:38 2026] PHP Warning:  require_once(C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php): Failed to open stream: No such file or directory in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:38 2026] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel/index.php' (include_path='C:\xampp\php\PEAR') in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php:23
+Stack trace:
+#0 {main}
+  thrown in C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\vendor\laravel\framework\src\Illuminate\Foundation\resources\server.php on line 23
+[Sun Oct 18 16:37:38 2026] 127.0.0.1:63777 Closing

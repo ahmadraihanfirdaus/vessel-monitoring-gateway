@@ -1,0 +1,26 @@
+RUNTIME_SCENARIO_01: PASS EVENT_UNAUTHENTICATED_EXPECT_401 HTTP=401
+RUNTIME_SCENARIO_01_BODY={"error":"invalid_device_authentication"}
+RUNTIME_SCENARIO_02: PASS EVENT_DISTINCT_EXPECT_201 HTTP=201
+RUNTIME_SCENARIO_02_BODY={"result":"event_persisted"}
+RUNTIME_SCENARIO_03: PASS EVENT_IDENTICAL_DUPLICATE_EXPECT_200 HTTP=200
+RUNTIME_SCENARIO_03_BODY={"result":"identical_event_duplicate"}
+RUNTIME_SCENARIO_04: PASS EVENT_CONFLICTING_DUPLICATE_EXPECT_409 HTTP=409
+RUNTIME_SCENARIO_04_BODY={"error":"conflicting_event_duplicate"}
+RUNTIME_SCENARIO_05: PASS EVENT_PHYSICAL_SOURCE_EXPECT_422 HTTP=422
+RUNTIME_SCENARIO_05_BODY={"message":"The selected source mode is invalid.","errors":{"source_mode":["The selected source mode is invalid."]}}
+RUNTIME_SCENARIO_06: PASS EVENT_DEVICE_ID_MISMATCH_EXPECT_403 HTTP=403
+RUNTIME_SCENARIO_06_BODY={"error":"device_identity_mismatch"}
+RUNTIME_SCENARIO_07: PASS EVENT_OVERSIZE_EXPECT_413 HTTP=413
+RUNTIME_SCENARIO_07_BODY={"error":"telemetry_payload_too_large","max_bytes":4096}
+RUNTIME_SCENARIO_08: PASS EVENT_UINT64_MAX_EXPECT_201 HTTP=201
+RUNTIME_SCENARIO_08_BODY={"result":"event_persisted"}
+RUNTIME_SCENARIO_09: PASS STATE_BEFORE_TELEMETRY_EXPECT_200_NULL HTTP=200
+RUNTIME_SCENARIO_09_BODY={"device_id":"p3-runtime-device-01","state":null}
+Traceback (most recent call last):
+  File "<LOCAL_HOME>\Downloads\Vessel_Gateway_Phase9_P3_RuntimeHttpExecutionRecovery_v2_20261018\phase9_p3_runtime_http_client_v2.py", line 179, in <module>
+    log_scenario(10, "TELEMETRY_SEED_SAMPLE_1_EXPECT_201", status, 201, text)
+  File "<LOCAL_HOME>\Downloads\Vessel_Gateway_Phase9_P3_RuntimeHttpExecutionRecovery_v2_20261018\phase9_p3_runtime_http_client_v2.py", line 46, in log_scenario
+    require(status == expected, f"{name}: expected HTTP {expected}, got {status}; body={body[:800]}")
+  File "<LOCAL_HOME>\Downloads\Vessel_Gateway_Phase9_P3_RuntimeHttpExecutionRecovery_v2_20261018\phase9_p3_runtime_http_client_v2.py", line 42, in require
+    raise AssertionError(message)
+AssertionError: TELEMETRY_SEED_SAMPLE_1_EXPECT_201: expected HTTP 201, got 422; body={"message":"The channels.0 field must be an array.","errors":{"channels.0":["The channels.0 field must be an array."]}}

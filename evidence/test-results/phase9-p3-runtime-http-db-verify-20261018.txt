@@ -1,0 +1,11 @@
+runtime_device	1
+runtime_events	2
+runtime_event_1	1
+runtime_event_uint64_max	1
+runtime_samples	2
+runtime_channels	2
+latest_sequence	2
+latest_uptime_ms	2000
+device_last_sequence	2
+device_last_seen_present	1
+P3_RUNTIME_DB_SEMANTIC_VERIFY: PASS

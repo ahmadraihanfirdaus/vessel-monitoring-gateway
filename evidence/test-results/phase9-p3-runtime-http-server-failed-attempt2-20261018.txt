@@ -1,0 +1,34 @@
+[Sun Oct 18 16:47:48 2026] PHP 8.2.12 Development Server (http://127.0.0.1:18083) started
+[Sun Oct 18 16:47:48 2026] 127.0.0.1:63403 Accepted
+[Sun Oct 18 11:47:48 2026] 127.0.0.1:63403 [GET] URI: /api/v1/device/state
+[Sun Oct 18 16:47:48 2026] 127.0.0.1:63403 Closing
+[Sun Oct 18 16:47:49 2026] 127.0.0.1:63404 Accepted
+[Sun Oct 18 11:47:49 2026] 127.0.0.1:63404 [POST] URI: /api/v1/events
+[Sun Oct 18 16:47:49 2026] 127.0.0.1:63404 Closing
+[Sun Oct 18 16:47:49 2026] 127.0.0.1:63405 Accepted
+[Sun Oct 18 11:47:49 2026] 127.0.0.1:63405 [POST] URI: /api/v1/events
+[Sun Oct 18 16:47:49 2026] 127.0.0.1:63405 Closing
+[Sun Oct 18 16:47:49 2026] 127.0.0.1:63407 Accepted
+[Sun Oct 18 11:47:49 2026] 127.0.0.1:63407 [POST] URI: /api/v1/events
+[Sun Oct 18 16:47:49 2026] 127.0.0.1:63407 Closing
+[Sun Oct 18 16:47:49 2026] 127.0.0.1:63409 Accepted
+[Sun Oct 18 11:47:49 2026] 127.0.0.1:63409 [POST] URI: /api/v1/events
+[Sun Oct 18 16:47:49 2026] 127.0.0.1:63409 Closing
+[Sun Oct 18 16:47:49 2026] 127.0.0.1:63411 Accepted
+[Sun Oct 18 11:47:49 2026] 127.0.0.1:63411 [POST] URI: /api/v1/events
+[Sun Oct 18 16:47:49 2026] 127.0.0.1:63411 Closing
+[Sun Oct 18 16:47:49 2026] 127.0.0.1:63413 Accepted
+[Sun Oct 18 11:47:49 2026] 127.0.0.1:63413 [POST] URI: /api/v1/events
+[Sun Oct 18 16:47:50 2026] 127.0.0.1:63413 Closing
+[Sun Oct 18 16:47:50 2026] 127.0.0.1:63415 Accepted
+[Sun Oct 18 11:47:50 2026] 127.0.0.1:63415 [POST] URI: /api/v1/events
+[Sun Oct 18 16:47:50 2026] 127.0.0.1:63415 Closing
+[Sun Oct 18 16:47:50 2026] 127.0.0.1:63416 Accepted
+[Sun Oct 18 11:47:50 2026] 127.0.0.1:63416 [POST] URI: /api/v1/events
+[Sun Oct 18 16:47:50 2026] 127.0.0.1:63416 Closing
+[Sun Oct 18 16:47:50 2026] 127.0.0.1:63418 Accepted
+[Sun Oct 18 11:47:50 2026] 127.0.0.1:63418 [GET] URI: /api/v1/device/state
+[Sun Oct 18 16:47:50 2026] 127.0.0.1:63418 Closing
+[Sun Oct 18 16:47:50 2026] 127.0.0.1:63420 Accepted
+[Sun Oct 18 11:47:50 2026] 127.0.0.1:63420 [POST] URI: /api/v1/telemetry
+[Sun Oct 18 16:47:50 2026] 127.0.0.1:63420 Closing

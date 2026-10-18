@@ -1,0 +1,52 @@
+[Sun Oct 18 17:01:41 2026] PHP 8.2.12 Development Server (http://127.0.0.1:18083) started
+[Sun Oct 18 17:01:41 2026] 127.0.0.1:56110 Accepted
+[Sun Oct 18 12:01:41 2026] 127.0.0.1:56110 [GET] URI: /api/v1/device/state
+[Sun Oct 18 17:01:41 2026] 127.0.0.1:56110 Closing
+[Sun Oct 18 17:01:42 2026] 127.0.0.1:56111 Accepted
+[Sun Oct 18 12:01:42 2026] 127.0.0.1:56111 [POST] URI: /api/v1/events
+[Sun Oct 18 17:01:42 2026] 127.0.0.1:56111 Closing
+[Sun Oct 18 17:01:42 2026] 127.0.0.1:56112 Accepted
+[Sun Oct 18 12:01:42 2026] 127.0.0.1:56112 [POST] URI: /api/v1/events
+[Sun Oct 18 17:01:42 2026] 127.0.0.1:56112 Closing
+[Sun Oct 18 17:01:42 2026] 127.0.0.1:56114 Accepted
+[Sun Oct 18 12:01:42 2026] 127.0.0.1:56114 [POST] URI: /api/v1/events
+[Sun Oct 18 17:01:42 2026] 127.0.0.1:56114 Closing
+[Sun Oct 18 17:01:42 2026] 127.0.0.1:56116 Accepted
+[Sun Oct 18 12:01:42 2026] 127.0.0.1:56116 [POST] URI: /api/v1/events
+[Sun Oct 18 17:01:42 2026] 127.0.0.1:56116 Closing
+[Sun Oct 18 17:01:42 2026] 127.0.0.1:56118 Accepted
+[Sun Oct 18 12:01:42 2026] 127.0.0.1:56118 [POST] URI: /api/v1/events
+[Sun Oct 18 17:01:42 2026] 127.0.0.1:56118 Closing
+[Sun Oct 18 17:01:42 2026] 127.0.0.1:56120 Accepted
+[Sun Oct 18 12:01:42 2026] 127.0.0.1:56120 [POST] URI: /api/v1/events
+[Sun Oct 18 17:01:42 2026] 127.0.0.1:56120 Closing
+[Sun Oct 18 17:01:42 2026] 127.0.0.1:56122 Accepted
+[Sun Oct 18 12:01:42 2026] 127.0.0.1:56122 [POST] URI: /api/v1/events
+[Sun Oct 18 17:01:42 2026] 127.0.0.1:56122 Closing
+[Sun Oct 18 17:01:42 2026] 127.0.0.1:56123 Accepted
+[Sun Oct 18 12:01:43 2026] 127.0.0.1:56123 [POST] URI: /api/v1/events
+[Sun Oct 18 17:01:43 2026] 127.0.0.1:56123 Closing
+[Sun Oct 18 17:01:43 2026] 127.0.0.1:56125 Accepted
+[Sun Oct 18 12:01:43 2026] 127.0.0.1:56125 [GET] URI: /api/v1/device/state
+[Sun Oct 18 17:01:43 2026] 127.0.0.1:56125 Closing
+[Sun Oct 18 17:01:43 2026] 127.0.0.1:56127 Accepted
+[Sun Oct 18 12:01:43 2026] 127.0.0.1:56127 [POST] URI: /api/v1/telemetry
+[Sun Oct 18 17:01:43 2026] 127.0.0.1:56127 Closing
+[Sun Oct 18 17:01:43 2026] 127.0.0.1:56129 Accepted
+[Sun Oct 18 12:01:43 2026] 127.0.0.1:56129 [POST] URI: /api/v1/telemetry
+[Sun Oct 18 17:01:43 2026] 127.0.0.1:56129 Closing
+[Sun Oct 18 17:01:43 2026] 127.0.0.1:56131 Accepted
+[Sun Oct 18 12:01:43 2026] 127.0.0.1:56131 [GET] URI: /api/v1/device/state
+[Sun Oct 18 17:01:43 2026] 127.0.0.1:56131 Closing
+[Sun Oct 18 17:01:43 2026] 127.0.0.1:56133 Accepted
+[Sun Oct 18 12:01:43 2026] 127.0.0.1:56133 [GET] URI: /api/v1/device/history
+[Sun Oct 18 17:01:43 2026] 127.0.0.1:56133 Closing
+[Sun Oct 18 17:01:43 2026] 127.0.0.1:56135 Accepted
+[Sun Oct 18 12:01:43 2026] 127.0.0.1:56135 [GET] URI: /api/v1/device/history
+[Sun Oct 18 17:01:44 2026] 127.0.0.1:56135 Closing
+[Sun Oct 18 17:01:44 2026] 127.0.0.1:56137 Accepted
+[Sun Oct 18 12:01:44 2026] 127.0.0.1:56137 [GET] URI: /api/v1/device/health
+[Sun Oct 18 17:01:44 2026] 127.0.0.1:56137 Closing
+[Sun Oct 18 17:01:44 2026] 127.0.0.1:56139 Accepted
+[Sun Oct 18 12:01:44 2026] 127.0.0.1:56139 [GET] URI: /api/v1/device/state
+[Sun Oct 18 17:01:44 2026] 127.0.0.1:56139 Closing
