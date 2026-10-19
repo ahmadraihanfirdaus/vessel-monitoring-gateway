@@ -28,6 +28,10 @@ class TelemetryIngestService
             }
 
             return DB::transaction(function () use ($device, $payload): array {
+                $device = Device::query()
+                    ->whereKey($device->getKey())
+                    ->lockForUpdate()
+                    ->firstOrFail();
                 $existing = $this->findExisting($device, $payload);
 
                 if ($existing === null) {
@@ -43,6 +47,13 @@ class TelemetryIngestService
 
     private function ingestWithinTransaction(Device $device, array $payload): array
     {
+        // Serialize state changes for this device; the unique telemetry key
+        // remains the independent idempotency/concurrency backstop.
+        $device = Device::query()
+            ->whereKey($device->getKey())
+            ->lockForUpdate()
+            ->firstOrFail();
+
         $existing = $this->findExisting($device, $payload);
 
         if ($existing !== null) {
@@ -101,7 +112,8 @@ class TelemetryIngestService
             ];
         }
 
-        $this->updateDeviceCommunicationState($device, $payload);
+        // A replayed identical sample proves receipt, not a newer cursor.
+        $this->updateDeviceCommunicationState($device, $payload, true);
 
         return [
             'status' => self::IDENTICAL,
@@ -169,15 +181,37 @@ class TelemetryIngestService
 
     private function updateDeviceCommunicationState(
         Device $device,
-        array $payload
+        array $payload,
+        bool $identicalDuplicate = false
     ): void {
-        $device->forceFill([
-            'last_seen_at' => now(),
-            'last_boot_id' => $payload['boot_id'],
-            'last_sequence' => $this->normalizeUnsignedInteger(
-                $payload['sequence']
-            ),
-        ])->save();
+        // last_seen_at is server-side receipt time, including valid duplicates.
+        $updates = ['last_seen_at' => now()];
+
+        if (! $identicalDuplicate) {
+            $sequence = $this->normalizeUnsignedInteger($payload['sequence']);
+            $lastBootId = $device->getRawOriginal('last_boot_id');
+            $lastSequence = $device->getRawOriginal('last_sequence');
+
+            // Sequence is only comparable within a single boot. Preserve the
+            // high-water mark when distinct samples arrive out of order.
+            if ($lastBootId !== $payload['boot_id']
+                || $lastSequence === null
+                || $this->compareUnsignedDecimalStrings(
+                    $sequence,
+                    $this->normalizeUnsignedInteger($lastSequence)
+                ) > 0) {
+                $updates['last_boot_id'] = $payload['boot_id'];
+                $updates['last_sequence'] = $sequence;
+            }
+        }
+
+        $device->forceFill($updates)->save();
+    }
+
+    private function compareUnsignedDecimalStrings(string $left, string $right): int
+    {
+        // Decimal strings avoid overflow on unsigned BIGINT above PHP_INT_MAX.
+        return strlen($left) <=> strlen($right) ?: strcmp($left, $right);
     }
 
     private function isMySqlDuplicateKey(QueryException $exception): bool

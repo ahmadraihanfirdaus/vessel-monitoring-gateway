@@ -44,6 +44,91 @@ class TelemetryIngestTest extends TestCase
         $this->assertDatabaseCount('telemetry_channels', 5);
     }
 
+    public function test_late_identical_duplicate_keeps_newer_sequence(): void
+    {
+        [$device, $bearer] = $this->createDevice();
+        $ten = $this->payload($device->device_id);
+        $ten['sequence'] = 10;
+        $eleven = $ten;
+        $eleven['sequence'] = 11;
+        $eleven['uptime_ms'] = 123457;
+
+        $this->withToken($bearer)->postJson('/api/v1/telemetry', $ten)
+            ->assertCreated();
+        $this->withToken($bearer)->postJson('/api/v1/telemetry', $eleven)
+            ->assertCreated();
+        $this->withToken($bearer)->postJson('/api/v1/telemetry', $ten)
+            ->assertOk()->assertJson(['result' => 'identical_duplicate']);
+
+        $this->assertSame('11', (string) $device->fresh()->getRawOriginal('last_sequence'));
+        $this->assertDatabaseCount('telemetry_samples', 2);
+        $this->assertDatabaseCount('telemetry_channels', 10);
+    }
+
+    public function test_late_distinct_sample_same_boot_keeps_high_watermark(): void
+    {
+        [$device, $bearer] = $this->createDevice();
+        $ten = $this->payload($device->device_id);
+        $ten['sequence'] = 10;
+        $twelve = $ten;
+        $twelve['sequence'] = 12;
+        $twelve['uptime_ms'] = 123458;
+        $eleven = $ten;
+        $eleven['sequence'] = 11;
+        $eleven['uptime_ms'] = 123457;
+
+        foreach ([$ten, $twelve, $eleven] as $payload) {
+            $this->withToken($bearer)
+                ->postJson('/api/v1/telemetry', $payload)
+                ->assertCreated();
+        }
+        $this->assertSame('12', (string) $device->fresh()->getRawOriginal('last_sequence'));
+        $this->assertDatabaseCount('telemetry_samples', 3);
+    }
+
+    public function test_duplicate_from_prior_boot_does_not_replace_current_boot(): void
+    {
+        [$device, $bearer] = $this->createDevice();
+        $bootA = $this->payload($device->device_id);
+        $bootA['boot_id'] = 'boot-A';
+        $bootA['sequence'] = 100;
+        $bootB = $bootA;
+        $bootB['boot_id'] = 'boot-B';
+        $bootB['sequence'] = 1;
+        $bootB['uptime_ms'] = 100;
+
+        $this->withToken($bearer)->postJson('/api/v1/telemetry', $bootA)
+            ->assertCreated();
+        $this->withToken($bearer)->postJson('/api/v1/telemetry', $bootB)
+            ->assertCreated();
+        $this->withToken($bearer)->postJson('/api/v1/telemetry', $bootA)
+            ->assertOk()->assertJson(['result' => 'identical_duplicate']);
+
+        $fresh = $device->fresh();
+        $this->assertSame('boot-B', $fresh->getRawOriginal('last_boot_id'));
+        $this->assertSame('1', (string) $fresh->getRawOriginal('last_sequence'));
+        $this->assertDatabaseCount('telemetry_samples', 2);
+    }
+
+    public function test_uint64_decimal_comparison_does_not_overflow_on_late_sample(): void
+    {
+        [$device] = $this->createDevice();
+        $service = app(\App\Services\TelemetryIngestService::class);
+        $base = $this->payload($device->device_id);
+        $base['sequence'] = '18446744073709551615';
+        $service->ingest($device, $base);
+        $older = $base;
+        $older['sequence'] = '9223372036854775808';
+        $older['uptime_ms'] = 123455;
+        $service->ingest($device, $older);
+
+        $this->assertSame(
+            '18446744073709551615',
+            (string) $device->fresh()->getRawOriginal('last_sequence')
+        );
+        $this->assertDatabaseCount('telemetry_samples', 2);
+    }
+
     public function test_conflicting_duplicate_is_rejected(): void
     {
         [$device, $bearer] = $this->createDevice();
