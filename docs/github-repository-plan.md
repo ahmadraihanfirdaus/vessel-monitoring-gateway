@@ -4,9 +4,9 @@
 
 **Document Status:** Engineering Development Roadmap
 
-**Current Phase:** Phases 3–8 scoped roadmap gates COMPLETE; Phase 9 scoped implementation audit PASS; Phase 9 closure documentation PENDING
+**Current Phase:** Phases 3–8 scoped roadmap gates COMPLETE; Phase 9 scoped implementation audit PASS; Phase 9 scoped documentary closure RECORDED; formal verification OPEN
 
-**Implementation Status:** PHASE9_SCOPED_IMPLEMENTATION_AUDIT_PASS / PHASE9_CLOSURE_DOCUMENTATION_PENDING / OVERALL_SYSTEM_PARTIAL
+**Implementation Status:** PHASE9_SCOPED_IMPLEMENTATION_AUDIT_PASS / PHASE9_SCOPED_DOCUMENTARY_CLOSURE_RECORDED / FORMAL_VERIFICATION_OPEN / OVERALL_SYSTEM_PARTIAL
 
 **System Verification Status:** PARTIAL — formal software-simulation SIM-001..SIM-009 PASS; SIM-010..SIM-015 and SUP-001..SUP-019 remain open
 
@@ -117,7 +117,7 @@ Each phase has defined work and exit criteria. Advancement requires review of th
 
 Roadmap Phases 3 through 8 have each satisfied their **scoped development/software-simulation exit criterion** with committed evidence. This includes the firmware-core gate, development simulator/bench-interface providers, safety-policy scenarios, four-engine model, NMEA-style navigation, and telemetry-contract foundation. Pre-Phase-9 repair R1 subsequently corrected identified firmware edge cases and hardened Wokwi log verification without changing the LOCKED baseline.
 
-This does **not** mean the complete system or every requirement is verified. Phase 9 Laravel/MySQL scoped implementation has satisfied its roadmap exit criterion based on the recorded P1/P2 and post-security-fix P3 feature-test evidence; P3 runtime HTTP reexecution after the security fix remains NOT_RUN, and Phase 9 closure documentation is still pending. Phase 10 dashboard, Phase 11 end-to-end scenarios, CI/evidence consolidation, bench hardware, and survey-readiness work remain ahead. Physical integration, calibration, certification, field validation and production readiness remain unclaimed.
+This does **not** mean the complete system or every requirement is verified. Phase 9 Laravel/MySQL scoped implementation has satisfied its roadmap exit criterion based on the recorded P1/P2 and post-security-fix P3 feature-test evidence; P3 runtime HTTP reexecution after the security fix remains NOT_RUN, and Phase 9 scoped documentary closure is recorded; formal verification remains open. Phase 10 dashboard, Phase 11 end-to-end scenarios, CI/evidence consolidation, bench hardware, and survey-readiness work remain ahead. Physical integration, calibration, certification, field validation and production readiness remain unclaimed.
 
 The working traceability state is:
 
@@ -247,9 +247,9 @@ If the required rights or publication authorization cannot be confirmed, the rep
 
 The repository is under preparation for continued engineering development and public portfolio review.
 
-**Current Phase:** Phases 3–8 scoped roadmap gates COMPLETE; Phase 9 scoped implementation audit PASS; Phase 9 closure documentation PENDING
+**Current Phase:** Phases 3–8 scoped roadmap gates COMPLETE; Phase 9 scoped implementation audit PASS; Phase 9 scoped documentary closure RECORDED; formal verification OPEN
 
-**Implementation Status:** PHASE9_SCOPED_IMPLEMENTATION_AUDIT_PASS / PHASE9_CLOSURE_DOCUMENTATION_PENDING / OVERALL_SYSTEM_PARTIAL
+**Implementation Status:** PHASE9_SCOPED_IMPLEMENTATION_AUDIT_PASS / PHASE9_SCOPED_DOCUMENTARY_CLOSURE_RECORDED / FORMAL_VERIFICATION_OPEN / OVERALL_SYSTEM_PARTIAL
 
 **Functional Verification Status:** PARTIAL — SIM-001..SIM-009 PASS with formal software-simulation evidence; SIM-010..SIM-015 and SUP-001..SUP-019 remain open
 
