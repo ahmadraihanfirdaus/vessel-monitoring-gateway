@@ -1,0 +1,2 @@
+4dfa8492a8ee26629dc4b53c96b486c25b47a73f29bf072d9c0d544068bfe956  evidence/test-results/phase9-scoped-documentary-closure-approval-20261019.txt
+51db34ff78a0bd82cd65036dbee9def07028e6e77168a4c859508fe56022647d  evidence/test-results/phase9-scoped-documentary-closure-summary-20261019.md
