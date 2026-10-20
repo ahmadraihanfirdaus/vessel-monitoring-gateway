@@ -1,0 +1,26 @@
+test_id,family,execution_class,required_evidence,database_policy,preparation_status,boundary_note
+SIM-010,SIM,SIMULATOR_HOST_PROTOCOL,UART_OR_HOST_LOG_PLUS_TIMING,NO_DB_WRITE,CASE_BY_CASE_REVIEW_REQUIRED,Network/backend outage 60 s; local behavior and bounded retry must be observed
+SIM-011,SIM,SIMULATOR_HOST_PROTOCOL,CHANNEL_STATE_AND_FAULT_ISOLATION_LOG,NO_DB_WRITE,CASE_BY_CASE_REVIEW_REQUIRED,Single-channel invalid sensor only; does not prove full shared-bus outage
+SIM-012,SIM,SIMULATOR_HOST_PROTOCOL,ORDERED_MULTI_FAULT_EVENT_LOG,NO_DB_WRITE,CASE_BY_CASE_REVIEW_REQUIRED,Network + safety sensor + engine deviation; prove no deadlock and ordering
+SIM-013,SIM,SIMULATOR_HOST_PROTOCOL,RECOVERY_TRANSITION_LOG,NO_DB_WRITE,CASE_BY_CASE_REVIEW_REQUIRED,Restore channel/network and prove valid-data-gated recovery
+SIM-014,SIM,BACKEND_TEST_DB_PROTOCOL,HTTP_OR_SERVICE_RESULT_PLUS_DB_IDEMPOTENCY,TEST_DB_WRITE_REQUIRED_LATER,CASE_BY_CASE_REVIEW_REQUIRED,Duplicate identity + conflict handling; isolated MySQL test DB only
+SIM-015,SIM,BACKEND_HTTP_PROTOCOL,HTTP_AUTH_REJECTION_TRACE,TEST_DB_FIXTURE_MAY_BE_REQUIRED_LATER,CASE_BY_CASE_REVIEW_REQUIRED,Invalid/missing API authentication rejection
+SUP-001,SUP,READ_ONLY_DOCUMENT_REVIEW,DOCUMENT_AUDIT_RECORD,NO_DB_WRITE,CASE_BY_CASE_REVIEW_REQUIRED,Formal plan row must remain PLANNED until dedicated execution evidence exists
+SUP-002,SUP,CONTRACT_TEST_PROTOCOL,CONTRACT_RESULT_LOG,DEPENDS_ON_CASE,CASE_BY_CASE_REVIEW_REQUIRED,Physical-labelled data remains synthetic; no authorized physical integration claim
+SUP-003,SUP,READ_ONLY_STATIC_REVIEW,STATIC_REVIEW_RECORD,NO_DB_WRITE,CASE_BY_CASE_REVIEW_REQUIRED,Formal plan row must remain PLANNED until dedicated execution evidence exists
+SUP-004,SUP,UNIT_TEST_PROTOCOL,UNIT_TEST_CONSOLE_LOG,NO_DB_WRITE,CASE_BY_CASE_REVIEW_REQUIRED,Formal plan row must remain PLANNED until dedicated execution evidence exists
+SUP-005,SUP,SIMULATOR_TEST_PROTOCOL,SIMULATOR_OR_HOST_LOG,NO_DB_WRITE,CASE_BY_CASE_REVIEW_REQUIRED,Formal plan row must remain PLANNED until dedicated execution evidence exists
+SUP-006,SUP,READ_ONLY_STATIC_REVIEW,STATIC_REVIEW_RECORD,NO_DB_WRITE,CASE_BY_CASE_REVIEW_REQUIRED,Formal plan row must remain PLANNED until dedicated execution evidence exists
+SUP-007,SUP,UNIT_TEST_PROTOCOL,UNIT_TEST_CONSOLE_LOG,NO_DB_WRITE,CASE_BY_CASE_REVIEW_REQUIRED,Formal plan row must remain PLANNED until dedicated execution evidence exists
+SUP-008,SUP,SIMULATOR_TEST_PROTOCOL,SIMULATOR_OR_HOST_LOG,NO_DB_WRITE,CASE_BY_CASE_REVIEW_REQUIRED,Formal plan row must remain PLANNED until dedicated execution evidence exists
+SUP-009,SUP,SIMULATOR_TEST_PROTOCOL,SIMULATOR_OR_HOST_LOG,NO_DB_WRITE,CASE_BY_CASE_REVIEW_REQUIRED,Formal plan row must remain PLANNED until dedicated execution evidence exists
+SUP-010,SUP,SIMULATOR_TEST_PROTOCOL,SIMULATOR_OR_HOST_LOG,NO_DB_WRITE,CASE_BY_CASE_REVIEW_REQUIRED,Formal plan row must remain PLANNED until dedicated execution evidence exists
+SUP-011,SUP,CONTRACT_TEST_PROTOCOL,CONTRACT_RESULT_LOG,DEPENDS_ON_CASE,CASE_BY_CASE_REVIEW_REQUIRED,Formal plan row must remain PLANNED until dedicated execution evidence exists
+SUP-012,SUP,UNIT_TEST_PROTOCOL,UNIT_TEST_CONSOLE_LOG,NO_DB_WRITE,CASE_BY_CASE_REVIEW_REQUIRED,Formal plan row must remain PLANNED until dedicated execution evidence exists
+SUP-013,SUP,INTEGRATION_TEST_PROTOCOL,INTEGRATION_LOG_AND_STATE_SNAPSHOT,DEPENDS_ON_CASE,CASE_BY_CASE_REVIEW_REQUIRED,Formal plan row must remain PLANNED until dedicated execution evidence exists
+SUP-014,SUP,INTEGRATION_TEST_PROTOCOL,INTEGRATION_LOG_AND_STATE_SNAPSHOT,ISOLATED_TEST_DB_WRITE_REQUIRED_LATER,CASE_BY_CASE_REVIEW_REQUIRED,Laravel migrations + rollback only on vessel_monitoring_gateway_test port 3307; no manual SQL/schema edits
+SUP-015,SUP,FUNCTIONAL_REVIEW_PROTOCOL,FUNCTIONAL_EVIDENCE_RECORD,NO_DB_WRITE,CASE_BY_CASE_REVIEW_REQUIRED,Formal plan row must remain PLANNED until dedicated execution evidence exists
+SUP-016,SUP,READ_ONLY_SECURITY_REVIEW,SECURITY_REVIEW_RECORD,NO_DB_WRITE,CASE_BY_CASE_REVIEW_REQUIRED,Review repository content for secrets and operational data; no production secret claims
+SUP-017,SUP,READ_ONLY_TRACEABILITY_AUDIT,TRACEABILITY_AUDIT_RECORD,NO_DB_WRITE,CASE_BY_CASE_REVIEW_REQUIRED,Formal plan row must remain PLANNED until dedicated execution evidence exists
+SUP-018,SUP,CI_EVIDENCE_REVIEW,CI_RUN_OR_CONFIG_EVIDENCE,NO_DB_WRITE,CASE_BY_CASE_REVIEW_REQUIRED,Formal plan row must remain PLANNED until dedicated execution evidence exists
+SUP-019,SUP,READ_ONLY_DOCUMENT_REVIEW,DOCUMENT_AUDIT_RECORD,NO_DB_WRITE,CASE_BY_CASE_REVIEW_REQUIRED,Formal plan row must remain PLANNED until dedicated execution evidence exists
