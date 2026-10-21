@@ -1,0 +1,15 @@
+CURRENT_HEAD=f3fe7f1b4f5671df350efcbdda65463f8ae4e382
+ORIGINAL_EVIDENCE_HEAD=ba6899b33d21a94e2d0ace6ecb0b3b8a839e561e
+CASE=SUP-006
+REQUIREMENT=ENG-004
+VERIFICATION_TYPE=static_review
+CAPTURED_STATUS=PASS
+CAPTURED_REASON_JSON="Yamaha interface remains FUTURE/TBD/unverified and no concrete Yamaha runtime provider implementation was detected."
+CAPTURED_SOURCE_COUNT=2
+CAPTURED_SOURCE_PATHS=docs/bom-and-tbd.md;docs/architecture/architecture-and-icd.md
+ORIGINAL_WAVE1_MANIFEST_SHA256=38afc50ee5c560e379f176ab4ee051e8b70bcfb6e046b12a7e54c2b31853e630
+CAPTURE_REUSE=PASS_NO_RELEVANT_SOURCE_CHANGE
+SOURCE_SHA256=docs/architecture/architecture-and-icd.md:fb004d908792b6af12ad18aa8a0cbf4fd5c5b49322b29f15e4b75fb16f537416
+SOURCE_SHA256=docs/bom-and-tbd.md:4d5796848b70150223cdbd14019bd742a8dfd3ee1a4d72452006375a8ebeba73
+SOURCE_SHA256=firmware/src/engine_model.h:0f2bde58583f600bfa376f885a579daef969633bce2a2b89594bd02fc12a4273
+TEST_RERUN=NO
