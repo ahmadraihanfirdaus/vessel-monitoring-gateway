@@ -1,7 +1,7 @@
 test_id,requirement_id,verification_type,planned_verification,expected_result,execution_status,evidence_path
 SUP-001,SYS-001,documentation,Review prototype and certification disclaimers,No certified marine equipment claims,PASS,evidence/test-results/phase9-wave1-sup001-documentation-review-20261020.txt
 SUP-002,SYS-002,contract,"Validate source_mode contract using synthetic simulation, bench_test and physical-labelled payloads; no real physical interface is connected",Each payload retains the correct source_mode; physical-labelled test data is explicitly synthetic and does not imply authorized physical integration,PLANNED,
-SUP-003,SYS-004,static_review,Inspect interfaces for prohibited physical and mission-system control,"No physical starter, ignition, steering, radar, radio, or third-party operational or mission system is controlled",PLANNED,
+SUP-003,SYS-004,static_review,Inspect interfaces for prohibited physical and mission-system control,"No physical starter, ignition, steering, radar, radio, or third-party operational or mission system is controlled",PASS,evidence/test-results/phase9-wave1-sup003-static-review-20261021.txt
 SUP-004,ALM-002,unit,Acknowledge an alarm while its condition remains active,Alarm condition remains active after acknowledgement,PLANNED,
 SUP-005,ENG-002,simulation,"Inspect state, RPM, temperature, runtime, alarm and quality",Every simulated engine exposes required fields,PLANNED,
 SUP-006,ENG-004,static_review,Inspect Yamaha physical provider abstraction,Provider remains a placeholder without physical engine access,PLANNED,

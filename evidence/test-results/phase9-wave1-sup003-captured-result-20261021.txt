@@ -1,0 +1,13 @@
+CURRENT_HEAD=77959773717da893c5c1041b2b9a79b6640829cc
+ORIGINAL_EVIDENCE_HEAD=ba6899b33d21a94e2d0ace6ecb0b3b8a839e561e
+CASE=SUP-003
+REQUIREMENT=SYS-004
+VERIFICATION_TYPE=static_review
+CAPTURED_STATUS=PASS
+CAPTURED_REASON=Explicit no-control boundaries found and no prohibited actuator-style API names detected in first-party runtime source.
+CAPTURED_EVIDENCE=README.md;docs/architecture/architecture-and-icd.md;docs/bom-and-tbd.md
+ORIGINAL_WAVE1_MANIFEST_SHA256=38afc50ee5c560e379f176ab4ee051e8b70bcfb6e046b12a7e54c2b31853e630
+SOURCE_SHA256=README.md:7a105a6a582ad08becbe0107e63169f7ebe6b43ef99bc4205cb2bdf7e4a1bfde
+SOURCE_SHA256=docs/architecture/architecture-and-icd.md:fb004d908792b6af12ad18aa8a0cbf4fd5c5b49322b29f15e4b75fb16f537416
+SOURCE_SHA256=docs/bom-and-tbd.md:4d5796848b70150223cdbd14019bd742a8dfd3ee1a4d72452006375a8ebeba73
+TEST_RERUN=NO
