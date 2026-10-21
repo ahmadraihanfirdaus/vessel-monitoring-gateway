@@ -1,0 +1,12 @@
+CURRENT_HEAD=6c0c07ddcfa168a5bf0399b13365c4b0c89bfe19
+ORIGINAL_EVIDENCE_HEAD=ba6899b33d21a94e2d0ace6ecb0b3b8a839e561e
+CASE=SUP-001
+REQUIREMENT=SYS-001
+VERIFICATION_TYPE=documentation
+CAPTURED_STATUS=PASS
+CAPTURED_REASON=Prototype, non-certification, and non-production boundaries are explicitly documented.
+CAPTURED_EVIDENCE=README.md;docs/architecture/architecture-and-icd.md
+ORIGINAL_WAVE1_MANIFEST_SHA256=38afc50ee5c560e379f176ab4ee051e8b70bcfb6e046b12a7e54c2b31853e630
+SOURCE_SHA256=README.md:7a105a6a582ad08becbe0107e63169f7ebe6b43ef99bc4205cb2bdf7e4a1bfde
+SOURCE_SHA256=docs/architecture/architecture-and-icd.md:fb004d908792b6af12ad18aa8a0cbf4fd5c5b49322b29f15e4b75fb16f537416
+TEST_RERUN=NO
