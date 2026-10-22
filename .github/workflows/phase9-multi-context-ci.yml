@@ -24,6 +24,14 @@ jobs:
           python3 -B scripts/phase9_sec001_tracked_scan.py
           python3 -B scripts/test_phase9_tst001_scoped_evidence.py
           python3 -B scripts/phase9_tst001_scoped_evidence.py
+      - name: Batch 3 five-context integrated host contracts
+        run: |
+          python3 -B scripts/test_phase9_b3_net001_uplink.py
+          python3 -B scripts/test_phase9_b3_net002_replay.py
+          python3 -B scripts/test_phase9_b3_sys002_provenance.py
+          python3 -B scripts/test_phase9_b3_sys003_outage.py
+          python3 -B scripts/test_phase9_b3_tel003_dedup.py
+          python3 -B scripts/test_phase9_b3_integrated_host.py
       - name: UI source contract checks
         run: |
           python3 -B scripts/test_phase9_ui001_dashboard.py

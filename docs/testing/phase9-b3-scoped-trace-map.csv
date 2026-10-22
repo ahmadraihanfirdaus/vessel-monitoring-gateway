@@ -1,0 +1,7 @@
+case_id,scope,source_path,host_test,formal_status
+NET-001,host uplink callback,firmware/src/phase9_net001_uplink_host_bridge.h,scripts/test_phase9_b3_net001_uplink.py,NOT_RUN
+NET-002,volatile replay cursor,firmware/src/phase9_net002_replay_cursor_host.h,scripts/test_phase9_b3_net002_replay.py,NOT_RUN
+SYS-002,host provenance,firmware/src/phase9_sys002_telemetry_provenance_host.h,scripts/test_phase9_b3_sys002_provenance.py,NOT_RUN
+SYS-003,host outage cycle,firmware/src/phase9_sys003_outage_cycle_host.h,scripts/test_phase9_b3_sys003_outage.py,NOT_RUN
+TEL-003,host bounded dedup window,firmware/src/phase9_tel003_dedup_host_window.h,scripts/test_phase9_b3_tel003_dedup.py,NOT_RUN
+B3-INTEGRATION,host five-scope scenario,docs/testing/phase9-b3-host-integration-boundary.md,scripts/test_phase9_b3_integrated_host.py,NOT_RUN
