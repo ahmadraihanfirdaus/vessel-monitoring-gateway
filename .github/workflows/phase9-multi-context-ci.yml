@@ -8,7 +8,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install host build tools
-        run: sudo apt-get update && sudo apt-get install -y gcc python3
+        run: sudo apt-get update && sudo apt-get install -y gcc python3 php-cli
       - name: Run existing core tests
         run: python3 -B scripts/test_firmware_core_host.py
       - name: NET-001 host-only checks
@@ -32,6 +32,13 @@ jobs:
           python3 -B scripts/test_phase9_b3_sys003_outage.py
           python3 -B scripts/test_phase9_b3_tel003_dedup.py
           python3 -B scripts/test_phase9_b3_integrated_host.py
+      - name: Batch 4 telemetry and security host contracts
+        run: |
+          python3 -B scripts/test_phase9_b4_tel001.py
+          python3 -B scripts/test_phase9_b4_tel002.py
+          python3 -B scripts/test_phase9_b4_sec002.py
+          python3 -B scripts/test_phase9_b4_tst001.py
+          python3 -B scripts/test_phase9_b4_integrated.py
       - name: UI source contract checks
         run: |
           python3 -B scripts/test_phase9_ui001_dashboard.py
@@ -68,6 +75,8 @@ jobs:
           coverage: none
       - name: Install PHP dependencies
         run: composer install --no-progress --prefer-dist --no-interaction
+      - name: Batch 4 PHP standalone ingest fixture (no database)
+        run: python3 -B ../../scripts/test_phase9_b4_api001.py
       - name: Prepare ephemeral Laravel test environment
         run: |
           cp .env.example .env

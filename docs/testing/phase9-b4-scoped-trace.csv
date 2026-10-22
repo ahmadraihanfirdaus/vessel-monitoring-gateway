@@ -1,0 +1,6 @@
+requirement,source,test,status
+TEL-001,firmware/src/phase9_b4_tel001_wire.h,scripts/test_phase9_b4_tel001.py,FORMAL_OPEN
+TEL-002,firmware/src/phase9_b4_tel002_quality.h,scripts/test_phase9_b4_tel002.py,FORMAL_OPEN
+API-001,backend/laravel/app/Support/Phase9B4IngestContract.php,scripts/test_phase9_b4_api001.py,FORMAL_OPEN
+SEC-002,firmware/src/phase9_b4_sec002_gate.h,scripts/test_phase9_b4_sec002.py,FORMAL_OPEN
+TST-001,scripts/phase9_b4_scoped_trace_check.py,scripts/test_phase9_b4_tst001.py,FORMAL_OPEN
