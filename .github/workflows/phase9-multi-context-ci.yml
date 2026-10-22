@@ -55,6 +55,14 @@ jobs:
           python3 -B scripts/test_phase9_b6_net002.py
           python3 -B scripts/test_phase9_b6_tst001.py
           python3 -B scripts/test_phase9_b6_integrated.py
+      - name: Batch 7 combined host safety and replay contracts
+        run: |
+          python3 -B scripts/test_phase9_b7_sys002.py
+          python3 -B scripts/test_phase9_b7_sys003.py
+          python3 -B scripts/test_phase9_b7_sys004.py
+          python3 -B scripts/test_phase9_b7_net002.py
+          python3 -B scripts/test_phase9_b7_tst001.py
+          python3 -B scripts/test_phase9_b7_integrated.py
       - name: UI source contract checks
         run: |
           python3 -B scripts/test_phase9_ui001_dashboard.py

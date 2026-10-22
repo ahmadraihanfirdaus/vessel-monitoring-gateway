@@ -1,0 +1,6 @@
+context,host_contract,test_path,formal_status,boundary
+SYS-002,simulation_and_bench_origin_only,scripts/test_phase9_b7_sys002.py,OPEN,HOST_NO_DEVICE_NO_DB
+SYS-003,local_first_missing_alarm_prevents_network,scripts/test_phase9_b7_sys003.py,OPEN,HOST_NO_DEVICE_NO_DB
+SYS-004,empty_read_query_only,scripts/test_phase9_b7_sys004.py,OPEN,HOST_NO_DEVICE_NO_DB
+NET-002,replay_ack_gate_correlation,scripts/test_phase9_b7_net002.py,OPEN,HOST_NO_DEVICE_NO_DB
+TST-001,host_composition_and_regression,scripts/test_phase9_b7_integrated.py,OPEN,HOST_NO_DEVICE_NO_DB
