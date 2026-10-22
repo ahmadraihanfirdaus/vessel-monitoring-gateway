@@ -39,6 +39,14 @@ jobs:
           python3 -B scripts/test_phase9_b4_sec002.py
           python3 -B scripts/test_phase9_b4_tst001.py
           python3 -B scripts/test_phase9_b4_integrated.py
+      - name: Batch 5 strict ingest, replay and dedup host contracts
+        run: |
+          python3 -B scripts/test_phase9_b5_api001_strict.py
+          python3 -B scripts/test_phase9_b5_tel003_dedup.py
+          python3 -B scripts/test_phase9_b5_net002_ack.py
+          python3 -B scripts/test_phase9_b5_sec002_claims.py
+          python3 -B scripts/test_phase9_b5_integrated.py
+          python3 -B scripts/test_phase9_b5_tst001.py
       - name: UI source contract checks
         run: |
           python3 -B scripts/test_phase9_ui001_dashboard.py

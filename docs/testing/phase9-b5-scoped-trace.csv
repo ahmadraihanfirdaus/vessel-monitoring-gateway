@@ -1,0 +1,6 @@
+requirement,scope,source,test,formal_status
+API-001,host-strict-json,backend/laravel/app/Support/Phase9B5StrictPayload.php,scripts/test_phase9_b5_api001_strict.py,FORMAL_OPEN
+TEL-003,in-memory-dedup,backend/laravel/app/Support/Phase9B5DedupLedger.php,scripts/test_phase9_b5_tel003_dedup.py,FORMAL_OPEN
+NET-002,replay-fake-ack,firmware/src/phase9_b5_replay_ack_guard.h,scripts/test_phase9_b5_net002_ack.py,FORMAL_OPEN
+SEC-002,verified-claims-injected,backend/laravel/app/Support/Phase9B5AuthClaims.php,scripts/test_phase9_b5_sec002_claims.py,FORMAL_OPEN
+TST-001,cross-scope-host,docs/testing/phase9-b5-scoped-trace.csv,scripts/test_phase9_b5_integrated.py,FORMAL_OPEN
