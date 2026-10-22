@@ -1,0 +1,6 @@
+case_id,requirement,implementation_path,test_path,formal_status
+NET-002,NET-002,firmware/src/net002_offline_host_store.h,scripts/test_phase9_net002_offline_host.py,NOT_RUN
+SYS-002,SYS-002,firmware/src/sys002_source_provenance_host.h,scripts/test_phase9_sys002_source_provenance.py,NOT_RUN
+SYS-004,SYS-004,firmware/src/sys004_no_actuator_host_gate.h,scripts/test_phase9_sys004_no_actuator.py,NOT_RUN
+SEC-001,SEC-001,scripts/phase9_sec001_tracked_scan.py,scripts/test_phase9_sec001_patterns.py,NOT_RUN
+TST-001,TST-001,scripts/phase9_tst001_scoped_evidence.py,scripts/test_phase9_tst001_scoped_evidence.py,NOT_RUN

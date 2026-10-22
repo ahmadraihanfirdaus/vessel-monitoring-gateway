@@ -15,6 +15,15 @@ jobs:
         run: python3 -B scripts/test_phase9_net001_host_adapter.py
       - name: SYS-003 host-only checks
         run: python3 -B scripts/test_phase9_sys003_local_guard.py
+      - name: Phase 9 Batch 2 host development contracts
+        run: |
+          python3 -B scripts/test_phase9_net002_offline_host.py
+          python3 -B scripts/test_phase9_sys002_source_provenance.py
+          python3 -B scripts/test_phase9_sys004_no_actuator.py
+          python3 -B scripts/test_phase9_sec001_patterns.py
+          python3 -B scripts/phase9_sec001_tracked_scan.py
+          python3 -B scripts/test_phase9_tst001_scoped_evidence.py
+          python3 -B scripts/phase9_tst001_scoped_evidence.py
       - name: UI source contract checks
         run: |
           python3 -B scripts/test_phase9_ui001_dashboard.py
