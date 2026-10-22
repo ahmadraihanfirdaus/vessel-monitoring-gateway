@@ -1,0 +1,6 @@
+context,fixture,status,formal_requirement,formal_status
+SYS-003,test_phase9_b8_sys003.py,PASS_IF_TESTED,SYS-003,OPEN
+NET-002,test_phase9_b8_net002.py,PASS_IF_TESTED,NET-002,OPEN
+TEL-003,test_phase9_b8_tel003.py,PASS_IF_TESTED,TEL-003,OPEN
+SEC-002,test_phase9_b8_sec002.py,PASS_IF_TESTED,SEC-002,OPEN
+TST-001,test_phase9_b8_tst001.py;test_phase9_b8_integrated.py,PASS_IF_TESTED,TST-001,OPEN
