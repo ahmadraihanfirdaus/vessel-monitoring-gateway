@@ -1,0 +1,60 @@
+name: Phase 9 scoped host and Laravel CI
+on:
+  pull_request:
+  workflow_dispatch:
+jobs:
+  firmware-host:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install host build tools
+        run: sudo apt-get update && sudo apt-get install -y gcc python3
+      - name: Run existing core tests
+        run: python3 -B scripts/test_firmware_core_host.py
+      - name: NET-001 host-only checks
+        run: python3 -B scripts/test_phase9_net001_host_adapter.py
+      - name: SYS-003 host-only checks
+        run: python3 -B scripts/test_phase9_sys003_local_guard.py
+      - name: UI source contract checks
+        run: |
+          python3 -B scripts/test_phase9_ui001_dashboard.py
+          python3 -B scripts/test_phase9_ui002_views.py
+          python3 -B scripts/test_phase9_tst002_ci_policy.py
+  backend-mysql-isolated:
+    runs-on: ubuntu-24.04
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+          MYSQL_DATABASE: vessel_gateway_ci
+        ports: ['3306:3306']
+        options: >-
+          --health-cmd="mysqladmin ping --silent" --health-interval=10s --health-timeout=5s --health-retries=10
+    env:
+      APP_ENV: testing
+      DB_CONNECTION: mysql
+      DB_HOST: 127.0.0.1
+      DB_PORT: '3306'
+      DB_DATABASE: vessel_gateway_ci
+      DB_USERNAME: root
+      DB_PASSWORD: ''
+    defaults:
+      run:
+        working-directory: backend/laravel
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: pdo_mysql, mbstring
+          coverage: none
+      - name: Install PHP dependencies
+        run: composer install --no-progress --prefer-dist --no-interaction
+      - name: Prepare ephemeral Laravel test environment
+        run: |
+          cp .env.example .env
+          php artisan key:generate --force
+          php artisan migrate --force
+      - name: Run Laravel tests on isolated MySQL
+        run: php artisan test
