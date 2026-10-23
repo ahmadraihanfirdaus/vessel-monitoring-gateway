@@ -1,0 +1,8 @@
+requirement,check,status,limit
+NET-002,Two-slot successor preparation and replay fallback,PASS_HOST_IF_GATE,No ESP32 NVS durability
+TEL-003,Confirmed ACK monotonic and pending reset,PASS_HOST_IF_GATE,Receipt authenticity external
+SYS-003,No overwritten latest validated state after interrupted update,PASS_HOST_IF_GATE,Not physical power-fail
+ALM-002,Journal contents retained across restart,PASS_HOST_IF_GATE,Alarm indicator hardware not checked
+SEC-001,Corruption and identity fail-closed checks,PASS_HOST_IF_GATE,CRC32 is not authentication
+TST-001,Strict compiler and two-process failure injection,PASS_HOST_IF_GATE,Simulation is not formal acceptance
+TST-002,CI and prior test regression gate,PASS_HOST_IF_GATE,Real network and DB E2E not executed
