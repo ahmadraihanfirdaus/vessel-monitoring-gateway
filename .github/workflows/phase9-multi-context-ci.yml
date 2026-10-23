@@ -102,6 +102,13 @@ jobs:
           python3 -B scripts/test_phase9_b21_negative.py
           python3 -B scripts/test_phase9_b21_tst002.py
 
+      - name: B22 host-only monotonic restore witness
+        run: |
+          python3 -B scripts/test_phase9_b22_guarded_restore.py
+          python3 -B scripts/test_phase9_b22_contract.py
+          python3 -B scripts/test_phase9_b22_negative.py
+          python3 -B scripts/test_phase9_b22_tst002.py
+
   backend-mysql-isolated:
     runs-on: ubuntu-24.04
     services:

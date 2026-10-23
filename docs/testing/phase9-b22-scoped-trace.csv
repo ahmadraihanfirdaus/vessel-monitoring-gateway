@@ -1,0 +1,8 @@
+requirement,host_scope,evidence,status
+NET-002,restore with external trusted floor,phase9_b22_guarded_restore_fixture.c,PASS_ONLY_IF_HOST_GATE
+TEL-003,reject ACK high-water rollback,phase9_b22_guarded_restore_fixture.c,PASS_ONLY_IF_HOST_GATE
+SYS-003,no false ACK promotion on corrupted slot,phase9_b22_guarded_restore_fixture.c,PASS_ONLY_IF_HOST_GATE
+SEC-001,CRC is not cryptographic freshness verification,phase9-b22-rollback-witness.md,OPEN_FORMAL
+ALM-002,conservative alarm journal restore,phase9_b22_guarded_restore_fixture.c,PASS_ONLY_IF_HOST_GATE
+TST-001,controlled fixture and evidence,run_b22_auto_commit.sh,PASS_ONLY_IF_HOST_GATE
+TST-002,CI and regression,phase9-multi-context-ci.yml,PASS_ONLY_IF_CI
