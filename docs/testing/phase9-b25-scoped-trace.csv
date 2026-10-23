@@ -1,0 +1,8 @@
+scope_id,artifact,test,phase,status,qualification
+NET-002,phase9_b25_observation_epoch_host.h,test_phase9_b25_observation_epoch.py,Phase9-B25,HOST_PASS_REQUIRED,Externally supplied epoch strictly next
+TEL-003,phase9_b25_observation_epoch_host.h,test_phase9_b25_observation_epoch.py,Phase9-B25,HOST_PASS_REQUIRED,No ACK advancement on stale receipt
+SYS-003,phase9_b25_observation_epoch_host.h,test_phase9_b25_negative.py,Phase9-B25,HOST_PASS_REQUIRED,Source domain and device bound
+ALM-002,phase9_b25_observation_epoch_fixture.c,test_phase9_b25_observation_epoch.py,Phase9-B25,HOST_PASS_REQUIRED,Existing bounded journal preserved
+SEC-001,phase9_b25_observation_epoch_host.h,test_phase9_b25_contract.py,Phase9-B25,HOST_PASS_REQUIRED,External epoch authenticity NOT verified
+TST-001,phase9_b25_observation_epoch_fixture.c,test_phase9_b25_observation_epoch.py,Phase9-B25,HOST_PASS_REQUIRED,18 independent-process scenarios
+TST-002,phase9-multi-context-ci.yml,test_phase9_b25_tst002.py,Phase9-B25,CI_PASS_REQUIRED,Existing MySQL isolated job retained
