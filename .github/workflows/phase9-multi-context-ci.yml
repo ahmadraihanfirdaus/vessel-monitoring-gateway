@@ -187,3 +187,15 @@ jobs:
         env:
           VG_B14_WIRE_JSONL: /tmp/vg-b14-wire.jsonl
         run: php artisan test --filter=Phase9B14FirmwareWireHttpTest
+
+      - name: Verify B15 journal-to-HTTP source contract
+        run: |
+          python3 -B scripts/test_phase9_b15_contract.py
+          python3 -B scripts/test_phase9_b15_tst002.py
+      - name: Emit host C99 volatile journal event wire without DB
+        run: python3 -B scripts/phase9_b15_event_bridge.py --output /tmp/vg-b15-events.jsonl
+      - name: B15 Laravel event HTTP admission with persistence mocks
+        working-directory: backend/laravel
+        env:
+          VG_B15_EVENT_JSONL: /tmp/vg-b15-events.jsonl
+        run: php artisan test --filter=Phase9B15JournalWireHttpTest

@@ -1,0 +1,9 @@
+context,scope,host_evidence,formal_status
+ALM-001,real_C99_volatile_journal_events,B15_C99_EVENTS_AND_PHPUNIT,OPEN
+SYS-002,journal_source_mode_labels,B15_C99_EVENTS_AND_PHPUNIT,OPEN
+API-001,event_JSON_wire_admission,B15_PHPUNIT,OPEN
+SEC-002,bearer_identity_gate,B15_PHPUNIT,OPEN
+NET-002,replay_receipt_only_mocked_persistence,B15_PHPUNIT,OPEN
+TEL-003,conflicting_receipt_mocked_persistence,B15_PHPUNIT,OPEN
+TST-001,host_cross_language_path,B15_C99_AND_PHPUNIT,OPEN
+TST-002,CI_no_database_migrations,B15_CI_AND_REGRESSION,OPEN
