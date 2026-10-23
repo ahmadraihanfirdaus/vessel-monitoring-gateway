@@ -1,0 +1,8 @@
+scope_id,artifact,test,phase,status,qualification
+NET-002,phase9_b27_quorum_sequence_host.h,test_phase9_b27_quorum_sequence.py,Phase9-B27,HOST_PASS_REQUIRED,Two consecutive promotions must each satisfy independent dual quorum
+TEL-003,phase9_b27_quorum_sequence_host.h,test_phase9_b27_quorum_sequence.py,Phase9-B27,HOST_PASS_REQUIRED,No partial ACK publication when second round fails
+SYS-003,phase9_b27_quorum_sequence_host.h,test_phase9_b27_negative.py,Phase9-B27,HOST_PASS_REQUIRED,Second round receives round-one guard and exact epoch progression
+ALM-002,phase9_b27_quorum_sequence_fixture.c,test_phase9_b27_quorum_sequence.py,Phase9-B27,HOST_PASS_REQUIRED,Preserves offline event journal through readback host path
+SEC-001,phase9_b27_quorum_sequence_host.h,test_phase9_b27_contract.py,Phase9-B27,HOST_PASS_REQUIRED,External source authentication and persistence NOT implemented
+TST-001,phase9_b27_quorum_sequence_fixture.c,test_phase9_b27_quorum_sequence.py,Phase9-B27,HOST_PASS_REQUIRED,30 independent process test scenarios
+TST-002,phase9-multi-context-ci.yml,test_phase9_b27_tst002.py,Phase9-B27,CI_PASS_REQUIRED,MySQL CI job unchanged and new host gates included

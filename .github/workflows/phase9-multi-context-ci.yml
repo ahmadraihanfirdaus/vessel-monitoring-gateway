@@ -137,6 +137,13 @@ jobs:
           python3 -B scripts/test_phase9_b26_negative.py
           python3 -B scripts/test_phase9_b26_tst002.py
 
+      - name: B27 host two-round dual quorum sequence and partial ACK denial
+        run: |
+          python3 -B scripts/test_phase9_b27_quorum_sequence.py
+          python3 -B scripts/test_phase9_b27_contract.py
+          python3 -B scripts/test_phase9_b27_negative.py
+          python3 -B scripts/test_phase9_b27_tst002.py
+
   backend-mysql-isolated:
     runs-on: ubuntu-24.04
     services:
