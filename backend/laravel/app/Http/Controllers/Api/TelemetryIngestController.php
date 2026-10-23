@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TelemetryIngestRequest;
 use App\Models\Device;
+use App\Support\DependencyUnavailableResponse;
+use Illuminate\Database\QueryException;
 use App\Services\TelemetryIngestService;
 use Illuminate\Http\JsonResponse;
 
@@ -30,7 +32,15 @@ class TelemetryIngestController extends Controller
             ], 403);
         }
 
-        $result = $ingestService->ingest($device, $payload);
+        try {
+            $result = $ingestService->ingest($device, $payload);
+        } catch (QueryException $exception) {
+            $response = DependencyUnavailableResponse::forConnectionFailure($exception);
+            if ($response !== null) {
+                return $response;
+            }
+            throw $exception;
+        }
 
         return match ($result['status']) {
             TelemetryIngestService::CREATED => response()->json([

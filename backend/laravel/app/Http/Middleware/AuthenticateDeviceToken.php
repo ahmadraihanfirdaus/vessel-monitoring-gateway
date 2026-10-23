@@ -3,6 +3,8 @@
 namespace App\Http\Middleware;
 
 use App\Services\DeviceTokenAuthenticator;
+use App\Support\DependencyUnavailableResponse;
+use Illuminate\Database\QueryException;
 use Closure;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -25,7 +27,15 @@ class AuthenticateDeviceToken
             return $this->unauthorized();
         }
 
-        $device = $this->authenticator->resolve($bearerToken);
+        try {
+            $device = $this->authenticator->resolve($bearerToken);
+        } catch (QueryException $exception) {
+            $response = DependencyUnavailableResponse::forConnectionFailure($exception);
+            if ($response !== null) {
+                return $response;
+            }
+            throw $exception;
+        }
 
         if ($device === null) {
             return $this->unauthorized();

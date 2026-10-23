@@ -153,3 +153,10 @@ jobs:
       - name: Run real B10 Laravel route/controller feature tests without DB
         working-directory: backend/laravel
         run: php artisan test --filter=Phase9B10HttpResilienceTest
+      - name: Verify B11 typed outage response policy without DB
+        run: |
+          python3 -B scripts/test_phase9_b11_contract.py
+          python3 -B scripts/test_phase9_b11_tst002.py
+      - name: Run B11 Laravel HTTP dependency outage tests without DB
+        working-directory: backend/laravel
+        run: php artisan test --filter=Phase9B11DependencyUnavailableTest

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Device;
+use App\Support\DependencyUnavailableResponse;
+use Illuminate\Database\QueryException;
 use App\Services\DeviceReadService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -25,8 +27,16 @@ class DeviceStateController extends Controller
             ], 401);
         }
 
-        return response()->json(
-            $this->service->state($device)
-        );
+        try {
+            return response()->json(
+                $this->service->state($device)
+            );
+        } catch (QueryException $exception) {
+            $response = DependencyUnavailableResponse::forConnectionFailure($exception);
+            if ($response !== null) {
+                return $response;
+            }
+            throw $exception;
+        }
     }
 }

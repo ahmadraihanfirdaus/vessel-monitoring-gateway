@@ -1,0 +1,9 @@
+requirement,scope,evidence,status
+SEC-002,token DB failure vs invalid bearer,B11 Laravel HTTP 8 cases,SCOPED_TEST_ONLY
+NET-001,typed ingest dependency failure and Retry-After,B11 Laravel HTTP 8 cases,SCOPED_TEST_ONLY
+NET-002,event storage failure not acknowledged,B11 Laravel HTTP 8 cases,SCOPED_TEST_ONLY
+UI-002,read endpoints distinguish backend outage,B11 Laravel HTTP 8 cases,SCOPED_TEST_ONLY
+SYS-003,do not disguise runtime errors as dependency failure,B11 Laravel HTTP 8 cases,SCOPED_TEST_ONLY
+API-001,consistent redacted JSON error response,B11 Laravel HTTP 8 cases,SCOPED_TEST_ONLY
+TST-001,JUnit test counts and previous regression,B11 gate logs,SCOPED_TEST_ONLY
+TST-002,no-DB CI job registered,B11 CI policy test,SCOPED_TEST_ONLY

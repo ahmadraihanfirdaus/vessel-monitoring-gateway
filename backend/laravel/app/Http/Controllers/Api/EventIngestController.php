@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EventIngestRequest;
 use App\Models\Device;
+use App\Support\DependencyUnavailableResponse;
+use Illuminate\Database\QueryException;
 use App\Services\EventIngestService;
 use Illuminate\Http\JsonResponse;
 
@@ -33,7 +35,15 @@ class EventIngestController extends Controller
             ], 403);
         }
 
-        $result = $this->service->ingest($device, $payload);
+        try {
+            $result = $this->service->ingest($device, $payload);
+        } catch (QueryException $exception) {
+            $response = DependencyUnavailableResponse::forConnectionFailure($exception);
+            if ($response !== null) {
+                return $response;
+            }
+            throw $exception;
+        }
 
         return response()->json($result['body'], $result['status']);
     }

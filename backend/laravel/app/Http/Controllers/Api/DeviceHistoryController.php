@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Device;
+use App\Support\DependencyUnavailableResponse;
+use Illuminate\Database\QueryException;
 use App\Services\DeviceReadService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -60,10 +62,18 @@ class DeviceHistoryController extends Controller
             }
         }
 
-        return response()->json($this->service->history(
-            $device,
-            (int) ($validated['limit'] ?? 50),
-            $cursor
-        ));
+        try {
+            return response()->json($this->service->history(
+                $device,
+                (int) ($validated['limit'] ?? 50),
+                $cursor
+            ));
+        } catch (QueryException $exception) {
+            $response = DependencyUnavailableResponse::forConnectionFailure($exception);
+            if ($response !== null) {
+                return $response;
+            }
+            throw $exception;
+        }
     }
 }
