@@ -76,6 +76,12 @@ jobs:
           python3 -B scripts/test_phase9_ui001_dashboard.py
           python3 -B scripts/test_phase9_ui002_views.py
           python3 -B scripts/test_phase9_tst002_ci_policy.py
+      - name: B18 host restart snapshot integrity and ACK pending reset
+        run: |
+          python3 -B scripts/test_phase9_b18_checkpoint.py
+          python3 -B scripts/test_phase9_b18_contract.py
+          python3 -B scripts/test_phase9_b18_negative.py
+          python3 -B scripts/test_phase9_b18_tst002.py
   backend-mysql-isolated:
     runs-on: ubuntu-24.04
     services:

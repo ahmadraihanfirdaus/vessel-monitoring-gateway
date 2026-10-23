@@ -1,0 +1,8 @@
+requirement_id,scope,b18_acceptance,formal_status
+NET-002,HOST_ONLY,checkpoint_reconstruction_bounded_queue,OPEN
+TEL-003,HOST_ONLY,confirmed_ack_only_and_corruption_rejection,OPEN
+ALM-002,HOST_ONLY,critical_events_order_eviction_counter,OPEN
+SYS-003,HOST_ONLY,no_network_dependent_recovery,OPEN
+SEC-001,HOST_ONLY,integrity_reject_without_secrets,OPEN
+TST-001,HOST_ONLY,raw_sha256_evidence_and_negative_tests,OPEN
+TST-002,HOST_ONLY,ci_host_job_no_database,OPEN
