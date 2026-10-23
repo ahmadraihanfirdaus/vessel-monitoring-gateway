@@ -1,0 +1,8 @@
+scope_id,artifact,test,phase,status,qualification
+NET-002,phase9_b24_witness_receipt_host.h,test_phase9_b24_witness_receipt.py,Phase9-B24,HOST_PASS_REQUIRED,Two-slot restart selection only
+TEL-003,phase9_b24_witness_receipt_host.h,test_phase9_b24_negative.py,Phase9-B24,HOST_PASS_REQUIRED,Old ACK retained without matching witness
+SYS-003,phase9_b24_witness_receipt_host.h,test_phase9_b24_contract.py,Phase9-B24,HOST_PASS_REQUIRED,Unmatched observation fails closed
+ALM-002,phase9_b24_witness_receipt_fixture.c,test_phase9_b24_witness_receipt.py,Phase9-B24,HOST_PASS_REQUIRED,Existing event snapshot remains bounded
+SEC-001,phase9_b24_witness_receipt_host.h,test_phase9_b24_negative.py,Phase9-B24,HOST_PASS_REQUIRED,CRC not authentication
+TST-001,phase9_b24_witness_receipt_fixture.c,test_phase9_b24_witness_receipt.py,Phase9-B24,HOST_PASS_REQUIRED,Fourteen cross-process scenarios
+TST-002,phase9-multi-context-ci.yml,test_phase9_b24_tst002.py,Phase9-B24,CI_PASS_REQUIRED,Existing MySQL-isolated job unchanged
