@@ -199,3 +199,15 @@ jobs:
         env:
           VG_B15_EVENT_JSONL: /tmp/vg-b15-events.jsonl
         run: php artisan test --filter=Phase9B15JournalWireHttpTest
+
+      - name: B16 C99 receipt ACK host fixture and source contract
+        run: |
+          python3 -B scripts/test_phase9_b16_contract.py
+          python3 -B scripts/test_phase9_b16_receipt_gate.py
+          python3 -B scripts/test_phase9_b16_tst002.py
+      - name: B16 Laravel HTTP idempotent receipt contract without DB
+        working-directory: backend/laravel
+        env:
+          VG_B14_WIRE_JSONL: /tmp/vg-b14-wire.jsonl
+          VG_B15_EVENT_JSONL: /tmp/vg-b15-events.jsonl
+        run: php artisan test --filter=Phase9B16ReceiptReplayTest

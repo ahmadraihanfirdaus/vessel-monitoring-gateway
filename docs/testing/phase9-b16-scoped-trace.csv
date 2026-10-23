@@ -1,0 +1,8 @@
+requirement,scope,verification,limit
+NET-002,HTTP receipt to ACK gating,host C99 21 assertions,no durable replay or network transport
+TEL-003,success duplicate versus conflicting responses,Laravel HTTP mock,no MySQL persistence verified
+API-001,verified status and semantic pair checks,C99 host and Laravel route tests,no real HTTP response verification
+SEC-002,missing token and device mismatch,Laravel mocked authentication,no TLS provisioning
+SYS-003,local safety prerequisite,C99 host receipt gate,no sustained local monitoring
+TST-001,real route and C99 contract evidence,JUnit and GCC host,formal evidence open
+TST-002,CI and fail-closed Windows runner,source CI and prior regression,no production assurance
