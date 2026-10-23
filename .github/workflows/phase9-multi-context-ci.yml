@@ -211,3 +211,17 @@ jobs:
           VG_B14_WIRE_JSONL: /tmp/vg-b14-wire.jsonl
           VG_B15_EVENT_JSONL: /tmp/vg-b15-events.jsonl
         run: php artisan test --filter=Phase9B16ReceiptReplayTest
+
+      - name: B17 validate host receipt source and reject tampered receipts
+        run: |
+          python3 -B scripts/test_phase9_b17_contract.py
+          python3 -B scripts/test_phase9_b17_negative.py
+      - name: B17 collect Laravel HTTP receipt evidence with no database
+        working-directory: backend/laravel
+        env:
+          VG_B14_WIRE_JSONL: /tmp/vg-b14-wire.jsonl
+          VG_B15_EVENT_JSONL: /tmp/vg-b15-events.jsonl
+          VG_B17_RECEIPTS_JSONL: /tmp/vg-b17-receipts.jsonl
+        run: php artisan test --filter=Phase9B17HttpReceiptExportTest
+      - name: B17 reconcile actual HTTP receipts with bounded C99 ACK
+        run: python3 -B scripts/phase9_b17_receipt_crosscheck.py --input /tmp/vg-b17-receipts.jsonl --evidence-dir /tmp

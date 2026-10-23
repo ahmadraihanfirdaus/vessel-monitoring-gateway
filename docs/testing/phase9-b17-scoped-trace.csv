@@ -1,0 +1,8 @@
+requirement,context,test,scope_status,formal_status
+API-001,HTTP response schema strict,Phase9B17HttpReceiptExportTest,SCOPED_HOST_PASS_PENDING,OPEN
+SEC-002,verification flag external and unauthorized,phase9_b17_receipt_crosscheck.py,SCOPED_HOST_PASS_PENDING,OPEN
+TEL-003,telemetry dedup receipt mapping,phase9_b17_receipt_policy_fixture.c,SCOPED_HOST_PASS_PENDING,OPEN
+NET-002,event retry ACK restrictions,phase9_b17_receipt_policy_fixture.c,SCOPED_HOST_PASS_PENDING,OPEN
+SYS-003,local safety denies ACK,phase9_b17_receipt_policy_fixture.c,SCOPED_HOST_PASS_PENDING,OPEN
+TST-001,cross-language receipt evidence,Phase9B17HttpReceiptExportTest,SCOPED_HOST_PASS_PENDING,OPEN
+TST-002,CI isolated no-DB cross-language job,test_phase9_b17_tst002.py,SCOPED_HOST_PASS_PENDING,OPEN
