@@ -1,0 +1,8 @@
+scope_id,artifact,test,phase,status,qualification
+NET-002,phase9_b26_dual_witness_host.h,test_phase9_b26_dual_witness.py,Phase9-B26,HOST_PASS_REQUIRED,Both witness observations must agree
+TEL-003,phase9_b26_dual_witness_host.h,test_phase9_b26_dual_witness.py,Phase9-B26,HOST_PASS_REQUIRED,No pending ACK or single-source high-water promotion
+SYS-003,phase9_b26_dual_witness_host.h,test_phase9_b26_negative.py,Phase9-B26,HOST_PASS_REQUIRED,Independent source domain binding is externally asserted
+ALM-002,phase9_b26_dual_witness_fixture.c,test_phase9_b26_dual_witness.py,Phase9-B26,HOST_PASS_REQUIRED,B18-B25 journal restoration retained
+SEC-001,phase9_b26_dual_witness_host.h,test_phase9_b26_contract.py,Phase9-B26,HOST_PASS_REQUIRED,Real source authentication NOT implemented
+TST-001,phase9_b26_dual_witness_fixture.c,test_phase9_b26_dual_witness.py,Phase9-B26,HOST_PASS_REQUIRED,29 independent-process scenarios
+TST-002,phase9-multi-context-ci.yml,test_phase9_b26_tst002.py,Phase9-B26,CI_PASS_REQUIRED,MySQL job unchanged

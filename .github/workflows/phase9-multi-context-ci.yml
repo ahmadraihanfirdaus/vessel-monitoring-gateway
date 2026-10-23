@@ -130,6 +130,13 @@ jobs:
           python3 -B scripts/test_phase9_b24_negative.py
           python3 -B scripts/test_phase9_b24_tst002.py
 
+      - name: B26 two-source host witness agreement and split-brain denial
+        run: |
+          python3 -B scripts/test_phase9_b26_dual_witness.py
+          python3 -B scripts/test_phase9_b26_contract.py
+          python3 -B scripts/test_phase9_b26_negative.py
+          python3 -B scripts/test_phase9_b26_tst002.py
+
   backend-mysql-isolated:
     runs-on: ubuntu-24.04
     services:
