@@ -1,0 +1,7 @@
+requirement,context,test,gate,formal_status
+API-001,strict_media,Phase9B10HttpResilienceTest,HTTP_NO_DB,FORMAL_OPEN
+SEC-002,bearer_guard,Phase9B10HttpResilienceTest,HTTP_NO_DB,FORMAL_OPEN
+UI-002,cursor_preflight,Phase9B10HttpResilienceTest,HTTP_NO_DB,FORMAL_OPEN
+SYS-003,backend_failure_honesty,Phase9B10HttpResilienceTest,HTTP_NO_DB,FORMAL_OPEN
+TST-001,real_laravel_dispatch,Phase9B10HttpResilienceTest,HTTP_NO_DB,FORMAL_OPEN
+TST-002,ci_registration,test_phase9_b10_tst002,HOST_NO_DB,FORMAL_OPEN

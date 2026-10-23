@@ -8,6 +8,7 @@ use App\Services\DeviceTokenAuthenticator;
 use App\Services\EventIngestService;
 use App\Services\TelemetryIngestService;
 use Mockery;
+use Illuminate\Pagination\Cursor;
 use Tests\TestCase;
 
 /**
@@ -238,12 +239,13 @@ class Phase9B9HttpBoundaryTest extends TestCase
     {
         $this->fakeAuth($this->device());
         $service = Mockery::mock(DeviceReadService::class);
+        $cursor = (new Cursor(['id' => 42]))->encode();
         $service->shouldReceive('history')->once()->withArgs(
-            static fn (Device $d, int $limit, ?string $cursor): bool =>
-                $d->device_id === 'b9-device' && $limit === 2 && $cursor === 'fixture-cursor'
+            static fn (Device $d, int $limit, ?string $value): bool =>
+                $d->device_id === 'b9-device' && $limit === 2 && $value === $cursor
         )->andReturn(['device_id' => 'b9-device', 'items' => [], 'next_cursor' => null]);
         $this->app->instance(DeviceReadService::class, $service);
-        $this->withToken(self::TOKEN)->getJson('/api/v1/device/history?limit=2&cursor=fixture-cursor')
+        $this->withToken(self::TOKEN)->getJson('/api/v1/device/history?limit=2&cursor='.urlencode($cursor))
             ->assertOk()->assertJson(['device_id' => 'b9-device']);
     }
 

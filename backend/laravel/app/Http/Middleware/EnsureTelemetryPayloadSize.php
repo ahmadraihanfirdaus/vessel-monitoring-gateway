@@ -25,9 +25,12 @@ class EnsureTelemetryPayloadSize
             return $this->tooLarge();
         }
 
-        // Reject non-JSON bodies *before* device lookup or ingest services.
-        // Laravel's isJson() accepts application/json and +json media types.
-        if (! $request->isJson()) {
+        // Exact MIME check: Laravel's substring-based isJson() can also
+        // accept invalid types such as application/jsonp. Admit only JSON
+        // or the structured +json suffix, before token lookup or ingest.
+        $contentType = $request->header('Content-Type', '');
+        $mediaType = strtolower(trim(explode(';', (string) $contentType, 2)[0]));
+        if (preg_match('/\Aapplication\/(?:json|[a-z0-9!#$&^_.+\-]+\+json)\z/', $mediaType) !== 1) {
             return response()->json([
                 'error' => 'unsupported_telemetry_media_type',
             ], 415);
