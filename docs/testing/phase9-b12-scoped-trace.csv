@@ -1,0 +1,8 @@
+requirement,scope,acceptance,limit
+API-001,413 415 receipts,route response no-store,not gateway proxy proof
+SEC-002,401 403 503 receipts,no caching of authentication outcomes,not TLS proof
+TEL-001,201 telemetry receipts,no caching of ingestion result,not DB persistence proof
+NET-002,200 409 event replay receipts,no caching of dedup decisions,not transport proof
+UI-002,read state history health responses,no caching of device view payload,not dashboard integration proof
+TST-001,real Laravel route tests,8 cases no DB,not E2E
+TST-002,CI no-DB job,8 cases CI integrated,not formal closure

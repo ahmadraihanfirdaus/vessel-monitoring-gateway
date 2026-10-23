@@ -15,6 +15,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'telemetry.payload.size' => \App\Http\Middleware\EnsureTelemetryPayloadSize::class,
             'device.auth' => \App\Http\Middleware\AuthenticateDeviceToken::class,
+            'device.response.no-store' => \App\Http\Middleware\NoStoreDeviceResponse::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
