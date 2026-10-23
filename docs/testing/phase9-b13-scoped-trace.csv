@@ -1,0 +1,7 @@
+id,scoped_check,limitation
+UI-002,Validated cursor fields match order columns,No persisted MySQL pagination proven
+API-001,Malformed input rejected before read service,Only route-boundary contract tested
+SEC-002,Authentication precedes cursor validation,Device auth itself mocked
+SYS-003,Do not transform backend errors into malformed cursor responses,Outage service tested in B10/B11
+TST-001,8 real HTTP Laravel route cases with mocked dependencies,No database connectivity
+TST-002,CI and historical suites with exact-scope gate,Not formal acceptance closure

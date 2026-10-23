@@ -239,7 +239,7 @@ class Phase9B9HttpBoundaryTest extends TestCase
     {
         $this->fakeAuth($this->device());
         $service = Mockery::mock(DeviceReadService::class);
-        $cursor = (new Cursor(['id' => 42]))->encode();
+        $cursor = (new Cursor(['received_at' => '2026-10-23 10:00:00', 'id' => 42]))->encode();
         $service->shouldReceive('history')->once()->withArgs(
             static fn (Device $d, int $limit, ?string $value): bool =>
                 $d->device_id === 'b9-device' && $limit === 2 && $value === $cursor

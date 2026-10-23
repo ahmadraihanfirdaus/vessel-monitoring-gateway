@@ -91,7 +91,7 @@ class Phase9B10HttpResilienceTest extends TestCase
     public function test_ui002_valid_cursor_is_forwarded_without_db_access(): void
     {
         $this->authenticated();
-        $cursor = (new Cursor(['id' => 42]))->encode();
+        $cursor = (new Cursor(['received_at' => '2026-10-23 10:00:00', 'id' => 42]))->encode();
         $read = Mockery::mock(DeviceReadService::class);
         $read->shouldReceive('history')->once()->withArgs(
             static fn (Device $device, int $limit, ?string $value): bool =>

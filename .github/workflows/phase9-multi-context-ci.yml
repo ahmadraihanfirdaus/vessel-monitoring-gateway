@@ -167,3 +167,11 @@ jobs:
       - name: Run B12 Laravel device API no-store route coverage without DB
         working-directory: backend/laravel
         run: php artisan test --filter=Phase9B12CacheBoundaryTest
+
+      - name: Validate B13 cursor contract without DB
+        run: |
+          python3 -B scripts/test_phase9_b13_cursor_contract.py
+          python3 -B scripts/test_phase9_b13_tst002.py
+      - name: Run B13 Laravel device history cursor admission without DB
+        working-directory: backend/laravel
+        run: php artisan test --filter=Phase9B13CursorContractTest
