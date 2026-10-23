@@ -1,0 +1,8 @@
+requirement,host_scope,evidence,status
+NET-002,exact external witness after staged candidate,scripts/phase9_b23_witness_fixture.c,PASS_ONLY_IF_HOST_GATE
+TEL-003,do not promote unwitnessed ACK or rolled back generation,scripts/phase9_b23_witness_fixture.c,PASS_ONLY_IF_HOST_GATE
+SYS-003,conservative restored alarm/replay state,scripts/phase9_b23_witness_fixture.c,PASS_ONLY_IF_HOST_GATE
+ALM-002,conservative journal recovery,firmware/src/phase9_b23_witness_commit_host.h,PASS_ONLY_IF_HOST_GATE
+SEC-001,external witness needs independent authentication and durability,docs/testing/phase9-b23-witness-commit.md,OPEN_FORMAL
+TST-001,strict host cases and evidence,scripts/test_phase9_b23_witness.py,PASS_ONLY_IF_HOST_GATE
+TST-002,registered CI and regression,.github/workflows/phase9-multi-context-ci.yml,PASS_ONLY_IF_CI

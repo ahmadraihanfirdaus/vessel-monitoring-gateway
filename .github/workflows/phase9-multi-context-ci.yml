@@ -109,6 +109,13 @@ jobs:
           python3 -B scripts/test_phase9_b22_negative.py
           python3 -B scripts/test_phase9_b22_tst002.py
 
+      - name: B23 host exact witnessed commit boundary
+        run: |
+          python3 -B scripts/test_phase9_b23_witness.py
+          python3 -B scripts/test_phase9_b23_contract.py
+          python3 -B scripts/test_phase9_b23_negative.py
+          python3 -B scripts/test_phase9_b23_tst002.py
+
   backend-mysql-isolated:
     runs-on: ubuntu-24.04
     services:
