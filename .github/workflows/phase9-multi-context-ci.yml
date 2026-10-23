@@ -94,6 +94,14 @@ jobs:
           python3 -B scripts/test_phase9_b20_contract.py
           python3 -B scripts/test_phase9_b20_negative.py
           python3 -B scripts/test_phase9_b20_tst002.py
+
+      - name: B21 exhaustive host checkpoint fault matrix
+        run: |
+          python3 -B scripts/test_phase9_b21_cut_matrix.py
+          python3 -B scripts/test_phase9_b21_contract.py
+          python3 -B scripts/test_phase9_b21_negative.py
+          python3 -B scripts/test_phase9_b21_tst002.py
+
   backend-mysql-isolated:
     runs-on: ubuntu-24.04
     services:

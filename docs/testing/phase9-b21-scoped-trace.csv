@@ -1,0 +1,8 @@
+requirement,scope,evidence,boundary
+NET-002,host prefix cuts,test_phase9_b21_cut_matrix.py,NOT_FORMAL
+TEL-003,ack fallback,test_phase9_b21_cut_matrix.py,NOT_FORMAL
+SYS-003,recovery conservatism,test_phase9_b21_cut_matrix.py,NOT_FORMAL
+ALM-002,pending preserved,test_phase9_b21_cut_matrix.py,NOT_FORMAL
+SEC-001,corruption rejection,test_phase9_b21_negative.py,NOT_FORMAL
+TST-001,deterministic matrix,test_phase9_b21_contract.py,NOT_FORMAL
+TST-002,CI binding,test_phase9_b21_tst002.py,NOT_FORMAL
