@@ -1,0 +1,8 @@
+requirement,scope,host_evidence,formal_status
+NET-002,two-generation restore and fallback,test_phase9_b19_dual_slot.py,OPEN
+TEL-003,never promote unconfirmed ACK,test_phase9_b19_dual_slot.py,OPEN
+ALM-002,retain bounded journal and account for evictions,test_phase9_b19_dual_slot.py,OPEN
+SYS-003,restart does not disable local logic,test_phase9_b19_contract.py,OPEN
+SEC-001,noncryptographic corruption and device-tag rejection,test_phase9_b19_dual_slot.py,OPEN
+TST-001,deterministic stdout and hashes,test_phase9_b19_dual_slot.py,OPEN
+TST-002,strict host CI and historical regressions,test_phase9_b19_tst002.py,OPEN

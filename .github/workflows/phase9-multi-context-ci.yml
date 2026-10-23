@@ -82,6 +82,12 @@ jobs:
           python3 -B scripts/test_phase9_b18_contract.py
           python3 -B scripts/test_phase9_b18_negative.py
           python3 -B scripts/test_phase9_b18_tst002.py
+      - name: B19 native dual-slot host restart and corruption fallback
+        run: |
+          python3 -B scripts/test_phase9_b19_dual_slot.py
+          python3 -B scripts/test_phase9_b19_contract.py
+          python3 -B scripts/test_phase9_b19_negative.py
+          python3 -B scripts/test_phase9_b19_tst002.py
   backend-mysql-isolated:
     runs-on: ubuntu-24.04
     services:
