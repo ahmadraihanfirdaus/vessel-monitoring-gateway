@@ -1,0 +1,9 @@
+requirement_id,method,evidence_boundary,formal_state
+TEL-001,C99 raw JSON to real Laravel HTTP request,host no DB,OPEN
+TEL-002,valid zero and missing null assertions,host no DB,OPEN
+API-001,actual HTTP middleware and FormRequest,host no DB,OPEN
+SEC-002,bearer rejection and identity deny,synthetic credential no DB,OPEN
+NET-002,repeat raw wire and duplicate receipt,service double no durable replay,OPEN
+TEL-003,conflict receipt on identical key different value,service double no database,OPEN
+TST-001,host compiler and JUnit test mapping,scoped development,OPEN
+TST-002,CI no DB job plus regression,scoped development,OPEN

@@ -175,3 +175,15 @@ jobs:
       - name: Run B13 Laravel device history cursor admission without DB
         working-directory: backend/laravel
         run: php artisan test --filter=Phase9B13CursorContractTest
+
+      - name: Verify B14 cross-language bridge source contract
+        run: |
+          python3 -B scripts/test_phase9_b14_contract.py
+          python3 -B scripts/test_phase9_b14_tst002.py
+      - name: Emit real host C99 wire bytes without DB
+        run: python3 -B scripts/phase9_b14_wire_bridge.py --output /tmp/vg-b14-wire.jsonl
+      - name: Run B14 Laravel HTTP ingress with C99 wire bytes and mocks
+        working-directory: backend/laravel
+        env:
+          VG_B14_WIRE_JSONL: /tmp/vg-b14-wire.jsonl
+        run: php artisan test --filter=Phase9B14FirmwareWireHttpTest
