@@ -252,6 +252,12 @@ jobs:
           python3 -B scripts/test_phase9_b43_contract.py
           python3 -B scripts/test_phase9_b43_negative.py
           python3 -B scripts/test_phase9_b43_tst002.py
+      - name: B44 host authenticated nonce ledger snapshot restore
+        run: |
+          python3 -B scripts/test_phase9_b44_nonce_snapshot.py
+          python3 -B scripts/test_phase9_b44_contract.py
+          python3 -B scripts/test_phase9_b44_negative.py
+          python3 -B scripts/test_phase9_b44_tst002.py
   backend-mysql-isolated:
     runs-on: ubuntu-24.04
     services:
