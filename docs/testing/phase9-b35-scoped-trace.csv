@@ -1,0 +1,7 @@
+context_id,scope,method,evidence,claim_limit
+NET-002,canonical metadata receipt,C99 72-byte encode+verify,test_phase9_b35_wire_receipt.py,host only not persistent transport
+TEL-003,ACK coherence,compare envelope and witness,test_phase9_b35_wire_receipt.py,no real server ACK
+SYS-003,checkpoint receipt failure isolation,unchanged caller output,test_phase9_b35_negative.py,no hardware power loss
+SEC-001,malformed corruption and identity denial,CRC plus external comparator,test_phase9_b35_wire_receipt.py,no cryptographic authentication
+TST-001,cross-process deterministic receipt,41-case process matrix,test_phase9_b35_wire_receipt.py,synthetic fixtures
+TST-002,CI dependency regression,existing jobs preserved,test_phase9_b35_tst002.py,not formal certification

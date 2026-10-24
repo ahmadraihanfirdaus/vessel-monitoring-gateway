@@ -191,6 +191,13 @@ jobs:
           python3 -B scripts/test_phase9_b34_contract.py
           python3 -B scripts/test_phase9_b34_negative.py
           python3 -B scripts/test_phase9_b34_tst002.py
+      - name: B35 canonical host wire receipt and no-write failure matrix
+        run: |
+          python3 -B scripts/test_phase9_b35_wire_receipt.py
+          python3 -B scripts/test_phase9_b35_contract.py
+          python3 -B scripts/test_phase9_b35_negative.py
+          python3 -B scripts/test_phase9_b35_tst002.py
+
   backend-mysql-isolated:
     runs-on: ubuntu-24.04
     services:
