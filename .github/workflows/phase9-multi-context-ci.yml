@@ -151,6 +151,13 @@ jobs:
           python3 -B scripts/test_phase9_b28_negative.py
           python3 -B scripts/test_phase9_b28_tst002.py
 
+      - name: B29 two phase external CAS publish barrier
+        run: |
+          python3 -B scripts/test_phase9_b29_publish_barrier.py
+          python3 -B scripts/test_phase9_b29_contract.py
+          python3 -B scripts/test_phase9_b29_negative.py
+          python3 -B scripts/test_phase9_b29_tst002.py
+
   backend-mysql-isolated:
     runs-on: ubuntu-24.04
     services:

@@ -1,0 +1,7 @@
+requirement_id,batch,scope,status,evidence,limitation
+NET-002,B29,external CAS receipt publish barrier,HOST_TEST_ONLY,scripts/test_phase9_b29_publish_barrier.py,Durable CAS store NOT_VERIFIED
+TEL-003,B29,ACK publication only after committed external revision,HOST_TEST_ONLY,firmware/src/phase9_b29_publish_barrier_host.h,ESP32 persisted ACK NOT_RUN
+SYS-003,B29,stale epoch round and generation denial,HOST_TEST_ONLY,scripts/phase9_b29_publish_barrier_fixture.c,Runtime transport NOT_RUN
+SEC-001,B29,receipt binds device domains revision and ACK,HOST_TEST_ONLY,scripts/test_phase9_b29_negative.py,External receipt authentication NOT_VERIFIED
+TST-001,B29,31 cross-process receipt failure cases,HOST_TEST_ONLY,scripts/test_phase9_b29_publish_barrier.py,No hardware measurement
+TST-002,B29,CI scope and full gated local commit,HOST_TEST_ONLY,scripts/test_phase9_b29_tst002.py,Formal closure OPEN
