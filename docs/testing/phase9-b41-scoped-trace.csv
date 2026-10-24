@@ -1,0 +1,8 @@
+context,development_scope,verification,formal_status
+SEC-001,Externally supplied key policy rotation revision guard,Source and revision mismatch denial,OPEN_NOT_VERIFIED
+SEC-002,Host HMAC key cutover prevents retired key fallback,Authenticated pre and post rotation receipts checked,OPEN_NOT_VERIFIED
+NET-002,Hold ACK on rotation authority drift,Output epoch unchanged under stale writer,OPEN_NOT_VERIFIED
+TEL-003,Wire and receipt integrity preserved across policy transition,Valid MAC and wrong signed domain cases,OPEN_NOT_VERIFIED
+SYS-003,Fail closed on overlapping input or output regions,C99 non alias and mutation cases,OPEN_NOT_VERIFIED
+TST-001,Python versus C99 oracle with ephemeral keys,52 cross process cases no DB,OPEN_NOT_VERIFIED
+TST-002,CI host registration and all regression gates,Exact scope local commit only on full PASS,OPEN_NOT_VERIFIED
