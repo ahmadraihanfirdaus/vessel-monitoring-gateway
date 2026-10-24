@@ -165,6 +165,13 @@ jobs:
           python3 -B scripts/test_phase9_b30_negative.py
           python3 -B scripts/test_phase9_b30_tst002.py
 
+      - name: B31 host-only publish memory alias isolation
+        run: |
+          python3 -B scripts/test_phase9_b31_publish_isolation.py
+          python3 -B scripts/test_phase9_b31_contract.py
+          python3 -B scripts/test_phase9_b31_negative.py
+          python3 -B scripts/test_phase9_b31_tst002.py
+
   backend-mysql-isolated:
     runs-on: ubuntu-24.04
     services:

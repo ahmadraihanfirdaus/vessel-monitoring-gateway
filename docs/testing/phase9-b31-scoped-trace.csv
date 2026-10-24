@@ -1,0 +1,7 @@
+scope,implementation,evidence,gate,status
+NET-002,firmware/src/phase9_b31_publish_isolation_host.h,scripts/test_phase9_b31_publish_isolation.py,B31_READBACK_SEPARATION,PARTIAL_HOST_ONLY
+TEL-003,firmware/src/phase9_b31_publish_isolation_host.h,scripts/phase9_b31_publish_isolation_fixture.c,B31_ACK_ATOMIC_PUBLICATION,PARTIAL_HOST_ONLY
+SYS-003,firmware/src/phase9_b31_publish_isolation_host.h,scripts/test_phase9_b31_negative.py,B31_NO_PARTIAL_OUTPUT,PARTIAL_HOST_ONLY
+SEC-001,firmware/src/phase9_b31_publish_isolation_host.h,scripts/test_phase9_b31_contract.py,B31_NO_MEMORY_OVERLAP,PARTIAL_HOST_ONLY
+TST-001,scripts/test_phase9_b31_publish_isolation.py,docs/testing/phase9-b31-publish-isolation.md,B31_31_HOST_CASES,PARTIAL_HOST_ONLY
+TST-002,.github/workflows/phase9-multi-context-ci.yml,scripts/test_phase9_b31_tst002.py,B31_CI_REGISTRATION,PARTIAL_HOST_ONLY
