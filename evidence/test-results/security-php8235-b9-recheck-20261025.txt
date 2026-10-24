@@ -1,0 +1,22 @@
+COMMAND: python -B scripts/test_phase9_b9_http_probe.py (VG_PHP_CLI=C:/tools/php-8.2.35/php.exe)
+
+test_real_middleware_media_and_size_boundaries (__main__.B9HttpProbe.test_real_middleware_media_and_size_boundaries) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.058s
+
+OK
+
+EXIT: 0
+COMMAND: python -B scripts/test_phase9_b9_tst001.py (VG_PHP_CLI=C:/tools/php-8.2.35/php.exe)
+
+test_ci_no_database_job (__main__.B9Scope.test_ci_no_database_job) ... ok
+test_open_formal_trace (__main__.B9Scope.test_open_formal_trace) ... ok
+test_real_routes_and_full_boundaries (__main__.B9Scope.test_real_routes_and_full_boundaries) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.001s
+
+OK
+
+EXIT: 0

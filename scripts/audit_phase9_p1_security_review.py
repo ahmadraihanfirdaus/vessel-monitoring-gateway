@@ -9,6 +9,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
+# Reconciled database configuration pin against authoritative B46 HEAD;
+# historical snapshot pin differed before this security batch. Runtime/semantic
+# checks and source equality are retained; LOCKED requirements are untouched.
 EXPECTED_HASHES = {
     "backend/laravel/.editorconfig":
         "f78cc5a2ef8ba61ad956d0f5db453748a981270f6a1b9f4a5a00df8690e7946d",
@@ -19,7 +22,7 @@ EXPECTED_HASHES = {
     "backend/laravel/composer.lock":
         "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
     "backend/laravel/config/database.php":
-        "06759b7b36b8641e9025fe03dd728970c4cb02d5b58ff709cbb0649987b4bfc2",
+        "43b43e74db771fa0da206a2c86c91d3bf84698acc95af29482032cbe981ce7f7",
     "backend/laravel/config/mail.php":
         "c43ff49a31c5f32ce21eb7159f2a4b3cd2f4074eaed5838d265646dbfedd3474",
     "backend/laravel/public/.htaccess":
@@ -52,7 +55,7 @@ EXPECTED_LINES = {
     ("backend/laravel/app/Models/User.php", 46):
         f"'{pw}' => 'hashed',",
     ("backend/laravel/config/database.php", 54):
-        f"'{pw}' => env('{dbv}', ''),",
+        f"'{pw}' => env('{dbv}'),",
     ("backend/laravel/config/database.php", 74):
         f"'{pw}' => env('{dbv}', ''),",
     ("backend/laravel/config/database.php", 94):
@@ -158,38 +161,16 @@ proc = subprocess.run(
 )
 print(proc.stdout, end="")
 
-if proc.returncode != 1:
-    fail(f"base scanner exit code changed unexpectedly: {proc.returncode}")
-
-found = set()
-warning_count = 0
-for raw in proc.stdout.splitlines():
-    m = REVIEW_RE.match(raw)
-    if m:
-        found.add((m.group(1), int(m.group(2)), m.group(3)))
-    elif WARNING_RE.match(raw):
-        warning_count += 1
-
-if found != EXPECTED_REVIEW:
-    print("EXPECTED_REVIEW_ONLY:")
-    for row in sorted(EXPECTED_REVIEW):
-        print(row)
-    print("ACTUAL_REVIEW:")
-    for row in sorted(found):
-        print(row)
-    fail("base scanner review set differs from approved semantic review")
-
-if warning_count != 0:
-    fail(f"unexpected manual review warnings remain: {warning_count}")
-
-if "Potential security findings: 12" not in proc.stdout:
-    fail("expected base finding count 12 not present")
-if "Manual review warnings: 0" not in proc.stdout:
-    fail("expected zero warning count not present")
-if "RESULT: SECURITY REVIEW REQUIRED" not in proc.stdout:
-    fail("base scanner review marker missing")
-
-print("PHASE9_P1_SECURITY_BASE_SCANNER: REVIEW_REQUIRED_EXPECTED")
-print("PHASE9_P1_SECURITY_REVIEWED_FINDINGS: 12_OF_12_CLASSIFIED")
-print("PHASE9_P1_SECURITY_REVIEW_WARNINGS: 0")
-print("PHASE9_P1_SECURITY_REVIEW_GATE: PASS")
+# Historical P1 file/semantic pins above remain enforced. The current scanner
+# understands PHP/text formats and accepts only hash-pinned non-secret reviews;
+# the obsolete count of twelve findings is no longer a success criterion.
+if proc.returncode != 0:
+    fail('current candidate security scan has unresolved findings or warnings')
+if 'Potential security findings: 0' not in proc.stdout:
+    fail('unresolved security findings remain')
+if 'Manual review warnings: 0' not in proc.stdout:
+    fail('privacy review warnings remain')
+if 'RESULT: AUTOMATED SECURITY SCREEN PASSED' not in proc.stdout:
+    fail('current scanner success marker missing')
+print('PHASE9_P1_PINNED_FRAMEWORK_REVIEW: PASS')
+print('PHASE9_P1_CURRENT_SECURITY_GATE: PASS_ZERO_UNRESOLVED_FINDINGS')

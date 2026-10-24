@@ -1,0 +1,511 @@
+COMMAND: python -B scripts/audit_public_documentation.py
+=== PHASE 2.7B.5K.7 - PUBLIC DOCUMENTATION AUDIT ===
+
+FILE: CHANGELOG.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 2 location(s)
+  Locations: line-8, line-46
+  REVIEW REAL_WORLD_ASSERTION [index+working]: 2 location(s)
+  Locations: line-14, line-28
+
+FILE: README.md
+  REVIEW CERTIFICATION_LANGUAGE [index]: 5 location(s)
+  Locations: line-7, line-24, line-121, line-149, line-160
+  REVIEW REAL_WORLD_ASSERTION [index]: 2 location(s)
+  Locations: line-153, line-189
+  REVIEW CERTIFICATION_LANGUAGE [working]: 5 location(s)
+  Locations: line-7, line-24, line-123, line-151, line-162
+  REVIEW REAL_WORLD_ASSERTION [working]: 2 location(s)
+  Locations: line-155, line-191
+
+FILE: docs/adr/0001-repository-naming.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 3 location(s)
+  Locations: line-13, line-72, line-114
+
+FILE: docs/adr/0002-prototype-alarm-lifecycle.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-7
+
+FILE: docs/adr/0004-simulated-core-event-flow.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-40
+
+FILE: docs/architecture/architecture-and-icd.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 3 location(s)
+  Locations: line-133, line-201, line-211
+  REVIEW REAL_WORLD_ASSERTION [index+working]: 2 location(s)
+  Locations: line-178, line-198
+
+FILE: docs/bom-and-tbd.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 6 location(s)
+  Locations: line-25, line-27, line-30, line-65, line-110, ...
+  REVIEW REAL_WORLD_ASSERTION [index+working]: 1 location(s)
+  Locations: line-70
+
+FILE: docs/fmea/fmea-prototype.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-3
+
+FILE: docs/github-repository-plan.md
+  REVIEW CERTIFICATION_LANGUAGE [index]: 3 location(s)
+  Locations: line-120, line-184, line-228
+  REVIEW REAL_WORLD_ASSERTION [index]: 1 location(s)
+  Locations: line-151
+  REVIEW CERTIFICATION_LANGUAGE [working]: 3 location(s)
+  Locations: line-120, line-186, line-230
+  REVIEW REAL_WORLD_ASSERTION [working]: 1 location(s)
+  Locations: line-153
+
+FILE: docs/public-release-archive.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-27
+
+FILE: docs/standards/standards-applicability-matrix.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 9 location(s)
+  Locations: line-19, line-28, line-31, line-48, line-55, ...
+
+FILE: docs/testing/host-core-testing.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-3
+
+FILE: docs/testing/living-requirement-status.csv
+  REVIEW CERTIFICATION_LANGUAGE [index]: 2 location(s)
+  Locations: line-2, line-23
+  REVIEW REAL_WORLD_ASSERTION [index]: 2 location(s)
+  Locations: line-8, line-19
+  REVIEW CERTIFICATION_LANGUAGE [working]: 2 location(s)
+  Locations: line-2, line-23
+  REVIEW REAL_WORLD_ASSERTION [working]: 2 location(s)
+  Locations: line-8, line-19
+
+FILE: docs/testing/living-traceability-guide.md
+  REVIEW CERTIFICATION_LANGUAGE [index]: 2 location(s)
+  Locations: line-11, line-17
+  REVIEW CERTIFICATION_LANGUAGE [working]: 2 location(s)
+  Locations: line-11, line-17
+
+FILE: docs/testing/mysql-integration-gate.md
+  REVIEW REAL_WORLD_ASSERTION [untracked]: 2 location(s)
+  Locations: line-17, line-21
+
+FILE: docs/testing/phase3-closure-report-20261016.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-42
+
+FILE: docs/testing/phase4-d2-plan.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-55
+
+FILE: docs/testing/phase4-d4-plan.md
+  REVIEW REAL_WORLD_ASSERTION [index+working]: 1 location(s)
+  Locations: line-50
+
+FILE: docs/testing/phase4-d5-plan.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 2 location(s)
+  Locations: line-22, line-50
+  REVIEW REAL_WORLD_ASSERTION [index+working]: 1 location(s)
+  Locations: line-44
+
+FILE: docs/testing/phase4-d6-plan.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 2 location(s)
+  Locations: line-22, line-52
+  REVIEW REAL_WORLD_ASSERTION [index+working]: 1 location(s)
+  Locations: line-48
+
+FILE: docs/testing/phase4-d7-plan.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 2 location(s)
+  Locations: line-22, line-52
+
+FILE: docs/testing/phase5-closure.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-54
+  REVIEW REAL_WORLD_ASSERTION [index+working]: 1 location(s)
+  Locations: line-53
+
+FILE: docs/testing/phase5-e1-plan.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-38
+  REVIEW REAL_WORLD_ASSERTION [index+working]: 1 location(s)
+  Locations: line-38
+
+FILE: docs/testing/phase5-e2-plan.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-25
+  REVIEW REAL_WORLD_ASSERTION [index+working]: 1 location(s)
+  Locations: line-26
+
+FILE: docs/testing/phase5-e3-plan.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 2 location(s)
+  Locations: line-26, line-58
+  REVIEW REAL_WORLD_ASSERTION [index+working]: 1 location(s)
+  Locations: line-25
+
+FILE: docs/testing/phase5-e4-plan.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 2 location(s)
+  Locations: line-45, line-46
+  REVIEW REAL_WORLD_ASSERTION [index+working]: 1 location(s)
+  Locations: line-54
+
+FILE: docs/testing/phase6-closure.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-50
+
+FILE: docs/testing/phase6-f1-plan.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-32
+
+FILE: docs/testing/phase6-f2-plan.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-66
+
+FILE: docs/testing/phase7-closure.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-61
+  REVIEW REAL_WORLD_ASSERTION [index+working]: 1 location(s)
+  Locations: line-57
+
+FILE: docs/testing/phase7-g1-plan.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-61
+  REVIEW REAL_WORLD_ASSERTION [index+working]: 1 location(s)
+  Locations: line-25
+
+FILE: docs/testing/phase7-g2-plan.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-75
+  REVIEW REAL_WORLD_ASSERTION [index+working]: 1 location(s)
+  Locations: line-70
+
+FILE: docs/testing/phase9-b12-cache-boundary.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-3
+
+FILE: docs/testing/phase9-b13-history-cursor-contract.md
+  REVIEW REAL_WORLD_ASSERTION [index+working]: 1 location(s)
+  Locations: line-5
+
+FILE: docs/testing/phase9-b16-receipt-replay-boundary.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-11
+
+FILE: docs/testing/phase9-b17-http-receipt-reconciliation.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-7
+
+FILE: docs/testing/phase9-b20-two-slot-update.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-5
+
+FILE: docs/testing/phase9-b24-witness-receipt.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-9
+  REVIEW REAL_WORLD_ASSERTION [index+working]: 1 location(s)
+  Locations: line-9
+
+FILE: docs/testing/phase9-b27-sequential-quorum.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-29
+
+FILE: docs/testing/phase9-b28-revision-fence.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-31
+  REVIEW REAL_WORLD_ASSERTION [index+working]: 1 location(s)
+  Locations: line-13
+
+FILE: docs/testing/phase9-b28-scoped-trace.csv
+  REVIEW REAL_WORLD_ASSERTION [index+working]: 1 location(s)
+  Locations: line-4
+
+FILE: docs/testing/phase9-b35-scoped-trace.csv
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-7
+
+FILE: docs/testing/phase9-b36-scoped-trace.csv
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-7
+
+FILE: docs/testing/phase9-b37-scoped-trace.csv
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-7
+
+FILE: docs/testing/phase9-b40-c99-hmac-interoperability.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-45
+
+FILE: docs/testing/phase9-b41-rotation-revision-fence.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-33
+
+FILE: docs/testing/phase9-formal-verification-protocol-matrix.csv
+  REVIEW REAL_WORLD_ASSERTION [index+working]: 1 location(s)
+  Locations: line-2
+
+FILE: docs/testing/phase9-p3-design.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-16
+
+FILE: docs/testing/pre-phase9-f01-plan.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 2 location(s)
+  Locations: line-21, line-54
+
+FILE: docs/testing/pre-phase9-f05-plan.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 2 location(s)
+  Locations: line-20, line-104
+
+FILE: docs/testing/supplemental-verification-plan.csv
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 2 location(s)
+  Locations: line-2, line-9
+
+FILE: docs/testing/traceability-semantic-review.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 3 location(s)
+  Locations: line-30, line-74, line-157
+  REVIEW REAL_WORLD_ASSERTION [index+working]: 2 location(s)
+  Locations: line-27, line-154
+
+FILE: docs/testing/traceability-status.md
+  REVIEW CERTIFICATION_LANGUAGE [index]: 3 location(s)
+  Locations: line-133, line-150, line-180
+  REVIEW CERTIFICATION_LANGUAGE [working]: 3 location(s)
+  Locations: line-135, line-152, line-182
+
+FILE: docs/testing/verification-simulation-plan.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-163
+  REVIEW REAL_WORLD_ASSERTION [index+working]: 5 location(s)
+  Locations: line-57, line-111, line-113, line-127, line-129
+
+FILE: evidence/test-results/firmware-core-alarm-wokwi-20261013.md
+  REVIEW REAL_WORLD_ASSERTION [index+working]: 3 location(s)
+  Locations: line-26, line-39, line-48
+
+FILE: evidence/test-results/firmware-core-c1-wokwi-20261013.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-47
+  REVIEW REAL_WORLD_ASSERTION [index+working]: 2 location(s)
+  Locations: line-25, line-27
+
+FILE: evidence/test-results/firmware-core-c2-wokwi-20261013.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-48
+  REVIEW REAL_WORLD_ASSERTION [index+working]: 2 location(s)
+  Locations: line-25, line-27
+
+FILE: evidence/test-results/firmware-core-c3-wokwi-20261013.md
+  REVIEW REAL_WORLD_ASSERTION [index+working]: 1 location(s)
+  Locations: line-15
+
+FILE: evidence/test-results/firmware-core-c4-wokwi-20261013.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-35
+  REVIEW REAL_WORLD_ASSERTION [index+working]: 3 location(s)
+  Locations: line-16, line-20, line-21
+
+FILE: evidence/test-results/firmware-core-measurement-wokwi-20261010.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 2 location(s)
+  Locations: line-131, line-133
+  REVIEW REAL_WORLD_ASSERTION [index+working]: 1 location(s)
+  Locations: line-85
+
+FILE: evidence/test-results/firmware-core-quality-wokwi-20261010.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 3 location(s)
+  Locations: line-71, line-80, line-82
+  REVIEW REAL_WORLD_ASSERTION [index+working]: 2 location(s)
+  Locations: line-22, line-34
+
+FILE: evidence/test-results/firmware-core-range-wokwi-20261010.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 2 location(s)
+  Locations: line-134, line-144
+  REVIEW REAL_WORLD_ASSERTION [index+working]: 2 location(s)
+  Locations: line-80, line-120
+
+FILE: evidence/test-results/firmware-core-types-wokwi-20261010.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-57
+  REVIEW REAL_WORLD_ASSERTION [index+working]: 1 location(s)
+  Locations: line-35
+
+FILE: evidence/test-results/firmware-numeric-finiteness-wokwi-20261010.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 2 location(s)
+  Locations: line-94, line-102
+  REVIEW REAL_WORLD_ASSERTION [index+working]: 2 location(s)
+  Locations: line-48, line-76
+
+FILE: evidence/test-results/firmware-source-mode-unknown-zero-wokwi-20261010.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 2 location(s)
+  Locations: line-110, line-112
+  REVIEW REAL_WORLD_ASSERTION [index+working]: 1 location(s)
+  Locations: line-56
+
+FILE: evidence/test-results/firmware-source-mode-wokwi-20261010.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 2 location(s)
+  Locations: line-108, line-110
+  REVIEW REAL_WORLD_ASSERTION [index+working]: 1 location(s)
+  Locations: line-50
+
+FILE: evidence/test-results/mysql-integration-gate-20261025.md
+  REVIEW REAL_WORLD_ASSERTION [untracked]: 2 location(s)
+  Locations: line-13, line-42
+
+FILE: evidence/test-results/phase3-core-unit-acceptance-20261016.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-9
+
+FILE: evidence/test-results/phase5-closure-summary-20261016.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-13
+
+FILE: evidence/test-results/phase5-e1-summary-20261016.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-30
+  REVIEW REAL_WORLD_ASSERTION [index+working]: 2 location(s)
+  Locations: line-24, line-30
+
+FILE: evidence/test-results/phase5-e1-wokwi-verifier-20261016.txt
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-15
+
+FILE: evidence/test-results/phase5-e2-host-20261016.txt
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-12
+
+FILE: evidence/test-results/phase5-e2-summary-20261016.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 2 location(s)
+  Locations: line-33, line-35
+  REVIEW REAL_WORLD_ASSERTION [index+working]: 2 location(s)
+  Locations: line-26, line-33
+
+FILE: evidence/test-results/phase5-e2-wokwi-verifier-20261016.txt
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-16
+
+FILE: evidence/test-results/phase5-e3-host-20261016.txt
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-13
+
+FILE: evidence/test-results/phase5-e3-summary-20261016.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 2 location(s)
+  Locations: line-34, line-36
+  REVIEW REAL_WORLD_ASSERTION [index+working]: 2 location(s)
+  Locations: line-27, line-34
+
+FILE: evidence/test-results/phase5-e3-wokwi-verifier-20261016.txt
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-17
+
+FILE: evidence/test-results/phase5-e4-summary-20261016.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-40
+
+FILE: evidence/test-results/phase5-e4-wokwi-verifier-20261016.txt
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-24
+  REVIEW REAL_WORLD_ASSERTION [index+working]: 1 location(s)
+  Locations: line-24
+
+FILE: evidence/test-results/phase6-closure-audit-20261016.txt
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 2 location(s)
+  Locations: line-76, line-101
+
+FILE: evidence/test-results/phase6-closure-summary-20261016.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-31
+
+FILE: evidence/test-results/phase6-f1-summary-20261016.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-36
+  REVIEW REAL_WORLD_ASSERTION [index+working]: 1 location(s)
+  Locations: line-34
+
+FILE: evidence/test-results/phase6-f2-summary-20261016.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-40
+
+FILE: evidence/test-results/phase6-f2-wokwi-verifier-20261016.txt
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-8
+
+FILE: evidence/test-results/phase7-closure-audit-20261016.txt
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-142
+  REVIEW REAL_WORLD_ASSERTION [index+working]: 3 location(s)
+  Locations: line-108, line-112, line-142
+
+FILE: evidence/test-results/phase7-closure-summary-20261016.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-19
+  REVIEW REAL_WORLD_ASSERTION [index+working]: 1 location(s)
+  Locations: line-18
+
+FILE: evidence/test-results/phase7-g1-summary-20261016.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-29
+  REVIEW REAL_WORLD_ASSERTION [index+working]: 1 location(s)
+  Locations: line-27
+
+FILE: evidence/test-results/phase7-g2-summary-20261016.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-38
+  REVIEW REAL_WORLD_ASSERTION [index+working]: 1 location(s)
+  Locations: line-35
+
+FILE: evidence/test-results/phase9-p3-securityfix-feature-tests-audit-summary-20261018.md
+  REVIEW REAL_WORLD_ASSERTION [index+working]: 1 location(s)
+  Locations: line-16
+
+FILE: evidence/test-results/phase9-wave1-sup001-captured-result-20261020.txt
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-7
+
+FILE: evidence/test-results/pre-phase9-f01-summary-20261017.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-22
+
+FILE: evidence/test-results/pre-phase9-f05-implementation-summary-20261017.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-19
+
+FILE: evidence/test-results/pre-phase9-f05-postcommit-summary-20261017.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-28
+
+FILE: evidence/test-results/wokwi-scaffold-boot-20261010.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 1 location(s)
+  Locations: line-58
+  REVIEW REAL_WORLD_ASSERTION [index+working]: 2 location(s)
+  Locations: line-14, line-16
+
+FILE: requirements/system-requirements.md
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 2 location(s)
+  Locations: line-3, line-24
+  REVIEW REAL_WORLD_ASSERTION [index+working]: 2 location(s)
+  Locations: line-9, line-20
+
+FILE: requirements/traceability-matrix.csv
+  REVIEW CERTIFICATION_LANGUAGE [index+working]: 2 location(s)
+  Locations: line-2, line-23
+  REVIEW REAL_WORLD_ASSERTION [index+working]: 2 location(s)
+  Locations: line-8, line-19
+
+Git index entries: 905
+Untracked candidates: 19
+Total Git candidate files: 924
+Documentation candidates: 425
+Document versions scanned: 431
+Files requiring review: 96
+Flagged locations: 236
+Read errors: 0
+
+PASS: Documentation inventory scan completed
+PASS: All candidate documents were readable
+
+NOTE: Findings are manual review indicators
+NOTE: A zero-finding result is not a confidentiality guarantee
+NOTE: Document content and matched text were not printed
+NOTE: DOCX images and embedded media were not inspected
+NOTE: Personal names can escape pattern detection
+NOTE: Manual semantic review is mandatory
+NOTE: No files were modified
+NOTE: Passing does not authorize publication
+RESULT: PUBLIC DOCUMENTATION REVIEW INVENTORY READY
+=== PHASE 2.7B.5K.7 COMPLETE ===
+
+EXIT: 0

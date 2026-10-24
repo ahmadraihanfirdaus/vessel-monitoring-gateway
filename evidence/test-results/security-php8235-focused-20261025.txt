@@ -1,0 +1,28 @@
+COMMAND: python -B scripts/test_audit_precommit_security.py
+
+..............
+----------------------------------------------------------------------
+Ran 14 tests in 7.696s
+
+OK
+
+EXIT: 0
+COMMAND: python -B scripts/test_mysql_integration_gate.py
+
+..................
+----------------------------------------------------------------------
+Ran 18 tests in 0.113s
+
+OK
+
+EXIT: 0
+COMMAND: C:/tools/php-8.2.35/php.exe -l scripts/mysql_test_gate.php
+No syntax errors detected in scripts/mysql_test_gate.php
+
+
+EXIT: 0
+COMMAND: C:/tools/php-8.2.35/php.exe -l backend/laravel/tests/Feature/FirmwareMySqlIntegrationTest.php
+No syntax errors detected in backend/laravel/tests/Feature/FirmwareMySqlIntegrationTest.php
+
+
+EXIT: 0

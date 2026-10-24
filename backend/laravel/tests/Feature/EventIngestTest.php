@@ -3,13 +3,13 @@
 namespace Tests\Feature;
 
 use App\Models\Device;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Str;
-use Tests\TestCase;
+use Tests\MySqlTestCase;
 
-class EventIngestTest extends TestCase
+class EventIngestTest extends MySqlTestCase
 {
-    use RefreshDatabase;
+    use DatabaseTransactions;
 
     public function test_distinct_event_is_persisted_once(): void
     {

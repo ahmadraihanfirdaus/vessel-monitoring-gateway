@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from pathlib import Path
 import re
+import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -128,12 +129,22 @@ check("UINT64_SAMPLE_NO_INTEGER_CAST", "'sequence' => 'integer'" not in request_
 check("UINT64_FEATURE_TEST_DEFINED", "test_uint64_max_sequence_and_uptime_are_preserved" in feature_test)
 check("UINT64_QUOTED_REJECTION_TEST_DEFINED", "test_quoted_uint64_identity_is_rejected" in feature_test)
 
-check("NO_ENV_FILE", not (ROOT / "backend/laravel/.env").exists())
-check("NO_SQLITE_FILE", not (ROOT / "backend/laravel/database/database.sqlite").exists())
-check("NO_VENDOR", not (ROOT / "backend/laravel/vendor").exists())
+# Installed local dependencies and ignored dotenv files are not public source.
+# Inspect index paths only: never open local secrets or delete user dependencies.
+index = subprocess.run(['git', 'ls-files', '--cached', '-z'], cwd=ROOT,
+                       capture_output=True, check=True).stdout.decode('utf-8').split('\0')
+check("NO_ENV_IN_INDEX", not any(Path(p).name.startswith('.env')
+      and Path(p).name not in {'.env.example', '.env.testing.example'} for p in index))
+check("NO_SQLITE_IN_INDEX", not any(Path(p).suffix.lower() in {'.sqlite', '.sqlite3', '.db'} for p in index))
+check("NO_VENDOR_IN_INDEX", not any('vendor' in Path(p).parts for p in index))
 
 migration_files = sorted((ROOT / "backend/laravel/database/migrations").glob("*.php"))
-check("EXACTLY_THREE_APPLICATION_MIGRATIONS", len(migration_files) == 3)
+check("P2_APPLICATION_MIGRATIONS_PRESERVED", {
+    '2026_10_17_100001_create_devices_table.php',
+    '2026_10_17_100002_create_telemetry_samples_table.php',
+    '2026_10_17_100003_create_telemetry_channels_table.php',
+} <= {p.name for p in migration_files})
+# P3 owns the current complete inventory (four), including monitoring_events.
 
 check("RAW_JSON_STRUCTURAL_MEMBER_PARSER", "parseRawObjectMembers" in request)
 check("RAW_JSON_TOP_LEVEL_UNIQUE_GUARD", "validateRawObjectKeyUniqueness" in request)

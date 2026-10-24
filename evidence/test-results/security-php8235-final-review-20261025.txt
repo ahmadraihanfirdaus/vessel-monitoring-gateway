@@ -1,0 +1,58 @@
+COMMAND: python -B scripts/audit_phase9_p1_security_review.py
+REVIEW_HASH backend/laravel/.editorconfig f78cc5a2ef8ba61ad956d0f5db453748a981270f6a1b9f4a5a00df8690e7946d
+REVIEW_HASH backend/laravel/app/Models/User.php 41d800ffd4887c75e66af8eaedc756edce052eb662baae357308c6e364a6c9d2
+REVIEW_HASH backend/laravel/artisan f91a517c0c5d3a904c3f390933964a5e08ec1fc68146882730daac4aca4ffcec
+REVIEW_HASH backend/laravel/composer.lock 6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2
+REVIEW_HASH backend/laravel/config/database.php 43b43e74db771fa0da206a2c86c91d3bf84698acc95af29482032cbe981ce7f7
+REVIEW_HASH backend/laravel/config/mail.php c43ff49a31c5f32ce21eb7159f2a4b3cd2f4074eaed5838d265646dbfedd3474
+REVIEW_HASH backend/laravel/public/.htaccess b7e379c77639fd56144947dbae84c84eb466d9c686ea81f2f013ae85421da923
+REVIEW_SEMANTIC backend/laravel/app/Models/User.php:46: PASS
+REVIEW_SEMANTIC backend/laravel/config/database.php:54: PASS
+REVIEW_SEMANTIC backend/laravel/config/database.php:74: PASS
+REVIEW_SEMANTIC backend/laravel/config/database.php:94: PASS
+REVIEW_SEMANTIC backend/laravel/config/database.php:109: PASS
+REVIEW_SEMANTIC backend/laravel/config/database.php:160: PASS
+REVIEW_SEMANTIC backend/laravel/config/database.php:173: PASS
+REVIEW_SEMANTIC backend/laravel/config/mail.php:47: PASS
+REVIEW_COMPOSER_LOCK_JSON: PASS
+REVIEW_LARAVEL_FRAMEWORK_VERSION: v12.70.0
+REVIEW_PINNED_FRAMEWORK_FILES: PASS
+=== PHASE 2.7B.5K.5 - PUBLIC SECURITY AUDIT ===
+Git index entries: 905
+Untracked candidates: 46
+Total candidates: 951
+
+Potential security findings: 0
+Manual review warnings: 0
+Hash-pinned non-secret reviews: 13
+Reviewed dependency author metadata: 141
+
+REVIEWED NON-SECRET: .github/workflows/phase9-multi-context-ci.yml:279 [index] - NONSECRET-001 / CI_TEST_CONFIGURATION
+REVIEWED NON-SECRET: .github/workflows/phase9-multi-context-ci.yml:319 [index] - NONSECRET-002 / CI_TEST_CONFIGURATION
+REVIEWED NON-SECRET: .github/workflows/phase9-multi-context-ci.yml:279 [working] - NONSECRET-003 / CI_TEST_CONFIGURATION
+REVIEWED NON-SECRET: .github/workflows/phase9-multi-context-ci.yml:345 [working] - NONSECRET-004 / CI_TEST_CONFIGURATION
+REVIEWED NON-SECRET: backend/laravel/app/Models/User.php:46 [index] - NONSECRET-005 / FRAMEWORK_CAST
+REVIEWED NON-SECRET: backend/laravel/tests/Support/MySqlIsolation.php:82 [untracked] - NONSECRET-006 / ENVIRONMENT_VARIABLE_NAME
+REVIEWED NON-SECRET: backend/laravel/tests/Unit/MySqlIsolationTest.php:120 [untracked] - NONSECRET-007 / SYNTHETIC_NEGATIVE_FIXTURE
+REVIEWED NON-SECRET: backend/laravel/tests/Unit/TestEnvironmentTest.php:30 [untracked] - NONSECRET-008 / SYNTHETIC_NEGATIVE_FIXTURE
+REVIEWED NON-SECRET: evidence/test-results/phase9-p3-security-review-20261018.txt:12 [index] - NONSECRET-009 / AUDIT_RESULT_LABEL
+REVIEWED NON-SECRET: evidence/test-results/phase9-p3-security-review-20261018.txt:13 [index] - NONSECRET-010 / AUDIT_RESULT_LABEL
+REVIEWED NON-SECRET: evidence/test-results/phase9-p3-security-review-20261018.txt:12 [working] - NONSECRET-011 / AUDIT_RESULT_LABEL
+REVIEWED NON-SECRET: evidence/test-results/phase9-p3-security-review-20261018.txt:13 [working] - NONSECRET-012 / AUDIT_RESULT_LABEL
+REVIEWED NON-SECRET: scripts/test_phase9_b39_contract.py:16 [index] - NONSECRET-013 / SOURCE_CONTRACT_TOKEN
+
+PASS: No prohibited files detected
+PASS: No obvious secrets detected
+PASS: Git index and working content checked
+RESULT: AUTOMATED SECURITY SCREEN PASSED
+
+NOTE: This scan is not a confidentiality guarantee
+NOTE: Unsupported binary files are blocked
+NOTE: Manual semantic review is still mandatory
+NOTE: No files were modified
+NOTE: Passing does not authorize publication
+=== PHASE 2.7B.5K.5 COMPLETE ===
+PHASE9_P1_PINNED_FRAMEWORK_REVIEW: PASS
+PHASE9_P1_CURRENT_SECURITY_GATE: PASS_ZERO_UNRESOLVED_FINDINGS
+
+EXIT: 0

@@ -4,7 +4,7 @@
 
 **Engineering Baseline:** Internal Engineering Blueprint v1.0
 
-**Review Date:** 2026-10-17 (post-Phase-8 / pre-Phase-9 reconciliation; locked matrix unchanged)
+**Review Date:** 2026-10-25 (actual B46 HEAD and guarded integration worktree; locked matrix unchanged)
 
 **Matrix Version:** Working v2 — Public Editorial Edition
 
@@ -14,7 +14,7 @@
 
 **Implementation Status:** PHASE3_TO_PHASE8_SCOPED_GATES_COMPLETE / OVERALL_SYSTEM_PARTIAL (locked matrix remains the initial snapshot)
 
-**Verification Status:** PARTIAL — formal SIM-001..SIM-009 PASS; SIM-010..SIM-015 and SUP-001..SUP-019 remain open
+**Verification Status:** PARTIAL — formal SIM-001..SIM-009 PASS; SIM-010..SIM-015 NOT_RUN; 5 SUP PASS and 14 PLANNED
 
 **Final Verification Approval:** NOT_APPROVED
 
@@ -57,9 +57,11 @@ This establishes structural traceability coverage. It does not demonstrate compl
 | Engine model | Phase 6 scoped gate COMPLETE; SIM-007 PASS; ENG-003 also maps to SIM-012 which remains NOT_RUN |
 | Navigation | Phase 7 scoped gate COMPLETE; SIM-008/SIM-009 PASS; SUP-007 remains NOT_RUN |
 | Telemetry contract | Phase 8 scoped contract gate COMPLETE; SUP-011/SUP-012, TEL-003 backend dedup and SIM-014 remain NOT_RUN |
-| Laravel backend | NOT_STARTED |
-| Monitoring dashboard | NOT_STARTED |
-| End-to-end integration | NOT_RUN |
+| Laravel backend | PARTIAL; ingestion, migrations, authenticated read APIs and historical scoped evidence present |
+| Monitoring dashboard | PARTIAL; authenticated placeholder views and quality labels; no device data connection |
+| Network / offline transport | PARTIAL; host adapters and checkpoint oracles; no verified ESP32 Wi-Fi/TLS or durable storage |
+| CI | PARTIAL; PR workflow source present; hosted run unverified here |
+| C99 / Laravel / database integration | PHP 8.2.35 / approved MariaDB migration roundtrip and 215 tests PASS; direct MySQL 8 / hosted CI NOT_RUN |
 | Hardware bench verification | NOT_RUN |
 
 Roadmap gate completion is scoped evidence, not a declaration that every mapped mandatory requirement is fully verified.
@@ -72,7 +74,7 @@ Roadmap gate completion is scoped evidence, not a declaration that every mapped 
 | Formal simulation SIM-007 | PASS — Phase 6 F2 dedicated host/Wokwi evidence |
 | Formal simulation SIM-008..SIM-009 | PASS — Phase 7 G2 dedicated host/Wokwi evidence |
 | Formal simulation SIM-010..SIM-015 | NOT_RUN |
-| Supplemental tests SUP-001..SUP-019 | PLANNED / NOT_RUN |
+| Supplemental tests SUP-001..SUP-019 | SUP-001/003/006/016/019 PASS; other 14 PLANNED |
 | Phase 8 telemetry contract fixtures/self-tests | PASS at scoped development-contract gate; not formal SUP-011/SUP-012 or SIM-014 |
 | Final requirement verification approval | NOT_APPROVED |
 | Total system verification | PARTIAL |
@@ -141,10 +143,10 @@ No physical vessel integration is authorized by the current project documentatio
 The following work remains necessary:
 
 1. Complete the clean tracked-only public archive procedure before publication use.
-2. Begin Phase 9 Laravel/MySQL using migrations only; no manual database shortcut.
-3. Implement and test network/backend behavior, dashboard, and end-to-end integration in their roadmap phases.
+2. Preserve the [executed security/PHP 8.2.35/MariaDB gates](../../evidence/test-results/security-php8235-summary-20261025.md); separately execute the MySQL 8 CI profile. No manual database shortcut.
+3. Complete ESP32 network/storage, connected dashboard, receipt ordering semantics, and end-to-end verification.
 4. Execute remaining formal scenarios SIM-010 through SIM-015.
-5. Execute supplemental tests SUP-001 through SUP-019 using their specified verification methods.
+5. Execute the 14 remaining supplemental tests using their specified verification methods; preserve the five existing accepted records.
 6. Record actual results, source commit SHA, test environment, expected/actual outcomes, and supporting evidence.
 7. Perform hardware/bench work only under the later authorized hardware gate.
 8. Complete final requirement verification review before any `VERIFIED`, certification, deployment, or production-readiness claim.
@@ -169,9 +171,9 @@ The controlled internal engineering baseline is not included in the public repos
 
 **Semantic Coverage:** PARTIAL
 
-**Implementation:** scoped roadmap gates Phases 3–8 COMPLETE; complete system still PARTIAL; Phase 9 NOT_STARTED
+**Implementation:** scoped roadmap gates Phases 3–8 COMPLETE; Phase 9 source and historical scoped closure present; complete system PARTIAL
 
-**Formal Verification:** SIM-001..SIM-009 PASS; SIM-010..SIM-015 NOT_RUN; SUP-001..SUP-019 PLANNED / NOT_RUN
+**Formal Verification:** SIM-001..SIM-009 PASS; SIM-010..SIM-015 NOT_RUN; 5 SUP PASS and 14 PLANNED
 
 **Final Verification Approval:** NOT_APPROVED
 

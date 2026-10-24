@@ -40,49 +40,49 @@ Some directories and files may not exist during the initial project phases.
 
 ```text
 vessel-monitoring-gateway/
-├── README.md
-├── CHANGELOG.md                 # Planned
-├── .gitignore
-├── .gitattributes
-├── requirements/
-│   ├── system-requirements.md
-│   └── traceability-matrix.csv
-├── firmware/
-│   ├── platformio.ini
-│   ├── src/
-│   │   ├── core/
-│   │   ├── drivers/
-│   │   ├── providers/
-│   │   ├── safety/
-│   │   ├── alarms/
-│   │   ├── engines/
-│   │   ├── navigation/
-│   │   ├── telemetry/
-│   │   └── diagnostics/
-│   └── test/
-├── simulator/
-│   ├── wokwi/
-│   ├── nmea0183/
-│   ├── engines/
-│   └── scenarios/
-├── backend/
-│   └── laravel/
-├── docs/
-│   ├── architecture/
-│   ├── interfaces/
-│   ├── standards/
-│   ├── electrical/
-│   ├── fmea/
-│   ├── adr/
-│   ├── api/
-│   └── testing/
-├── scripts/
-├── evidence/
-│   ├── test-results/
-│   ├── logs/
-│   └── screenshots/
-└── .github/
-    └── workflows/
+â”œâ”€â”€ README.md
+â”œâ”€â”€ CHANGELOG.md                 # Planned
+â”œâ”€â”€ .gitignore
+â”œâ”€â”€ .gitattributes
+â”œâ”€â”€ requirements/
+â”‚   â”œâ”€â”€ system-requirements.md
+â”‚   â””â”€â”€ traceability-matrix.csv
+â”œâ”€â”€ firmware/
+â”‚   â”œâ”€â”€ platformio.ini
+â”‚   â”œâ”€â”€ src/
+â”‚   â”‚   â”œâ”€â”€ core/
+â”‚   â”‚   â”œâ”€â”€ drivers/
+â”‚   â”‚   â”œâ”€â”€ providers/
+â”‚   â”‚   â”œâ”€â”€ safety/
+â”‚   â”‚   â”œâ”€â”€ alarms/
+â”‚   â”‚   â”œâ”€â”€ engines/
+â”‚   â”‚   â”œâ”€â”€ navigation/
+â”‚   â”‚   â”œâ”€â”€ telemetry/
+â”‚   â”‚   â””â”€â”€ diagnostics/
+â”‚   â””â”€â”€ test/
+â”œâ”€â”€ simulator/
+â”‚   â”œâ”€â”€ wokwi/
+â”‚   â”œâ”€â”€ nmea0183/
+â”‚   â”œâ”€â”€ engines/
+â”‚   â””â”€â”€ scenarios/
+â”œâ”€â”€ backend/
+â”‚   â””â”€â”€ laravel/
+â”œâ”€â”€ docs/
+â”‚   â”œâ”€â”€ architecture/
+â”‚   â”œâ”€â”€ interfaces/
+â”‚   â”œâ”€â”€ standards/
+â”‚   â”œâ”€â”€ electrical/
+â”‚   â”œâ”€â”€ fmea/
+â”‚   â”œâ”€â”€ adr/
+â”‚   â”œâ”€â”€ api/
+â”‚   â””â”€â”€ testing/
+â”œâ”€â”€ scripts/
+â”œâ”€â”€ evidence/
+â”‚   â”œâ”€â”€ test-results/
+â”‚   â”œâ”€â”€ logs/
+â”‚   â””â”€â”€ screenshots/
+â””â”€â”€ .github/
+    â””â”€â”€ workflows/
 ```
 
 The directory tree is a development target, not an assertion that all listed modules or artifacts already exist.
@@ -129,11 +129,13 @@ The working traceability state is:
 | Total planned test cases | 34 |
 | Requirements with planned verification mappings | 38/38 |
 | Formal SIM execution | SIM-001..SIM-009 PASS; SIM-010..SIM-015 NOT_RUN |
-| Supplemental execution | SUP-001..SUP-019 PLANNED / NOT_RUN |
+| Supplemental execution | SUP-001/003/006/016/019 PASS; other 14 PLANNED |
 | Requirement-level final approval | NOT_APPROVED |
 | Total system status | PARTIAL |
 
 The LOCKED matrix remains a historical initial snapshot. Current implementation/formal status is maintained in `docs/testing/living-requirement-status.csv` and test-level execution records. Roadmap closure never overrides unresolved requirement scope.
+
+2026-10-25 actual-HEAD reconciliation: network/outage host adapters, authenticated dashboard placeholders and PR workflow source already exist as partial foundations. The [guarded integration gate](testing/mysql-integration-gate.md) now records explicit PHP 8.2.35 / approved MariaDB migration roundtrip, 215 Laravel/PHPUnit tests and C99 receipt crosscheck PASS. [Scoped security review](testing/security-scanner-review.md) has zero unresolved findings/warnings with exact review records. Direct MySQL 8/hosted CI, connected dashboard, durable ESP32 storage and formal closure remain open.
 
 ## 6. Verification and Evidence Requirements
 

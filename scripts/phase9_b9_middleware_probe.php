@@ -14,12 +14,11 @@ namespace Illuminate\Http {
     class Request {
         public Headers $headers;
         public function __construct(private string $content, private string $type, ?string $length) {
-            $this->headers = new Headers(['content-length' => $length]);
+            $this->headers = new Headers(['content-length' => $length, 'content-type' => $type]);
         }
         public function getContent(): string { return $this->content; }
-        public function isJson(): bool {
-            $type = strtolower(trim(explode(';', $this->type)[0]));
-            return $type === 'application/json' || str_ends_with($type, '+json');
+        public function header(string $key, ?string $default = null): ?string {
+            return $this->headers->get($key) ?? $default;
         }
     }
 }

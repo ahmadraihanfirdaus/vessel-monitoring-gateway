@@ -1,0 +1,39 @@
+COMMAND: php scripts/mysql_test_gate.php --inspect (VG_USE_TESTING_ENV=1)
+TEST_CONFIG_AUDIT={"local_testing_file":true,"process_override_names":["VG_USE_TESTING_ENV"],"phpunit_env":[{"name":"APP_ENV","force":false},{"name":"DB_CONNECTION","force":false},{"name":"APP_MAINTENANCE_DRIVER","force":false},{"name":"BCRYPT_ROUNDS","force":false},{"name":"BROADCAST_CONNECTION","force":false},{"name":"CACHE_STORE","force":false},{"name":"DB_URL","force":false},{"name":"MAIL_MAILER","force":false},{"name":"QUEUE_CONNECTION","force":false},{"name":"SESSION_DRIVER","force":false},{"name":"PULSE_ENABLED","force":false},{"name":"TELESCOPE_ENABLED","force":false},{"name":"NIGHTWATCH_ENABLED","force":false}],"phpunit_server_names":[],"secret_values":"REDACTED_NOT_EMITTED","effective_target":{"host":"127.0.0.1","port":"3307","database":"vessel_gateway_codex_test","username":"vgw_codex","driver":"mysql"},"effective_app_testing":true,"engine":"10.4.32-MariaDB"}
+DATABASE_POSTCHECK=PASS_FIVE_TABLES_FOUR_MIGRATIONS_ZERO_APPLICATION_ROWS
+
+
+EXIT: 0
+COMMAND: git diff --check
+
+
+EXIT: 0
+COMMAND: git diff --cached --name-only
+
+
+EXIT: 0
+COMMAND: git branch --show-current
+develop
+
+
+EXIT: 0
+COMMAND: git rev-parse HEAD
+231cc2b2022223b47790347a5fecf71eb0ee2c44
+
+
+EXIT: 0
+COMMAND: python -B scripts/check_living_traceability.py
+BASELINE_SHA256: PASS (2/2)
+LIVING_TRACEABILITY: PASS (38/38 mapped, 34 unique planned cases)
+ASSESSMENTS: {'IMPLEMENTED_UNVERIFIED': 18, 'PARTIAL': 20}
+FORMAL_REQUIREMENT_STATUS: {'NOT_RUN': 20, 'PARTIAL': 3, 'PASS': 15}
+FORMAL_SIM_SCENARIOS: PASS=9, NOT_RUN=6
+SUPPLEMENTAL_TESTS: PLANNED=14, PASS=5
+FINAL_REQUIREMENT_APPROVAL: NOT_APPROVED
+TOTAL_SYSTEM_STATUS: PARTIAL
+
+
+EXIT: 0
+PROTECTED_FIRMWARE_FILES=UNCHANGED_AND_UNTRACKED
+LOCAL_TESTING_FILE=IGNORED_UNTRACKED_NOT_IN_MANIFEST_OR_INDEX
+LOCKED_FILES_AND_FORMAL_RESULT_TABLES=UNCHANGED

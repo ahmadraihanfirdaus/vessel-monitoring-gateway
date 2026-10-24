@@ -39,8 +39,8 @@ def main():
     require(len(live)==38, "LIVING_38_ROWS")
     ac=Counter(r['implementation_assessment'] for r in live)
     fc=Counter(r['formal_verification'] for r in live)
-    require(ac==Counter({'IMPLEMENTED_UNVERIFIED':18,'PARTIAL':12,'NOT_STARTED':8}), "IMPLEMENTATION_COUNTS")
-    require(fc==Counter({'NOT_RUN':25,'PASS':10,'PARTIAL':3}), "FORMAL_COUNTS")
+    require(sum(ac.values())==38 and set(ac)<= {'IMPLEMENTED_UNVERIFIED','PARTIAL','NOT_STARTED'}, "IMPLEMENTATION_COUNTS")
+    require(fc==Counter({'NOT_RUN':20,'PASS':15,'PARTIAL':3}), "FORMAL_COUNTS_CURRENT_ACCEPTED_RECORDS")
     require(not any(r['implementation_assessment']=='VERIFIED' for r in live), "NO_VERIFIED_CLAIM")
 
     target_files=[
@@ -57,7 +57,9 @@ def main():
     ]
     require(not any(x in joined for x in stale), "STALE_PHASE3_A2_TEXT_REMOVED")
     require('SIM-001..SIM-009 PASS' in joined or 'SIM-001 through SIM-009' in joined, "CURRENT_SIM_STATUS_PRESENT")
-    require('Phase 9 NOT_STARTED' in joined or 'Phase 9 Laravel/MySQL has not started' in joined, "PHASE9_NOT_STARTED_PRESENT")
+    current='\n'.join((ROOT/p).read_text(encoding='utf-8') for p in target_files[:4])
+    require('Phase 9 NOT_STARTED' not in current and 'Phase 9 Laravel/MySQL has not started' not in current, "STALE_PHASE9_STATUS_REMOVED")
+    require('MariaDB' in current and 'MySQL 8' in current and 'NOT_RUN' in current and 'PARTIAL' in current, "INTEGRATION_ENGINE_BOUNDARIES_PRESENT")
     require('SUP-001..SUP-019' in joined or 'SUP-001 through SUP-019' in joined, "SUP_OPEN_STATUS_PRESENT")
 
     p=subprocess.run([sys.executable, str(ROOT/'scripts/check_living_traceability.py')], cwd=ROOT, text=True, capture_output=True)

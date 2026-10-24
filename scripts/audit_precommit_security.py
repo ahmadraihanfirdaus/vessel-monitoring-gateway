@@ -1,4 +1,6 @@
 from pathlib import Path
+import hashlib
+import json
 import re
 import subprocess
 import sys
@@ -11,7 +13,7 @@ TEXT_EXTENSIONS = {
     ".md", ".txt", ".py", ".csv", ".json",
     ".jsonl", ".yaml", ".yml", ".toml",
     ".ini", ".php", ".js", ".ts", ".html",
-    ".css", ".xml", ".svg", ".sh", ".c", ".h",
+    ".css", ".xml", ".svg", ".sh", ".c", ".h", ".sha256",
 }
 
 TEXT_FILENAMES = {
@@ -21,6 +23,7 @@ TEXT_FILENAMES = {
     "LICENSE",
     "CHANGELOG",
     "README",
+    ".editorconfig", ".htaccess", "artisan", "composer.lock",
 }
 
 SENSITIVE_NAMES = {
@@ -119,10 +122,11 @@ SECRET_ASSIGNMENT_PATTERN = re.compile(
          secret[_-]?key|password|passwd|pwd|jwt[_-]?secret|
          private[_-]?key|github[_-]?token|app[_-]?key))
     [\"']?
-    \s*[:=]\s*
+    \s*(?:=>|[:=])\s*
     (?P<value>
       \"(?:\\.|[^\"\\\r\n])*\"|
       '(?:\\.|[^'\\\r\n])*'|
+      env\([^\r\n)]*\)|
       [^\s#;,]+
     )
     """
@@ -134,7 +138,7 @@ BEARER_PATTERN = re.compile(
 )
 
 EMBEDDED_URL_PASSWORD_PATTERN = re.compile(
-    r"(?i)\b(?:mysql|postgres(?:ql)?|mongodb(?:\+srv)?|redis|amqp)s?"
+    r"(?i)\b(?:https?|ftp|mysql|postgres(?:ql)?|mongodb(?:\+srv)?|redis|amqp)s?"
     r"://[^\s@/:]+:[^\s@]+@"
 )
 
@@ -184,6 +188,160 @@ def is_public_example_email(address):
 
 findings = []
 warnings = []
+reviewed_findings = []
+review_records = []
+REVIEW_FILE = ROOT / 'scripts/security-reviewed-findings.json'
+REVIEW_CLASSES = {
+    'FRAMEWORK_CAST', 'ENVIRONMENT_VARIABLE_NAME', 'SYNTHETIC_NEGATIVE_FIXTURE',
+    'CI_TEST_CONFIGURATION', 'AUDIT_RESULT_LABEL', 'SOURCE_CONTRACT_TOKEN', 'UPSTREAM_AUTHOR_METADATA',
+}
+reviewed_metadata = []
+author_metadata_cache = {}
+
+
+def load_review_records():
+    """Only exact, documented non-secret assignment findings can be reviewed.
+
+    Tokens, private keys, URL credentials, paths, encoding/size failures and
+    operational privacy warnings cannot be waived by this registry. Dependency
+    author metadata requires a distinct structural check and exact pins.
+    """
+    if not REVIEW_FILE.exists():
+        return []
+    try:
+        if REVIEW_FILE.is_symlink() or REVIEW_FILE.stat().st_size > 256 * 1024:
+            raise ValueError
+        document = json.loads(REVIEW_FILE.read_text(encoding='utf-8'))
+        if set(document) != {'version', 'records'} or document['version'] != 1:
+            raise ValueError
+        records = document['records']
+        if not isinstance(records, list):
+            raise ValueError
+        seen = set()
+        for record in records:
+            if set(record) != {'id', 'path', 'file_sha256', 'line_sha256', 'classification', 'rationale'}:
+                raise ValueError
+            if not all(isinstance(value, str) and value for value in record.values()):
+                raise ValueError
+            if (record['id'] in seen or record['classification'] not in REVIEW_CLASSES
+                or not re.fullmatch(r'[0-9a-f]{64}', record['file_sha256'])
+                or not re.fullmatch(r'[0-9a-f]{64}', record['line_sha256'])
+                or record['path'].startswith(('/', '\\')) or ':' in record['path']
+                or '\\' in record['path'] or '..' in Path(record['path']).parts
+                or '*' in record['path'] or '?' in record['path']):
+                raise ValueError
+            path = Path(record['path'])
+            normalized = record['path'].lower()
+            if (path.name.lower() in SENSITIVE_NAMES or path.name.lower().startswith('.env')
+                or path.suffix.lower() in SENSITIVE_EXTENSIONS
+                or normalized in BLOCKED_PATHS
+                or any(normalized.startswith(prefix) for prefix in BLOCKED_DIRECTORIES)):
+                raise ValueError
+            if record['classification'] == 'UPSTREAM_AUTHOR_METADATA' and record['path'] != 'backend/laravel/composer.lock':
+                raise ValueError
+            seen.add(record['id'])
+        return records
+    except (OSError, ValueError, TypeError, KeyError):
+        add_finding('scripts/security-reviewed-findings.json', 'review', 0,
+                    'Invalid reviewed-finding registry')
+        return []
+
+
+def assignment_is_reference(value):
+    # An env lookup with a literal fallback can itself disclose a credential.
+    if value.lower().startswith('env('):
+        match = re.fullmatch(r'''env\(\s*(['"])[^'"]+\1\s*(?:,\s*(.*?))?\s*\)''', value)
+        if not match:
+            return False
+        default = match.group(2)
+        return default is None or is_placeholder_or_reference(default)
+    return is_placeholder_or_reference(value)
+
+
+def add_assignment_finding(relative, layer, number, data, line):
+    file_hash = hashlib.sha256(data).hexdigest()
+    line_hash = hashlib.sha256(line.encode('utf-8')).hexdigest()
+    for record in review_records:
+        if (record['classification'] != 'UPSTREAM_AUTHOR_METADATA'
+            and record['path'] == relative and record['file_sha256'] == file_hash
+            and record['line_sha256'] == line_hash):
+            reviewed_findings.append((relative, layer, number, record['id'], record['classification']))
+            return
+    add_finding(relative, layer, number, 'Possible hardcoded secret')
+
+
+def reviewed_author_email(relative, layer, number, data, line, address):
+    if relative != 'backend/laravel/composer.lock':
+        return False
+    digest = hashlib.sha256(data).hexdigest()
+    if digest not in author_metadata_cache:
+        authors = set()
+        try:
+            document = json.loads(data)
+            content = data.decode('utf-8-sig')
+            for pointer, offset, value in json_string_locations(content):
+                if (len(pointer) != 5 or pointer[0] not in ('packages', 'packages-dev')
+                    or not isinstance(pointer[1], int) or not isinstance(pointer[3], int)
+                    or pointer[2] != 'authors' or pointer[4] != 'email'):
+                    continue
+                package = document[pointer[0]][pointer[1]]
+                source = package.get('source', {}).get('url', '')
+                if source.startswith('https://github.com/') and '@' not in source:
+                    authors.add((content.count('\n', 0, offset)+1, value))
+        except (ValueError, AttributeError, TypeError, KeyError, IndexError, RecursionError):
+            authors.clear()
+        author_metadata_cache[digest] = authors
+    # Only a complete standalone JSON author email field is eligible. Other
+    # fields, additional data on the line and changed source bytes are refused.
+    try:
+        field = json.loads('{'+line.strip().rstrip(',')+'}')
+    except ValueError:
+        return False
+    if field != {'email': address} or (number, address) not in author_metadata_cache[digest]:
+        return False
+    line_hash = hashlib.sha256(line.encode('utf-8')).hexdigest()
+    for record in review_records:
+        if (record['classification'] == 'UPSTREAM_AUTHOR_METADATA' and record['path'] == relative
+            and record['file_sha256'] == digest and record['line_sha256'] == line_hash):
+            reviewed_metadata.append((relative, layer, number, record['id']))
+            return True
+    return False
+
+
+def json_string_locations(content):
+    """Locate decoded string values by JSON pointer; no formatting heuristics."""
+    decoder = json.JSONDecoder()
+    whitespace = re.compile(r'\s*')
+    strings = []
+
+    def walk(offset, pointer):
+        offset = whitespace.match(content, offset).end()
+        opening = content[offset]
+        if opening not in '{[':
+            value, end = decoder.raw_decode(content, offset)
+            if isinstance(value, str):
+                strings.append((pointer, offset, value))
+            return end
+        end_marker = '}' if opening == '{' else ']'
+        offset += 1
+        index = 0
+        while True:
+            offset = whitespace.match(content, offset).end()
+            if content[offset] == end_marker:
+                return offset+1
+            if opening == '{':
+                key, offset = decoder.raw_decode(content, offset)
+                offset = whitespace.match(content, offset).end()+1  # validated colon
+            else:
+                key = index
+            offset = walk(offset, pointer+(key,))
+            index += 1
+            offset = whitespace.match(content, offset).end()
+            if content[offset] == ',':
+                offset += 1
+
+    walk(0, ())
+    return strings
 
 
 def run_git(arguments):
@@ -379,13 +537,8 @@ def scan_text(relative, layer, data):
             )
 
         for match in SECRET_ASSIGNMENT_PATTERN.finditer(line):
-            if not is_placeholder_or_reference(match.group("value")):
-                add_finding(
-                    relative,
-                    layer,
-                    number,
-                    "Possible hardcoded secret",
-                )
+            if not assignment_is_reference(match.group("value")):
+                add_assignment_finding(relative, layer, number, data, line)
 
         bearer = BEARER_PATTERN.search(line)
         if bearer and not is_placeholder_or_reference(bearer.group("value")):
@@ -413,7 +566,8 @@ def scan_text(relative, layer, data):
             )
 
         for match in EMAIL_PATTERN.finditer(line):
-            if not is_public_example_email(match.group()):
+            if (not is_public_example_email(match.group())
+                and not reviewed_author_email(relative, layer, number, data, line, match.group())):
                 add_warning(
                     relative,
                     layer,
@@ -518,6 +672,8 @@ def inspect_candidate(relative, index_entry):
 def print_results():
     print("Potential security findings:", len(findings))
     print("Manual review warnings:", len(warnings))
+    print("Hash-pinned non-secret reviews:", len(reviewed_findings))
+    print("Reviewed dependency author metadata:", len(reviewed_metadata))
     print()
 
     for relative, layer, line, reason in findings:
@@ -531,6 +687,9 @@ def print_results():
             f"WARNING: "
             f"{relative}:{line} [{layer}] - {reason}"
         )
+
+    for relative, layer, line, review_id, classification in reviewed_findings:
+        print(f"REVIEWED NON-SECRET: {relative}:{line} [{layer}] - {review_id} / {classification}")
 
     print()
 
@@ -549,6 +708,8 @@ def print_results():
 
 def main():
     print("=== PHASE 2.7B.5K.5 - PUBLIC SECURITY AUDIT ===")
+    global review_records
+    review_records = load_review_records()
 
     try:
         index = get_index_entries()

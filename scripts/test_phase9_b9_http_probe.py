@@ -13,12 +13,19 @@ class B9HttpProbe(unittest.TestCase):
    dict(body='x'*4097,type='application/json',length='1'),
    dict(body='{}',type='',length=None),
    dict(body='{}',type='application/json',length='4097'),
+   dict(body='x'*4096,type='application/json',length='4096'),
+   dict(body='{}',type='application/jsonp',length='2'),
+   dict(body='{}',type='text/vendor+json',length='2'),
+   dict(body='{}',type='application/vendor+json',length='2'),
+   dict(body='{}',type='application/jsonx',length='2'),
+   dict(body='{}',type=' Application/JSON ; charset=utf-8',length='2'),
+   dict(body='x'*4097,type='application/json',length='invalid'),
   ]
   cmd=[os.environ.get('VG_PHP_CLI','php'),str(ROOT/'scripts/phase9_b9_middleware_probe.php')]
   p=subprocess.run(cmd,input=json.dumps(cases),text=True,capture_output=True,cwd=ROOT,timeout=40)
   self.assertEqual(p.returncode,0,p.stderr)
   actual=[json.loads(s) for s in p.stdout.splitlines()]
-  self.assertEqual([x['status'] for x in actual],[415,200,200,200,413,413,415,413])
+  self.assertEqual([x['status'] for x in actual],[415,200,200,200,413,413,415,413,200,415,415,200,415,200,413])
   self.assertEqual(actual[0]['data'],{'error':'unsupported_telemetry_media_type'})
   self.assertEqual(actual[4]['data']['max_bytes'],4096)
 if __name__=='__main__':unittest.main(verbosity=2)

@@ -2,11 +2,11 @@
 
 `requirements/system-requirements.md` and `requirements/traceability-matrix.csv` are **LOCKED** (SHA-256 enforced). Their historic `NOT_IMPLEMENTED`/`NOT_RUN` snapshot remains untouched.
 
-The editable companion [`living-requirement-status.csv`](living-requirement-status.csv) records the current evidence-qualified engineering assessment for all 38 IDs while preserving the exact baseline planned-test mappings. It is reconciled against completed roadmap work through Phase 8 and the pre-Phase-9 R1 repair gate.
+The editable companion [`living-requirement-status.csv`](living-requirement-status.csv) records the current evidence-qualified engineering assessment for all 38 IDs while preserving the exact baseline planned-test mappings. The 2026-10-25 reconciliation includes Phase 9 backend source, host-only network/outage adapters, dashboard placeholders, CI source, and the user-approved local MariaDB integration execution. See the [current integration evidence](../../evidence/test-results/mariadb-integration-summary-20261025.md). Development/source checks do not close formal execution cases.
 
 Status fields are intentionally split:
 
-- `implementation_assessment`: `NOT_STARTED` = no complete implementation exists; `PARTIAL` = relevant foundation exists but requirement scope is incomplete; `IMPLEMENTED_UNVERIFIED` = the development implementation exists but requirement-level verification/approval is incomplete; `VERIFIED` = independently reviewed complete requirement evidence. This register currently makes no `VERIFIED` claims.
+- `implementation_assessment`: `NOT_STARTED` = no implementation foundation is referenced; `PARTIAL` = relevant foundation exists but requirement scope is incomplete; `IMPLEMENTED_UNVERIFIED` = the development implementation exists but requirement-level verification/approval is incomplete; `VERIFIED` = independently reviewed complete requirement evidence. This register currently makes no `VERIFIED` claims.
 - `formal_verification`: `NOT_RUN`, `PARTIAL`, `PASS`, `FAIL`, or `BLOCKED`. `PASS` means every mapped formal SIM/SUP case currently recorded for that requirement has accepted PASS evidence; `PARTIAL` means at least one mapped case has accepted PASS evidence while another mapped case remains open. A formal test PASS does **not** automatically make the whole requirement `VERIFIED`.
 - `internal_evidence_path`: implementation/development or formal evidence supporting the current assessment. Evidence references do not authorize hardware, certification, production, or publication claims beyond their recorded scope.
 

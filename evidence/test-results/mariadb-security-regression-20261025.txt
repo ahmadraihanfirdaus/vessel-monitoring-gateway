@@ -1,0 +1,8 @@
+COMMAND: python -B scripts/test_audit_precommit_security.py
+....
+----------------------------------------------------------------------
+Ran 4 tests in 1.144s
+
+OK
+
+EXIT: 0

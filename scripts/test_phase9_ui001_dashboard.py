@@ -19,7 +19,7 @@ class DashboardEntrySourceTests(unittest.TestCase):
                   "if ($r['freshness']!=='STALE' || $r['source_mode']!=='SIMULATION') exit(3); "
                   "$u=\\App\\Support\\DashboardSignalLabel::labels('bogus','bogus'); "
                   "if ($u['freshness']!=='UNKNOWN' || $u['source_mode']!=='UNKNOWN') exit(4);")
-            subprocess.run(['php','-r',code],check=True,capture_output=True,text=True)
+            subprocess.run([os.environ.get('VG_PHP_CLI','php'),'-r',code],check=True,capture_output=True,text=True)
     def test_view_is_explicitly_unconnected(self):
         s=(R/'backend/laravel/resources/views/monitoring/index.blade.php').read_text()
         self.assertIn('belum tersambung',s.lower())

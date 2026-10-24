@@ -1,0 +1,55 @@
+COMMAND: python -B scripts/test_mysql_integration_gate.py
+
+...............
+----------------------------------------------------------------------
+Ran 15 tests in 0.130s
+
+OK
+
+EXIT: 0
+COMMAND: php -l backend/laravel/tests/Support/MySqlIsolation.php
+No syntax errors detected in backend/laravel/tests/Support/MySqlIsolation.php
+
+
+EXIT: 0
+COMMAND: php -l backend/laravel/tests/Support/TestApplication.php
+No syntax errors detected in backend/laravel/tests/Support/TestApplication.php
+
+
+EXIT: 0
+COMMAND: php -l backend/laravel/tests/Support/TestEnvironment.php
+No syntax errors detected in backend/laravel/tests/Support/TestEnvironment.php
+
+
+EXIT: 0
+COMMAND: php -l backend/laravel/tests/bootstrap.php
+No syntax errors detected in backend/laravel/tests/bootstrap.php
+
+
+EXIT: 0
+COMMAND: php -l scripts/mysql_test_gate.php
+No syntax errors detected in scripts/mysql_test_gate.php
+
+
+EXIT: 0
+COMMAND: php -l backend/laravel/tests/MySqlTestCase.php
+No syntax errors detected in backend/laravel/tests/MySqlTestCase.php
+
+
+EXIT: 0
+COMMAND: php -l backend/laravel/tests/Unit/MySqlIsolationTest.php
+No syntax errors detected in backend/laravel/tests/Unit/MySqlIsolationTest.php
+
+
+EXIT: 0
+COMMAND: php -l backend/laravel/tests/Unit/TestEnvironmentTest.php
+No syntax errors detected in backend/laravel/tests/Unit/TestEnvironmentTest.php
+
+
+EXIT: 0
+COMMAND: php -l backend/laravel/tests/Feature/FirmwareMySqlIntegrationTest.php
+No syntax errors detected in backend/laravel/tests/Feature/FirmwareMySqlIntegrationTest.php
+
+
+EXIT: 0
+PYTHON_IN_MEMORY_COMPILE=PASS_3_FILES

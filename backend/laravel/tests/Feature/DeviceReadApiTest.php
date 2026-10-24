@@ -3,14 +3,14 @@
 namespace Tests\Feature;
 
 use App\Models\Device;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use Tests\TestCase;
+use Tests\MySqlTestCase;
 
-class DeviceReadApiTest extends TestCase
+class DeviceReadApiTest extends MySqlTestCase
 {
-    use RefreshDatabase;
+    use DatabaseTransactions;
 
     public function test_state_is_null_before_first_sample(): void
     {

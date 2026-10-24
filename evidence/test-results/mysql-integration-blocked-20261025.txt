@@ -1,0 +1,6 @@
+COMMAND: python -B scripts/run_mysql_integration.py --execute --migration-roundtrip
+MYSQL_TEST_BLOCKED: explicit isolated test configuration required.
+MYSQL_INTEGRATION=BLOCKED_PREFLIGHT_NO_MIGRATIONS_NO_TEST_FIXTURES
+
+EXIT: 3
+EXPECTED: BLOCKED (3); no approved isolated MySQL configuration supplied.

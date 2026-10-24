@@ -1,0 +1,533 @@
+{
+  "version": 1,
+  "records": [
+    {
+      "id": "NONSECRET-001",
+      "path": ".github/workflows/phase9-multi-context-ci.yml",
+      "file_sha256": "5e7db882a5eb51eaf75647416554125ca3aa014df17a0be0af221fa220111c23",
+      "line_sha256": "e52d2a0aee17904e9e0b4a21889e572a42d8b99434d44885e2867934c59dbb4b",
+      "classification": "CI_TEST_CONFIGURATION",
+      "rationale": "Ephemeral CI boolean, historical zero-byte synthetic key, or dynamic environment-label writer. Current CI binds loopback and generates runtime key."
+    },
+    {
+      "id": "NONSECRET-002",
+      "path": ".github/workflows/phase9-multi-context-ci.yml",
+      "file_sha256": "5e7db882a5eb51eaf75647416554125ca3aa014df17a0be0af221fa220111c23",
+      "line_sha256": "f9a51cbcc16a9faf3e20daa4e23c7a37c586a4c0b706c2bbd04b583b9e70e98d",
+      "classification": "CI_TEST_CONFIGURATION",
+      "rationale": "Ephemeral CI boolean, historical zero-byte synthetic key, or dynamic environment-label writer. Current CI binds loopback and generates runtime key."
+    },
+    {
+      "id": "NONSECRET-003",
+      "path": ".github/workflows/phase9-multi-context-ci.yml",
+      "file_sha256": "7fd588b1736791b1086da6d24636e598758d3e20bdab3d9c7269d9b3402bee6f",
+      "line_sha256": "e52d2a0aee17904e9e0b4a21889e572a42d8b99434d44885e2867934c59dbb4b",
+      "classification": "CI_TEST_CONFIGURATION",
+      "rationale": "Ephemeral CI boolean, historical zero-byte synthetic key, or dynamic environment-label writer. Current CI binds loopback and generates runtime key."
+    },
+    {
+      "id": "NONSECRET-004",
+      "path": ".github/workflows/phase9-multi-context-ci.yml",
+      "file_sha256": "7fd588b1736791b1086da6d24636e598758d3e20bdab3d9c7269d9b3402bee6f",
+      "line_sha256": "ca6dcd3e138310f57f7f86f4061f0dd448f949016058e65ba39ff6fb214029d7",
+      "classification": "CI_TEST_CONFIGURATION",
+      "rationale": "Ephemeral CI boolean, historical zero-byte synthetic key, or dynamic environment-label writer. Current CI binds loopback and generates runtime key."
+    },
+    {
+      "id": "NONSECRET-005",
+      "path": "backend/laravel/app/Models/User.php",
+      "file_sha256": "41d800ffd4887c75e66af8eaedc756edce052eb662baae357308c6e364a6c9d2",
+      "line_sha256": "c472c94744305fc5211e29ce9747c21894842a5505fd37d25dfaa7d54a5e27da",
+      "classification": "FRAMEWORK_CAST",
+      "rationale": "Laravel cast selector hashed is a non-secret framework type."
+    },
+    {
+      "id": "NONSECRET-006",
+      "path": "backend/laravel/tests/Support/MySqlIsolation.php",
+      "file_sha256": "474fedf1c7fa7c2dee33d3a8c1fdf75ab2876c14b632ad64af358253ede04e00",
+      "line_sha256": "c7ea48f0a77a1ec24edf8224103819e92ba4484526ad615364cdbba731f9bfe8",
+      "classification": "ENVIRONMENT_VARIABLE_NAME",
+      "rationale": "Mapping names the DB_PASSWORD environment variable; it does not contain its value."
+    },
+    {
+      "id": "NONSECRET-007",
+      "path": "backend/laravel/tests/Unit/MySqlIsolationTest.php",
+      "file_sha256": "b2d601a3ad67b6f4459b8e8d64d84dd9c0c8814c5ded5e49d735319494504453",
+      "line_sha256": "43925bbb90648781cd07f30105f4052187b25914ec2d09df3eb107d281de7084",
+      "classification": "SYNTHETIC_NEGATIVE_FIXTURE",
+      "rationale": "Synthetic comparison value exercises invalid credential-source rejection; never used to connect."
+    },
+    {
+      "id": "NONSECRET-008",
+      "path": "backend/laravel/tests/Unit/TestEnvironmentTest.php",
+      "file_sha256": "3872c73d48cee624f31e368a3e7d0c82ecd7668b7babb258a9194516f83c7329",
+      "line_sha256": "8939b6747fdd0c3628e5f83d89b30f8bf29d9f29f6d4008a12981c8ba20b7afe",
+      "classification": "SYNTHETIC_NEGATIVE_FIXTURE",
+      "rationale": "Synthetic comparison value exercises invalid credential-source rejection; never used to connect."
+    },
+    {
+      "id": "NONSECRET-009",
+      "path": "evidence/test-results/phase9-p3-security-review-20261018.txt",
+      "file_sha256": "f4a2aaad05e47b8ce7f35a0b988bf876044591a13c8fad55df65766dae46bdd9",
+      "line_sha256": "0da3b9476e5fe94db3f4132925cd1461ef3cc1d4c745e89f5745bf7e5facc765",
+      "classification": "AUDIT_RESULT_LABEL",
+      "rationale": "Historical PASS labels report absence of literal credentials; no credential is recorded."
+    },
+    {
+      "id": "NONSECRET-010",
+      "path": "evidence/test-results/phase9-p3-security-review-20261018.txt",
+      "file_sha256": "f4a2aaad05e47b8ce7f35a0b988bf876044591a13c8fad55df65766dae46bdd9",
+      "line_sha256": "5dc9f99fd9d4c5d917f9225fab1ebd8d2fb82f2c9744f7636f3ec33708fa8436",
+      "classification": "AUDIT_RESULT_LABEL",
+      "rationale": "Historical PASS labels report absence of literal credentials; no credential is recorded."
+    },
+    {
+      "id": "NONSECRET-011",
+      "path": "evidence/test-results/phase9-p3-security-review-20261018.txt",
+      "file_sha256": "6f6f82dadcf59dd25c53fc181250e58891709a358d5e791b5777f8a5e79633d3",
+      "line_sha256": "0da3b9476e5fe94db3f4132925cd1461ef3cc1d4c745e89f5745bf7e5facc765",
+      "classification": "AUDIT_RESULT_LABEL",
+      "rationale": "Historical PASS labels report absence of literal credentials; no credential is recorded."
+    },
+    {
+      "id": "NONSECRET-012",
+      "path": "evidence/test-results/phase9-p3-security-review-20261018.txt",
+      "file_sha256": "6f6f82dadcf59dd25c53fc181250e58891709a358d5e791b5777f8a5e79633d3",
+      "line_sha256": "5dc9f99fd9d4c5d917f9225fab1ebd8d2fb82f2c9744f7636f3ec33708fa8436",
+      "classification": "AUDIT_RESULT_LABEL",
+      "rationale": "Historical PASS labels report absence of literal credentials; no credential is recorded."
+    },
+    {
+      "id": "NONSECRET-013",
+      "path": "scripts/test_phase9_b39_contract.py",
+      "file_sha256": "d37ca5cc732befbbbd91458fc500adeabdeaf0f78177c2b0aacbbe91d0185e5c",
+      "line_sha256": "a8b67df5db36dca6ef6cfa75a95a674df90119fbd28ca3d3178072f3568b830c",
+      "classification": "SOURCE_CONTRACT_TOKEN",
+      "rationale": "Negative source assertion searches a forbidden key identifier, without a key value."
+    },
+    {
+      "id": "AUTHOR-METADATA-014",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "b3d723521fcd2963ced9b72255ec6e7f6d900d44a760522fd139c7feb928bbee",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-015",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "2b4c29016fc70410e09f778782eb32b0816efc45787992d5e9f80de438d753e3",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-016",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "fea51e697e6fa5c159e7c5045fb7627c4e4b3b951630cce367035c989915e68f",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-017",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "ae9966e5976fb62c701678c56df49e2eddf4c8176b7d607c43ef226334104a10",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-018",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "1a790601ce6f7517561ddd3eedae5dde030de86d5e3b4b40f84d85d380caee6e",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-019",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "b76349b9e61d90663d0e0bcfdeaeecf2b9aa20e08cc34f77c00bf511aca21f1c",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-020",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "da5b8fd3dcb8acb25a751f5307a07f2ae900804caaa2538cdd3ebeb9538a4a1a",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-021",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "f0237a03e0d9daf4accafd21d9b178f184ff8836714fe21b2cf00abccc75a8c1",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-022",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "59618d6ba9cb2ea0069c8672f2ce84fd72df44749db01038d4ac4ada34ef2e03",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-023",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "348a9b8bf1cd6cfdb4a4c9368217e22dd9f8ffa57674502e14be54a487e50946",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-024",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "33d90420a88db31ea4d0938e6608163b16eed6a041d1265dfbafc71854d7733b",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-025",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "6f2e20345ede54c00f2db991bdc54a4f1f1458056f74e51528e61b13b6cb0571",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-026",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "5747bd6380a4ad31c47766eabaf850f5a94e0d7cb237ee1e9ab82b30c1dc2491",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-027",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "c2cbc307e0fe4d0f1df1e404ed3bb20ec98f9149841c660b9b376be2ca2be127",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-028",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "7169cc308953da149a3cb2aa6e21e59a26fc01ca0d071642552a6eb162a675c0",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-029",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "caa2dc6fdcf207d8d636d0b61d64754a58e3d5c3c3fb77c1159e234eddbe78f1",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-030",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "c955177c52310896ebf263a5e2028b89c03d95950094f07f68454868b9ef85e3",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-031",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "90e63bc817eb88a7c377d688518d514b6a81e4a77d12fc2d3719a7efb8807d71",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-032",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "7c806c2b4c6667819e3b24004ddab401ec9479bac2501ca456ecd75c5eeb906f",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-033",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "00bb43899b6d80c29ff9e8dff0ed54c113d66acceec2cf29859392c88733261e",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-034",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "0c4d3b7320e0f0949c529de221f507814eb9acb24ba1539703c81eba60b981db",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-035",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "c33d3f062af33eab235dea6289cac9fedfdb809668595b69bccd23ad23577499",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-036",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "e13c9e4089dcefdbdca7752191d0b8839b917ff2222c0f3e1f40b1c1528c125c",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-037",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "5a66eb412aeead9ea4926aa067f2c305acee6756b0a603480e066d9387be4c0b",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-038",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "c28b0153157aad689f64a72f14940f545b4d5387cc10f89ea9baf6dd3c6d142f",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-039",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "e5830ada1e4b1b43d0653842f621d6e5e2cb3f00a6b7dd001f920e5db9f9987b",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-040",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "e2a9dc791e5450e7ccd1d1b23cbfa92562fb3714ede4fc56e1977d2de4a53ce0",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-041",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "81ff013fa1d10e0f07b24476c0a129540ae1464bb1418cbcd562de91b92ec69a",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-042",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "b87d09c5c387b45127cb12e2a1bbd406098d9602c378fe42399865d6f726ab28",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-043",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "8015531d98bd7f5280de72dbe3807140fc5b5523ad7b3cfd25baaf6633e64f71",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-044",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "e8928ed71bdd39d47c73da2e90fd6b4027b2383baeaedbda184d9a5b91045dbc",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-045",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "737856aaaabe693f1a4e57d22bc143ee7824a74cdba8737b292a689206b15111",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-046",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "95cc09e03e7a206841ea7aaf955e363628f989eb275854661aec089a38c9d2eb",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-047",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "41d6f38461a456f35ae0af0dd594ddc893787ce3aaaa0863cce17a5df79d0754",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-048",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "dbdca47ece3a14a08d376ce533855a90abb611366e059127931753c38f59a672",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-049",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "5a6600bd41e55a677d4d4e81f1afab02f51638cd138a2449a0a6839685f44e17",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-050",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "fb1881522688f64ede77d8d43e28cca78a8b2d92ddbc1e80ba534b8aefbbd3d5",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-051",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "7a8e86c5ddf0ff7dcffaaa13064b722fec0f106f28b4f5a3122f8f691bd83e6d",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-052",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "841ea464fd4ecd7cdb5f7c0f6add33a5f427af46c43dc0361ce78597561c8402",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-053",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "da5e078b3c4caa258dc5eb0b3e760ef6baec266750952ca62f643d5af1fd1f17",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-054",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "590d4195d57dcc63d25c1e6d1551fa120af31160ab8666d77f50e53b94601667",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-055",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "661f39214ada629d87973c0777cf73ff23809dc0bd741ad46ab74d31c650b079",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-056",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "69ff1621dd24876aa97f7f15e3e96b2a9ef6d976e141c770a079def78b48b7a9",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-057",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "8496fc76efc450e2fe964e924765cf5982cd01820040319d545cc0f5dfe477c7",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-058",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "83579b5a2d408e7c42df98ec53303bee2af5da56847bf0a1b01b4152a390f11c",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-059",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "673eec8ae4570aa684586ca007fa98ff04eb654e47e7e4b85bb258dd4c850413",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-060",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "fbf7a57cab39e73c8ba3bc8dac3ba86c00301873ce3854533e75755012a0b0e4",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-061",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "921b1d8b4c374ac5da3736741c88eaf680444e78069788e71312d7fbfa0cd0bf",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-062",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "3a89c7f3a2f7c5e8caf8d8cc2fe64dedb7fdf0fd9a147771a8106d0c53ebe77c",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-063",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "dbd82834874ce9d44643b576caafcdc5e84074d44dc012a2a3a6aaabbad09276",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-064",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "c8099977bb304a2903b35adec4579f7e5f847f4b7971076914f4662c06bc3406",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-065",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "34e7d83a6e556b5889f1c0de3e8e84045140be51da0798a272a5a351ac3dad2e",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "AUTHOR-METADATA-066",
+      "path": "backend/laravel/composer.lock",
+      "file_sha256": "6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2",
+      "line_sha256": "2b59a06e8f31a3bb13a6071fc05475068f9af9d3515f0be63b695495983f1662",
+      "classification": "UPSTREAM_AUTHOR_METADATA",
+      "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+COMMAND: python -B scripts/test_mysql_integration_gate.py
+
+..............
+----------------------------------------------------------------------
+Ran 14 tests in 0.201s
+
+OK
+
+EXIT: 0
+COMMAND: php backend/laravel/vendor/bin/phpunit -c backend/laravel/phpunit.xml --testsuite Unit --colors=never --do-not-cache-result
+PHPUnit 11.5.57 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.2.12
+Configuration: C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\phpunit.xml
+
+.................................                                 33 / 33 (100%)
+
+Time: 00:00.019, Memory: 10.00 MB
+
+OK (33 tests, 67 assertions)
+
+
+EXIT: 0
+COMMAND: php -l backend\laravel\tests\Support\MySqlIsolation.php
+No syntax errors detected in backend\laravel\tests\Support\MySqlIsolation.php
+
+
+EXIT: 0
+COMMAND: php -l backend\laravel\tests\Support\TestApplication.php
+No syntax errors detected in backend\laravel\tests\Support\TestApplication.php
+
+
+EXIT: 0
+COMMAND: php -l backend\laravel\tests\MySqlTestCase.php
+No syntax errors detected in backend\laravel\tests\MySqlTestCase.php
+
+
+EXIT: 0
+COMMAND: php -l backend\laravel\tests\TestCase.php
+No syntax errors detected in backend\laravel\tests\TestCase.php
+
+
+EXIT: 0
+COMMAND: php -l backend\laravel\tests\Feature\TelemetryIngestTest.php
+No syntax errors detected in backend\laravel\tests\Feature\TelemetryIngestTest.php
+
+
+EXIT: 0
+COMMAND: php -l backend\laravel\tests\Feature\EventIngestTest.php
+No syntax errors detected in backend\laravel\tests\Feature\EventIngestTest.php
+
+
+EXIT: 0
+COMMAND: php -l backend\laravel\tests\Feature\DeviceReadApiTest.php
+No syntax errors detected in backend\laravel\tests\Feature\DeviceReadApiTest.php
+
+
+EXIT: 0
+COMMAND: php -l backend\laravel\tests\Feature\FirmwareMySqlIntegrationTest.php
+No syntax errors detected in backend\laravel\tests\Feature\FirmwareMySqlIntegrationTest.php
+
+
+EXIT: 0
+COMMAND: php -l backend\laravel\tests\Unit\MySqlIsolationTest.php
+No syntax errors detected in backend\laravel\tests\Unit\MySqlIsolationTest.php
+
+
+EXIT: 0
+COMMAND: php -l scripts\mysql_test_gate.php
+No syntax errors detected in scripts\mysql_test_gate.php
+
+
+EXIT: 0
+PYTHON_IN_MEMORY_COMPILE=PASS_3_FILES

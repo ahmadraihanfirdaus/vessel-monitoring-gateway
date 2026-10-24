@@ -1,0 +1,14 @@
+MODE: existing migrated empty approved MariaDB schema; PHPUnit transactional fixtures only; no migration reset.
+APP_KEY_SOURCE=EPHEMERAL_PROCESS_ONLY_VALUE_NOT_EMITTED_FILE_UNCHANGED
+COMMAND: python -B scripts/phase9_b14_wire_bridge.py --output <temporary-file>
+B14_C99_JSONL=PASS_2_CASES_SHA256_9d0edbcc1e050155797b2c8cbe3de5226ffb7bbf01c9a01c252650fbe846525f
+
+COMMAND: python -B scripts/phase9_b15_event_bridge.py --output <temporary-file>
+B15_C99_EVENTS=PASS_4_CASES_SHA256_e495ab61324bd0b29f764b33e0187a2892d4a92c054bf9dbc943dca96de3f308
+
+COMMAND: php vendor/bin/phpunit --colors=never --do-not-cache-result --log-junit <temporary-report> (cwd backend/laravel; VG_USE_TESTING_ENV=1; ephemeral APP_KEY)
+LARAVEL_MARIADB_CASES=214 FAILED=0 SKIPPED=0 EXIT=0
+COMMAND: python -B scripts/phase9_b17_receipt_crosscheck.py --input <temporary-receipts> --evidence-dir <temporary-folder>
+B17_LARAVEL_C99_RECEIPTS=PASS_8_CASES_4_CONDITIONALLY_ELIGIBLE_4_HELD_SHA256_d8771f43ebf40e762f20e723ea10548f9b1b0c377cb6567c1584e0f06e2464b3
+
+CROSSCHECK_EXIT=0

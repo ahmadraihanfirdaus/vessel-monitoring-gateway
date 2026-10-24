@@ -1,0 +1,175 @@
+COMMAND: python -B scripts/audit_precommit_security.py
+=== PHASE 2.7B.5K.5 - PUBLIC SECURITY AUDIT ===
+Git index entries: 905
+Untracked candidates: 37
+Total candidates: 942
+
+Potential security findings: 0
+Manual review warnings: 141
+Hash-pinned non-secret reviews: 13
+
+WARNING: backend/laravel/composer.lock:112 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:185 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:190 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:195 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:200 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:255 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:259 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:263 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:267 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:271 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:343 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:347 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:351 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:426 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:559 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:619 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:709 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:714 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:719 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:724 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:729 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:734 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:739 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:816 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:821 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:826 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:831 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:913 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:918 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:923 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:928 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:933 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:938 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:943 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:1020 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:1025 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:1030 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:1035 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:1271 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:1386 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:1390 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:1455 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:1534 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:1622 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:1720 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:1776 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:1828 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:1903 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:1992 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:2109 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:2205 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:2511 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:2586 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:2591 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:3092 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:3143 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:3210 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:3348 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:3445 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:3516 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:3520 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:3591 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:3673 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:3758 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:3830 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:3906 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:3988 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:4107 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:4191 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:4276 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:4357 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:4437 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:4520 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:4524 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:4609 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:4695 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:4776 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:4780 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:4860 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:4940 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:5020 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:5103 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:5174 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:5253 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:5338 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:5429 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:5537 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:5611 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:5688 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:5692 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:5780 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:5859 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:5924 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:5929 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:6278 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:6282 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:6351 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:6419 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:6475 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:6481 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:6487 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:6634 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:6711 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:6716 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:6721 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:6768 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:6773 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:6778 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:6843 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:6917 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:6994 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:7054 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:7114 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:7206 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:7268 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:7325 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:7382 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:7445 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:7449 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:7453 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:7457 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:7531 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:7589 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:7593 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:7658 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:7733 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:7737 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:7741 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:7745 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:7749 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:7824 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:7884 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:7943 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:7999 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:8055 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:8059 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:8063 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:8131 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:8197 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:8312 [index] - Email address requires privacy review
+WARNING: backend/laravel/composer.lock:8377 [index] - Email address requires privacy review
+REVIEWED NON-SECRET: .github/workflows/phase9-multi-context-ci.yml:279 [index] - NONSECRET-001 / CI_TEST_CONFIGURATION
+REVIEWED NON-SECRET: .github/workflows/phase9-multi-context-ci.yml:319 [index] - NONSECRET-002 / CI_TEST_CONFIGURATION
+REVIEWED NON-SECRET: .github/workflows/phase9-multi-context-ci.yml:279 [working] - NONSECRET-003 / CI_TEST_CONFIGURATION
+REVIEWED NON-SECRET: .github/workflows/phase9-multi-context-ci.yml:345 [working] - NONSECRET-004 / CI_TEST_CONFIGURATION
+REVIEWED NON-SECRET: backend/laravel/app/Models/User.php:46 [index] - NONSECRET-005 / FRAMEWORK_CAST
+REVIEWED NON-SECRET: backend/laravel/tests/Support/MySqlIsolation.php:82 [untracked] - NONSECRET-006 / ENVIRONMENT_VARIABLE_NAME
+REVIEWED NON-SECRET: backend/laravel/tests/Unit/MySqlIsolationTest.php:120 [untracked] - NONSECRET-007 / SYNTHETIC_NEGATIVE_FIXTURE
+REVIEWED NON-SECRET: backend/laravel/tests/Unit/TestEnvironmentTest.php:30 [untracked] - NONSECRET-008 / SYNTHETIC_NEGATIVE_FIXTURE
+REVIEWED NON-SECRET: evidence/test-results/phase9-p3-security-review-20261018.txt:12 [index] - NONSECRET-009 / AUDIT_RESULT_LABEL
+REVIEWED NON-SECRET: evidence/test-results/phase9-p3-security-review-20261018.txt:13 [index] - NONSECRET-010 / AUDIT_RESULT_LABEL
+REVIEWED NON-SECRET: evidence/test-results/phase9-p3-security-review-20261018.txt:12 [working] - NONSECRET-011 / AUDIT_RESULT_LABEL
+REVIEWED NON-SECRET: evidence/test-results/phase9-p3-security-review-20261018.txt:13 [working] - NONSECRET-012 / AUDIT_RESULT_LABEL
+REVIEWED NON-SECRET: scripts/test_phase9_b39_contract.py:16 [index] - NONSECRET-013 / SOURCE_CONTRACT_TOKEN
+
+RESULT: SECURITY REVIEW REQUIRED
+
+NOTE: This scan is not a confidentiality guarantee
+NOTE: Unsupported binary files are blocked
+NOTE: Manual semantic review is still mandatory
+NOTE: No files were modified
+NOTE: Passing does not authorize publication
+=== PHASE 2.7B.5K.5 COMPLETE ===
+
+EXIT: 1
