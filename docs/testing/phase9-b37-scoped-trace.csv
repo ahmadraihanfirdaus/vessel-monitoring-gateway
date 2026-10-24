@@ -1,0 +1,7 @@
+context_id,scope,method,evidence,claim_limit
+SEC-001,authenticated host-only receipt,HMAC-SHA256 fresh ephemeral key,test_phase9_b37_hmac_receipt.py,no trusted device keys
+NET-002,replay floor,strict epoch greater than supplied floor,test_phase9_b37_hmac_receipt.py,external floor unimplemented
+TEL-003,ACK binding,entire 72-byte VG35 receipt in HMAC,test_phase9_b37_hmac_receipt.py,no actual device transport
+SYS-003,structural is not authenticated,C99 precheck independently compared to HMAC,test_phase9_b37_hmac_receipt.py,no hardware integration
+TST-001,36 synthetic process cases,positive and negative matrix,test_phase9_b37_hmac_receipt.py,host only
+TST-002,CI and mysql boundary,isolation registry,test_phase9_b37_tst002.py,no formal safety certification

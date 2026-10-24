@@ -205,6 +205,13 @@ jobs:
           python3 -B scripts/test_phase9_b36_negative.py
           python3 -B scripts/test_phase9_b36_tst002.py
 
+      - name: B37 host HMAC receipt authorization and forged CRC rejection
+        run: |
+          python3 -B scripts/test_phase9_b37_hmac_receipt.py
+          python3 -B scripts/test_phase9_b37_contract.py
+          python3 -B scripts/test_phase9_b37_negative.py
+          python3 -B scripts/test_phase9_b37_tst002.py
+
   backend-mysql-isolated:
     runs-on: ubuntu-24.04
     services:
