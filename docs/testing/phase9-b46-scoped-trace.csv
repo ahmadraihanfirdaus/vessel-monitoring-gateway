@@ -1,0 +1,5 @@
+requirement,scope,implementation,verification,formal_status
+NET-002,offline host B46 staged readback,firmware/src/phase9_b46_stage_readback_host.h,scripts/test_phase9_b46_stage_readback.py,PARTIAL_NOT_VERIFIED
+SEC-002,nonce replay monotonic append,firmware/src/phase9_b46_stage_readback_host.h,scripts/test_phase9_b46_negative.py,PARTIAL_NOT_VERIFIED
+TST-002,fail-closed exact-scope CI gate,.github/workflows/phase9-multi-context-ci.yml,scripts/test_phase9_b46_tst002.py,PARTIAL_NOT_VERIFIED
+SYS-003,power-loss behavior not established,docs/testing/phase9-b46-stage-readback.md,scripts/test_phase9_b46_contract.py,NOT_VERIFIED_HARDWARE

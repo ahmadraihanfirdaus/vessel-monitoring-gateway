@@ -264,6 +264,12 @@ jobs:
           python3 -B scripts/test_phase9_b44_contract.py
           python3 -B scripts/test_phase9_b44_negative.py
           python3 -B scripts/test_phase9_b44_tst002.py
+      - name: B46 host-only staged nonce update and independent readback admission
+        run: |
+          python3 -B scripts/test_phase9_b46_stage_readback.py
+          python3 -B scripts/test_phase9_b46_contract.py
+          python3 -B scripts/test_phase9_b46_negative.py
+          python3 -B scripts/test_phase9_b46_tst002.py
   backend-mysql-isolated:
     runs-on: ubuntu-24.04
     services:
