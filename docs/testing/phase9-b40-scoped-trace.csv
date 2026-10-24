@@ -1,0 +1,8 @@
+context,development_scope,verification,formal_status
+SEC-001,Host C99 SHA-256 HMAC ephemeral key only,RFC 4231 vectors and Python oracle PASS,OPEN_NOT_VERIFIED
+SEC-002,Key rotation purpose/device signed context,Invalid MAC purpose device epoch and retired key denied,OPEN_NOT_VERIFIED
+NET-002,Host receipt verification before replay ACK,No ACK authorized by structure alone,OPEN_NOT_VERIFIED
+TEL-003,Receipt authenticity matched to canonical wire,Wire alteration and CRC recompute denied,OPEN_NOT_VERIFIED
+SYS-003,Fail closed on failed auth and malformed buffers,Caller output epoch unchanged on denial,OPEN_NOT_VERIFIED
+TST-001,C99 Python cross-language oracle with no real DB,46 deterministic policy classes using ephemeral keys,OPEN_NOT_VERIFIED
+TST-002,CI registration plus full legacy gate and evidence,Windows fail closed requires all tests,OPEN_NOT_VERIFIED

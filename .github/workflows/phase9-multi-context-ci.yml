@@ -226,6 +226,13 @@ jobs:
           python3 -B scripts/test_phase9_b39_negative.py
           python3 -B scripts/test_phase9_b39_tst002.py
 
+      - name: B40 standalone C99 HMAC verifier matched to Python oracle
+        run: |
+          python3 -B scripts/test_phase9_b40_hmac_verify.py
+          python3 -B scripts/test_phase9_b40_contract.py
+          python3 -B scripts/test_phase9_b40_negative.py
+          python3 -B scripts/test_phase9_b40_tst002.py
+
   backend-mysql-isolated:
     runs-on: ubuntu-24.04
     services:
