@@ -198,6 +198,13 @@ jobs:
           python3 -B scripts/test_phase9_b35_negative.py
           python3 -B scripts/test_phase9_b35_tst002.py
 
+      - name: B36 cross-language canonical checkpoint receipt interop
+        run: |
+          python3 -B scripts/test_phase9_b36_wire_interop.py
+          python3 -B scripts/test_phase9_b36_contract.py
+          python3 -B scripts/test_phase9_b36_negative.py
+          python3 -B scripts/test_phase9_b36_tst002.py
+
   backend-mysql-isolated:
     runs-on: ubuntu-24.04
     services:

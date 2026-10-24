@@ -1,0 +1,7 @@
+context_id,scope,method,evidence,claim_limit
+NET-002,receipt interchange,C99 independent reference and Python struct,test_phase9_b36_wire_interop.py,host only not transport
+TEL-003,ACK and generation wire binding,independent cross-check with B34,test_phase9_b36_wire_interop.py,no real gateway transport
+SYS-003,deny mutation and preserve output,canonical reference guard,test_phase9_b36_negative.py,no ESP32 durability
+SEC-001,CRC and identity discrimination,zlib CRC independent from C99,test_phase9_b36_wire_interop.py,no MAC or signature
+TST-001,deterministic cross-process regression,26-case matrix,test_phase9_b36_wire_interop.py,synthetic fixture
+TST-002,CI and mysql isolation,workflow gates,test_phase9_b36_tst002.py,not certification
