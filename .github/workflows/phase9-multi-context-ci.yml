@@ -252,6 +252,12 @@ jobs:
           python3 -B scripts/test_phase9_b43_contract.py
           python3 -B scripts/test_phase9_b43_negative.py
           python3 -B scripts/test_phase9_b43_tst002.py
+      - name: B45 independently verify two-slot authenticated nonce ledger snapshot readbacks
+        run: |
+          python3 -B scripts/test_phase9_b45_slot_recovery.py
+          python3 -B scripts/test_phase9_b45_contract.py
+          python3 -B scripts/test_phase9_b45_negative.py
+          python3 -B scripts/test_phase9_b45_tst002.py
       - name: B44 host authenticated nonce ledger snapshot restore
         run: |
           python3 -B scripts/test_phase9_b44_nonce_snapshot.py

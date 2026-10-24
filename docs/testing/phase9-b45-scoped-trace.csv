@@ -1,0 +1,5 @@
+Batch,Context,Host evidence,Boundary
+B45,SEC001,"HMAC-sealed two-slot readback verified by B44 C99 and independent Python oracle","No trusted counter/key supply"
+B45,SYS003,"Highest trusted generation selected; split-brain at equal generation denied","No atomic NVS/filesystem write"
+B45,TST002,"Cross-process corrupted/partial/authenticated slot cases plus full regression and CI","Windows PHPUnit gate mandatory"
+B45,SCOPE,"8 ADD + 1 CI MODIFY; 11 LOCKED anchors and 2 untracked firmware configs preserved","No push, database use, or hardware flashing"
