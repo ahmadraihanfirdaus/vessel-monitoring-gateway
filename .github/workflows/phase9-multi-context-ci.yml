@@ -179,6 +179,12 @@ jobs:
           python3 -B scripts/test_phase9_b32_negative.py
           python3 -B scripts/test_phase9_b32_tst002.py
 
+      - name: B33 host-only revision stabilization at publication
+        run: |
+          python3 -B scripts/test_phase9_b33_stable_revision.py
+          python3 -B scripts/test_phase9_b33_contract.py
+          python3 -B scripts/test_phase9_b33_negative.py
+          python3 -B scripts/test_phase9_b33_tst002.py
   backend-mysql-isolated:
     runs-on: ubuntu-24.04
     services:

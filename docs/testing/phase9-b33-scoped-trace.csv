@@ -1,0 +1,7 @@
+context,scope,verification,formal_status
+NET-002,external revision checked twice at host publish,B33_REVISION plus B32 and B30,NOT_VERIFIED
+TEL-003,pending ACK remains unexposed on stale revision,B33_REVISION plus B29,NOT_VERIFIED
+SYS-003,fail closed on mid-validation input mutation,B33_REVISION plus B32,NOT_VERIFIED
+SEC-001,snapshot independent of untrusted mutable controls,B33_CONTRACT plus negative,NOT_VERIFIED
+TST-001,30 stage-verify host C99 cases evidence,B33_REVISION,NOT_VERIFIED
+TST-002,CI and all host PHP regressions,B33_TST002 plus prior,NOT_VERIFIED
