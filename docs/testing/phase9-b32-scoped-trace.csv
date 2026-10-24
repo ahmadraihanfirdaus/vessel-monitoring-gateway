@@ -1,0 +1,7 @@
+context,scope,verification,formal_status
+NET-002,checkpoint control input separation,B32_INPUTS + B31 + B30 host,NOT_VERIFIED
+TEL-003,ACK publish remains behind B30 exact readback,B32_INPUTS + B17 reconcile,NOT_VERIFIED
+SYS-003,fail-closed stale checkpoint receipt aliases,B32_INPUTS + B29 barrier,NOT_VERIFIED
+SEC-001,all four immutable regions pairwise independent,B32_INPUTS + negative,NOT_VERIFIED
+TST-001,24 stage-verify C99 cases evidence,B32_INPUTS,NOT_VERIFIED
+TST-002,CI registration and required regression,B32_TST002 + prior suites,NOT_VERIFIED

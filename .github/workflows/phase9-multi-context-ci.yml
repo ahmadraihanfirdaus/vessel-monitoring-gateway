@@ -172,6 +172,13 @@ jobs:
           python3 -B scripts/test_phase9_b31_negative.py
           python3 -B scripts/test_phase9_b31_tst002.py
 
+      - name: B32 host-only separated checkpoint receipt input region contract
+        run: |
+          python3 -B scripts/test_phase9_b32_input_provenance.py
+          python3 -B scripts/test_phase9_b32_contract.py
+          python3 -B scripts/test_phase9_b32_negative.py
+          python3 -B scripts/test_phase9_b32_tst002.py
+
   backend-mysql-isolated:
     runs-on: ubuntu-24.04
     services:
