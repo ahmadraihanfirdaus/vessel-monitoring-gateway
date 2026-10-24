@@ -240,6 +240,12 @@ jobs:
           python3 -B scripts/test_phase9_b41_negative.py
           python3 -B scripts/test_phase9_b41_tst002.py
 
+      - name: B42 host session challenge bound authenticated receipt
+        run: |
+          python3 -B scripts/test_phase9_b42_challenge_bound.py
+          python3 -B scripts/test_phase9_b42_contract.py
+          python3 -B scripts/test_phase9_b42_negative.py
+          python3 -B scripts/test_phase9_b42_tst002.py
   backend-mysql-isolated:
     runs-on: ubuntu-24.04
     services:

@@ -1,0 +1,5 @@
+batch,context,scope,verification,status,limitation
+B42,SEC-002,Session-specific receipt proof binds nonce to C99 HMAC metadata,68 cross-process cases with independent Python oracle,HOST_PASS_ONLY,Verifier nonce issue and single use NOT_VERIFIED
+B42,NET-002,ACK denial on wrong nonce or proof,65 fail-closed negative cases,HOST_PASS_ONLY,No atomic ACK in persistence
+B42,SYS-003,Rotation authority revision/source still checked before proof,Regression B41 and new mutation matrix,HOST_PASS_ONLY,Trusted external authority not implemented
+B42,TST-002,CI host test jobs with MySQL isolated unchanged,CI contract test and exact-stage audit,HOST_PASS_ONLY,Windows PHPUnit gate required
