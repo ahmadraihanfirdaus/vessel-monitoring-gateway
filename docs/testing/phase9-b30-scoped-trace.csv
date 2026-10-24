@@ -1,0 +1,7 @@
+scope,implementation,evidence,gate,status
+NET-002,firmware/src/phase9_b30_exact_readback_host.h,scripts/test_phase9_b30_exact_readback.py,B30_EXACT_READBACK,PARTIAL_HOST_ONLY
+TEL-003,firmware/src/phase9_b30_exact_readback_host.h,scripts/phase9_b30_exact_readback_fixture.c,B30_CONTENT_BINDING,PARTIAL_HOST_ONLY
+SYS-003,firmware/src/phase9_b30_exact_readback_host.h,scripts/test_phase9_b30_negative.py,B30_PENDING_IMMUTABILITY,PARTIAL_HOST_ONLY
+SEC-001,firmware/src/phase9_b30_exact_readback_host.h,scripts/test_phase9_b30_contract.py,B30_EXTERNAL_TRUST_BOUNDARY,PARTIAL_HOST_ONLY
+TST-001,scripts/test_phase9_b30_exact_readback.py,docs/testing/phase9-b30-exact-readback.md,B30_42_HOST_CASES,PARTIAL_HOST_ONLY
+TST-002,.github/workflows/phase9-multi-context-ci.yml,scripts/test_phase9_b30_tst002.py,B30_CI_REGISTRATION,PARTIAL_HOST_ONLY

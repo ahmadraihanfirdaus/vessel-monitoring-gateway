@@ -158,6 +158,13 @@ jobs:
           python3 -B scripts/test_phase9_b29_negative.py
           python3 -B scripts/test_phase9_b29_tst002.py
 
+      - name: B30 exact checkpoint readback binding
+        run: |
+          python3 -B scripts/test_phase9_b30_exact_readback.py
+          python3 -B scripts/test_phase9_b30_contract.py
+          python3 -B scripts/test_phase9_b30_negative.py
+          python3 -B scripts/test_phase9_b30_tst002.py
+
   backend-mysql-isolated:
     runs-on: ubuntu-24.04
     services:
