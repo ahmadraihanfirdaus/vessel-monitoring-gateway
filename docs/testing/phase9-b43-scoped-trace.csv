@@ -1,0 +1,5 @@
+batch,context,scope,verification,status,limitation
+B43,SEC-002,In-memory bounded once-per-nonce guard for B42 HMAC,41 cross-process cases with independent Python oracle,HOST_PASS_ONLY,No durable atomic nonce ledger or issuer
+B43,NET-002,ACK denied on nonce replay or capacity exhaustion,C99 ledger before-after immutability checks,HOST_PASS_ONLY,No persistent ACK authority
+B43,SYS-003,Reject corrupt ledger or overlapping input/output buffers,C99 corruption and alias tests,HOST_PASS_ONLY,No concurrent memory-safety proof
+B43,TST-002,Isolated host CI gate and exact stage with retained MySQL job,CI policy contract and simulation audit,HOST_PASS_ONLY,Windows PHPUnit required

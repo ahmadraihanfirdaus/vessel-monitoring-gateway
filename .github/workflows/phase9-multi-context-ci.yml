@@ -246,6 +246,12 @@ jobs:
           python3 -B scripts/test_phase9_b42_contract.py
           python3 -B scripts/test_phase9_b42_negative.py
           python3 -B scripts/test_phase9_b42_tst002.py
+      - name: B43 host-only bounded nonce replay denial
+        run: |
+          python3 -B scripts/test_phase9_b43_nonce_ledger.py
+          python3 -B scripts/test_phase9_b43_contract.py
+          python3 -B scripts/test_phase9_b43_negative.py
+          python3 -B scripts/test_phase9_b43_tst002.py
   backend-mysql-isolated:
     runs-on: ubuntu-24.04
     services:
