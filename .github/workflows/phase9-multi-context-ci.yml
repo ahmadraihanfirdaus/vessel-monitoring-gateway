@@ -219,6 +219,13 @@ jobs:
           python3 -B scripts/test_phase9_b38_negative.py
           python3 -B scripts/test_phase9_b38_tst002.py
 
+      - name: B39 host HMAC purpose and device domain separation
+        run: |
+          python3 -B scripts/test_phase9_b39_domain_scope.py
+          python3 -B scripts/test_phase9_b39_contract.py
+          python3 -B scripts/test_phase9_b39_negative.py
+          python3 -B scripts/test_phase9_b39_tst002.py
+
   backend-mysql-isolated:
     runs-on: ubuntu-24.04
     services:

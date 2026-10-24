@@ -1,0 +1,8 @@
+requirement,scope,verification,boundary
+SEC-001,B39 host purpose-domain HMAC derivation,test_phase9_b39_domain_scope.py,PERSISTENT_KEY_PROVISIONING_NOT_VERIFIED
+SEC-002,B39 retired key and invalid master denial,test_phase9_b39_domain_scope.py,AUTHENTICATED_DEVICE_PROVISIONING_NOT_VERIFIED
+NET-002,B39 receipt scoped to restore vs publish,test_phase9_b39_negative.py,NETWORK_RECOVERY_NOT_RUN
+TEL-003,B39 receipt cannot authorize wrong device ACK,test_phase9_b39_domain_scope.py,HARDWARE_ACK_NOT_RUN
+SYS-003,B39 C99 structural check never authorizes ACK,test_phase9_b39_contract.py,ESP32_RUNTIME_NOT_RUN
+TST-001,B39 ephemeral test-only secrets and deterministic cases,test_phase9_b39_domain_scope.py,SECURITY_FORMAL_NOT_VERIFIED
+TST-002,B39 isolated CI and full regression gate,test_phase9_b39_tst002.py,PRODUCTION_CLOSURE_OPEN
