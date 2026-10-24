@@ -1,0 +1,7 @@
+requirement_id,batch,scope,status,evidence,limitation
+NET-002,B28,host snapshot revision CAS fence,HOST_TEST_ONLY,scripts/test_phase9_b28_revision_fence.py,External trusted storage CAS NOT_VERIFIED
+TEL-003,B28,ACK advancement only after two quorum rounds,HOST_TEST_ONLY,scripts/phase9_b28_revision_fence_fixture.c,Physical transport and ACK persistence NOT_RUN
+SYS-003,B28,stale guard or observed revision denies publication,HOST_TEST_ONLY,firmware/src/phase9_b28_revision_fence_host.h,ESP32/NVS power-loss NOT_VERIFIED
+SEC-001,B28,domain device witness epoch and revision binding,HOST_TEST_ONLY,scripts/test_phase9_b28_negative.py,Not cryptographically authenticated
+TST-001,B28,31 cross-process scenarios with unmodified outputs on deny,HOST_TEST_ONLY,scripts/test_phase9_b28_revision_fence.py,No hardware measurement
+TST-002,B28,CI and full scoped gate fail closed,HOST_TEST_ONLY,scripts/test_phase9_b28_tst002.py,Formal closure OPEN
