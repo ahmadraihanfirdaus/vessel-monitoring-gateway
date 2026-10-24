@@ -212,6 +212,13 @@ jobs:
           python3 -B scripts/test_phase9_b37_negative.py
           python3 -B scripts/test_phase9_b37_tst002.py
 
+      - name: B38 host-only receipt signing key rotation and retired-key denial
+        run: |
+          python3 -B scripts/test_phase9_b38_key_rotation.py
+          python3 -B scripts/test_phase9_b38_contract.py
+          python3 -B scripts/test_phase9_b38_negative.py
+          python3 -B scripts/test_phase9_b38_tst002.py
+
   backend-mysql-isolated:
     runs-on: ubuntu-24.04
     services:

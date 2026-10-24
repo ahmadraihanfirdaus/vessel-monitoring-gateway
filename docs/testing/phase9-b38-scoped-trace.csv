@@ -1,0 +1,8 @@
+requirement,batch,scope,host_gate,evidence_status,formal_status
+SEC-001,B38,ephemeral_two_key_rotation,test_phase9_b38_key_rotation.py,HOST_SIM_REQUIRED,FORMAL_OPEN
+SEC-002,B38,retired_key_no_fallback,test_phase9_b38_negative.py,HOST_SIM_REQUIRED,FORMAL_OPEN
+NET-002,B38,replay_floor_after_cutover,test_phase9_b38_key_rotation.py,HOST_SIM_REQUIRED,FORMAL_OPEN
+TEL-003,B38,hold_ack_before_auth,test_phase9_b38_key_rotation.py,HOST_SIM_REQUIRED,FORMAL_OPEN
+SYS-003,B38,deny_ambiguity_and_wrong_key,test_phase9_b38_contract.py,HOST_SIM_REQUIRED,FORMAL_OPEN
+TST-001,B38,ephemeral_and_deterministic_fixture_envelope,test_phase9_b38_key_rotation.py,HOST_SIM_REQUIRED,FORMAL_OPEN
+TST-002,B38,ci_and_scope_gate,test_phase9_b38_tst002.py,HOST_SIM_REQUIRED,FORMAL_OPEN
