@@ -1,0 +1,8 @@
+path,file_count,bytes,action,qualification
+firmware/.pio/build,3867,324878336,RETAINED_READ_ONLY,"Metadata only; dependencies, build artifacts and evidence retained; no deletion"
+backend/laravel/vendor,8574,66825925,RETAINED_READ_ONLY,"Metadata only; dependencies, build artifacts and evidence retained; no deletion"
+backend/laravel/bootstrap/cache,3,22734,RETAINED_READ_ONLY,"Metadata only; dependencies, build artifacts and evidence retained; no deletion"
+backend/laravel/storage/framework/views,57,272813,RETAINED_READ_ONLY,"Metadata only; dependencies, build artifacts and evidence retained; no deletion"
+backend/laravel/storage/logs,1,14,RETAINED_READ_ONLY,"Metadata only; dependencies, build artifacts and evidence retained; no deletion"
+scripts/__pycache__,8,73971,RETAINED_READ_ONLY,"Metadata only; dependencies, build artifacts and evidence retained; no deletion"
+evidence/test-results,378,1469379,RETAINED_READ_ONLY,"Metadata only; dependencies, build artifacts and evidence retained; no deletion"

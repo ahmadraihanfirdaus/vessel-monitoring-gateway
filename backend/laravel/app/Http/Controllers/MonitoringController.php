@@ -10,6 +10,7 @@ use App\Support\DashboardSignalLabel;
 use App\Support\DependencyUnavailableResponse;
 use App\Support\MonitoringFreshness;
 use App\Support\MonitoringEvidence;
+use App\Support\SimulationChannelPresentation;
 use Carbon\CarbonImmutable;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -39,9 +40,14 @@ class MonitoringController extends Controller
             $stale = config('monitoring.stale_after_seconds');
             $offline = config('monitoring.offline_after_seconds');
             $now = CarbonImmutable::now('UTC');
+            $simulationPresentation = SimulationChannelPresentation::enabled($state, config('monitoring.presentation_profile'));
+            $demoSections = $simulationPresentation ? SimulationChannelPresentation::sections() : [];
             $sectionChannels = [];
             foreach (['safety', 'propulsion', 'navigation', 'power'] as $section) {
                 $names = config('monitoring.channel_sections.'.$section, []);
+                if ($names === [] && $simulationPresentation) {
+                    $names = $demoSections[$section];
+                }
                 $sectionChannels[$section] = is_array($names)
                     ? array_intersect_key($state['channels'] ?? [], array_fill_keys(array_filter($names, 'is_string'), true)) : [];
             }
@@ -51,7 +57,7 @@ class MonitoringController extends Controller
                 'sampleFreshness' => MonitoringFreshness::classify($state['received_at'] ?? null, $now, $stale, $offline),
                 'transportFreshness' => MonitoringFreshness::classify($health['last_seen_at'], $now, $stale, $offline),
                 'sourceLabel' => DashboardSignalLabel::labels('unknown', $state['source_mode'] ?? '')['source_mode'],
-                'sectionChannels' => $sectionChannels,
+                'sectionChannels' => $sectionChannels, 'simulationPresentation' => $simulationPresentation,
                 'evidence' => (new MonitoringEvidence())->snapshot(),
             ]);
         } catch (QueryException $exception) {

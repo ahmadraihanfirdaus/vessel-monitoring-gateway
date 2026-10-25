@@ -30,3 +30,14 @@ TLS chain/hostname/date validation and assertions remain enabled. The merge
 contains blank NVS; its SDK-configured 2 MiB size still proves no physical flash
 capacity. Full stack/heap/flash-cache behavior, wear, secret provisioning and
 power-loss recovery require actual device evidence. No upload was performed.
+
+## Continuous candidate build, 2026-10-25
+
+Both reviewed targets retain the 1 MiB application partition and TLS/assertion gates.
+The new optional `esp32dev_continuous` image is 969,632 bytes, static RAM 53,708 bytes,
+largest own compiler frame 816 bytes. The retained full self-test image is
+1,042,000 bytes, static RAM 66,436 bytes, largest own frame 1,616 bytes.
+Their source-stability digest is `40b451bba4916f48d5b49fb3ed48231eb6a65b1922adebbca877e7877a54c51e`.
+See the continuous summary for both merged image hashes/evidence. No partition,
+assertion, certificate/date validation or hardware acceptance threshold was relaxed.
+Physical flash, full call stack/heap, NVS power cuts and runtime timing remain NOT_RUN.

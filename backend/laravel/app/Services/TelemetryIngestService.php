@@ -75,7 +75,11 @@ class TelemetryIngestService
             $sample->channels()->create([
                 'name' => (string) $rawName,
                 'quality' => $channel['quality'],
-                'value' => $channel['value'],
+                // PDO binds ordinary floats through PHP's ambient `precision`
+                // string conversion. That can lose bits before MySQL DOUBLE
+                // storage and make a byte-identical replay conflict. A 17-digit,
+                // locale-independent string round-trips the validated binary64.
+                'value' => $channel['value'] === null ? null : sprintf('%.17h', (float) $channel['value']),
             ]);
         }
 

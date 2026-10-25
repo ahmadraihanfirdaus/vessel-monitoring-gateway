@@ -11,10 +11,18 @@ class Contract(unittest.TestCase):
         self.assertNotIn('if (! $request->isJson())',s)
     def test_backend_fault_not_caught_as_cursor_error(self):
         s=(ROOT/'backend/laravel/app/Http/Controllers/Api/DeviceHistoryController.php').read_text()
-        self.assertIn('Cursor::fromEncoded($cursor)',s)
+        helper=(ROOT/'backend/laravel/app/Support/StrictDeviceHistoryCursor.php').read_text()
+        self.assertIn('Cursor::fromEncoded($encoded)',helper)
+        self.assertIn('catch (\\Throwable)',helper)
+        self.assertIn('return false;',helper)
+        self.assertNotIn('$this->service->history(',helper)
+        self.assertIn('StrictDeviceHistoryCursor::isValid($cursor)',s)
         self.assertIn('$this->service->history(',s)
-        self.assertLess(s.index('catch (\\Throwable)'),s.index('$this->service->history('))
-        self.assertNotIn('try {\n            $body = $this->service->history',s)
+        self.assertLess(s.index('StrictDeviceHistoryCursor::isValid($cursor)'),s.index('$this->service->history('))
+        self.assertNotIn('catch (\\Throwable)',s)
+        self.assertIn('catch (QueryException $exception)',s)
+        self.assertIn('DependencyUnavailableResponse::forConnectionFailure($exception)',s)
+        self.assertIn('throw $exception;',s)
     def test_laravel_test_contains_all_contexts(self):
         s=(ROOT/'backend/laravel/tests/Feature/Phase9B10HttpResilienceTest.php').read_text()
         for context in ('api001','sec002','ui002','sys003'):

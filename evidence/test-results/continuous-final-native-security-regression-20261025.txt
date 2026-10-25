@@ -1,0 +1,175 @@
+COMMAND=python -B scripts/test_firmware_core_host.py
+HOST_CORE_PARSER_REGRESSION: PASS (5/5)
+HOST_C_COMPILER: C:\msys64\ucrt64\bin\gcc.EXE
+HOST_FIRMWARE_CORE_SELFTEST: PASS (226/226)
+HOST_BOOT_ENTRY_REPETITIONS: PASS (2; same 226 cases per entry)
+NOTE: Native behavior only. Wokwi/ESP-IDF/SIM/SUP/bench verification not implied.
+
+EXIT=0
+COMMAND=python -B scripts/test_continuous_simulation.py
+test_ack_remains_active_monotonic_and_new_reason_realerts (__main__.ContinuousSimulationTest.test_ack_remains_active_monotonic_and_new_reason_realerts) ... ok
+test_actual_24_frames_all_domains_and_checkpoint_recovery (__main__.ContinuousSimulationTest.test_actual_24_frames_all_domains_and_checkpoint_recovery) ... ok
+test_alarm_id_exhaustion_is_explicit_and_does_not_silence_condition (__main__.ContinuousSimulationTest.test_alarm_id_exhaustion_is_explicit_and_does_not_silence_condition) ... ok
+test_config_rejects_missing_thresholds_physical_monitor_block_and_unterminated_identity (__main__.ContinuousSimulationTest.test_config_rejects_missing_thresholds_physical_monitor_block_and_unterminated_identity) ... ok
+test_domain_rejects_foreign_source_invalid_values_and_future_metadata (__main__.ContinuousSimulationTest.test_domain_rejects_foreign_source_invalid_values_and_future_metadata) ... ok
+test_eight_engines_map_68_fields_without_silent_truncation (__main__.ContinuousSimulationTest.test_eight_engines_map_68_fields_without_silent_truncation) ... ok
+test_engine_lost_null_stopped_zero_and_uint64_not_rounded (__main__.ContinuousSimulationTest.test_engine_lost_null_stopped_zero_and_uint64_not_rounded) ... ok
+test_full_journal_does_not_freeze_local_sampling_or_replace_old_events (__main__.ContinuousSimulationTest.test_full_journal_does_not_freeze_local_sampling_or_replace_old_events) ... ok
+test_legacy_wire_is_byte_identical (__main__.ContinuousSimulationTest.test_legacy_wire_is_byte_identical) ... ok
+test_navigation_no_fix_unknown_checksum_age_boundaries (__main__.ContinuousSimulationTest.test_navigation_no_fix_unknown_checksum_age_boundaries) ... ok
+test_sdk_entry_has_no_physical_output_or_erase_and_separate_target (__main__.ContinuousSimulationTest.test_sdk_entry_has_no_physical_output_or_erase_and_separate_target) ... ok
+test_v11_72_channels_and_4096_bytes_limits_are_independent (__main__.ContinuousSimulationTest.test_v11_72_channels_and_4096_bytes_limits_are_independent) ... ok
+test_wait_regression_skipped_periods_and_sequence_exhaustion (__main__.ContinuousSimulationTest.test_wait_regression_skipped_periods_and_sequence_exhaustion) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 6.800s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_p2_mysql_source.py
+PHASE9_P2_MYSQL_SOURCE FILE_PHASE9-P2-IMPLEMENTATION-PLAN.MD: PASS
+PHASE9_P2_MYSQL_SOURCE FILE_API.PHP: PASS
+PHASE9_P2_MYSQL_SOURCE FILE_DEVICE.PHP: PASS
+PHASE9_P2_MYSQL_SOURCE FILE_TELEMETRYSAMPLE.PHP: PASS
+PHASE9_P2_MYSQL_SOURCE FILE_TELEMETRYCHANNEL.PHP: PASS
+PHASE9_P2_MYSQL_SOURCE FILE_DEVICETOKENAUTHENTICATOR.PHP: PASS
+PHASE9_P2_MYSQL_SOURCE FILE_TELEMETRYINGESTSERVICE.PHP: PASS
+PHASE9_P2_MYSQL_SOURCE FILE_ENSURETELEMETRYPAYLOADSIZE.PHP: PASS
+PHASE9_P2_MYSQL_SOURCE FILE_AUTHENTICATEDEVICETOKEN.PHP: PASS
+PHASE9_P2_MYSQL_SOURCE FILE_TELEMETRYINGESTREQUEST.PHP: PASS
+PHASE9_P2_MYSQL_SOURCE FILE_TELEMETRYINGESTCONTROLLER.PHP: PASS
+PHASE9_P2_MYSQL_SOURCE FILE_2026_10_17_100001_CREATE_DEVICES_TABLE.PHP: PASS
+PHASE9_P2_MYSQL_SOURCE FILE_2026_10_17_100002_CREATE_TELEMETRY_SAMPLES_TABLE.PHP: PASS
+PHASE9_P2_MYSQL_SOURCE FILE_2026_10_17_100003_CREATE_TELEMETRY_CHANNELS_TABLE.PHP: PASS
+PHASE9_P2_MYSQL_SOURCE FILE_TELEMETRYINGESTTEST.PHP: PASS
+PHASE9_P2_MYSQL_SOURCE ENV_EXAMPLE_MYSQL: PASS
+PHASE9_P2_MYSQL_SOURCE ENV_EXAMPLE_HOST: PASS
+PHASE9_P2_MYSQL_SOURCE ENV_EXAMPLE_PORT: PASS
+PHASE9_P2_MYSQL_SOURCE CONFIG_DEFAULT_MYSQL: PASS
+PHASE9_P2_MYSQL_SOURCE CONFIG_MYSQL_DATABASE_EXTERNAL: PASS
+PHASE9_P2_MYSQL_SOURCE CONFIG_MYSQL_USERNAME_EXTERNAL: PASS
+PHASE9_P2_MYSQL_SOURCE CONFIG_MYSQL_PASSWORD_EXTERNAL: PASS
+PHASE9_P2_MYSQL_SOURCE PHPUNIT_MYSQL: PASS
+PHASE9_P2_MYSQL_SOURCE PHPUNIT_NO_SQLITE_POLICY: PASS
+PHASE9_P2_MYSQL_SOURCE COMPOSER_NO_SQLITE_CREATE: PASS
+PHASE9_P2_MYSQL_SOURCE COMPOSER_NO_AUTO_MIGRATE: PASS
+PHASE9_P2_MYSQL_SOURCE BOOTSTRAP_API_ROUTE: PASS
+PHASE9_P2_MYSQL_SOURCE BOOTSTRAP_SIZE_ALIAS: PASS
+PHASE9_P2_MYSQL_SOURCE BOOTSTRAP_DEVICE_ALIAS: PASS
+PHASE9_P2_MYSQL_SOURCE API_ENDPOINT: PASS
+PHASE9_P2_MYSQL_SOURCE API_MIDDLEWARE_ORDER: PASS
+PHASE9_P2_MYSQL_SOURCE REQUEST_SCHEMA_1_0_AND_OPTIONAL_1_1: PASS
+PHASE9_P2_MYSQL_SOURCE REQUEST_CHANNEL_LIMIT_VERSIONED_16_72: PASS
+PHASE9_P2_MYSQL_SOURCE LEGACY_SCHEMA_RETAINS_1_0_16: PASS
+PHASE9_P2_MYSQL_SOURCE OPTIONAL_SCHEMA_1_1_72: PASS
+PHASE9_P2_MYSQL_SOURCE REAL_VERSION_BOUNDARY_TEST_DEFINED: PASS
+PHASE9_P2_MYSQL_SOURCE REQUEST_SOURCE_MODES: PASS
+PHASE9_P2_MYSQL_SOURCE REQUEST_QUALITY_MODES: PASS
+PHASE9_P2_MYSQL_SOURCE REQUEST_NULL_CONTRACT: PASS
+PHASE9_P2_MYSQL_SOURCE REQUEST_FINITE_CONTRACT: PASS
+PHASE9_P2_MYSQL_SOURCE DEVICE_DIGEST_COLUMN: PASS
+PHASE9_P2_MYSQL_SOURCE DEVICE_DISABLED_DEFAULT: PASS
+PHASE9_P2_MYSQL_SOURCE IDENTIFIER_BINARY_COLLATION: PASS
+PHASE9_P2_MYSQL_SOURCE SAMPLE_IDENTITY_UNIQUE: PASS
+PHASE9_P2_MYSQL_SOURCE SAMPLE_DEVICE_EXTERNAL_STRING: PASS
+PHASE9_P2_MYSQL_SOURCE SAMPLE_DEVICE_NO_INTERNAL_FOREIGNID: PASS
+PHASE9_P2_MYSQL_SOURCE SAMPLE_DEVICE_EXTERNAL_FK: PASS
+PHASE9_P2_MYSQL_SOURCE SERVICE_USES_EXTERNAL_DEVICE_ID: PASS
+PHASE9_P2_MYSQL_SOURCE DEVICE_RELATION_USES_EXTERNAL_DEVICE_ID: PASS
+PHASE9_P2_MYSQL_SOURCE SAMPLE_RELATION_USES_EXTERNAL_DEVICE_ID: PASS
+PHASE9_P2_MYSQL_SOURCE CHANNEL_NAME_UNIQUE: PASS
+PHASE9_P2_MYSQL_SOURCE DEDUP_TRANSACTION: PASS
+PHASE9_P2_MYSQL_SOURCE DEDUP_IDENTITY_BOOT: PASS
+PHASE9_P2_MYSQL_SOURCE DEDUP_IDENTITY_SEQUENCE: PASS
+PHASE9_P2_MYSQL_SOURCE DEDUP_MYSQL_1062: PASS
+PHASE9_P2_MYSQL_SOURCE DEDUP_CONFLICT_STATUS: PASS
+PHASE9_P2_MYSQL_SOURCE UINT64_BIGINT_PRESERVATION: PASS
+PHASE9_P2_MYSQL_SOURCE UINT64_MAX_BOUND: PASS
+PHASE9_P2_MYSQL_SOURCE UINT64_RAW_JSON_NUMBER_GUARD: PASS
+PHASE9_P2_MYSQL_SOURCE UINT64_NO_GLOBAL_FIELD_OCCURRENCE_COUNT: PASS
+PHASE9_P2_MYSQL_SOURCE UINT64_SEQUENCE_CHANNEL_REGRESSION_TEST_DEFINED: PASS
+PHASE9_P2_MYSQL_SOURCE UINT64_SERVICE_NORMALIZATION: PASS
+PHASE9_P2_MYSQL_SOURCE UINT64_DEVICE_NO_INTEGER_CAST: PASS
+PHASE9_P2_MYSQL_SOURCE UINT64_SAMPLE_NO_INTEGER_CAST: PASS
+PHASE9_P2_MYSQL_SOURCE UINT64_FEATURE_TEST_DEFINED: PASS
+PHASE9_P2_MYSQL_SOURCE UINT64_QUOTED_REJECTION_TEST_DEFINED: PASS
+PHASE9_P2_MYSQL_SOURCE NO_ENV_IN_INDEX: PASS
+PHASE9_P2_MYSQL_SOURCE NO_SQLITE_IN_INDEX: PASS
+PHASE9_P2_MYSQL_SOURCE NO_VENDOR_IN_INDEX: PASS
+PHASE9_P2_MYSQL_SOURCE P2_APPLICATION_MIGRATIONS_PRESERVED: PASS
+PHASE9_P2_MYSQL_SOURCE RAW_JSON_STRUCTURAL_MEMBER_PARSER: PASS
+PHASE9_P2_MYSQL_SOURCE RAW_JSON_TOP_LEVEL_UNIQUE_GUARD: PASS
+PHASE9_P2_MYSQL_SOURCE RAW_JSON_DUPLICATE_KEY_HELPER: PASS
+PHASE9_P2_MYSQL_SOURCE RAW_UINT64_STRUCTURAL_TOP_LEVEL_LOOKUP: PASS
+PHASE9_P2_MYSQL_SOURCE RAW_UINT64_NO_GLOBAL_SEQUENCE_REGEX: PASS
+PHASE9_P2_MYSQL_SOURCE RAW_UINT64_NESTED_SEQUENCE_BYPASS_TEST_DEFINED: PASS
+PHASE9_P2_MYSQL_SOURCE RAW_DUPLICATE_TOP_LEVEL_TEST_DEFINED: PASS
+PHASE9_P2_MYSQL_SOURCE RAW_DUPLICATE_CHANNEL_TEST_DEFINED: PASS
+PHASE9_P2_MYSQL_SOURCE WIRE_CHANNEL_EXACT_VALUE_QUALITY_MEMBERS: PASS
+PHASE9_P2_MYSQL_SOURCE WIRE_VALUE_MEMBER_EXPLICITLY_PRESENT: PASS
+PHASE9_P2_MYSQL_SOURCE WIRE_ABSENT_VALUE_MEMBER_REJECTION_TEST_DEFINED: PASS
+PHASE9_P2_MYSQL_SOURCE_TEST: PASS
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_ui002_views.py
+....
+----------------------------------------------------------------------
+Ran 4 tests in 0.002s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b10_contract.py
+test_backend_fault_not_caught_as_cursor_error (__main__.Contract.test_backend_fault_not_caught_as_cursor_error) ... ok
+test_laravel_test_contains_all_contexts (__main__.Contract.test_laravel_test_contains_all_contexts) ... ok
+test_runtime_production_file_is_concrete (__main__.Contract.test_runtime_production_file_is_concrete) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.001s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_esp32_build_gate.py
+.usage: build [-h] [--pio-cli PIO_CLI] --evidence-name EVIDENCE_NAME
+             [--environment {esp32dev_espidf,esp32dev_continuous}]
+build: error: evidence already exists; select a new run name
+...usage: build [-h] [--pio-cli PIO_CLI] --evidence-name EVIDENCE_NAME
+             [--environment {esp32dev_espidf,esp32dev_continuous}]
+build: error: argument --environment: invalid choice: '../foreign' (choose from esp32dev_espidf, esp32dev_continuous)
+.
+----------------------------------------------------------------------
+Ran 5 tests in 0.015s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_live_http_integration_gate.py
+test_arbitrary_temporary_directory_is_never_removed (__main__.LiveHttpGateTest.test_arbitrary_temporary_directory_is_never_removed) ... ok
+test_blocked_cleanup_cannot_be_a_pass_and_retains_lease_without_private_key (__main__.LiveHttpGateTest.test_blocked_cleanup_cannot_be_a_pass_and_retains_lease_without_private_key) ... ok
+test_default_is_read_only_and_conflicting_connection_overrides_are_preserved (__main__.LiveHttpGateTest.test_default_is_read_only_and_conflicting_connection_overrides_are_preserved) ... ok
+test_failed_c99_assertion_is_fail_and_precedes_any_fixture_mutation (__main__.LiveHttpGateTest.test_failed_c99_assertion_is_fail_and_precedes_any_fixture_mutation) ... ok
+test_failed_domain_c99_build_precedes_any_live_fixture (__main__.LiveHttpGateTest.test_failed_domain_c99_build_precedes_any_live_fixture) ... ok
+test_failed_network_case_stops_owned_process_and_cleans_only_through_guard (__main__.LiveHttpGateTest.test_failed_network_case_stops_owned_process_and_cleans_only_through_guard) ... ok
+test_fixture_write_requires_execute_before_any_environment_or_database_boot (__main__.LiveHttpGateTest.test_fixture_write_requires_execute_before_any_environment_or_database_boot) ... ok
+test_rejected_preflight_never_builds_launches_or_prepares_fixtures (__main__.LiveHttpGateTest.test_rejected_preflight_never_builds_launches_or_prepares_fixtures) ... ok
+test_response_leak_guard_also_covers_per_request_unknown_bearer (__main__.LiveHttpGateTest.test_response_leak_guard_also_covers_per_request_unknown_bearer) ... ok
+test_source_change_cannot_be_certified_by_successful_requests_and_cleanup (__main__.LiveHttpGateTest.test_source_change_cannot_be_certified_by_successful_requests_and_cleanup) ... ok
+test_unavailable_tls_prerequisite_blocks_before_server_or_database_fixtures (__main__.LiveHttpGateTest.test_unavailable_tls_prerequisite_blocks_before_server_or_database_fixtures) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 0.294s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_audit_precommit_security.py
+.......................
+----------------------------------------------------------------------
+Ran 23 tests in 10.975s
+
+OK
+
+EXIT=0
+FINAL_NATIVE_SECURITY_REGRESSION=PASS_8_COMMANDS

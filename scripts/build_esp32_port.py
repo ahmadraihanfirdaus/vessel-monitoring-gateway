@@ -44,6 +44,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--pio-cli', default=os.getenv('VG_PLATFORMIO_CLI', 'platformio'))
     parser.add_argument('--evidence-name', required=True)
+    parser.add_argument('--environment', choices=('esp32dev_espidf', 'esp32dev_continuous'), default='esp32dev_espidf')
     args = parser.parse_args()
     if re.fullmatch(r'esp32-transport-sdk-build-[a-z0-9-]+\.txt', args.evidence_name) is None:
         parser.error('expected a fixed ESP32 transport evidence filename')
@@ -55,7 +56,7 @@ def main():
     env['PLATFORMIO_SETTING_CHECK_PLATFORMIO_INTERVAL'] = '0'
     inputs = source_snapshot()
     try:
-        completed = subprocess.run([args.pio_cli, 'run', '-d', 'firmware', '-e', 'esp32dev_espidf'],
+        completed = subprocess.run([args.pio_cli, 'run', '-d', 'firmware', '-e', args.environment],
             cwd=ROOT, env=env, capture_output=True, text=True, errors='replace', timeout=300)
         output = sanitize(completed.stdout+completed.stderr).rstrip()+'\n'
         target.write_bytes(output.encode('utf-8'))
@@ -68,7 +69,7 @@ def main():
                 print(line)
         if completed.returncode:
             return 1
-        image = ROOT/'firmware/.pio/build/esp32dev_espidf/firmware.bin'
+        image = ROOT/'firmware/.pio/build'/args.environment/'firmware.bin'
         if not image.is_file() or image.stat().st_size > APP_LIMIT:
             print('ESP32_IMAGE=FAIL_MISSING_OR_OVER_ONE_MIB')
             return 1
@@ -83,7 +84,7 @@ def main():
         if factory != [(0x10000, APP_LIMIT)]:
             print('ESP32_PARTITION=FAIL_EXPECTED_ONE_MIB_FACTORY')
             return 1
-        config = (ROOT/'firmware/sdkconfig.esp32dev_espidf').read_text(encoding='utf-8')
+        config = (ROOT/('firmware/sdkconfig.'+args.environment)).read_text(encoding='utf-8')
         if not security_config_valid(config):
             print('ESP32_SECURITY_CONFIG=FAIL_TLS_VALIDATION_OR_ASSERTIONS')
             return 1
@@ -110,7 +111,8 @@ def main():
         if combined[0x10000:0x10000+len(app)] != app or any(byte != 255 for byte in combined[0x9000:0xF000]):
             print('ESP32_SIM_MERGE=FAIL_APP_OR_BLANK_NVS')
             return 1
-        record = 'ESP32_SIM_MERGE=PASS_SHA256_'+hashlib.sha256(combined).hexdigest()+'\n'
+        record = 'ESP32_BUILD_ENVIRONMENT='+args.environment+'\n'
+        record += 'ESP32_SIM_MERGE=PASS_SHA256_'+hashlib.sha256(combined).hexdigest()+'\n'
         source_digest = hashlib.sha256(repr(sorted(inputs.items())).encode('utf-8')).hexdigest()
         record += 'ESP32_SOURCE_STABILITY=PASS_SHA256_'+source_digest+'\n'
         record += 'ESP32_SIM_LAYOUT='+flash.group(1)+'_SDK_CONFIG_ONLY_PHYSICAL_FLASH_UNVERIFIED\n'

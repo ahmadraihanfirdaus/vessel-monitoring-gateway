@@ -1,0 +1,10 @@
+TEST_CONFIG_AUDIT={"local_testing_file":true,"process_override_names":["APP_KEY","CACHE_STORE","DATABASE_URL","DB_SOCKET","DB_URL","LOG_CHANNEL","QUEUE_CONNECTION","SESSION_DRIVER","VG_PHP_CLI","VG_TEST_EPHEMERAL_KEY","VG_USE_TESTING_ENV"],"phpunit_env":[{"name":"APP_ENV","force":false},{"name":"DB_CONNECTION","force":false},{"name":"APP_MAINTENANCE_DRIVER","force":false},{"name":"BCRYPT_ROUNDS","force":false},{"name":"BROADCAST_CONNECTION","force":false},{"name":"CACHE_STORE","force":false},{"name":"DB_URL","force":false},{"name":"MAIL_MAILER","force":false},{"name":"QUEUE_CONNECTION","force":false},{"name":"SESSION_DRIVER","force":false},{"name":"PULSE_ENABLED","force":false},{"name":"TELESCOPE_ENABLED","force":false},{"name":"NIGHTWATCH_ENABLED","force":false}],"phpunit_server_names":[],"secret_values":"REDACTED_NOT_EMITTED","effective_target":{"host":"127.0.0.1","port":"3307","database":"vessel_gateway_codex_test","username":"vgw_codex","driver":"mysql"},"effective_app_testing":true,"runtime":{"php_version":"8.2.35","php_binary":"C:\\tools\\php-8.2.35\\php.exe"},"app_key_configured":true,"app_key_cipher_compatible":true,"app_key_source":"ephemeral_runner_process","engine":"10.4.32-MariaDB"}
+DATABASE_POSTCHECK=PASS_TEN_TABLES_FIVE_MIGRATIONS_ZERO_APPLICATION_ROWS
+B14_C99_JSONL=PASS_2_CASES_SHA256_9d0edbcc1e050155797b2c8cbe3de5226ffb7bbf01c9a01c252650fbe846525f
+B15_C99_EVENTS=PASS_4_CASES_SHA256_e495ab61324bd0b29f764b33e0187a2892d4a92c054bf9dbc943dca96de3f308
+RUNTIME_C99_WIRE=PASS_6_CASES_SHA256_21930ab910d66844d7903d2e726c3c5a8db9809018deacb0e26d93d61f88ee4a
+CONTINUOUS_C99_WIRE=PASS_24_RECOVERED_FRAMES_SHA256_ceda0c0794257456cdaace3d1fb001c6ae430ead882acc693fa36069c1521920
+MYSQL_MIGRATION=NOT_RUN_EXISTING_SCHEMA_MODE
+MYSQL_LARAVEL_CASES=347 FAILED=1 SKIPPED=0
+MYSQL_FAILED_CASE=Tests.Feature.ContinuousSimulationIntegrationTest::test_actual_recovered_c99_frames_persist_48_channels_and_render_domain_sections
+MYSQL_LARAVEL_SUITE=FAIL

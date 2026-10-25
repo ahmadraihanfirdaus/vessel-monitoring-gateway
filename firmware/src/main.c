@@ -1,3 +1,6 @@
+#ifdef VG_CONTINUOUS_SIMULATION
+#include "esp32_continuous_main.h"
+#else
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdio.h>
@@ -1375,3 +1378,5 @@ void app_main(void)
            (unsigned)uxTaskGetStackHighWaterMark(NULL));
 #endif
 }
+
+#endif /* retained full self-test image */

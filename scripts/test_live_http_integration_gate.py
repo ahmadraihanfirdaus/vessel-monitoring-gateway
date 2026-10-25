@@ -25,6 +25,7 @@ class LiveHttpGateTest(unittest.TestCase):
             command = stack.enter_context(patch.object(gate, 'php_run', side_effect=results))
             builder = stack.enter_context(patch.object(gate, 'build_bytes', side_effect=fixture) if fixture else
                                           patch.object(gate, 'build_bytes', return_value=b'synthetic-wire\n'))
+            stack.enter_context(patch.object(gate, 'build_domain_bytes', return_value=b'synthetic-domain-wire\n'))
             popen = stack.enter_context(patch.object(gate.subprocess, 'Popen'))
             suite = stack.enter_context(patch.object(gate, 'suite', side_effect=suite_error))
             if snapshots is not None:
@@ -69,6 +70,19 @@ class LiveHttpGateTest(unittest.TestCase):
         self.assertEqual(command.call_count, 1)
         popen.assert_not_called(); suite.assert_not_called()
         self.assertIn('FAIL_PREREQUISITE_ASSERTION', output)
+
+    def test_failed_domain_c99_build_precedes_any_live_fixture(self):
+        with patch.object(gate, 'build_domain_bytes', side_effect=AssertionError('synthetic-domain')):
+            # Invoke's normal fixture patch is intentionally bypassed here.
+            stream = io.StringIO()
+            with patch.object(sys, 'argv', ['gate', '--php-binary', 'synthetic-php', '--execute']), \
+                 patch.object(gate, 'php_run', return_value=self.result()) as command, \
+                 patch.object(gate, 'build_bytes', return_value=b'legacy'), \
+                 patch.object(gate.subprocess, 'Popen') as process, redirect_stdout(stream):
+                self.assertEqual(gate.main(), 1)
+            self.assertEqual(command.call_count, 1)
+            process.assert_not_called()
+            self.assertIn('FAIL_PREREQUISITE_ASSERTION', stream.getvalue())
 
     def test_unavailable_tls_prerequisite_blocks_before_server_or_database_fixtures(self):
         code, command, _, popen, suite, output = self.invoke(['--execute'], [self.result(), self.result(3)])

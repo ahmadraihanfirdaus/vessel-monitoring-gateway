@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from pathlib import Path
 import re
+import json
 import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -67,8 +68,13 @@ check("BOOTSTRAP_DEVICE_ALIAS", "'device.auth'" in bootstrap)
 check("API_ENDPOINT", "Route::post('/v1/telemetry'" in api)
 check("API_MIDDLEWARE_ORDER", api.find("'telemetry.payload.size'") < api.find("'device.auth'"))
 
-check("REQUEST_SCHEMA_1_0", "'in:1.0'" in request)
-check("REQUEST_CHANNEL_LIMIT_16", "'channels' => ['required', 'array', 'min:1', 'max:16']" in request)
+check("REQUEST_SCHEMA_1_0_AND_OPTIONAL_1_1", "'in:1.0,1.1'" in request)
+check("REQUEST_CHANNEL_LIMIT_VERSIONED_16_72", "'channels' => ['required', 'array', 'min:1', 'max:'.($this->input('schema_version') === '1.1' ? 72 : 16)]" in request)
+legacy_schema = json.loads(read("docs/contracts/telemetry-schema-v1.json"))
+extended_schema = json.loads(read("docs/contracts/telemetry-schema-v1.1.json"))
+check("LEGACY_SCHEMA_RETAINS_1_0_16", legacy_schema['properties']['schema_version']['const'] == '1.0' and legacy_schema['properties']['channels']['maxProperties'] == 16)
+check("OPTIONAL_SCHEMA_1_1_72", extended_schema['properties']['schema_version']['const'] == '1.1' and extended_schema['properties']['channels']['maxProperties'] == 72)
+check("REAL_VERSION_BOUNDARY_TEST_DEFINED", "test_v10_stays_16_v11_accepts_72_and_73_rejects_atomically" in read("backend/laravel/tests/Feature/ContinuousSimulationIntegrationTest.php"))
 check("REQUEST_SOURCE_MODES", all(x in request for x in ["'simulation'", "'bench_test'", "'physical'"]))
 check("REQUEST_QUALITY_MODES", all(x in request for x in ["'valid'", "'invalid'", "'missing'", "'stale'", "'unknown'"]))
 check("REQUEST_NULL_CONTRACT", "requires a null value" in request)

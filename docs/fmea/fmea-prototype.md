@@ -42,3 +42,12 @@ or execute its formal protocol. Critical capacity exhaustion refuses new records
 explicitly; degraded recovery may restore older data. Flash/cache effects on
 sampling, physical power cuts, wear, confidential provisioning and residual-risk
 acceptance remain unverified. No likelihood/severity threshold is assigned.
+
+## Continuous simulation observations, 2026-10-25
+
+The continuous coordinator has native evidence that journal-full rejection does
+not roll back observation/local indication, preserves all eight old events and
+counts rejected attempts. This is explicitly incomplete retention; no FMEA row
+is closed. SDK queue submission compiles, but flash/cache blocking, actual outage
+timing, power loss and residual-risk acceptance remain unverified. Physical
+controls are absent. See the continuous integration summary for the scoped tests.

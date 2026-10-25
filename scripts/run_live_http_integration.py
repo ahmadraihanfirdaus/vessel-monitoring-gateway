@@ -29,6 +29,7 @@ import urllib.parse
 import urllib.request
 
 from runtime_uplink_wire_bridge import build_bytes
+from continuous_simulation_wire_bridge import build_bytes as build_domain_bytes
 from build_esp32_port import source_snapshot as firmware_source_snapshot
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -54,7 +55,8 @@ def source_snapshot():
     records = firmware_source_snapshot()
     paths = [ROOT/'scripts'/name for name in ('run_live_http_integration.py', 'live_http_fixture.php',
         'live_http_router.php', 'live_http_tls.php', 'runtime_uplink_wire_bridge.py',
-        'runtime_uplink_wire_fixture.c', 'phase9_b4_testlib.py')]
+        'runtime_uplink_wire_fixture.c', 'continuous_simulation_wire_bridge.py',
+        'continuous_simulation_fixture.c', 'phase9_b4_testlib.py')]
     base = ROOT/'backend/laravel'
     paths += [base/'bootstrap/app.php', base/'composer.lock']
     for directory in ('app', 'config', 'routes', 'resources/views', 'tests/Support', 'database/migrations'):
@@ -197,7 +199,7 @@ def api(client, path, data=None, token=None, media='application/json'):
     return client.request(path, data, headers)
 
 
-def suite(client, binary, env, profile, wire, context, port):
+def suite(client, binary, env, profile, wire, domain_wire, context, port):
     token = env['VG_LIVE_DEVICE_TOKEN']
 
     def action(mode):
@@ -320,6 +322,24 @@ def suite(client, binary, env, profile, wire, context, port):
     expect('CONNECTED_BROWSER_DATA_AND_SIMULATION', status == 200 and b'demo_channel' in body and b'SIMULATION' in body and b'LIVE' in body
            and b'ACK bukan CLEAR' in body and b'alarm_ack' in body and b'alarm_cleared' in body)
     expect('BROWSER_VALID_ZERO_RENDERED', bool(re.search(rb'<td>demo_channel</td><td>\s*0(?:\.0)?\s*</td>', body)))
+    for index, packet in enumerate(domain_wire.splitlines()):
+        status, _, _ = api(client, '/api/v1/telemetry', packet, token)
+        expect('CONTINUOUS_C99_FRAME_'+str(index+1), status == 201)
+    status, _, body = client.request('/api/v1/device/state', headers={'Authorization': 'Bearer '+token})
+    state = json.loads(body).get('state', {})
+    expect('CONTINUOUS_48_CHANNELS_PERSISTED', status == 200 and state.get('schema_version') == '1.1'
+           and state.get('sequence') == 24 and len(state.get('channels', {})) == 48)
+    channels = state['channels']
+    expect('CONTINUOUS_FULL_JOURNAL_DIAGNOSTIC', channels['runtime_journal_retained']['value'] == 8
+           and channels['runtime_journal_rejected']['value'] == 58)
+    status, _, body = client.request(device_path)
+    expect('CONTINUOUS_BROWSER_DOMAIN_LABELS', status == 200 and b'engine_4_rpm' in body and b'RUNNING' in body
+           and b'unitless surrogate; not ppm or %LEL' in body and b'low-power prototype' in body)
+    status, _, _ = api(client, '/api/v1/telemetry', domain_wire.splitlines()[-1], token)
+    expect('CONTINUOUS_C99_IDENTICAL_REPLAY', status == 200)
+    packet = domain_wire.splitlines()[-1]
+    status, _, _ = api(client, '/api/v1/telemetry', packet+b' '*(4097-len(packet)), token)
+    expect('CONTINUOUS_BYTE_BOUNDARY_REJECTED', status == 413)
     logout_token = csrf(body)
     status, _, _ = client.request('/monitoring/'+profile['other'])
     expect('UNGRANTED_DEVICE_404', status == 404)
@@ -382,7 +402,8 @@ def main():
                QUEUE_CONNECTION='sync', APP_DEBUG='false', VG_TEST_EPHEMERAL_KEY='1',
                PULSE_ENABLED='false', TELESCOPE_ENABLED='false', NIGHTWATCH_ENABLED='false')
     # Explicit integration-fixture age policy, never an operational default/SLA.
-    env.update(MONITORING_STALE_AFTER_SECONDS='60', MONITORING_OFFLINE_AFTER_SECONDS='120')
+    env.update(MONITORING_STALE_AFTER_SECONDS='60', MONITORING_OFFLINE_AFTER_SECONDS='120',
+               MONITORING_PRESENTATION_PROFILE='continuous_simulation_v11')
     env['APP_KEY'] = 'base64:'+base64.b64encode(secrets.token_bytes(32)).decode()
     env['VG_LIVE_LOGIN_SECRET'] = secrets.token_hex(20)
     env['VG_LIVE_DEVICE_TOKEN'] = secrets.token_hex(32)
@@ -400,6 +421,8 @@ def main():
             print(preflight.stdout, end='')
             wire = build_bytes()
             print('LIVE_HTTP_C99_WIRE_SHA256='+hashlib.sha256(wire).hexdigest(), flush=True)
+            domain_wire = build_domain_bytes('runtime:demo')
+            print('LIVE_HTTP_CONTINUOUS_C99_WIRE_SHA256='+hashlib.sha256(domain_wire).hexdigest(), flush=True)
             cert = php_run(args.php_binary, Path('scripts/live_http_tls.php'), [str(folder)], env)
             if cert.returncode:
                 raise GateBlocked('TLS_PREREQUISITE_NO_FIXTURES')
@@ -445,7 +468,7 @@ def main():
             attempted_fixture = True
             prepared = php_run(args.php_binary, Path('scripts/live_http_fixture.php'), ['--prepare', '--execute'], env)
             expect('VERIFIED_ISOLATED_FIXTURE_PREPARATION', prepared.returncode == 0)
-            suite(client, args.php_binary, env, profile, wire, context, port)
+            suite(client, args.php_binary, env, profile, wire, domain_wire, context, port)
     except GateBlocked as exception:
         print('LIVE_HTTP_GATE=BLOCKED_'+str(exception), flush=True)
         code = 3

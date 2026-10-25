@@ -98,3 +98,13 @@ for actual commands, failures, counts and the source-stability digest. Hosted
 CI, graphical browser rendering, deployment approval, ESP32/NVS/power-loss proof
 and remaining formal SIM/SUP are not inferred from these results. Overall status
 remains PARTIAL and final approval NOT_APPROVED.
+
+## Full-domain continuation
+
+The runner also compiles 24 actual continuous-coordinator/native-checkpoint
+packets with its fixed existing owned synthetic device identity. It exercises
+48-channel 1.1 API/read/UI/replay over the same TLS and ownership pipeline.
+Demo presentation is enabled explicitly in the child process. The original six
+1.0 packets, zero/uint64 and all browser/session/auth negatives remain. Source
+stability now includes both full-domain fixture sources. See the continuous
+summary; this does not constitute deployed/ESP32 TLS or formal verification.

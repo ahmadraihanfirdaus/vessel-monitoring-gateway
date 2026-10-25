@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""UI-002 view source/placeholder audit, not a rendering or API test."""
+"""UI-002 connected-view source guards; actual rendering is tested in Laravel."""
 import unittest
 from pathlib import Path
 R=Path(__file__).resolve().parents[1]
@@ -12,12 +12,27 @@ class DashboardViewsSourceTests(unittest.TestCase):
         content=(R/'backend/laravel/resources/views/monitoring/index.blade.php').read_text()
         for k in EXPECTED:self.assertIn("@include('monitoring.sections."+k+"')",content)
     def test_no_false_live_data_or_network_fetch(self):
+        entry=(R/'backend/laravel/resources/views/monitoring/index.blade.php').read_text(encoding='utf-8')
+        self.assertIn("@if($state === null)",entry)
+        self.assertIn('DATA NOT CONNECTED',entry)
+        self.assertIn("$sampleFreshness['label']",entry)
+        table=(R/'backend/laravel/resources/views/monitoring/channel-table.blade.php').read_text(encoding='utf-8')
+        self.assertIn("@if($channels === [])",table)
+        self.assertIn("$channel['value'] !== null",table)
         for k in EXPECTED:
-            s=(R/'backend/laravel/resources/views/monitoring/sections'/f'{k}.blade.php').read_text()
-            self.assertIn('DATA NOT CONNECTED',s)
+            s=(R/'backend/laravel/resources/views/monitoring/sections'/f'{k}.blade.php').read_text(encoding='utf-8')
             for forbidden in ('fetch(', 'DB::','Device::all(','token=','Bearer '):self.assertNotIn(forbidden,s)
+        bindings={'overview':"$state['channels'] ?? []",'safety':"$sectionChannels['safety']",
+                  'propulsion':"$sectionChannels['propulsion']",'navigation':"$sectionChannels['navigation']",
+                  'power':"$sectionChannels['power']",'alarms-events':'$events',
+                  'device-health':'$health','test-evidence':"$evidence['available']"}
+        for k,binding in bindings.items():
+            self.assertIn(binding,(R/'backend/laravel/resources/views/monitoring/sections'/f'{k}.blade.php').read_text(encoding='utf-8'))
+        runtime=(R/'backend/laravel/tests/Feature/MonitoringRenderingTest.php').read_text(encoding='utf-8')
+        self.assertIn('test_no_sample_is_explicit_without_zero_or_safe_defaults',runtime)
+        self.assertIn('test_all_eight_sections_render_actual_data_and_configured_assignments',runtime)
     def test_view_section_labels(self):
-        labels=['Overview','Safety','Propulsion','Navigation','Power','Alarms / Events','Device Health','Test Evidence']
+        labels=['Overview','Safety','Propulsion','Navigation','Power','Alarms and Events','Device Health','Test Evidence']
         for k,label in zip(EXPECTED,labels):
             self.assertIn('>'+label+'</h2>',(R/'backend/laravel/resources/views/monitoring/sections'/f'{k}.blade.php').read_text())
 if __name__=='__main__':unittest.main()

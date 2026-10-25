@@ -12,6 +12,20 @@ import build_esp32_port as build
 
 
 class BuildEvidenceTest(unittest.TestCase):
+    def test_unknown_environment_cannot_select_an_arbitrary_path_or_target(self):
+        with patch.object(sys, 'argv', ['build', '--environment', '../foreign', '--evidence-name', 'esp32-transport-sdk-build-test.txt']), patch.object(build.subprocess, 'run') as command, redirect_stdout(io.StringIO()), self.assertRaises(SystemExit):
+            build.main()
+        command.assert_not_called()
+
+    def test_both_allowlisted_environments_reach_the_same_guarded_build_path(self):
+        for environment in ('esp32dev_espidf', 'esp32dev_continuous'):
+            with tempfile.TemporaryDirectory(prefix='vg-build-gate-') as folder:
+                root = Path(folder)
+                (root/'evidence/test-results').mkdir(parents=True)
+                with patch.object(build, 'ROOT', root), patch.object(sys, 'argv', ['build', '--environment', environment, '--evidence-name', 'esp32-transport-sdk-build-test.txt']), patch.object(build.subprocess, 'run', return_value=subprocess.CompletedProcess([], 1, '[FAILED]\n', '')) as command, redirect_stdout(io.StringIO()):
+                    self.assertEqual(build.main(), 1)
+                self.assertEqual(command.call_args.args[0][-2:], ['-e', environment])
+
     def test_security_config_rejects_each_missing_guard_and_insecure_switch(self):
         required = ('MBEDTLS_CERTIFICATE_BUNDLE', 'MBEDTLS_CERTIFICATE_BUNDLE_DEFAULT_FULL',
                     'COMPILER_OPTIMIZATION_ASSERTIONS_ENABLE', 'MBEDTLS_HAVE_TIME_DATE',

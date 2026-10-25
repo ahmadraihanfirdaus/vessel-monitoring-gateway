@@ -41,6 +41,7 @@
 #define VG_TELEMETRY_MAX_VERSION_LEN 48u
 #define VG_TELEMETRY_MAX_CHANNEL_NAME_LEN 32u
 #define VG_TELEMETRY_MAX_CHANNELS 16u
+#define VG_TELEMETRY_EXTENDED_MAX_CHANNELS 72u
 #define VG_TELEMETRY_JSON_MAX 4096u
 #define VG_TELEMETRY_KEY_MAX 128u
 
@@ -144,34 +145,31 @@ static inline bool vg_tel_channel_is_consistent(
     }
 }
 
-static inline bool vg_tel_payload_is_consistent(
-    const vg_telemetry_payload_t *payload)
+/* Shared vector admission; the legacy payload retains its 16-channel bound. */
+static inline bool vg_tel_vector_is_consistent(const char *device, const char *firmware,
+    const char *boot, vg_source_mode_t mode, const vg_telemetry_channel_t *channels,
+    size_t count, size_t limit)
 {
-    if (payload == NULL ||
-        !vg_tel_safe_token(payload->device_id, VG_TELEMETRY_MAX_ID_LEN) ||
-        !vg_tel_safe_token(payload->firmware_version,
-                           VG_TELEMETRY_MAX_VERSION_LEN) ||
-        !vg_tel_safe_token(payload->boot_id, VG_TELEMETRY_MAX_ID_LEN) ||
-        vg_source_mode_to_string(payload->source_mode) == NULL ||
-        payload->channel_count == 0u ||
-        payload->channel_count > VG_TELEMETRY_MAX_CHANNELS) {
-        return false;
+    if (!vg_tel_safe_token(device, VG_TELEMETRY_MAX_ID_LEN) ||
+        !vg_tel_safe_token(firmware, VG_TELEMETRY_MAX_VERSION_LEN) ||
+        !vg_tel_safe_token(boot, VG_TELEMETRY_MAX_ID_LEN) ||
+        vg_source_mode_to_string(mode) == NULL || !channels || count == 0u ||
+        count > limit || (limit != VG_TELEMETRY_MAX_CHANNELS && limit != VG_TELEMETRY_EXTENDED_MAX_CHANNELS)) return false;
+    for (size_t i = 0u; i < count; ++i) {
+        if (!vg_tel_channel_is_consistent(&channels[i])) return false;
     }
-
-    for (size_t i = 0u; i < payload->channel_count; ++i) {
-        if (!vg_tel_channel_is_consistent(&payload->channels[i])) {
-            return false;
-        }
-
-        for (size_t j = i + 1u; j < payload->channel_count; ++j) {
-            if (strcmp(payload->channels[i].name,
-                       payload->channels[j].name) == 0) {
-                return false;
-            }
-        }
+    for (size_t i = 0u; i < count; ++i) {
+        for (size_t j = i + 1u; j < count; ++j)
+            if (strcmp(channels[i].name, channels[j].name) == 0) return false;
     }
-
     return true;
+}
+
+static inline bool vg_tel_payload_is_consistent(const vg_telemetry_payload_t *payload)
+{
+    return payload != NULL && vg_tel_vector_is_consistent(payload->device_id,
+        payload->firmware_version, payload->boot_id, payload->source_mode,
+        payload->channels, payload->channel_count, VG_TELEMETRY_MAX_CHANNELS);
 }
 
 static inline bool vg_tel_same_identity(
@@ -314,20 +312,23 @@ static inline bool vg_tel_append(
     return true;
 }
 
-static inline bool vg_tel_serialize_json(
-    const vg_telemetry_payload_t *payload,
-    char *out,
-    size_t out_size)
+/* Validated versioned vector formatter. False means output must not be used;
+ * callers needing atomic publication provide a separate working wire buffer. */
+static inline bool vg_tel_serialize_vector_json(const char *schema, const char *device,
+    const char *firmware, const char *boot, uint64_t sequence, uint64_t uptime_ms,
+    vg_source_mode_t mode, const vg_telemetry_channel_t *channels, size_t count,
+    char *out, size_t out_size)
 {
-    if (!vg_tel_payload_is_consistent(payload) ||
-        out == NULL || out_size == 0u) {
-        return false;
+    if (!schema || !out || out_size == 0u) return false;
+    size_t limit = 0u;
+    if (strcmp(schema, "1.0") == 0) limit = VG_TELEMETRY_MAX_CHANNELS;
+    else if (strcmp(schema, "1.1") == 0) {
+        limit = VG_TELEMETRY_EXTENDED_MAX_CHANNELS;
+        if (out_size > VG_TELEMETRY_JSON_MAX + 1u) out_size = VG_TELEMETRY_JSON_MAX + 1u;
     }
-
-    const char *source = vg_source_mode_to_string(payload->source_mode);
-    if (source == NULL) {
-        return false;
-    }
+    else return false;
+    if (!vg_tel_vector_is_consistent(device, firmware, boot, mode, channels, count, limit)) return false;
+    const char *source = vg_source_mode_to_string(mode);
 
     size_t used = 0u;
     if (!vg_tel_append(
@@ -340,18 +341,18 @@ static inline bool vg_tel_serialize_json(
             "\"uptime_ms\":%" PRIu64 ","
             "\"source_mode\":\"%s\","
             "\"channels\":{",
-            VG_TELEMETRY_SCHEMA_VERSION,
-            payload->device_id,
-            payload->firmware_version,
-            payload->boot_id,
-            payload->sequence,
-            payload->uptime_ms,
+            schema,
+            device,
+            firmware,
+            boot,
+            sequence,
+            uptime_ms,
             source)) {
         return false;
     }
 
-    for (size_t i = 0u; i < payload->channel_count; ++i) {
-        const vg_telemetry_channel_t *ch = &payload->channels[i];
+    for (size_t i = 0u; i < count; ++i) {
+        const vg_telemetry_channel_t *ch = &channels[i];
         const char *quality = vg_tel_quality_to_string(ch->quality);
         if (quality == NULL) {
             return false;
@@ -383,6 +384,15 @@ static inline bool vg_tel_serialize_json(
     }
 
     return vg_tel_append(out, out_size, &used, "}}");
+}
+
+static inline bool vg_tel_serialize_json(const vg_telemetry_payload_t *payload,
+    char *out, size_t out_size)
+{
+    if (!vg_tel_payload_is_consistent(payload)) return false;
+    return vg_tel_serialize_vector_json(VG_TELEMETRY_SCHEMA_VERSION, payload->device_id,
+        payload->firmware_version, payload->boot_id, payload->sequence, payload->uptime_ms,
+        payload->source_mode, payload->channels, payload->channel_count, out, out_size);
 }
 
 #endif /* VG_TELEMETRY_CONTRACT_H */

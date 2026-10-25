@@ -82,7 +82,7 @@ class TelemetryIngestRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'schema_version' => ['required', 'string', 'in:1.0'],
+            'schema_version' => ['required', 'string', 'in:1.0,1.1'],
             'device_id' => [
                 'required',
                 'string',
@@ -104,7 +104,7 @@ class TelemetryIngestRequest extends FormRequest
             'sequence' => ['required', $this->uint64Rule()],
             'uptime_ms' => ['required', $this->uint64Rule()],
             'source_mode' => ['required', 'string', 'in:'.implode(',', self::SOURCE_MODES)],
-            'channels' => ['required', 'array', 'min:1', 'max:16'],
+            'channels' => ['required', 'array', 'min:1', 'max:'.($this->input('schema_version') === '1.1' ? 72 : 16)],
             'channels.*' => ['required', 'array:value,quality'],
             'channels.*.value' => ['present', 'nullable', 'numeric'],
             'channels.*.quality' => [

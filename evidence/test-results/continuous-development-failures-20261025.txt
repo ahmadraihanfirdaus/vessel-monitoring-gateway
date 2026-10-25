@@ -1,0 +1,12 @@
+OBSERVED_FAILURE_1=NATIVE_FIXTURE_COMPILE_WERROR_NAME_TOO_LONG
+One test used a 33-character synthetic channel name with a 33-byte destination. GCC format-truncation rejected the test compilation. The fixture name was shortened; final native gate reruns all methods.
+OBSERVED_FAILURE_2=MYSQL_NEW_ASSERTION_PATH
+First full suite: 347 methods, one failure. New test addressed schema_version at response root instead of the existing state wrapper. Corrected assertions; no read API behavior change. Run1 log retained; run2 passed all 347.
+OBSERVED_FAILURE_3=RUNNER_MOCK_OLD_CALL_INDEX
+Adding the fourth native fixture shifted downstream migration/test call positions. One stale mock expectation still addressed index 4; corrected to index 5 and added an explicit continuous-fixture failure test. All 22 runner methods PASS.
+OBSERVED_FAILURE_4=REAL_HTTP_IDENTICAL_DECIMAL_REPLAY_CONFLICT
+First real network run reached all 24 full-domain packets, readback and domain labels, then failed identical replay. Exact ownership cleanup PASS. Persistence fixed rather than weakening equality; run2 replay and all network assertions PASS.
+OBSERVED_FAILURE_5=LEGACY_SOURCE_GUARD_EXPECTED_ONLY_V1_0
+Broad regression source guard required literal in:1.0 and fixed max:16. Updated to require explicit 1.0/1.1 admission, per-version 16/72 bounds, both JSON schema limits and the real transactional 16/17/72/73 test. Original failure retained in regression log.
+OBSERVED_FAILURE_6=OLDER_UI_AND_CURSOR_SOURCE_GUARDS
+Broad 206-command regression also found two pre-existing source guards: UI-002 still required placeholder text in every connected section and an old title; B10 expected the inline cursor decoder superseded by StrictDeviceHistoryCursor. Updated tests preserve explicit empty-data/quality/no-fetch/eight-bindings and cursor-vs-dependency exception separation. Actual rendering/cursor HTTP regressions remain mandatory. All three failed source commands PASS on corrected rerun; initial log retained.

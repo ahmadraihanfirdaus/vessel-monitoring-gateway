@@ -6,6 +6,9 @@
 <tr><td>{{ $name }}</td><td>
 @if(in_array($channel['quality'], ['valid','stale'], true) && $channel['value'] !== null)
 {{ $channel['value'] }}
+@if(($simulationPresentation ?? false) && ($description = \App\Support\SimulationChannelPresentation::describe((string) $name, $channel['value'])) !== null)
+<small>{{ $description }}</small>
+@endif
 @else
 &mdash;
 @endif
