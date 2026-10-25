@@ -1,0 +1,22 @@
+COMMAND python -B scripts/test_event_retirement_file.py
+test_actual_file_reopen_old_current_forgery_capacity_and_monotonic_new_fact (__main__.RetirementFileTest.test_actual_file_reopen_old_current_forgery_capacity_and_monotonic_new_fact) ... ERROR
+test_existing_binary_cannot_be_overwritten (__main__.RetirementFileTest.test_existing_binary_cannot_be_overwritten) ... ok
+test_existing_slot_bad_identity_phase_and_bounds_refuse_without_child_process (__main__.RetirementFileTest.test_existing_slot_bad_identity_phase_and_bounds_refuse_without_child_process) ... ok
+test_unowned_root_cannot_compile_or_change_files (__main__.RetirementFileTest.test_unowned_root_cannot_compile_or_change_files) ... ok
+
+======================================================================
+ERROR: test_actual_file_reopen_old_current_forgery_capacity_and_monotonic_new_fact (__main__.RetirementFileTest.test_actual_file_reopen_old_current_forgery_capacity_and_monotonic_new_fact)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\test_event_retirement_file.py", line 33, in test_actual_file_reopen_old_current_forgery_capacity_and_monotonic_new_fact
+    next_fact = run_retirement(binary, env, 'current', identity, current, 201, receipt)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\event_receipt_native_bridge.py", line 88, in run_retirement
+    raise RuntimeError('RETIREMENT_NATIVE_UNEXPECTED_RESULT_NO_SECRET_OUTPUT')
+RuntimeError: RETIREMENT_NATIVE_UNEXPECTED_RESULT_NO_SECRET_OUTPUT
+
+----------------------------------------------------------------------
+Ran 4 tests in 1.359s
+
+FAILED (errors=1)
+EXIT=1

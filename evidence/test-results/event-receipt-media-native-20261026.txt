@@ -1,0 +1,15 @@
+test_alias_and_null_output_cannot_mutate_key_body_or_envelope (__main__.EventCommitReceiptTest.test_alias_and_null_output_cannot_mutate_key_body_or_envelope) ... ok
+test_crypto_provider_failures_never_publish_verified_digest (__main__.EventCommitReceiptTest.test_crypto_provider_failures_never_publish_verified_digest) ... ok
+test_every_receipt_byte_tamper_refuses_without_output_mutation (__main__.EventCommitReceiptTest.test_every_receipt_byte_tamper_refuses_without_output_mutation) ... ok
+test_independent_hmac_oracle_including_long_bearers_and_body_boundaries (__main__.EventCommitReceiptTest.test_independent_hmac_oracle_including_long_bearers_and_body_boundaries) ... ok
+test_receipt_media_type_is_exact_bounded_and_case_insensitive (__main__.EventCommitReceiptTest.test_receipt_media_type_is_exact_bounded_and_case_insensitive) ... ok
+test_sdk_uses_volatile_standard_crypto_and_checks_key_destruction (__main__.EventCommitReceiptTest.test_sdk_uses_volatile_standard_crypto_and_checks_key_destruction) ... ok
+test_truncation_extra_bytes_bad_status_key_size_and_hex_fail_closed (__main__.EventCommitReceiptTest.test_truncation_extra_bytes_bad_status_key_size_and_hex_fail_closed) ... ok
+test_wrong_key_body_or_success_status_cannot_authorize (__main__.EventCommitReceiptTest.test_wrong_key_body_or_success_status_cannot_authorize) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 5.703s
+
+OK
+
+EXIT=0

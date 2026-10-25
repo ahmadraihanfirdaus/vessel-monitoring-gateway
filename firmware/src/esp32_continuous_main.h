@@ -8,6 +8,7 @@
 #include "continuous_simulation.h"
 #include "esp32_network_client.h"
 #include "esp32_offline_store.h"
+#include "event_delivery.h"
 #include "esp_timer.h"
 #include "esp_random.h"
 #include "bootloader_random.h"
@@ -23,6 +24,8 @@ static vg_net_profile continuous_network_profile;
 static char continuous_alarm_wire[1024];
 static vg_recovered_events continuous_recovered;
 static vg_replay_progress continuous_replay;
+static vg_event_delivery continuous_delivery;
+static vg_offline_event continuous_delivery_record;
 
 /* Explicit nonsecret demonstration policy in read-only namespace vgw_demo.
  * Provisioning is external and NOT performed by this firmware. No fallback
@@ -89,7 +92,8 @@ void app_main(void)
     puts(network ? "CONTINUOUS_NETWORK: STARTED_UNVERIFIED" : "CONTINUOUS_NETWORK: NOT_CONFIGURED_OR_UNAVAILABLE");
     bool pending = false;
     bool prefer_event = true, event_encoding_halted = false;
-    bool recovered_ready = false;
+    bool recovered_ready = false, storage_halted = !storage, publication_halted = false;
+    uint64_t recovery_epoch = 0u;
     uint64_t storage_refused = 0u, network_refused = 0u;
     uint64_t storage_full_reports = 0u, storage_rejected_reports = 0u;
     bool storage_degraded_reported = false;
@@ -119,13 +123,13 @@ void app_main(void)
             puts("CONTINUOUS_SIMULATION: SEQUENCE_OR_CLOCK_HALTED_EXPLICIT_RESTART_REQUIRED");
             break;
         }
-        vg_net_completion completion;
-        if (network && vg_net_take_completion(&completion))
-            puts(completion.completed ? "CONTINUOUS_HTTP: COMPLETED_NOT_APPLICATION_ACK" : "CONTINUOUS_HTTP: FAILED");
         vg_storage_completion stored;
         if (storage && vg_storage_take_completion(&stored)) {
-            if (stored.status == VG_STORAGE_IO_HALTED)
-                puts("CONTINUOUS_STORAGE: IO_HALTED_LOCAL_SIMULATION_CONTINUES");
+            if (stored.status == VG_STORAGE_IO_HALTED || stored.boot_owner_refused) {
+                storage_halted = true;
+                puts(stored.boot_owner_refused ? "CONTINUOUS_STORAGE: BOOT_OWNER_REFUSED_RESTART_WITH_FRESH_ID" :
+                    "CONTINUOUS_STORAGE: IO_HALTED_LOCAL_SIMULATION_CONTINUES");
+            } else if (stored.status == VG_STORAGE_RECOVERED) storage_halted = false;
             else if (stored.status == VG_STORAGE_CRITICAL_FULL) {
                 vg_continuous_increment(&storage_full_reports);
                 if (storage_full_reports == 1u || storage_full_reports % 256u == 0u)
@@ -140,44 +144,93 @@ void app_main(void)
                 puts("CONTINUOUS_STORAGE: DEGRADED_STORAGE_OLDER_DATA_POSSIBLE");
             }
         }
+        /* Drain recovery before retirement replies: an older valid snapshot
+         * can restore prerequisites of a request already in flight. */
         if (storage && vg_storage_take_recovered_events(&continuous_recovered)) {
             recovered_ready = vg_recovered_events_valid(&continuous_recovered) &&
                 !strcmp(continuous_recovered.device, continuous.config.device);
             continuous_replay.recovered_visited = 0u;
             continuous_replay.recovered_unpublishable = 0u;
+            continuous_replay.current_queued = 0u;
             continuous_replay.prefer_recovered = true;
+            if (recovery_epoch == UINT64_MAX) publication_halted = true;
+            else ++recovery_epoch;
             if (recovered_ready)
                 printf("CONTINUOUS_REPLAY: RECOVERED_EVENTS=%u GENERATION=%llu DEGRADED=%u NO_DELETION_RECEIPT\n",
                     (unsigned)continuous_recovered.event_count,
                     (unsigned long long)continuous_recovered.generation, (unsigned)continuous_recovered.degraded);
-            else puts("CONTINUOUS_REPLAY: INVALID_RECOVERY_VIEW_NOT_PUBLISHED");
+            else {
+                continuous_delivery.event_halted = true;
+                puts("CONTINUOUS_REPLAY: INVALID_RECOVERY_VIEW_NOT_PUBLISHED");
+            }
         }
-        /* Fair bounded queueing of immutable recovered/current facts. Explicit
-         * recovery may replay duplicates. No queue/HTTP completion deletes a
-         * retained fact, advances a durable ACK or changes an alarm condition. */
+        vg_delivery_context delivery_context = {continuous.config.boot, &continuous.journal,
+            &continuous.alarm_journal, &continuous_replay, &continuous_recovered, recovered_ready, recovery_epoch};
+        vg_net_completion completion;
+        if (network && vg_net_take_completion(&completion)) {
+            vg_delivery_result received = vg_delivery_receive_http(&continuous_delivery, &completion);
+            if (received == VG_DELIVERY_RECEIPT_READY) puts("CONTINUOUS_HTTP: RECEIPT_UNVERIFIED_AWAITING_STORAGE");
+            else if (received == VG_DELIVERY_TELEMETRY_DONE) puts("CONTINUOUS_HTTP: TELEMETRY_COMPLETED_NOT_DURABLE_ACK");
+            else if (received == VG_DELIVERY_NETWORK_FAILED) puts("CONTINUOUS_HTTP: FAILED_FACT_RETAINED_EXPLICIT_TRANSPORT_RESET_REQUIRED");
+            else if (received == VG_DELIVERY_REJECTED) puts("CONTINUOUS_HTTP: INVALID_RECEIPT_EVENTS_HALTED_FACTS_RETAINED");
+        }
+        vg_storage_retirement_completion retired;
+        if (storage && vg_storage_take_retirement(&retired)) {
+            vg_delivery_result received = vg_delivery_receive_storage(&continuous_delivery, &retired, &delivery_context);
+            if (received == VG_DELIVERY_CONFIRMED) puts("CONTINUOUS_RECEIPT: AUTHENTICATED_DURABLE_RETIREMENT_ALARM_UNCHANGED");
+            else if (received == VG_DELIVERY_UNRETIRED) {
+                storage_halted = true;
+                puts("CONTINUOUS_RECEIPT: IO_UNCERTAIN_FACT_RETAINED_NO_CAPACITY_RECOVERY");
+            } else if (received == VG_DELIVERY_REJECTED) puts("CONTINUOUS_RECEIPT: REJECTED_EVENTS_HALTED_FACTS_RETAINED");
+            else if (received == VG_DELIVERY_RESCHEDULED) puts("CONTINUOUS_RECEIPT: RECOVERED_PREDECESSOR_REQUIRES_RECONFIRMATION");
+        }
+        if (continuous_delivery.stage == VG_DELIVERY_RECEIPT) {
+            if (!vg_delivery_context_valid(&delivery_context)) {
+                continuous_delivery.event_halted = true;
+                vg_delivery_close(&continuous_delivery);
+            } else if (storage_halted) {
+                /* Receipt alone cannot release facts; bounded publication
+                 * continues while unavailable storage prevents retirement. */
+                vg_delivery_close(&continuous_delivery);
+                puts("CONTINUOUS_RECEIPT: STORAGE_UNAVAILABLE_FACT_RETAINED");
+            } else if (vg_delivery_prior_fact_pending(&continuous_delivery.record, &delivery_context)) {
+                if (!vg_delivery_reschedule(&continuous_delivery, &delivery_context)) publication_halted = true;
+            } else if (vg_storage_submit_receipt(continuous_delivery.tag, &continuous_delivery.record,
+                continuous_delivery.status, continuous_delivery.receipt, sizeof(continuous_delivery.receipt))) {
+                if (!vg_delivery_receipt_submitted(&continuous_delivery)) publication_halted = true;
+            }
+        }
         size_t recovered_count = recovered_ready ? continuous_recovered.event_count : 0u;
-        vg_replay_choice choice = vg_replay_choose(&continuous_replay, recovered_count, continuous.alarm_journal.count);
+        vg_replay_choice choice = vg_delivery_choose(&delivery_context);
         if (network && !event_encoding_halted && choice == VG_REPLAY_CHOICE_INVALID) {
             vg_continuous_increment(&continuous.alarm_errors);
             event_encoding_halted = true;
             puts("CONTINUOUS_REPLAY: INVALID_PROGRESS_RETAINED_FACTS_NOT_SKIPPED");
         }
-        bool event_pending = network && !event_encoding_halted && choice > VG_REPLAY_NONE;
+        bool idle = network && !publication_halted && continuous_delivery.stage == VG_DELIVERY_IDLE;
+        uint64_t tag = vg_delivery_next_tag(&continuous_delivery);
+        if (idle && !tag) {
+            publication_halted = true;
+            puts("CONTINUOUS_NETWORK: TAG_EXHAUSTED_LOCAL_SIMULATION_CONTINUES");
+            idle = false;
+        }
+        bool event_pending = idle && !event_encoding_halted && !continuous_delivery.event_halted && choice > VG_REPLAY_NONE;
         if (event_pending && (prefer_event || !pending)) {
-            uint64_t event_id;
-            vg_replay_encode_result encoded;
+            size_t index;
             if (choice == VG_REPLAY_RECOVERED) {
-                size_t index = continuous_replay.recovered_visited;
-                event_id = continuous_recovered.events[index].event.event_id;
-                encoded = vg_recovered_event_json(&continuous_recovered, index,
-                    continuous_alarm_wire, sizeof(continuous_alarm_wire));
+                index = continuous_replay.recovered_visited;
+                continuous_delivery_record = continuous_recovered.events[index];
             } else {
-                const vg_alarm_transition_t *transition =
-                    &continuous.alarm_journal.entries[continuous_replay.current_queued];
-                event_id = transition->event.event_id;
-                encoded = vg_alarm_transition_json(transition, continuous.config.device, continuous.config.boot,
-                    continuous_alarm_wire, sizeof(continuous_alarm_wire)) ? VG_REPLAY_ENCODED : VG_REPLAY_BUFFER_REFUSED;
+                index = continuous_replay.current_queued;
+                const vg_alarm_transition_t *transition = &continuous.alarm_journal.entries[index];
+                memset(&continuous_delivery_record, 0, sizeof(continuous_delivery_record));
+                strcpy(continuous_delivery_record.boot, continuous.config.boot);
+                continuous_delivery_record.event = transition->event;
+                continuous_delivery_record.has_alarm = true;
+                continuous_delivery_record.alarm = transition->alarm;
             }
+            vg_replay_encode_result encoded = vg_offline_event_json(&continuous_delivery_record,
+                continuous.config.device, continuous_alarm_wire, sizeof(continuous_alarm_wire));
             if (encoded == VG_REPLAY_UNSUPPORTED_TYPE) {
                 puts("CONTINUOUS_REPLAY: UNSUPPORTED_LEGACY_TYPE_RETAINED_NOT_PUBLISHED");
                 if (!vg_replay_mark(&continuous_replay, recovered_count,
@@ -186,15 +239,19 @@ void app_main(void)
                 vg_continuous_increment(&continuous.alarm_errors);
                 event_encoding_halted = true;
                 puts("CONTINUOUS_EVENT: ENCODING_HALTED_RETAINED_FACT_NOT_SKIPPED");
-            } else if (vg_net_submit(VG_NET_EVENT, continuous_alarm_wire, strlen(continuous_alarm_wire), event_id)) {
-                if (!vg_replay_mark(&continuous_replay, recovered_count,
-                    continuous.alarm_journal.count, choice, false)) event_encoding_halted = true;
+            } else if (vg_net_submit(VG_NET_EVENT, continuous_alarm_wire, strlen(continuous_alarm_wire), tag)) {
+                if (!vg_delivery_begin(&continuous_delivery, VG_NET_EVENT, tag, &continuous_delivery_record,
+                    choice, index, recovery_epoch) || !vg_replay_mark(&continuous_replay, recovered_count,
+                    continuous.alarm_journal.count, choice, false)) publication_halted = true;
                 prefer_event = false;
             } else vg_continuous_increment(&network_refused);
-        } else if (pending) {
-            if (vg_net_submit(VG_NET_TELEMETRY, continuous.latest_wire, continuous.latest_length, continuous.latest_sequence))
-                { pending = false; prefer_event = true; }
-            else vg_continuous_increment(&network_refused);
+        } else if (idle && pending) {
+            if (vg_net_submit(VG_NET_TELEMETRY, continuous.latest_wire, continuous.latest_length, tag)) {
+                if (!vg_delivery_begin(&continuous_delivery, VG_NET_TELEMETRY, tag, NULL,
+                    VG_REPLAY_NONE, 0u, recovery_epoch)) publication_halted = true;
+                pending = false;
+                prefer_event = true;
+            } else vg_continuous_increment(&network_refused);
         }
         TickType_t ticks = pdMS_TO_TICKS(10u);
         vTaskDelay(ticks > 0 ? ticks : 1);

@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\EventIngestRequest;
 use App\Models\Device;
 use App\Support\DependencyUnavailableResponse;
+use App\Support\EventCommitReceipt;
 use Illuminate\Database\QueryException;
 use App\Services\EventIngestService;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpFoundation\Response;
 
 class EventIngestController extends Controller
 {
@@ -17,7 +19,7 @@ class EventIngestController extends Controller
     ) {
     }
 
-    public function __invoke(EventIngestRequest $request): JsonResponse
+    public function __invoke(EventIngestRequest $request): Response
     {
         $device = $request->attributes->get('authenticated_device');
 
@@ -35,6 +37,16 @@ class EventIngestController extends Controller
             ], 403);
         }
 
+        $receiptRequested = $request->headers->has(EventCommitReceipt::HEADER);
+        if ($receiptRequested && $request->headers->all(strtolower(EventCommitReceipt::HEADER)) !== ['1']) {
+            return response()->json(['error' => 'invalid_event_receipt_version'], 400);
+        }
+        // Signing a savepoint release would falsely confirm a transaction that
+        // its caller can still roll back. Refuse before any event write.
+        if ($receiptRequested && DB::transactionLevel() !== 0) {
+            return response()->json(['error' => 'event_receipt_requires_committed_transaction'], 503);
+        }
+
         try {
             $result = $this->service->ingest($device, $payload);
         } catch (QueryException $exception) {
@@ -45,6 +57,17 @@ class EventIngestController extends Controller
             throw $exception;
         }
 
-        return response()->json($result['body'], $result['status']);
+        if (! $receiptRequested || ! in_array($result['status'], [200, 201], true)) {
+            return response()->json($result['body'], $result['status']);
+        }
+        $bearer = $request->bearerToken();
+        $receipt = DB::transactionLevel() === 0 && is_string($bearer)
+            && in_array($result['body']['result'] ?? null, ['event_persisted', 'identical_event_duplicate'], true)
+            ? EventCommitReceipt::issue($request->getContent(), $bearer, $result['status']) : null;
+        if ($receipt === null) {
+            return response()->json(['error' => 'event_receipt_unavailable'], 503);
+        }
+
+        return response($receipt, $result['status'])->header('Content-Type', EventCommitReceipt::CONTENT_TYPE);
     }
 }

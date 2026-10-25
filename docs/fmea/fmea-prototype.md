@@ -1,4 +1,4 @@
-# Preliminary FMEA — Software Prototype / Simulation Boundary
+# Preliminary FMEA â€” Software Prototype / Simulation Boundary
 
 **Document class:** Development-stage qualitative failure-mode register; **NOT APPROVED** for operational vessel safety, installation, or certification.
 
@@ -76,3 +76,19 @@ Additional queue/context copies have bounded allocation; native/SDK static RAM
 and own-frame results do not verify full heap/stack/timing or physical power-loss
 behavior. No FMEA item is formally closed by the local replay tests. See the
 recovered replay summary for actual source proofs and external NOT_RUN gates.
+
+## Authenticated receipt continuation, 2026-10-26
+
+Exact-body/status HMAC receipt and separately authorized VGS3 retirement now
+connect actual API commits to bounded storage worker/readback and exact RAM
+prefix release. HTTP/queue success alone never deletes a fact. Forged media/MAC,
+wrong status/key/body, partial writes and uncertain IO retain facts or halt;
+recovered predecessors are reconfirmed before newer current facts. ACK delivery
+never clears/acknowledges the mutable alarm condition. See ADR0010 and receipt
+summary for actual tests, failure correction and local review results.
+Finite cap8/refusal, unsupported RECOVERY retention, explicit transport/storage
+reset/recovery policy and3168-byte retained app margin remain risks. CRC is not
+at-rest authentication or physical anti-rollback; host file commit/readback and
+SDK builds do not prove physical durability, wear, RTOS/PSA execution, timing or
+full resource margins. No FMEA item, formal case or residual risk is approved
+by these development tests. Hardware/deployed TLS/formal external gates NOT_RUN.

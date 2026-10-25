@@ -1,0 +1,30 @@
+COMMAND=python -B scripts/test_offline_confirmed_floor.py
+test_confirmed_prefix_cannot_resurrect_from_cumulative_same_boot_submissions (__main__.OfflineConfirmedFloorTest.test_confirmed_prefix_cannot_resurrect_from_cumulative_same_boot_submissions) ... FAIL
+test_every_truncation_corruption_and_rechecksummed_invalid_floor_preserves_output (__main__.OfflineConfirmedFloorTest.test_every_truncation_corruption_and_rechecksummed_invalid_floor_preserves_output) ... ok
+test_independent_vgs3_bytes_crc_metadata_zero_null_and_floor (__main__.OfflineConfirmedFloorTest.test_independent_vgs3_bytes_crc_metadata_zero_null_and_floor) ... ok
+test_maximum_vgs3_5150_bytes_fits_unchanged_5184_allocation (__main__.OfflineConfirmedFloorTest.test_maximum_vgs3_5150_bytes_fits_unchanged_5184_allocation) ... ok
+test_new_boot_resets_only_scoped_floor_and_preserves_other_retained_facts (__main__.OfflineConfirmedFloorTest.test_new_boot_resets_only_scoped_floor_and_preserves_other_retained_facts) ... ok
+test_ordinary_publication_cannot_invent_or_advance_floor (__main__.OfflineConfirmedFloorTest.test_ordinary_publication_cannot_invent_or_advance_floor) ... ok
+test_vgs3_supports_unknown_or_no_retained_metadata_without_inventing_it (__main__.OfflineConfirmedFloorTest.test_vgs3_supports_unknown_or_no_retained_metadata_without_inventing_it) ... ok
+
+======================================================================
+FAIL: test_confirmed_prefix_cannot_resurrect_from_cumulative_same_boot_submissions (__main__.OfflineConfirmedFloorTest.test_confirmed_prefix_cannot_resurrect_from_cumulative_same_boot_submissions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\test_offline_confirmed_floor.py", line 58, in test_confirmed_prefix_cannot_resurrect_from_cumulative_same_boot_submissions
+    self.c(r'''
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\test_offline_confirmed_floor.py", line 18, in c
+    return compile_c(BASE+(FLOOR if floor else '')+source+'\nreturn 0;}\n', extra_flags=('-Os',))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\phase9_b4_testlib.py", line 14, in compile_c
+    if p.returncode:raise AssertionError('RUNTIME_FAIL '+p.stdout+p.stderr)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: RUNTIME_FAIL Assertion failed: vg_alarm_try_raise(&ids,&alarm,7,VG_SOURCE_SIMULATION,3,1002,101), file <LOCAL_HOME>\AppData\Local\Temp\phase9-b4-jhjggvz1\fixture.c, line 31
+
+
+----------------------------------------------------------------------
+Ran 7 tests in 3.225s
+
+FAILED (failures=1)
+
+EXIT=1

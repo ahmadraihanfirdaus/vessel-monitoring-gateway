@@ -141,13 +141,14 @@ progress.current_queued=2;assert(vg_replay_choose(&progress,1,1)==VG_REPLAY_CHOI
 progress=copy;progress.recovered_unpublishable=1;assert(vg_replay_choose(&progress,1,1)==VG_REPLAY_CHOICE_INVALID);
 ''')
 
-    def test_actual_worker_and_sdk_use_zero_wait_shared_path_without_deletion(self):
+    def test_actual_worker_and_sdk_use_zero_wait_shared_replay_and_authenticated_owner(self):
         worker = (ROOT/'firmware/src/esp32_offline_store.c').read_text(encoding='utf-8')
         caller = (ROOT/'firmware/src/esp32_continuous_main.h').read_text(encoding='utf-8')
         self.assertIn('vg_recovered_events_capture(&ctx->transaction.current,', worker)
         self.assertIn('xQueueCreate(1u, sizeof(vg_recovered_events))', worker)
         self.assertIn('xQueueReceive(storage->recovered, out, 0)', worker)
-        for name in ('vg_storage_take_recovered_events', 'vg_recovered_event_json', 'vg_replay_choose', 'vg_replay_mark'):
+        for name in ('vg_storage_take_recovered_events', 'vg_offline_event_json', 'vg_delivery_choose',
+                     'vg_replay_mark', 'vg_delivery_receive_storage', 'vg_storage_submit_receipt'):
             self.assertIn(name, caller)
         for text in ('nvs_erase', 'gpio_set_level', 'vg_offline_publish('):
             self.assertNotIn(text, caller)

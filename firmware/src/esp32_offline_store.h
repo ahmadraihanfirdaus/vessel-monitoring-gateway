@@ -3,6 +3,7 @@
 
 #include "offline_transaction.h"
 #include "offline_replay.h"
+#include "offline_retirement.h"
 
 typedef enum {
     VG_STORAGE_RECOVERED = 1, VG_STORAGE_COMMITTED, VG_STORAGE_CRITICAL_FULL,
@@ -14,7 +15,16 @@ typedef struct {
     uint64_t generation;
     size_t retained_events;
     bool degraded_recovery;
+    bool boot_owner_refused;
 } vg_storage_completion;
+
+typedef struct {
+    uint64_t tag;
+    vg_offline_retire_result result;
+    uint64_t generation;
+    uint64_t confirmed_event_id;
+    bool degraded_recovery;
+} vg_storage_retirement_completion;
 
 #ifdef ESP_PLATFORM
 /* Single startup owner; actual writes happen only on the dedicated worker.
@@ -34,6 +44,11 @@ bool vg_storage_take_completion(vg_storage_completion *out);
  * Repeated explicit recovery can yield duplicates; never a deletion receipt. */
 bool vg_storage_take_recovered_events(vg_recovered_events *out);
 bool vg_storage_request_recovery(void);
+/* Continuous candidate only; retained selftest returns false. Receipt copied
+ * with zero wait; actual authentication and durable IO happen in the worker. */
+bool vg_storage_submit_receipt(uint64_t tag, const vg_offline_event *record,
+    int status, const void *receipt, size_t receipt_length);
+bool vg_storage_take_retirement(vg_storage_retirement_completion *out);
 #endif
 
 #endif

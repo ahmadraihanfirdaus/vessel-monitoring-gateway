@@ -1,0 +1,38 @@
+COMMAND=python -B scripts/test_offline_authenticated_retirement.py
+test_actual_server_confirmed_current_fact_can_advance_floor_when_old_storage_is_full (__main__.AuthenticatedRetirementTest.test_actual_server_confirmed_current_fact_can_advance_floor_when_old_storage_is_full) ... ok
+test_complete_metadata_receipt_retires_exact_fact_and_retains_legacy_other_boot (__main__.AuthenticatedRetirementTest.test_complete_metadata_receipt_retires_exact_fact_and_retains_legacy_other_boot) ... ok
+test_every_partial_retirement_write_preserves_selected_slot_and_halts_until_recovery (__main__.AuthenticatedRetirementTest.test_every_partial_retirement_write_preserves_selected_slot_and_halts_until_recovery) ... ok
+test_every_receipt_byte_forgery_leaves_published_state_and_io_unchanged (__main__.AuthenticatedRetirementTest.test_every_receipt_byte_forgery_leaves_published_state_and_io_unchanged) ... ok
+test_genuine_current_receipt_commits_floor_and_prevents_cumulative_resurrection_after_reboot (__main__.AuthenticatedRetirementTest.test_genuine_current_receipt_commits_floor_and_prevents_cumulative_resurrection_after_reboot) ... ok
+test_matching_identity_with_missing_or_changed_full_metadata_cannot_retire (__main__.AuthenticatedRetirementTest.test_matching_identity_with_missing_or_changed_full_metadata_cannot_retire) ... ok
+test_old_boot_receipt_preserves_unsupported_other_fact_and_is_idempotent (__main__.AuthenticatedRetirementTest.test_old_boot_receipt_preserves_unsupported_other_fact_and_is_idempotent) ... ok
+test_structural_true_without_verified_digest_is_not_retirement_authority (__main__.AuthenticatedRetirementTest.test_structural_true_without_verified_digest_is_not_retirement_authority) ... FAIL
+test_uncertain_commit_and_readback_require_recovery_without_false_rollback_claim (__main__.AuthenticatedRetirementTest.test_uncertain_commit_and_readback_require_recovery_without_false_rollback_claim) ... ok
+test_valid_later_receipt_cannot_skip_oldest_unconfirmed_prefix_or_stored_fact (__main__.AuthenticatedRetirementTest.test_valid_later_receipt_cannot_skip_oldest_unconfirmed_prefix_or_stored_fact) ... ok
+test_wrong_key_status_owner_record_and_aliases_do_not_authorize_retirement (__main__.AuthenticatedRetirementTest.test_wrong_key_status_owner_record_and_aliases_do_not_authorize_retirement) ... ok
+
+======================================================================
+FAIL: test_structural_true_without_verified_digest_is_not_retirement_authority (__main__.AuthenticatedRetirementTest.test_structural_true_without_verified_digest_is_not_retirement_authority)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\test_offline_authenticated_retirement.py", line 195, in test_structural_true_without_verified_digest_is_not_retirement_authority
+    self.c(r'''
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\test_offline_authenticated_retirement.py", line 42, in c
+    return compile_c(prefix+COMMON+'target_record=tx.current.events[0];(void)working;\n'+source+'\nreturn 0;}\n',
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\phase9_b4_testlib.py", line 12, in compile_c
+    if b.returncode:raise AssertionError('COMPILE_FAIL '+b.stdout+b.stderr)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: COMPILE_FAIL <LOCAL_HOME>\AppData\Local\Temp\phase9-b4-zwey5d6h\fixture.c:11:40: error: 'verifier' defined but not used [-Werror=unused-const-variable=]
+   11 | static const vg_event_receipt_verifier verifier={NULL,verify};
+      |                                        ^~~~~~~~
+cc1.exe: all warnings being treated as errors
+
+
+----------------------------------------------------------------------
+Ran 11 tests in 6.087s
+
+FAILED (failures=1)
+
+EXIT=1
+PURE_AUTHENTICATED_TRANSACTION_ONLY_NOT_SDK_WORKER_OR_HARDWARE_PROOF

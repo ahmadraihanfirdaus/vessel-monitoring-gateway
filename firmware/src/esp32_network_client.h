@@ -2,6 +2,7 @@
 #define VG_ESP32_NETWORK_CLIENT_H
 
 #include "esp32_network_profile.h"
+#include "event_commit_receipt.h"
 
 typedef enum {
     VG_NET_PROFILE_ABSENT = 0, VG_NET_PROFILE_READY,
@@ -13,6 +14,7 @@ typedef struct {
     int http_status;
     size_t response_length;
     char response[VG_NET_REPLY_MAX + 1u];
+    bool event_receipt_media_valid; /* Structural media check, not authentication. */
 } vg_net_completion;
 
 #ifdef ESP_PLATFORM
@@ -27,6 +29,11 @@ bool vg_net_submit(vg_net_kind kind, const void *body, size_t length, uint64_t t
 bool vg_net_take_completion(vg_net_completion *out);
 /* Explicitly reset an exhausted connection cycle; nonblocking task notification. */
 bool vg_net_request_reset(void);
+/* Worker-side standard crypto only, no network IO. Verifies an exact-body,
+ * status-bound application receipt with the immutable external device bearer.
+ * No secret leaves this module; success is not a storage deletion by itself. */
+bool vg_net_verify_event_receipt(const void *body, size_t body_length, int status,
+    const void *receipt, size_t receipt_length, uint8_t verified_digest[32]);
 #endif
 
 #endif

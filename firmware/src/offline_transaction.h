@@ -72,11 +72,7 @@ static inline bool vg_offline_recover(vg_offline_transaction *tx, vg_offline_io 
     return true;
 }
 
-/* Candidate is already merged/validated. The selected slot is never written.
- * A failed write/commit/readback halts further writes until explicit recovery.
- * Memory publication occurs only after exact readback; SDK readback is not a
- * substitute for physical flash power-loss/durability tests. */
-static inline bool vg_offline_publish(vg_offline_transaction *tx)
+static inline bool vg_offline_candidate_base_valid(const vg_offline_transaction *tx)
 {
     if (!tx || !tx->ready || tx->halted || !tx->io.read || !tx->io.write || !tx->io.commit ||
         tx->current.generation == UINT64_MAX ||
@@ -85,18 +81,16 @@ static inline bool vg_offline_publish(vg_offline_transaction *tx)
         tx->candidate.generation != tx->current.generation + 1u ||
         tx->selected < -1 || tx->selected > 1 ||
         ((tx->current.generation == 0u) != (tx->selected == -1))) return false;
-    if (tx->candidate.rejected_critical_attempts < tx->current.rejected_critical_attempts ||
-        (!strcmp(tx->candidate.latest_boot, tx->current.latest_boot) &&
-         tx->candidate.latest_sequence <= tx->current.latest_sequence)) return false;
-    /* The transaction boundary also enforces retention; a future caller must
-     * not bypass merge admission and accidentally publish journal deletion. */
-    for (size_t i = 0u; i < tx->current.event_count; ++i) {
-        bool found = false;
-        for (size_t j = 0u; j < tx->candidate.event_count; ++j) {
-            if (vg_offline_record_equal(&tx->current.events[i], &tx->candidate.events[j])) found = true;
-        }
-        if (!found) return false;
-    }
+    return tx->candidate.rejected_critical_attempts >= tx->current.rejected_critical_attempts;
+}
+
+/* Internal IO primitive: only ordinary retained-prefix admission or the
+ * separately authenticated retirement policy may call this. Not a public
+ * mutation/deletion permission. Recheck common state immediately before IO.
+ * Selected slot is never written; uncertain IO requires explicit recovery. */
+static inline bool vg_offline_commit_readback_admitted(vg_offline_transaction *tx)
+{
+    if (!vg_offline_candidate_base_valid(tx)) return false;
     unsigned target = tx->selected == 0 ? 1u : 0u;
     size_t expected = 0u, actual = 0u;
     if (!vg_offline_pack(&tx->candidate, tx->raw[target], sizeof(tx->raw[target]), &expected)) return false;
@@ -110,6 +104,29 @@ static inline bool vg_offline_publish(vg_offline_transaction *tx)
     tx->degraded = tx->current.generation == 1u;
     tx->halted = false;
     return true;
+}
+
+/* Ordinary merged publication: no deletion and no invented/advanced floor.
+ * Exact readback is not physical power-loss/durability verification. */
+static inline bool vg_offline_publish(vg_offline_transaction *tx)
+{
+    if (!vg_offline_candidate_base_valid(tx)) return false;
+    if (tx->candidate.rejected_critical_attempts < tx->current.rejected_critical_attempts ||
+        (!strcmp(tx->candidate.latest_boot, tx->current.latest_boot) &&
+         (tx->candidate.latest_sequence <= tx->current.latest_sequence ||
+          tx->candidate.confirmed_event_id != tx->current.confirmed_event_id)) ||
+        (strcmp(tx->candidate.latest_boot, tx->current.latest_boot) &&
+         tx->candidate.confirmed_event_id != 0u)) return false;
+    /* The transaction boundary also enforces retention; a future caller must
+     * not bypass merge admission and accidentally publish journal deletion. */
+    for (size_t i = 0u; i < tx->current.event_count; ++i) {
+        bool found = false;
+        for (size_t j = 0u; j < tx->candidate.event_count; ++j) {
+            if (vg_offline_record_equal(&tx->current.events[i], &tx->candidate.events[j])) found = true;
+        }
+        if (!found) return false;
+    }
+    return vg_offline_commit_readback_admitted(tx);
 }
 
 #endif

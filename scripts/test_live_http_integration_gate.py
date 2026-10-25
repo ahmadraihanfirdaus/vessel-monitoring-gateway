@@ -28,6 +28,8 @@ class LiveHttpGateTest(unittest.TestCase):
             stack.enter_context(patch.object(gate, 'build_domain_bytes', return_value=b'synthetic-domain-wire\n'))
             stack.enter_context(patch.object(gate, 'build_alarm_bytes', return_value=b'synthetic-alarm-wire\n'))
             stack.enter_context(patch.object(gate, 'build_replay_bytes', return_value=b'synthetic-replay-wire\n'))
+            stack.enter_context(patch.object(gate, 'build_verifier', return_value=Path('synthetic-receipt-verifier')))
+            stack.enter_context(patch.object(gate, 'build_retirement_fixture', return_value=Path('synthetic-retirement-fixture')))
             popen = stack.enter_context(patch.object(gate.subprocess, 'Popen'))
             suite = stack.enter_context(patch.object(gate, 'suite', side_effect=suite_error))
             if snapshots is not None:
@@ -157,6 +159,56 @@ class LiveHttpGateTest(unittest.TestCase):
         self.assertEqual(command.call_count, 1)
         process.assert_not_called()
         self.assertIn('FAIL_PREREQUISITE_ASSERTION', stream.getvalue())
+
+    def test_native_receipt_verifier_compile_failure_precedes_live_database_mutation(self):
+        stream = io.StringIO()
+        with patch.object(sys, 'argv', ['gate', '--php-binary', 'synthetic-php', '--execute']), \
+             patch.object(gate, 'php_run', return_value=self.result()) as command, \
+             patch.object(gate, 'build_bytes', return_value=b'legacy'), \
+             patch.object(gate, 'build_domain_bytes', return_value=b'domain'), \
+             patch.object(gate, 'build_alarm_bytes', return_value=b'alarm'), \
+             patch.object(gate, 'build_replay_bytes', return_value=b'replay'), \
+             patch.object(gate, 'build_verifier', side_effect=RuntimeError('synthetic-compile')), \
+             patch.object(gate.subprocess, 'Popen') as process, redirect_stdout(stream):
+            self.assertEqual(gate.main(), 3)
+        self.assertEqual(command.call_count, 1)
+        process.assert_not_called()
+        self.assertIn('BLOCKED_RuntimeError', stream.getvalue())
+
+    def test_native_receipt_bridge_refuses_unowned_root_without_compiler_or_file_changes(self):
+        import event_receipt_native_bridge as bridge
+        with tempfile.TemporaryDirectory(prefix='vg-foreign-receipt-') as folder:
+            marker = Path(folder)/'keep.txt'; marker.write_bytes(b'keep')
+            with patch.object(bridge.subprocess, 'run') as command, self.assertRaises(RuntimeError):
+                bridge.build_verifier(Path(folder).resolve(), {})
+            command.assert_not_called()
+            self.assertEqual(marker.read_bytes(), b'keep')
+
+    def test_retirement_driver_compile_failure_precedes_server_and_database_fixtures(self):
+        stream = io.StringIO()
+        with patch.object(sys, 'argv', ['gate', '--php-binary', 'synthetic-php', '--execute']), \
+             patch.object(gate, 'php_run', return_value=self.result()) as command, \
+             patch.object(gate, 'build_bytes', return_value=b'legacy'), \
+             patch.object(gate, 'build_domain_bytes', return_value=b'domain'), \
+             patch.object(gate, 'build_alarm_bytes', return_value=b'alarm'), \
+             patch.object(gate, 'build_replay_bytes', return_value=b'replay'), \
+             patch.object(gate, 'build_verifier', return_value=Path('not-executed')), \
+             patch.object(gate, 'build_retirement_fixture', side_effect=RuntimeError('synthetic-compile')), \
+             patch.object(gate.subprocess, 'Popen') as process, redirect_stdout(stream):
+            self.assertEqual(gate.main(), 3)
+        self.assertEqual(command.call_count, 1)
+        process.assert_not_called()
+        self.assertIn('BLOCKED_RuntimeError', stream.getvalue())
+
+    def test_native_receipt_bridge_never_overwrites_existing_binary(self):
+        import event_receipt_native_bridge as bridge
+        with tempfile.TemporaryDirectory(prefix='vg-live-http-') as folder:
+            binary = Path(folder)/('receipt-verify.exe' if os.name == 'nt' else 'receipt-verify')
+            binary.write_bytes(b'keep')
+            with patch.object(bridge.subprocess, 'run') as command, self.assertRaises(RuntimeError):
+                bridge.build_verifier(Path(folder).resolve(), {})
+            command.assert_not_called()
+            self.assertEqual(binary.read_bytes(), b'keep')
 
     def test_failed_network_case_stops_owned_process_and_cleans_only_through_guard(self):
         code, command, _, popen, _, output = self.invoke(['--execute'], [self.result()] * 4,

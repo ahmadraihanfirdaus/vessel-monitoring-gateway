@@ -1,0 +1,126 @@
+COMMAND=python -B scripts/test_offline_authenticated_retirement.py
+test_actual_server_confirmed_current_fact_can_advance_floor_when_old_storage_is_full (__main__.AuthenticatedRetirementTest.test_actual_server_confirmed_current_fact_can_advance_floor_when_old_storage_is_full) ... ok
+test_complete_metadata_receipt_retires_exact_fact_and_retains_legacy_other_boot (__main__.AuthenticatedRetirementTest.test_complete_metadata_receipt_retires_exact_fact_and_retains_legacy_other_boot) ... ok
+test_confirmed_ram_prefix_release_preserves_ids_clocks_and_refusal_counters (__main__.AuthenticatedRetirementTest.test_confirmed_ram_prefix_release_preserves_ids_clocks_and_refusal_counters) ... ok
+test_every_partial_retirement_write_preserves_selected_slot_and_halts_until_recovery (__main__.AuthenticatedRetirementTest.test_every_partial_retirement_write_preserves_selected_slot_and_halts_until_recovery) ... ok
+test_every_receipt_byte_forgery_leaves_published_state_and_io_unchanged (__main__.AuthenticatedRetirementTest.test_every_receipt_byte_forgery_leaves_published_state_and_io_unchanged) ... ok
+test_genuine_current_receipt_commits_floor_and_prevents_cumulative_resurrection_after_reboot (__main__.AuthenticatedRetirementTest.test_genuine_current_receipt_commits_floor_and_prevents_cumulative_resurrection_after_reboot) ... ok
+test_matching_identity_with_missing_or_changed_full_metadata_cannot_retire (__main__.AuthenticatedRetirementTest.test_matching_identity_with_missing_or_changed_full_metadata_cannot_retire) ... ok
+test_old_boot_receipt_preserves_unsupported_other_fact_and_is_idempotent (__main__.AuthenticatedRetirementTest.test_old_boot_receipt_preserves_unsupported_other_fact_and_is_idempotent) ... ok
+test_prefix_release_refuses_wrong_fact_metadata_and_alias_without_mutation (__main__.AuthenticatedRetirementTest.test_prefix_release_refuses_wrong_fact_metadata_and_alias_without_mutation) ... ok
+test_structural_true_without_verified_digest_is_not_retirement_authority (__main__.AuthenticatedRetirementTest.test_structural_true_without_verified_digest_is_not_retirement_authority) ... ok
+test_uncertain_commit_and_readback_require_recovery_without_false_rollback_claim (__main__.AuthenticatedRetirementTest.test_uncertain_commit_and_readback_require_recovery_without_false_rollback_claim) ... ok
+test_valid_later_receipt_cannot_skip_oldest_unconfirmed_prefix_or_stored_fact (__main__.AuthenticatedRetirementTest.test_valid_later_receipt_cannot_skip_oldest_unconfirmed_prefix_or_stored_fact) ... ok
+test_wrong_key_status_owner_record_and_aliases_do_not_authorize_retirement (__main__.AuthenticatedRetirementTest.test_wrong_key_status_owner_record_and_aliases_do_not_authorize_retirement) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 7.266s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_offline_confirmed_floor.py
+test_confirmed_prefix_cannot_resurrect_from_cumulative_same_boot_submissions (__main__.OfflineConfirmedFloorTest.test_confirmed_prefix_cannot_resurrect_from_cumulative_same_boot_submissions) ... ok
+test_every_truncation_corruption_and_rechecksummed_invalid_floor_preserves_output (__main__.OfflineConfirmedFloorTest.test_every_truncation_corruption_and_rechecksummed_invalid_floor_preserves_output) ... ok
+test_independent_vgs3_bytes_crc_metadata_zero_null_and_floor (__main__.OfflineConfirmedFloorTest.test_independent_vgs3_bytes_crc_metadata_zero_null_and_floor) ... ok
+test_maximum_vgs3_5150_bytes_fits_unchanged_5184_allocation (__main__.OfflineConfirmedFloorTest.test_maximum_vgs3_5150_bytes_fits_unchanged_5184_allocation) ... ok
+test_new_boot_resets_only_scoped_floor_and_preserves_other_retained_facts (__main__.OfflineConfirmedFloorTest.test_new_boot_resets_only_scoped_floor_and_preserves_other_retained_facts) ... ok
+test_ordinary_publication_cannot_invent_or_advance_floor (__main__.OfflineConfirmedFloorTest.test_ordinary_publication_cannot_invent_or_advance_floor) ... ok
+test_vgs3_supports_unknown_or_no_retained_metadata_without_inventing_it (__main__.OfflineConfirmedFloorTest.test_vgs3_supports_unknown_or_no_retained_metadata_without_inventing_it) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 2.874s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_offline_transaction.py
+test_blank_bootstrap_alternates_slots_and_recovers_latest_generation (__main__.OfflineTransactionTest.test_blank_bootstrap_alternates_slots_and_recovers_latest_generation) ... ok
+test_commit_failure_can_be_uncertain_and_requires_explicit_recovery (__main__.OfflineTransactionTest.test_commit_failure_can_be_uncertain_and_requires_explicit_recovery) ... ok
+test_equal_generation_conflict_is_rejected_but_identical_slots_are_admitted (__main__.OfflineTransactionTest.test_equal_generation_conflict_is_rejected_but_identical_slots_are_admitted) ... ok
+test_every_partial_write_preserves_selected_slot_and_published_memory (__main__.OfflineTransactionTest.test_every_partial_write_preserves_selected_slot_and_published_memory) ... ok
+test_readback_corruption_and_io_errors_do_not_publish_or_initialize_empty (__main__.OfflineTransactionTest.test_readback_corruption_and_io_errors_do_not_publish_or_initialize_empty) ... ok
+test_sdk_binding_has_no_erase_network_wait_or_unconditional_queue_eviction (__main__.OfflineTransactionTest.test_sdk_binding_has_no_erase_network_wait_or_unconditional_queue_eviction) ... ok
+test_transaction_boundary_rejects_critical_deletion_even_if_merge_is_bypassed (__main__.OfflineTransactionTest.test_transaction_boundary_rejects_critical_deletion_even_if_merge_is_bypassed) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 2.749s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_alarm_offline_metadata.py
+test_all_truncations_corrupt_bytes_and_forged_flags_preserve_output (__main__.AlarmOfflineMetadataTest.test_all_truncations_corrupt_bytes_and_forged_flags_preserve_output) ... ok
+test_every_vgs2_partial_write_preserves_selected_metadata_and_state (__main__.AlarmOfflineMetadataTest.test_every_vgs2_partial_write_preserves_selected_metadata_and_state) ... ok
+test_full_metadata_identity_conflict_and_aliases_fail_before_output_mutation (__main__.AlarmOfflineMetadataTest.test_full_metadata_identity_conflict_and_aliases_fail_before_output_mutation) ... ok
+test_independent_vgs2_layout_crc_and_zero_vs_null_flags (__main__.AlarmOfflineMetadataTest.test_independent_vgs2_layout_crc_and_zero_vs_null_flags) ... ok
+test_legacy_bytes_remain_vgs1_and_unknown_history_is_not_reconstructed (__main__.AlarmOfflineMetadataTest.test_legacy_bytes_remain_vgs1_and_unknown_history_is_not_reconstructed) ... ok
+test_metadata_queue_prefix_and_sdk_contract_refuse_downgrade (__main__.AlarmOfflineMetadataTest.test_metadata_queue_prefix_and_sdk_contract_refuse_downgrade) ... ok
+test_transaction_cannot_delete_or_mutate_retained_metadata (__main__.AlarmOfflineMetadataTest.test_transaction_cannot_delete_or_mutate_retained_metadata) ... ok
+test_uncertain_vgs2_commit_exposes_new_ack_only_after_explicit_recovery (__main__.AlarmOfflineMetadataTest.test_uncertain_vgs2_commit_exposes_new_ack_only_after_explicit_recovery) ... ok
+test_worst_case_exact_5142_bound_and_legacy_4862_bound (__main__.AlarmOfflineMetadataTest.test_worst_case_exact_5142_bound_and_legacy_4862_bound) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 4.012s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_offline_replay.py
+test_actual_worker_and_sdk_use_zero_wait_shared_path_without_deletion (__main__.OfflineReplayTest.test_actual_worker_and_sdk_use_zero_wait_shared_path_without_deletion) ... ok
+test_bounded_fields_source_metadata_and_generation_corruption_refused (__main__.OfflineReplayTest.test_bounded_fields_source_metadata_and_generation_corruption_refused) ... ok
+test_buffer_boundary_and_alias_cannot_damage_retained_view (__main__.OfflineReplayTest.test_buffer_boundary_and_alias_cannot_damage_retained_view) ... ok
+test_capture_invalid_or_alias_does_not_publish_or_mutate (__main__.OfflineReplayTest.test_capture_invalid_or_alias_does_not_publish_or_mutate) ... ok
+test_current_progress_survives_new_recovery_and_unsupported_does_not_block (__main__.OfflineReplayTest.test_current_progress_survives_new_recovery_and_unsupported_does_not_block) ... ok
+test_duplicate_identity_rejects_same_boot_but_allows_different_boot (__main__.OfflineReplayTest.test_duplicate_identity_rejects_same_boot_but_allows_different_boot) ... ok
+test_full_eight_boot_view_encodes_all_records_and_ninth_is_refused (__main__.OfflineReplayTest.test_full_eight_boot_view_encodes_all_records_and_ninth_is_refused) ... ok
+test_full_metadata_is_an_immutable_zero_time_snapshot (__main__.OfflineReplayTest.test_full_metadata_is_an_immutable_zero_time_snapshot) ... ok
+test_full_sources_alternate_and_backpressure_does_not_advance (__main__.OfflineReplayTest.test_full_sources_alternate_and_backpressure_does_not_advance) ... ok
+test_invalid_progress_wrong_source_and_fake_unsupported_do_not_advance (__main__.OfflineReplayTest.test_invalid_progress_wrong_source_and_fake_unsupported_do_not_advance) ... ok
+test_legacy_is_exact_nine_fields_without_fabricated_metadata (__main__.OfflineReplayTest.test_legacy_is_exact_nine_fields_without_fabricated_metadata) ... ok
+test_maximum_unsigned_values_and_bench_source_preserve_identity (__main__.OfflineReplayTest.test_maximum_unsigned_values_and_bench_source_preserve_identity) ... ok
+test_unsupported_legacy_is_explicit_and_retained_while_next_can_encode (__main__.OfflineReplayTest.test_unsupported_legacy_is_explicit_and_retained_while_next_can_encode) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 4.391s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_continuous_simulation.py
+test_ack_remains_active_monotonic_and_new_reason_realerts (__main__.ContinuousSimulationTest.test_ack_remains_active_monotonic_and_new_reason_realerts) ... ok
+test_actual_24_frames_all_domains_and_checkpoint_recovery (__main__.ContinuousSimulationTest.test_actual_24_frames_all_domains_and_checkpoint_recovery) ... ok
+test_alarm_id_exhaustion_is_explicit_and_does_not_silence_condition (__main__.ContinuousSimulationTest.test_alarm_id_exhaustion_is_explicit_and_does_not_silence_condition) ... ok
+test_config_rejects_missing_thresholds_physical_monitor_block_and_unterminated_identity (__main__.ContinuousSimulationTest.test_config_rejects_missing_thresholds_physical_monitor_block_and_unterminated_identity) ... ok
+test_domain_rejects_foreign_source_invalid_values_and_future_metadata (__main__.ContinuousSimulationTest.test_domain_rejects_foreign_source_invalid_values_and_future_metadata) ... ok
+test_eight_engines_map_68_fields_without_silent_truncation (__main__.ContinuousSimulationTest.test_eight_engines_map_68_fields_without_silent_truncation) ... ok
+test_engine_lost_null_stopped_zero_and_uint64_not_rounded (__main__.ContinuousSimulationTest.test_engine_lost_null_stopped_zero_and_uint64_not_rounded) ... ok
+test_full_journal_does_not_freeze_local_sampling_or_replace_old_events (__main__.ContinuousSimulationTest.test_full_journal_does_not_freeze_local_sampling_or_replace_old_events) ... ok
+test_legacy_wire_is_byte_identical (__main__.ContinuousSimulationTest.test_legacy_wire_is_byte_identical) ... ok
+test_navigation_no_fix_unknown_checksum_age_boundaries (__main__.ContinuousSimulationTest.test_navigation_no_fix_unknown_checksum_age_boundaries) ... ok
+test_sdk_entry_has_no_physical_output_or_erase_and_separate_target (__main__.ContinuousSimulationTest.test_sdk_entry_has_no_physical_output_or_erase_and_separate_target) ... ok
+test_v11_72_channels_and_4096_bytes_limits_are_independent (__main__.ContinuousSimulationTest.test_v11_72_channels_and_4096_bytes_limits_are_independent) ... ok
+test_wait_regression_skipped_periods_and_sequence_exhaustion (__main__.ContinuousSimulationTest.test_wait_regression_skipped_periods_and_sequence_exhaustion) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 6.848s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_event_commit_receipt.py
+test_alias_and_null_output_cannot_mutate_key_body_or_envelope (__main__.EventCommitReceiptTest.test_alias_and_null_output_cannot_mutate_key_body_or_envelope) ... ok
+test_crypto_provider_failures_never_publish_verified_digest (__main__.EventCommitReceiptTest.test_crypto_provider_failures_never_publish_verified_digest) ... ok
+test_every_receipt_byte_tamper_refuses_without_output_mutation (__main__.EventCommitReceiptTest.test_every_receipt_byte_tamper_refuses_without_output_mutation) ... ok
+test_independent_hmac_oracle_including_long_bearers_and_body_boundaries (__main__.EventCommitReceiptTest.test_independent_hmac_oracle_including_long_bearers_and_body_boundaries) ... ok
+test_sdk_uses_volatile_standard_crypto_and_checks_key_destruction (__main__.EventCommitReceiptTest.test_sdk_uses_volatile_standard_crypto_and_checks_key_destruction) ... ok
+test_truncation_extra_bytes_bad_status_key_size_and_hex_fail_closed (__main__.EventCommitReceiptTest.test_truncation_extra_bytes_bad_status_key_size_and_hex_fail_closed) ... ok
+test_wrong_key_body_or_success_status_cannot_authorize (__main__.EventCommitReceiptTest.test_wrong_key_body_or_success_status_cannot_authorize) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 5.205s
+
+OK
+
+EXIT=0
+PURE_TRANSACTION_AND_RAM_PRIMITIVE_ONLY_NO_SDK_WORKER_OWNER_INTEGRATION_YET

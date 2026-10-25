@@ -26,13 +26,7 @@ static inline bool vg_recovered_events_valid(const vg_recovered_events *view)
         (view->generation == 0u && (view->event_count != 0u || view->degraded))) return false;
     for (size_t i = 0u; i < view->event_count; ++i) {
         const vg_offline_event *record = &view->events[i];
-        if (!memchr(record->boot, 0, sizeof(record->boot)) ||
-            !vg_tel_safe_token(record->boot, VG_TELEMETRY_MAX_ID_LEN) ||
-            !vg_offline_event_valid(&record->event)) return false;
-        if (record->has_alarm) {
-            vg_alarm_transition_t transition = {record->event, record->alarm};
-            if (!vg_alarm_transition_valid(&transition)) return false;
-        }
+        if (!vg_offline_record_valid(record)) return false;
         for (size_t j = 0u; j < i; ++j)
             if (!strcmp(record->boot, view->events[j].boot) &&
                 record->event.event_id == view->events[j].event.event_id) return false;
@@ -57,17 +51,18 @@ static inline bool vg_recovered_events_capture(const vg_offline_state *state,
 /* On BUFFER_REFUSED output is unusable; no state/view is ever mutated. A
  * supported legacy fact uses the original nine fields without invented alarm
  * metadata. A recovery type outside that contract remains explicitly retained. */
-static inline vg_replay_encode_result vg_recovered_event_json(
-    const vg_recovered_events *view, size_t index, char *out, size_t capacity)
+static inline vg_replay_encode_result vg_offline_event_json(
+    const vg_offline_event *record, const char *device, char *out, size_t capacity)
 {
-    if (!vg_recovered_events_valid(view) || index >= view->event_count || !out || capacity == 0u)
+    if (!vg_offline_record_valid(record) || !vg_tel_safe_token(device, VG_TELEMETRY_MAX_ID_LEN) ||
+        !out || capacity == 0u)
         return VG_REPLAY_INVALID;
     if (capacity > VG_TELEMETRY_JSON_MAX + 1u) capacity = VG_TELEMETRY_JSON_MAX + 1u;
-    if (!vg_offline_disjoint(view, sizeof(*view), out, capacity)) return VG_REPLAY_INVALID;
-    const vg_offline_event *record = &view->events[index];
+    if (!vg_offline_disjoint(record, sizeof(*record), out, capacity) ||
+        !vg_offline_disjoint(device, strlen(device) + 1u, out, capacity)) return VG_REPLAY_INVALID;
     if (record->has_alarm) {
         vg_alarm_transition_t transition = {record->event, record->alarm};
-        return vg_alarm_transition_json(&transition, view->device, record->boot, out, capacity)
+        return vg_alarm_transition_json(&transition, device, record->boot, out, capacity)
             ? VG_REPLAY_ENCODED : VG_REPLAY_BUFFER_REFUSED;
     }
     const vg_journal_event_t *event = &record->event;
@@ -84,9 +79,19 @@ static inline vg_replay_encode_result vg_recovered_event_json(
         "{\"schema_version\":\"1.0\",\"device_id\":\"%s\",\"boot_id\":\"%s\","
         "\"event_id\":%" PRIu64 ",\"linked_alarm_id\":%" PRIu64 ",\"source_id\":%" PRIu32 ","
         "\"source_mode\":\"%s\",\"event_type\":\"%s\",\"occurred_at_ms\":%" PRIu64 "}",
-        view->device, record->boot, event->event_id, event->linked_alarm_id, event->source_id,
+        device, record->boot, event->event_id, event->linked_alarm_id, event->source_id,
         vg_source_mode_to_string(event->source_mode), type, event->occurred_at_ms)
         ? VG_REPLAY_ENCODED : VG_REPLAY_BUFFER_REFUSED;
+}
+
+static inline vg_replay_encode_result vg_recovered_event_json(
+    const vg_recovered_events *view, size_t index, char *out, size_t capacity)
+{
+    if (!vg_recovered_events_valid(view) || index >= view->event_count || !out || capacity == 0u)
+        return VG_REPLAY_INVALID;
+    if (capacity > VG_TELEMETRY_JSON_MAX + 1u) capacity = VG_TELEMETRY_JSON_MAX + 1u;
+    if (!vg_offline_disjoint(view, sizeof(*view), out, capacity)) return VG_REPLAY_INVALID;
+    return vg_offline_event_json(&view->events[index], view->device, out, capacity);
 }
 
 typedef enum {

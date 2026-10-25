@@ -1,0 +1,71 @@
+"""Actual host files/standard independent HMAC/continuous facts/shared owner."""
+import hashlib
+import hmac
+import json
+import os
+from pathlib import Path
+import tempfile
+import unittest
+from unittest.mock import patch
+from event_receipt_native_bridge import build_retirement_fixture, run_retirement
+
+
+class RetirementFileTest(unittest.TestCase):
+    def test_actual_file_reopen_old_current_forgery_capacity_and_monotonic_new_fact(self):
+        env = os.environ.copy()
+        env['VG_LIVE_DEVICE_TOKEN'] = 'public-synthetic-host-test-input-key-123456789'
+        def sign(body):
+            digest = hashlib.sha256(body).hexdigest()
+            mac = hmac.new(env['VG_LIVE_DEVICE_TOKEN'].encode(),
+                           ('VG_EVENT_COMMIT_V1\n201\n'+digest).encode(), hashlib.sha256).hexdigest()
+            return ('VGR1:'+digest+':'+mac).encode()
+        with tempfile.TemporaryDirectory(prefix='vg-live-http-') as root:
+            binary = build_retirement_fixture(Path(root).resolve(), env)
+            identity = 'b'*32
+            old = run_retirement(binary, env, 'prepare', identity)
+            current = run_retirement(binary, env, 'old', identity, old, 201, sign(old))
+            paths = [binary.parent/('receipt-slot'+str(i)+'.bin') for i in range(2)]
+            before = [hashlib.sha256(p.read_bytes()).hexdigest() for p in paths]
+            receipt = sign(current)
+            bad = receipt[:-1]+(b'0' if receipt[-1:] != b'0' else b'1')
+            self.assertEqual(run_retirement(binary, env, 'tamper', identity, current, 201, bad), b'REFUSED')
+            self.assertEqual(before, [hashlib.sha256(p.read_bytes()).hexdigest() for p in paths])
+            next_fact = run_retirement(binary, env, 'current', identity, current, 201, receipt)
+            self.assertEqual(run_retirement(binary, env, 'inspect', identity), b'CHECKED')
+            old, current, next_fact = map(json.loads, (old, current, next_fact))
+            self.assertNotEqual(old['boot_id'], current['boot_id'])
+            self.assertEqual(current['boot_id'], next_fact['boot_id'])
+            self.assertEqual(current['event_id'], 1)
+            self.assertGreater(next_fact['event_id'], current['event_id'])
+
+    def test_unowned_root_cannot_compile_or_change_files(self):
+        with tempfile.TemporaryDirectory(prefix='vg-foreign-') as root, patch('event_receipt_native_bridge.subprocess.run') as run:
+            with self.assertRaisesRegex(RuntimeError, 'UNOWNED_ROOT'):
+                build_retirement_fixture(Path(root).resolve(), {})
+            run.assert_not_called()
+            self.assertEqual(list(Path(root).iterdir()), [])
+
+    def test_existing_binary_cannot_be_overwritten(self):
+        with tempfile.TemporaryDirectory(prefix='vg-live-http-') as root, patch('event_receipt_native_bridge.subprocess.run') as run:
+            binary = Path(root)/('receipt-retire.exe' if os.name == 'nt' else 'receipt-retire')
+            binary.write_bytes(b'owned-existing-sentinel')
+            with self.assertRaisesRegex(RuntimeError, 'FRESH_PATH'):
+                build_retirement_fixture(Path(root).resolve(), {})
+            run.assert_not_called()
+            self.assertEqual(binary.read_bytes(), b'owned-existing-sentinel')
+
+    def test_existing_slot_bad_identity_phase_and_bounds_refuse_without_child_process(self):
+        with tempfile.TemporaryDirectory(prefix='vg-live-http-') as root, patch('event_receipt_native_bridge.subprocess.run') as run:
+            binary = Path(root).resolve()/('receipt-retire.exe' if os.name == 'nt' else 'receipt-retire')
+            binary.write_bytes(b'synthetic-not-executed')
+            slot = binary.parent/'receipt-slot0.bin'; slot.write_bytes(b'preserve')
+            for phase, identity, body in [('prepare', 'a'*32, b''), ('unknown', 'a'*32, b''),
+                                          ('current', '../unsafe', b''), ('current', 'a'*32, b'x'*4097)]:
+                with self.assertRaises(ValueError):
+                    run_retirement(binary, {}, phase, identity, body)
+            run.assert_not_called()
+            self.assertEqual(slot.read_bytes(), b'preserve')
+
+
+if __name__ == '__main__':
+    unittest.main(verbosity=2)

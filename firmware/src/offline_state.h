@@ -12,8 +12,8 @@
 
 #define VG_OFFLINE_WIRE_MAX 4096u
 #define VG_OFFLINE_EVENT_CAP 8u
-/* Legacy VGS1 maximum remains 4862 bytes. Optional full metadata VGS2 adds
- * at most 8*35 bytes (5142 total); no application body/partition enlargement. */
+/* VGS1 maximum4862, VGS2 maximum5142; VGS3 adds an eight-byte current-boot
+ * confirmation floor (maximum5150), within this unchanged working allocation. */
 #define VG_OFFLINE_SNAPSHOT_MAX 5184u
 
 typedef struct {
@@ -28,6 +28,7 @@ typedef struct {
     char device[VG_TELEMETRY_MAX_ID_LEN + 1u];
     char latest_boot[VG_TELEMETRY_MAX_ID_LEN + 1u];
     uint64_t latest_sequence;
+    uint64_t confirmed_event_id; /* Scoped to latest_boot; zero means none. */
     uint64_t rejected_critical_attempts;
     size_t latest_length;
     unsigned char latest[VG_OFFLINE_WIRE_MAX];
@@ -65,11 +66,25 @@ static inline bool vg_offline_record_equal(const vg_offline_event *a, const vg_o
         a->has_alarm == b->has_alarm && (!a->has_alarm || vg_alarm_metadata_equal(&a->alarm, &b->alarm));
 }
 
+static inline bool vg_offline_record_valid(const vg_offline_event *record)
+{
+    if (!record || !memchr(record->boot, 0, sizeof(record->boot)) ||
+        !vg_tel_safe_token(record->boot, VG_TELEMETRY_MAX_ID_LEN) ||
+        !vg_offline_event_valid(&record->event)) return false;
+    if (record->has_alarm) {
+        vg_alarm_transition_t transition = {record->event, record->alarm};
+        if (!vg_alarm_transition_valid(&transition)) return false;
+    }
+    return true;
+}
+
 static inline bool vg_offline_journal_follows(const vg_event_journal_t *old,
     const vg_event_journal_t *next)
 {
     if (!old || !next || !old->initialized || !next->initialized ||
-        old->count > VG_JOURNAL_CAPACITY || next->count > VG_JOURNAL_CAPACITY || next->count < old->count) return false;
+        old->count > VG_JOURNAL_CAPACITY || next->count > VG_JOURNAL_CAPACITY || next->count < old->count ||
+        old->next_id == 0u || next->next_id == 0u || next->next_id < old->next_id ||
+        (old->has_last_time && (!next->has_last_time || next->last_event_ms < old->last_event_ms))) return false;
     for (size_t i = 0u; i < next->count; ++i) {
         const vg_journal_event_t *e = &next->events[i];
         if (!vg_offline_event_valid(e) || (i < old->count &&
@@ -77,25 +92,29 @@ static inline bool vg_offline_journal_follows(const vg_event_journal_t *old,
             (e->event_id <= next->events[i - 1u].event_id ||
              e->occurred_at_ms < next->events[i - 1u].occurred_at_ms))) return false;
     }
+    if (next->count != 0u) {
+        const vg_journal_event_t *last = &next->events[next->count - 1u];
+        if (!next->has_last_time || next->last_event_ms != last->occurred_at_ms ||
+            next->next_id != last->event_id + 1u) return false;
+    }
     return true;
 }
 
 static inline bool vg_offline_valid(const vg_offline_state *s, bool allow_empty)
 {
-    if (!s || !vg_tel_safe_token(s->device, VG_TELEMETRY_MAX_ID_LEN)) return false;
+    if (!s || !memchr(s->device, 0, sizeof(s->device)) ||
+        !vg_tel_safe_token(s->device, VG_TELEMETRY_MAX_ID_LEN)) return false;
     if (s->generation == 0u) return allow_empty && s->latest_length == 0u &&
         s->event_count == 0u && s->latest_boot[0] == 0 && s->latest_sequence == 0u &&
-        s->rejected_critical_attempts == 0u;
-    if (!vg_tel_safe_token(s->latest_boot, VG_TELEMETRY_MAX_ID_LEN) ||
+        s->rejected_critical_attempts == 0u && s->confirmed_event_id == 0u;
+    if (!memchr(s->latest_boot, 0, sizeof(s->latest_boot)) ||
+        !vg_tel_safe_token(s->latest_boot, VG_TELEMETRY_MAX_ID_LEN) ||
         s->latest_length == 0u || s->latest_length > VG_OFFLINE_WIRE_MAX ||
-        s->event_count > VG_OFFLINE_EVENT_CAP) return false;
+        s->event_count > VG_OFFLINE_EVENT_CAP || s->confirmed_event_id == UINT64_MAX) return false;
     for (size_t i = 0u; i < s->event_count; ++i) {
-        if (!vg_tel_safe_token(s->events[i].boot, VG_TELEMETRY_MAX_ID_LEN) ||
-            !vg_offline_event_valid(&s->events[i].event)) return false;
-        if (s->events[i].has_alarm) {
-            vg_alarm_transition_t transition = {s->events[i].event, s->events[i].alarm};
-            if (!vg_alarm_transition_valid(&transition)) return false;
-        }
+        if (!vg_offline_record_valid(&s->events[i]) ||
+            (!strcmp(s->events[i].boot, s->latest_boot) &&
+                s->events[i].event.event_id <= s->confirmed_event_id)) return false;
         for (size_t j = 0u; j < i; ++j) {
             if (!strcmp(s->events[i].boot, s->events[j].boot) &&
                 s->events[i].event.event_id == s->events[j].event.event_id) return false;
@@ -138,6 +157,7 @@ static inline vg_offline_merge_result vg_offline_merge(const vg_offline_state *o
         if (!vg_offline_event_valid(e) || (i > 0u &&
             (e->event_id <= journal->events[i - 1u].event_id ||
              e->occurred_at_ms < journal->events[i - 1u].occurred_at_ms))) return VG_OFFLINE_REJECTED;
+        if (same_boot && e->event_id <= old->confirmed_event_id) continue;
         bool found = false;
         for (size_t j = 0u; j < old->event_count; ++j) {
             if (!strcmp(old->events[j].boot, boot) && old->events[j].event.event_id == e->event_id) {
@@ -162,6 +182,7 @@ static inline vg_offline_merge_result vg_offline_merge(const vg_offline_state *o
     }
     *out = *old;
     out->generation++;
+    if (!same_boot) out->confirmed_event_id = 0u;
     memset(out->latest, 0, sizeof(out->latest));
     memcpy(out->latest, wire, length);
     out->latest_length = length;
@@ -171,6 +192,7 @@ static inline vg_offline_merge_result vg_offline_merge(const vg_offline_state *o
     bool full = false;
     for (size_t i = 0u; i < journal->count; ++i) {
         const vg_journal_event_t *e = &journal->events[i];
+        if (same_boot && e->event_id <= old->confirmed_event_id) continue;
         bool found = false;
         for (size_t j = 0u; j < old->event_count; ++j)
             if (!strcmp(old->events[j].boot, boot) && old->events[j].event.event_id == e->event_id) found = true;
@@ -257,14 +279,18 @@ static inline bool vg_offline_pack(const vg_offline_state *s, uint8_t *raw,
         !vg_offline_disjoint(written, sizeof(*written), raw, capacity)) return false;
     size_t size = 4u + 1u + 8u + 8u + 8u + 2u + 1u + 4u +
         1u + strlen(s->device) + 1u + strlen(s->latest_boot) + s->latest_length;
-    bool complete = false;
+    bool floor = s->confirmed_event_id != 0u;
+    bool complete = floor;
+    if (floor) size += 8u;
     for (size_t i = 0u; i < s->event_count; ++i) complete |= s->events[i].has_alarm;
     for (size_t i = 0u; i < s->event_count; ++i) size += 1u + strlen(s->events[i].boot) + 30u;
     if (complete) for (size_t i = 0u; i < s->event_count; ++i) size += 1u + (s->events[i].has_alarm ? 34u : 0u);
     if (size > capacity || size > VG_OFFLINE_SNAPSHOT_MAX) return false;
     vg_b18_writer w = {raw, size, 0u, true};
-    vg_b18_w32(&w, complete ? UINT32_C(0x32534756) : UINT32_C(0x31534756)); /* VGS2 / unchanged VGS1 */
-    vg_b18_w8(&w, complete ? 2u : 1u); vg_offline_w64(&w, s->generation);
+    vg_b18_w32(&w, floor ? UINT32_C(0x33534756) :
+        (complete ? UINT32_C(0x32534756) : UINT32_C(0x31534756))); /* VGS3 / VGS2 / VGS1 */
+    vg_b18_w8(&w, floor ? 3u : (complete ? 2u : 1u)); vg_offline_w64(&w, s->generation);
+    if (floor) vg_offline_w64(&w, s->confirmed_event_id);
     vg_offline_w64(&w, s->latest_sequence); vg_offline_w64(&w, s->rejected_critical_attempts);
     vg_b18_w8(&w, (uint8_t)s->latest_length); vg_b18_w8(&w, (uint8_t)(s->latest_length >> 8u));
     vg_b18_w8(&w, (uint8_t)s->event_count);
@@ -309,10 +335,15 @@ static inline bool vg_offline_unpack(const uint8_t *raw, size_t length,
     vg_b18_reader r = {raw, length - 4u, 0u, true};
     uint32_t magic = vg_b18_r32(&r);
     uint8_t version = vg_b18_r8(&r);
-    bool complete = magic == UINT32_C(0x32534756) && version == 2u;
+    bool floor = magic == UINT32_C(0x33534756) && version == 3u;
+    bool complete = floor || (magic == UINT32_C(0x32534756) && version == 2u);
     if (!complete && (magic != UINT32_C(0x31534756) || version != 1u)) return false;
     memset(scratch, 0, sizeof(*scratch));
     scratch->generation = vg_offline_r64(&r);
+    if (floor) {
+        scratch->confirmed_event_id = vg_offline_r64(&r);
+        if (scratch->confirmed_event_id == 0u) return false;
+    }
     scratch->latest_sequence = vg_offline_r64(&r);
     scratch->rejected_critical_attempts = vg_offline_r64(&r);
     scratch->latest_length = vg_b18_r8(&r);
@@ -351,7 +382,7 @@ static inline bool vg_offline_unpack(const uint8_t *raw, size_t length,
             }
         }
     }
-    if (!r.ok || r.pos != r.len || (complete && !has_metadata) || !vg_offline_valid(scratch, false)) return false;
+    if (!r.ok || r.pos != r.len || (complete && !floor && !has_metadata) || !vg_offline_valid(scratch, false)) return false;
     *out = *scratch;
     return true;
 }

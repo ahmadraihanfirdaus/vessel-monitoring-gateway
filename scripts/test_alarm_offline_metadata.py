@@ -172,7 +172,9 @@ metadata=prefix;metadata.entries[2].alarm.cleared_at++;assert(!vg_alarm_journal_
         from pathlib import Path
         sdk = (Path(__file__).resolve().parents[1]/'firmware/src/esp32_offline_store.c').read_text(encoding='utf-8')
         for required in ('vg_offline_merge_with_alarms', 'vg_alarm_journal_follows',
-                         'storage->accepted_has_metadata && (!metadata',
+                         'storage->accepted_has_metadata && !metadata',
+                         '!vg_alarm_journal_follows(&storage->accepted_metadata, &storage->staging.metadata)',
+                         'vg_offline_strip_confirmed_prefix',
                          'metadata && !storage->accepted_has_metadata && storage->accepted_journal.count != 0u',
                          'xSemaphoreTake(storage->lock, 0)'):
             self.assertIn(required, sdk)

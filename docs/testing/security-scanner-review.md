@@ -65,3 +65,18 @@ input expressions. Exact file/line pins approve no literal credentials and waive
 no strong-token/private-key/URL/path/encoding/privacy checks. See the
 [execution summary](../../evidence/test-results/live-http-summary-20261025.md)
 for actual source-stable network results and guarded fixture cleanup.
+
+## Authenticated receipt continuation 2026-10-26
+
+Initial scan reported five INFO source occurrences/zero privacy warnings after
+workflow/runtime source changes invalidated whole-file pins. Each exact line
+is byte-equal to committed bb4f462: two CI labels and three runtime-generated
+form input expressions. `event-receipt-security-triage-20261026.csv` records
+severity/evidence/impact/false-positive classification and exact file+line SHA.
+Renewed pins do not change any secret/private-key/token/URL/path/encoding/privacy
+detector. Original36 classification remains historical, not36 current open
+vulnerabilities. Final current working/index screen and adversarial/manual review
+remain mandatory before commit; source and actual gate results are in receipt
+summary. Raw bearer is only ephemeral standard HMAC input and is never written
+into journal, public logs or command argv. Physical NVS confidentiality, key
+provisioning, trusted clock/deployedTLS and anti-rollback remain unverified.

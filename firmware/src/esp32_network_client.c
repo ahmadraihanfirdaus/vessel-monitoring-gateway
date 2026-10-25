@@ -1,8 +1,10 @@
 #ifdef ESP_PLATFORM
 
 #include "esp32_network_client.h"
+#include "psa/crypto.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <strings.h>
 #include "esp_crt_bundle.h"
 #include "esp_event.h"
 #include "esp_http_client.h"
@@ -52,6 +54,7 @@ typedef struct {
     net_job staging;
     vg_net_completion completion;
     bool response_overflow;
+    uint8_t receipt_media_headers;
 } net_client;
 
 static net_client *client;
@@ -142,6 +145,12 @@ static bool wait_for_link(net_client *ctx)
 static esp_err_t on_http(esp_http_client_event_t *event)
 {
     net_client *ctx = event->user_data;
+    if (event->event_id == HTTP_EVENT_ON_HEADER && event->header_key &&
+        strcasecmp(event->header_key, "Content-Type") == 0) {
+        if (ctx->receipt_media_headers < 2u) ++ctx->receipt_media_headers;
+        ctx->completion.event_receipt_media_valid = ctx->receipt_media_headers == 1u &&
+            vg_event_receipt_content_type_valid(event->header_value);
+    }
     if (event->event_id == HTTP_EVENT_ON_DATA) {
         if (event->data_len < 0 || !vg_net_reply_append(ctx->completion.response,
             &ctx->completion.response_length, event->data, (size_t)event->data_len)) {
@@ -167,6 +176,8 @@ static bool perform_once(net_client *ctx)
     ctx->completion.response[0] = '\0';
     ctx->completion.http_status = 0;
     ctx->response_overflow = false;
+    ctx->receipt_media_headers = 0u;
+    ctx->completion.event_receipt_media_valid = false;
     esp_http_client_config_t configuration = {
         .url = url,
         .method = HTTP_METHOD_POST,
@@ -189,6 +200,8 @@ static bool perform_once(net_client *ctx)
         esp_http_client_set_header(http, "Accept", "application/json") == ESP_OK &&
         esp_http_client_set_header(http, "Authorization", authorization) == ESP_OK &&
         esp_http_client_set_post_field(http, (const char *)ctx->active.body, (int)ctx->active.length) == ESP_OK;
+    if (configured && ctx->active.kind == VG_NET_EVENT)
+        configured = esp_http_client_set_header(http, "X-VG-Event-Receipt", "1") == ESP_OK;
     esp_err_t result = ESP_FAIL;
     if (configured) {
         int64_t started = esp_timer_get_time();
@@ -337,6 +350,46 @@ bool vg_net_take_completion(vg_net_completion *out)
 bool vg_net_request_reset(void)
 {
     return client && xTaskNotifyGive(client->task) == pdPASS;
+}
+
+static bool receipt_sha256(void *context, const uint8_t *body, size_t length, uint8_t out[32])
+{
+    (void)context;
+    size_t written = 0u;
+    return psa_crypto_init() == PSA_SUCCESS &&
+        psa_hash_compute(PSA_ALG_SHA_256, body, length, out, 32u, &written) == PSA_SUCCESS && written == 32u;
+}
+
+static bool receipt_hmac_sha256(void *context, const uint8_t *key, size_t key_length,
+    const uint8_t *message, size_t message_length, uint8_t out[32])
+{
+    (void)context;
+    if (psa_crypto_init() != PSA_SUCCESS) return false;
+    psa_key_attributes_t attributes = PSA_KEY_ATTRIBUTES_INIT;
+    psa_set_key_lifetime(&attributes, PSA_KEY_LIFETIME_VOLATILE);
+    psa_set_key_type(&attributes, PSA_KEY_TYPE_HMAC);
+    psa_set_key_bits(&attributes, key_length * 8u);
+    psa_set_key_usage_flags(&attributes, PSA_KEY_USAGE_SIGN_MESSAGE);
+    psa_set_key_algorithm(&attributes, PSA_ALG_HMAC(PSA_ALG_SHA_256));
+    mbedtls_svc_key_id_t handle = MBEDTLS_SVC_KEY_ID_INIT;
+    psa_status_t imported = psa_import_key(&attributes, key, key_length, &handle);
+    psa_reset_key_attributes(&attributes);
+    if (imported != PSA_SUCCESS) return false;
+    size_t written = 0u;
+    psa_status_t computed = psa_mac_compute(handle, PSA_ALG_HMAC(PSA_ALG_SHA_256),
+        message, message_length, out, 32u, &written);
+    psa_status_t destroyed = psa_destroy_key(handle);
+    return computed == PSA_SUCCESS && destroyed == PSA_SUCCESS && written == 32u;
+}
+
+bool vg_net_verify_event_receipt(const void *body, size_t body_length, int status,
+    const void *receipt, size_t receipt_length, uint8_t verified_digest[32])
+{
+    if (!client) return false;
+    const vg_receipt_crypto crypto = {NULL, receipt_sha256, receipt_hmac_sha256};
+    return vg_event_receipt_verify(&crypto, (const uint8_t *)client->profile.bearer,
+        vg_net_length(client->profile.bearer, VG_NET_TOKEN_MAX + 1u), body, body_length,
+        status, receipt, receipt_length, verified_digest);
 }
 
 #endif

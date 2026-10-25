@@ -1,0 +1,8 @@
+path,category,exists,file_count,bytes,action,reason
+firmware/.pio,generated_build,True,3867,325402619,READ_ONLY_PRESERVE,"Keep SDK build outputs; diagnostic/provenance and reproducibility inputs, do not delete"
+backend/laravel/vendor,dependency,True,8574,66825925,READ_ONLY_PRESERVE,Keep installed Composer dependency tree
+backend/laravel/storage/framework,runtime_cache,True,62,273653,READ_ONLY_PRESERVE,Keep guarded isolated runtime; no content read
+backend/laravel/bootstrap/cache,framework_cache,True,3,22734,READ_ONLY_PRESERVE,"Keep cache; read-only audit, no boot or cleanup"
+scripts/__pycache__,python_cache,True,10,90001,READ_ONLY_PRESERVE,Potential disposable generated cache; no deletion authorized in this batch
+evidence,required_evidence,True,498,3685682,READ_ONLY_PRESERVE,Keep all passing and failing evidence
+docs/handoff,continuity,True,2,114384,READ_ONLY_PRESERVE,Keep both automatically updated handoffs

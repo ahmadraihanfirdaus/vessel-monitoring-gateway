@@ -7,6 +7,7 @@ owned by its random fixture namespace. This is not deployed/ESP32 TLS evidence.
 import argparse
 import base64
 import hashlib
+import hmac
 import html
 import http.client
 import http.cookiejar
@@ -32,6 +33,7 @@ from runtime_uplink_wire_bridge import build_bytes
 from continuous_simulation_wire_bridge import build_bytes as build_domain_bytes
 from alarm_metadata_wire_bridge import build_bytes as build_alarm_bytes
 from recovered_replay_wire_bridge import build_bytes as build_replay_bytes
+from event_receipt_native_bridge import build_verifier, verify_receipt, build_retirement_fixture, run_retirement
 from build_esp32_port import source_snapshot as firmware_source_snapshot
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -60,7 +62,9 @@ def source_snapshot():
         'runtime_uplink_wire_fixture.c', 'continuous_simulation_wire_bridge.py',
         'continuous_simulation_fixture.c', 'alarm_metadata_wire_bridge.py',
         'alarm_metadata_wire_fixture.c', 'recovered_replay_wire_bridge.py',
-        'recovered_replay_wire_fixture.c', 'test_offline_transaction.py', 'phase9_b4_testlib.py')]
+        'recovered_replay_wire_fixture.c', 'test_offline_transaction.py',
+        'event_receipt_native_bridge.py', 'event_receipt_native_crypto.h',
+        'event_receipt_verify_fixture.c', 'event_retirement_file_fixture.c', 'phase9_b4_testlib.py')]
     base = ROOT/'backend/laravel'
     paths += [base/'bootstrap/app.php', base/'composer.lock']
     for directory in ('app', 'config', 'routes', 'resources/views', 'tests/Support', 'database/migrations'):
@@ -194,12 +198,14 @@ def form(values):
     return urllib.parse.urlencode(values).encode()
 
 
-def api(client, path, data=None, token=None, media='application/json'):
+def api(client, path, data=None, token=None, media='application/json', receipt=False):
     headers = {'Accept': 'application/json'}
     if token is not None:
         headers['Authorization'] = 'Bearer '+token
     if data is not None:
         headers['Content-Type'] = media
+    if receipt:
+        headers['X-VG-Event-Receipt'] = '1'
     return client.request(path, data, headers)
 
 
@@ -266,13 +272,15 @@ def event_races(client, binary, env, profile, alarm_wire):
                 if process.stderr is not None: process.stderr.close()
     status, _, response = client.request('/api/v1/device/events?limit=100',
                                         headers={'Authorization': 'Bearer '+env['VG_LIVE_DEVICE_TOKEN']})
-    raced = [item for item in json.loads(response).get('items', []) if item['boot_id'].endswith(profile['id'])]
-    expect('EVENT_RACE_FOUR_IDENTITIES_PERSIST_ONCE', status == 200 and len(raced) == 4)
+    race_boots = {case+'-'+profile['id'] for case in ('v10i', 'v11i', 'v11c', 'v11n')}
+    raced = [item for item in json.loads(response).get('items', []) if item['boot_id'] in race_boots]
+    expect('EVENT_RACE_FOUR_IDENTITIES_PERSIST_ONCE', status == 200 and len(raced) == 4
+           and {item['boot_id'] for item in raced} == race_boots)
     conflict = next(item for item in raced if item['boot_id'].startswith('v11c-'))
     expect('EVENT_RACE_CONFLICT_DOES_NOT_OVERWRITE_METADATA', conflict['alarm']['reason_code'] == 1001)
 
 
-def suite(client, binary, env, profile, wire, domain_wire, alarm_wire, replay_wire, context, port):
+def suite(client, binary, env, profile, wire, domain_wire, alarm_wire, replay_wire, receipt_verifier, retirement_fixture, context, port):
     token = env['VG_LIVE_DEVICE_TOKEN']
 
     def action(mode):
@@ -439,12 +447,72 @@ def suite(client, binary, env, profile, wire, domain_wire, alarm_wire, replay_wi
     status, _, body = client.request(device_path)
     expect('ALARM_METADATA_CONNECTED_BROWSER_FACTS', status == 200 and b'Alarm snapshot at transition' in body
            and b'active_ack' in body and b'Priority code (demo):' in body and b'NOT_CLEARED' in body)
+    def check_receipt(packet, status, headers, response, expected_status, label):
+        digest = hashlib.sha256(packet).hexdigest()
+        signature = hmac.new(token.encode(), ('VG_EVENT_COMMIT_V1\n'+str(expected_status)+'\n'+digest).encode(), hashlib.sha256).hexdigest()
+        expected = ('VGR1:'+digest+':'+signature).encode()
+        expect(label+'_STANDARD_HMAC', status == expected_status and len(response) == 134
+               and headers.get('Content-Type') == 'application/vnd.vgw.event-receipt-v1'
+               and 'no-store' in headers.get('Cache-Control', '') and hmac.compare_digest(response, expected))
+        expect(label+'_NATIVE_VERIFIED', verify_receipt(receipt_verifier, env, packet, status, response))
+
+    first_signed = None
     for index, packet in enumerate(replay_wire.splitlines()):
-        status, _, _ = api(client, '/api/v1/events', packet, token)
+        status, headers, response = api(client, '/api/v1/events', packet, token, receipt=True)
         expect('RECOVERED_C99_CROSS_BOOT_EVENT_'+str(index+1), status == 201)
+        check_receipt(packet, status, headers, response, 201, 'EVENT_RECEIPT_CREATED_'+str(index+1))
+        if index == 0:
+            first_signed = (packet, response)
         status, _, response = api(client, '/api/v1/events', packet, token)
         expect('RECOVERED_C99_EXACT_DUPLICATE_'+str(index+1),
                status == 200 and json.loads(response)['result'] == 'identical_event_duplicate')
+        status, headers, response = api(client, '/api/v1/events', packet, token, receipt=True)
+        check_receipt(packet, status, headers, response, 200, 'EVENT_RECEIPT_DUPLICATE_'+str(index+1))
+    packet, signed = first_signed
+    wrong_env = env.copy(); wrong_env['VG_LIVE_DEVICE_TOKEN'] = secrets.token_hex(32)
+    expect('EVENT_RECEIPT_NATIVE_WRONG_KEY_REFUSED', not verify_receipt(receipt_verifier, wrong_env, packet, 201, signed))
+    expect('EVENT_RECEIPT_NATIVE_WRONG_BODY_REFUSED', not verify_receipt(receipt_verifier, env, b' '+packet, 201, signed))
+    expect('EVENT_RECEIPT_NATIVE_WRONG_SUCCESS_STATUS_REFUSED', not verify_receipt(receipt_verifier, env, packet, 200, signed))
+    tampered = signed[:-1]+(b'0' if signed[-1:] != b'0' else b'1')
+    expect('EVENT_RECEIPT_NATIVE_VALID_HEX_FORGERY_REFUSED', not verify_receipt(receipt_verifier, env, packet, 201, tampered))
+    expect('EVENT_RECEIPT_NATIVE_OTHER_EVENT_REFUSED', not verify_receipt(receipt_verifier, env, replay_wire.splitlines()[1], 201, signed))
+    expect('EVENT_RECEIPT_NATIVE_MISSING_CONFIRMATION_REFUSED', not verify_receipt(receipt_verifier, env, packet, 201, b''))
+
+    # Actual C99 continuous facts -> actual PHP/MariaDB TLS commit -> exact HMAC
+    # -> shared transaction/file commit/readback -> shared owner RAM retirement.
+    # Private file reopen is host evidence, never ESP32 crash/power-loss proof.
+    old_packet = run_retirement(retirement_fixture, env, 'prepare', profile['id'])
+    old_fact = json.loads(old_packet)
+    expect('RETIREMENT_REAL_C99_OLD_BOOT_FACT', old_fact['schema_version'] == '1.1'
+           and old_fact['boot_id'] == 'receipt-'+profile['id'] and old_fact['event_id'] == 1)
+    status, headers, signed_old = api(client, '/api/v1/events', old_packet, token, receipt=True)
+    check_receipt(old_packet, status, headers, signed_old, 201, 'RETIREMENT_OLD_BOOT_COMMIT')
+    current_packet = run_retirement(retirement_fixture, env, 'old', profile['id'], old_packet, status, signed_old)
+    current_fact = json.loads(current_packet)
+    expect('RETIREMENT_OLD_EXACT_FACT_DURABLY_REMOVED_CURRENT_RAM_UNCHANGED',
+           current_fact['boot_id'] == 'receipt-next-'+profile['id'] and current_fact['event_id'] == 1)
+    status, headers, signed_current = api(client, '/api/v1/events', current_packet, token, receipt=True)
+    check_receipt(current_packet, status, headers, signed_current, 201, 'RETIREMENT_CURRENT_BOOT_COMMIT')
+    slots = [retirement_fixture.parent/('receipt-slot'+str(i)+'.bin') for i in range(2)]
+    before = [hashlib.sha256(path.read_bytes()).hexdigest() for path in slots]
+    forged = signed_current[:-1]+(b'0' if signed_current[-1:] != b'0' else b'1')
+    refused = run_retirement(retirement_fixture, env, 'tamper', profile['id'], current_packet, status, forged)
+    expect('RETIREMENT_FORGED_MAC_NO_FILE_WRITES_OR_RAM_RELEASE', refused == b'REFUSED'
+           and before == [hashlib.sha256(path.read_bytes()).hexdigest() for path in slots])
+    next_packet = run_retirement(retirement_fixture, env, 'current', profile['id'], current_packet, status, signed_current)
+    next_fact = json.loads(next_packet)
+    expect('RETIREMENT_CURRENT_FLOOR_RAM_RELEASE_NO_ID_REWIND_AND_NEW_FACT',
+           next_fact['boot_id'] == current_fact['boot_id'] and next_fact['event_id'] > current_fact['event_id'])
+    expect('RETIREMENT_HOST_FILE_REOPEN_NO_RESURRECTION_FRESH_BOOT_GUARD',
+           run_retirement(retirement_fixture, env, 'inspect', profile['id']) == b'CHECKED')
+    status, headers, signed_next = api(client, '/api/v1/events', next_packet, token, receipt=True)
+    check_receipt(next_packet, status, headers, signed_next, 201, 'RETIREMENT_NEW_FACT_COMMIT')
+    status, headers, signed_again = api(client, '/api/v1/events', next_packet, token, receipt=True)
+    check_receipt(next_packet, status, headers, signed_again, 200, 'RETIREMENT_NEW_FACT_DUPLICATE')
+    status, _, response = client.request('/api/v1/events', packet, {'Authorization':'Bearer '+token,
+        'Content-Type':'application/json', 'Accept':'application/json', 'X-VG-Event-Receipt':'2'})
+    expect('EVENT_RECEIPT_UNSUPPORTED_VERSION_NO_CONFIRMATION', status == 400
+           and json.loads(response).get('error') == 'invalid_event_receipt_version')
     status, _, response = api(client, '/api/v1/device/events?limit=100', token=token)
     recovered = [item for item in json.loads(response).get('items', [])
                  if item['boot_id'] in ('boot-a', 'replay-boot-b', 'replay-boot-c')]
@@ -460,8 +528,10 @@ def suite(client, binary, env, profile, wire, domain_wire, alarm_wire, replay_wi
     expect('RECOVERED_ACK_ZERO_IS_NOT_NULL_OR_CLEAR', len(ack) == 1 and ack[0]['alarm']['state'] == 'active_ack'
            and ack[0]['alarm']['acknowledged_at_ms'] == '0' and ack[0]['alarm']['cleared_at_ms'] is None)
     changed = json.loads(replay_wire.splitlines()[-1]); changed['alarm']['reason_code'] = 1003
-    status, _, _ = api(client, '/api/v1/events', json.dumps(changed).encode(), token)
+    status, headers, response = api(client, '/api/v1/events', json.dumps(changed).encode(), token, receipt=True)
     expect('RECOVERED_VALID_METADATA_CONFLICT_REJECTED', status == 409)
+    expect('EVENT_RECEIPT_CONFLICT_HAS_NO_CONFIRMATION', headers.get('Content-Type', '').startswith('application/json')
+           and not response.startswith(b'VGR1:'))
     status, _, response = api(client, '/api/v1/device/state', token=token)
     expect('RECOVERED_EVENT_REPLAY_PRESERVES_LATEST_TELEMETRY', status == 200
            and json.loads(response)['state']['sequence'] == 24)
@@ -563,6 +633,10 @@ def main():
             print('LIVE_HTTP_ALARM_METADATA_C99_WIRE_SHA256='+hashlib.sha256(alarm_wire).hexdigest(), flush=True)
             replay_wire = build_replay_bytes('runtime:demo')
             print('LIVE_HTTP_RECOVERED_REPLAY_C99_WIRE_SHA256='+hashlib.sha256(replay_wire).hexdigest(), flush=True)
+            receipt_verifier = build_verifier(folder, env)
+            print('LIVE_HTTP_RECEIPT_NATIVE_VERIFIER=BUILT_BEFORE_DATABASE_FIXTURES', flush=True)
+            retirement_fixture = build_retirement_fixture(folder, env)
+            print('LIVE_HTTP_RETIREMENT_NATIVE_FILE_DRIVER=BUILT_BEFORE_DATABASE_FIXTURES', flush=True)
             cert = php_run(args.php_binary, Path('scripts/live_http_tls.php'), [str(folder)], env)
             if cert.returncode:
                 raise GateBlocked('TLS_PREREQUISITE_NO_FIXTURES')
@@ -608,7 +682,7 @@ def main():
             attempted_fixture = True
             prepared = php_run(args.php_binary, Path('scripts/live_http_fixture.php'), ['--prepare', '--execute'], env)
             expect('VERIFIED_ISOLATED_FIXTURE_PREPARATION', prepared.returncode == 0)
-            suite(client, args.php_binary, env, profile, wire, domain_wire, alarm_wire, replay_wire, context, port)
+            suite(client, args.php_binary, env, profile, wire, domain_wire, alarm_wire, replay_wire, receipt_verifier, retirement_fixture, context, port)
     except GateBlocked as exception:
         print('LIVE_HTTP_GATE=BLOCKED_'+str(exception), flush=True)
         code = 3

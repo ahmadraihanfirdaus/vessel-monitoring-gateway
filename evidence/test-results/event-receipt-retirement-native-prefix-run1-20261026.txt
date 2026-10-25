@@ -1,0 +1,39 @@
+COMMAND=python -B scripts/test_offline_authenticated_retirement.py
+test_actual_server_confirmed_current_fact_can_advance_floor_when_old_storage_is_full (__main__.AuthenticatedRetirementTest.test_actual_server_confirmed_current_fact_can_advance_floor_when_old_storage_is_full) ... ok
+test_complete_metadata_receipt_retires_exact_fact_and_retains_legacy_other_boot (__main__.AuthenticatedRetirementTest.test_complete_metadata_receipt_retires_exact_fact_and_retains_legacy_other_boot) ... ok
+test_confirmed_ram_prefix_release_preserves_ids_clocks_and_refusal_counters (__main__.AuthenticatedRetirementTest.test_confirmed_ram_prefix_release_preserves_ids_clocks_and_refusal_counters) ... ok
+test_every_partial_retirement_write_preserves_selected_slot_and_halts_until_recovery (__main__.AuthenticatedRetirementTest.test_every_partial_retirement_write_preserves_selected_slot_and_halts_until_recovery) ... ok
+test_every_receipt_byte_forgery_leaves_published_state_and_io_unchanged (__main__.AuthenticatedRetirementTest.test_every_receipt_byte_forgery_leaves_published_state_and_io_unchanged) ... ok
+test_genuine_current_receipt_commits_floor_and_prevents_cumulative_resurrection_after_reboot (__main__.AuthenticatedRetirementTest.test_genuine_current_receipt_commits_floor_and_prevents_cumulative_resurrection_after_reboot) ... ok
+test_matching_identity_with_missing_or_changed_full_metadata_cannot_retire (__main__.AuthenticatedRetirementTest.test_matching_identity_with_missing_or_changed_full_metadata_cannot_retire) ... ok
+test_old_boot_receipt_preserves_unsupported_other_fact_and_is_idempotent (__main__.AuthenticatedRetirementTest.test_old_boot_receipt_preserves_unsupported_other_fact_and_is_idempotent) ... ok
+test_prefix_release_refuses_wrong_fact_metadata_and_alias_without_mutation (__main__.AuthenticatedRetirementTest.test_prefix_release_refuses_wrong_fact_metadata_and_alias_without_mutation) ... FAIL
+test_structural_true_without_verified_digest_is_not_retirement_authority (__main__.AuthenticatedRetirementTest.test_structural_true_without_verified_digest_is_not_retirement_authority) ... ok
+test_uncertain_commit_and_readback_require_recovery_without_false_rollback_claim (__main__.AuthenticatedRetirementTest.test_uncertain_commit_and_readback_require_recovery_without_false_rollback_claim) ... ok
+test_valid_later_receipt_cannot_skip_oldest_unconfirmed_prefix_or_stored_fact (__main__.AuthenticatedRetirementTest.test_valid_later_receipt_cannot_skip_oldest_unconfirmed_prefix_or_stored_fact) ... ok
+test_wrong_key_status_owner_record_and_aliases_do_not_authorize_retirement (__main__.AuthenticatedRetirementTest.test_wrong_key_status_owner_record_and_aliases_do_not_authorize_retirement) ... ok
+
+======================================================================
+FAIL: test_prefix_release_refuses_wrong_fact_metadata_and_alias_without_mutation (__main__.AuthenticatedRetirementTest.test_prefix_release_refuses_wrong_fact_metadata_and_alias_without_mutation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\test_offline_authenticated_retirement.py", line 218, in test_prefix_release_refuses_wrong_fact_metadata_and_alias_without_mutation
+    self.c(r'''
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\test_offline_authenticated_retirement.py", line 42, in c
+    return compile_c(prefix+COMMON+'target_record=tx.current.events[0];(void)working;(void)verifier;\n'+source+'\nreturn 0;}\n',
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\phase9_b4_testlib.py", line 12, in compile_c
+    if b.returncode:raise AssertionError('COMPILE_FAIL '+b.stdout+b.stderr)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: COMPILE_FAIL <LOCAL_HOME>\AppData\Local\Temp\phase9-b4-iex7qkhx\fixture.c:4:257: error: 'signed_receipt' defined but not used [-Werror=unused-variable]
+    4 | static uint8_t native_key[]={11,18,25,32,39,46,53,60,67,74,81,88,95,102,109,116,123,130,137,144,151,158,165,172,179,186,193,200,207,214,221,228,235,242,249,0,7,14,21,28,35,42,49,56,63,70,77,84,91,98,105,112,119,126,133,140,147,154,161,168,175,182,189,196},signed_receipt[]={86,71,82,49,58,102,56,55,97,97,54,55,55,53,51,99,97,50,48,99,99,51,97,50,51,52,50,99,100,54,56,51,98,102,57,56,56,49,100,99,51,54,49,57,99,97,48,102,55,102,97,54,97,48,56,99,51,57,100,97,100,55,55,99,97,54,48,97,49,58,49,52,53,98,102,51,99,51,49,51,55,98,98,97,52,55,56,101,54,49,102,102,100,49,49,55,49,51,99,48,57,51,52,102,98,98,55,102,97,49,98,97,54,101,52,100,99,101,53,51,52,51,48,54,98,55,49,99,49,99,102,52,102,102};
+      |                                                                                                                                                                                                                                                                 ^~~~~~~~~~~~~~
+cc1.exe: all warnings being treated as errors
+
+
+----------------------------------------------------------------------
+Ran 13 tests in 6.992s
+
+FAILED (failures=1)
+
+EXIT=1
