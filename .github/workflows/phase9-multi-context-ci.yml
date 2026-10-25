@@ -24,6 +24,8 @@ jobs:
         run: |
           python3 -B scripts/test_esp32_network_port.py
           python3 -B scripts/test_esp32_build_gate.py
+          python3 -B scripts/test_offline_state.py
+          python3 -B scripts/test_offline_transaction.py
       - name: NET-001 host-only checks
         run: python3 -B scripts/test_phase9_net001_host_adapter.py
       - name: SYS-003 host-only checks

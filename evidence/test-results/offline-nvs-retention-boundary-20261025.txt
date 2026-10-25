@@ -1,0 +1,44 @@
+COMMAND=python -B scripts/test_offline_state.py
+test_all_truncations_and_every_corrupted_byte_preserve_output (__main__.OfflineStateTest.test_all_truncations_and_every_corrupted_byte_preserve_output) ... ok
+test_conflicts_regressions_aliasing_and_generation_exhaustion_are_atomic (__main__.OfflineStateTest.test_conflicts_regressions_aliasing_and_generation_exhaustion_are_atomic) ... ok
+test_independent_python_crc_and_binary_field_oracle (__main__.OfflineStateTest.test_independent_python_crc_and_binary_field_oracle) ... ok
+test_maximum_names_and_saturated_rejection_counter_have_exact_bounds (__main__.OfflineStateTest.test_maximum_names_and_saturated_rejection_counter_have_exact_bounds) ... ok
+test_maximum_packet_and_eight_cross_boot_events_without_eviction (__main__.OfflineStateTest.test_maximum_packet_and_eight_cross_boot_events_without_eviction) ... ok
+test_output_capacity_and_bad_source_fail_without_erasing_previous_bytes (__main__.OfflineStateTest.test_output_capacity_and_bad_source_fail_without_erasing_previous_bytes) ... ok
+test_queue_replacement_requires_a_valid_cumulative_critical_prefix (__main__.OfflineStateTest.test_queue_replacement_requires_a_valid_cumulative_critical_prefix) ... ok
+test_recalculated_checksum_cannot_hide_invalid_schema_or_metadata (__main__.OfflineStateTest.test_recalculated_checksum_cannot_hide_invalid_schema_or_metadata) ... ok
+test_roundtrip_preserves_64bit_identity_and_event_fields (__main__.OfflineStateTest.test_roundtrip_preserves_64bit_identity_and_event_fields) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 3.091s
+
+OK
+EXIT=0
+COMMAND=python -B scripts/test_offline_transaction.py
+test_blank_bootstrap_alternates_slots_and_recovers_latest_generation (__main__.OfflineTransactionTest.test_blank_bootstrap_alternates_slots_and_recovers_latest_generation) ... ok
+test_commit_failure_can_be_uncertain_and_requires_explicit_recovery (__main__.OfflineTransactionTest.test_commit_failure_can_be_uncertain_and_requires_explicit_recovery) ... ok
+test_equal_generation_conflict_is_rejected_but_identical_slots_are_admitted (__main__.OfflineTransactionTest.test_equal_generation_conflict_is_rejected_but_identical_slots_are_admitted) ... ok
+test_every_partial_write_preserves_selected_slot_and_published_memory (__main__.OfflineTransactionTest.test_every_partial_write_preserves_selected_slot_and_published_memory) ... ok
+test_readback_corruption_and_io_errors_do_not_publish_or_initialize_empty (__main__.OfflineTransactionTest.test_readback_corruption_and_io_errors_do_not_publish_or_initialize_empty) ... ok
+test_sdk_binding_has_no_erase_network_wait_or_unconditional_queue_eviction (__main__.OfflineTransactionTest.test_sdk_binding_has_no_erase_network_wait_or_unconditional_queue_eviction) ... ok
+test_transaction_boundary_rejects_critical_deletion_even_if_merge_is_bypassed (__main__.OfflineTransactionTest.test_transaction_boundary_rejects_critical_deletion_even_if_merge_is_bypassed) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 2.458s
+
+OK
+EXIT=0
+COMMAND=python -B scripts/test_offline_transaction.py
+test_blank_bootstrap_alternates_slots_and_recovers_latest_generation (__main__.OfflineTransactionTest.test_blank_bootstrap_alternates_slots_and_recovers_latest_generation) ... ok
+test_commit_failure_can_be_uncertain_and_requires_explicit_recovery (__main__.OfflineTransactionTest.test_commit_failure_can_be_uncertain_and_requires_explicit_recovery) ... ok
+test_equal_generation_conflict_is_rejected_but_identical_slots_are_admitted (__main__.OfflineTransactionTest.test_equal_generation_conflict_is_rejected_but_identical_slots_are_admitted) ... ok
+test_every_partial_write_preserves_selected_slot_and_published_memory (__main__.OfflineTransactionTest.test_every_partial_write_preserves_selected_slot_and_published_memory) ... ok
+test_readback_corruption_and_io_errors_do_not_publish_or_initialize_empty (__main__.OfflineTransactionTest.test_readback_corruption_and_io_errors_do_not_publish_or_initialize_empty) ... ok
+test_sdk_binding_has_no_erase_network_wait_or_unconditional_queue_eviction (__main__.OfflineTransactionTest.test_sdk_binding_has_no_erase_network_wait_or_unconditional_queue_eviction) ... ok
+test_transaction_boundary_rejects_critical_deletion_even_if_merge_is_bypassed (__main__.OfflineTransactionTest.test_transaction_boundary_rejects_critical_deletion_even_if_merge_is_bypassed) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 2.598s
+
+OK
+EXIT=0

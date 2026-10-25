@@ -1,0 +1,84 @@
+COMMAND=python -B scripts/check_living_traceability.py
+BASELINE_SHA256: PASS (2/2)
+LIVING_TRACEABILITY: PASS (38/38 mapped, 34 unique planned cases)
+ASSESSMENTS: {'IMPLEMENTED_UNVERIFIED': 20, 'PARTIAL': 18}
+FORMAL_REQUIREMENT_STATUS: {'NOT_RUN': 20, 'PARTIAL': 3, 'PASS': 15}
+FORMAL_SIM_SCENARIOS: PASS=9, NOT_RUN=6
+SUPPLEMENTAL_TESTS: PLANNED=14, PASS=5
+FINAL_REQUIREMENT_APPROVAL: NOT_APPROVED
+TOTAL_SYSTEM_STATUS: PARTIAL
+EXIT=0
+COMMAND=python -B scripts/audit_phase9_p1_security_review.py
+REVIEW_HASH backend/laravel/.editorconfig f78cc5a2ef8ba61ad956d0f5db453748a981270f6a1b9f4a5a00df8690e7946d
+REVIEW_HASH backend/laravel/app/Models/User.php 41d800ffd4887c75e66af8eaedc756edce052eb662baae357308c6e364a6c9d2
+REVIEW_HASH backend/laravel/artisan f91a517c0c5d3a904c3f390933964a5e08ec1fc68146882730daac4aca4ffcec
+REVIEW_HASH backend/laravel/composer.lock 6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2
+REVIEW_HASH backend/laravel/config/database.php 43b43e74db771fa0da206a2c86c91d3bf84698acc95af29482032cbe981ce7f7
+REVIEW_HASH backend/laravel/config/mail.php c43ff49a31c5f32ce21eb7159f2a4b3cd2f4074eaed5838d265646dbfedd3474
+REVIEW_HASH backend/laravel/public/.htaccess b7e379c77639fd56144947dbae84c84eb466d9c686ea81f2f013ae85421da923
+REVIEW_SEMANTIC backend/laravel/app/Models/User.php:46: PASS
+REVIEW_SEMANTIC backend/laravel/config/database.php:54: PASS
+REVIEW_SEMANTIC backend/laravel/config/database.php:74: PASS
+REVIEW_SEMANTIC backend/laravel/config/database.php:94: PASS
+REVIEW_SEMANTIC backend/laravel/config/database.php:109: PASS
+REVIEW_SEMANTIC backend/laravel/config/database.php:160: PASS
+REVIEW_SEMANTIC backend/laravel/config/database.php:173: PASS
+REVIEW_SEMANTIC backend/laravel/config/mail.php:47: PASS
+REVIEW_COMPOSER_LOCK_JSON: PASS
+REVIEW_LARAVEL_FRAMEWORK_VERSION: v12.70.0
+REVIEW_PINNED_FRAMEWORK_FILES: PASS
+=== PHASE 2.7B.5K.5 - PUBLIC SECURITY AUDIT ===
+Git index entries: 1061
+Untracked candidates: 28
+Total candidates: 1089
+
+Potential security findings: 0
+Manual review warnings: 0
+Hash-pinned non-secret reviews: 27
+Reviewed dependency author metadata: 141
+
+REVIEWED NON-SECRET: .github/workflows/phase9-multi-context-ci.yml:292 [index] - ESP32-CI-NONSECRET-001 / CI_TEST_CONFIGURATION
+REVIEWED NON-SECRET: .github/workflows/phase9-multi-context-ci.yml:358 [index] - ESP32-CI-NONSECRET-002 / CI_TEST_CONFIGURATION
+REVIEWED NON-SECRET: .github/workflows/phase9-multi-context-ci.yml:294 [working] - OFFLINE-CI-NONSECRET-001 / CI_TEST_CONFIGURATION
+REVIEWED NON-SECRET: .github/workflows/phase9-multi-context-ci.yml:360 [working] - OFFLINE-CI-NONSECRET-002 / CI_TEST_CONFIGURATION
+REVIEWED NON-SECRET: backend/laravel/app/Http/Controllers/MonitoringSessionController.php:17 [index] - MONITORING-NONSECRET-001 / SOURCE_CONTRACT_TOKEN
+REVIEWED NON-SECRET: backend/laravel/app/Models/User.php:46 [index] - NONSECRET-005 / FRAMEWORK_CAST
+REVIEWED NON-SECRET: backend/laravel/tests/Feature/FirmwareMySqlIntegrationTest.php:192 [index] - MONITORING-NONSECRET-002 / RUNTIME_GENERATED_TEST_VALUE
+REVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringAccessTest.php:98 [index] - MONITORING-NONSECRET-003 / RUNTIME_GENERATED_TEST_VALUE
+REVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringAccessTest.php:100 [index] - MONITORING-NONSECRET-004 / RUNTIME_GENERATED_TEST_VALUE
+REVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringAccessTest.php:111 [index] - MONITORING-NONSECRET-005 / RUNTIME_GENERATED_TEST_VALUE
+REVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringAccessTest.php:114 [index] - MONITORING-NONSECRET-006 / RUNTIME_GENERATED_TEST_VALUE
+REVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringBoundaryTest.php:35 [index] - MONITORING-NONSECRET-011 / RUNTIME_GENERATED_TEST_VALUE
+REVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringOperatorTest.php:22 [index] - MONITORING-NONSECRET-007 / ENVIRONMENT_VARIABLE_NAME
+REVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringOperatorTest.php:37 [index] - MONITORING-NONSECRET-008 / ENVIRONMENT_VARIABLE_NAME
+REVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringOperatorTest.php:46 [index] - MONITORING-NONSECRET-009 / ENVIRONMENT_VARIABLE_NAME
+REVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringOperatorTest.php:52 [index] - MONITORING-NONSECRET-008 / ENVIRONMENT_VARIABLE_NAME
+REVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringOperatorTest.php:67 [index] - MONITORING-NONSECRET-010 / ENVIRONMENT_VARIABLE_NAME
+REVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringOperatorTest.php:72 [index] - MONITORING-NONSECRET-008 / ENVIRONMENT_VARIABLE_NAME
+REVIEWED NON-SECRET: backend/laravel/tests/Support/MonitoringFixtures.php:13 [index] - MONITORING-NONSECRET-012 / RUNTIME_GENERATED_TEST_VALUE
+REVIEWED NON-SECRET: backend/laravel/tests/Support/MySqlIsolation.php:93 [index] - MONITORING-NONSECRET-013 / ENVIRONMENT_VARIABLE_NAME
+REVIEWED NON-SECRET: backend/laravel/tests/Unit/MySqlIsolationTest.php:120 [index] - NONSECRET-007 / SYNTHETIC_NEGATIVE_FIXTURE
+REVIEWED NON-SECRET: backend/laravel/tests/Unit/TestEnvironmentTest.php:30 [index] - NONSECRET-008 / SYNTHETIC_NEGATIVE_FIXTURE
+REVIEWED NON-SECRET: evidence/test-results/phase9-p3-security-review-20261018.txt:12 [index] - NONSECRET-009 / AUDIT_RESULT_LABEL
+REVIEWED NON-SECRET: evidence/test-results/phase9-p3-security-review-20261018.txt:13 [index] - NONSECRET-010 / AUDIT_RESULT_LABEL
+REVIEWED NON-SECRET: evidence/test-results/phase9-p3-security-review-20261018.txt:12 [working] - NONSECRET-011 / AUDIT_RESULT_LABEL
+REVIEWED NON-SECRET: evidence/test-results/phase9-p3-security-review-20261018.txt:13 [working] - NONSECRET-012 / AUDIT_RESULT_LABEL
+REVIEWED NON-SECRET: scripts/test_phase9_b39_contract.py:16 [index] - NONSECRET-013 / SOURCE_CONTRACT_TOKEN
+
+PASS: No prohibited files detected
+PASS: No obvious secrets detected
+PASS: Git index and working content checked
+RESULT: AUTOMATED SECURITY SCREEN PASSED
+
+NOTE: This scan is not a confidentiality guarantee
+NOTE: Unsupported binary files are blocked
+NOTE: Manual semantic review is still mandatory
+NOTE: No files were modified
+NOTE: Passing does not authorize publication
+=== PHASE 2.7B.5K.5 COMPLETE ===
+PHASE9_P1_PINNED_FRAMEWORK_REVIEW: PASS
+PHASE9_P1_CURRENT_SECURITY_GATE: PASS_ZERO_UNRESOLVED_FINDINGS
+EXIT=0
+COMMAND=git diff --check
+
+EXIT=0

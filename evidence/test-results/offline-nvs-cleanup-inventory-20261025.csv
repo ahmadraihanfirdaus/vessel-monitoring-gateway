@@ -1,0 +1,7 @@
+path,file_count,bytes,action,qualification
+firmware/.pio/build,1934,162907805,RETAINED_READ_ONLY,Metadata only; no deletion of dependencies or evidence
+backend/laravel/vendor,8574,66825925,RETAINED_READ_ONLY,Metadata only; no deletion of dependencies or evidence
+backend/laravel/bootstrap/cache,3,22734,RETAINED_READ_ONLY,Metadata only; no deletion of dependencies or evidence
+backend/laravel/storage/framework/views,56,270302,RETAINED_READ_ONLY,Metadata only; no deletion of dependencies or evidence
+backend/laravel/storage/logs,1,14,RETAINED_READ_ONLY,Metadata only; no deletion of dependencies or evidence
+scripts/__pycache__,8,73971,RETAINED_READ_ONLY,Metadata only; no deletion of dependencies or evidence

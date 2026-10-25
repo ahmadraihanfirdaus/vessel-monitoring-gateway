@@ -30,3 +30,15 @@ The preliminary FMEA identifies plausible functional failure modes to guide test
 5. Obtain technical review of any numerical severity/probability approach before using it. None is introduced here.
 
 **Disposition:** Preliminary FMEA document PRESENT; hazard-analysis acceptance and operational effectiveness NOT_VERIFIED.
+
+## Local storage observations, 2026-10-25
+
+FMEA-07/08 now have additional scoped software evidence in the
+[NVS continuation](../../evidence/test-results/offline-nvs-summary-20261025.md):
+actual NVS worker source compiles, and native transaction fault injection checks
+selected-slot preservation, uncertain commits, corrupt/ambiguous recovery and
+explicit journal-full behavior. These observations do not close either FMEA row
+or execute its formal protocol. Critical capacity exhaustion refuses new records
+explicitly; degraded recovery may restore older data. Flash/cache effects on
+sampling, physical power cuts, wear, confidential provisioning and residual-risk
+acceptance remain unverified. No likelihood/severity threshold is assigned.

@@ -648,6 +648,22 @@
       "line_sha256": "ca6dcd3e138310f57f7f86f4061f0dd448f949016058e65ba39ff6fb214029d7",
       "classification": "CI_TEST_CONFIGURATION",
       "rationale": "Same reviewed ephemeral CI boolean/dynamic environment-label writer; no credential value. SDK build job and exact PHP patch pin added; key generator byte-identical."
+    },
+    {
+      "id": "OFFLINE-CI-NONSECRET-001",
+      "path": ".github/workflows/phase9-multi-context-ci.yml",
+      "file_sha256": "2e3722c87e7da518002285c4bd8b7f124b4868d419f40338631e0e7d29b518e1",
+      "line_sha256": "e52d2a0aee17904e9e0b4a21889e572a42d8b99434d44885e2867934c59dbb4b",
+      "classification": "CI_TEST_CONFIGURATION",
+      "rationale": "Unchanged exact CI boolean/environment-label writer after adding offline storage tests; no credential value or new exemption."
+    },
+    {
+      "id": "OFFLINE-CI-NONSECRET-002",
+      "path": ".github/workflows/phase9-multi-context-ci.yml",
+      "file_sha256": "2e3722c87e7da518002285c4bd8b7f124b4868d419f40338631e0e7d29b518e1",
+      "line_sha256": "ca6dcd3e138310f57f7f86f4061f0dd448f949016058e65ba39ff6fb214029d7",
+      "classification": "CI_TEST_CONFIGURATION",
+      "rationale": "Unchanged exact CI boolean/environment-label writer after adding offline storage tests; no credential value or new exemption."
     }
   ]
 }

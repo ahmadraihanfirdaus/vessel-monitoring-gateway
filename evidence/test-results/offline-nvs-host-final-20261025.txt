@@ -1,0 +1,62 @@
+COMMAND=python -B scripts/test_offline_state.py
+test_all_truncations_and_every_corrupted_byte_preserve_output (__main__.OfflineStateTest.test_all_truncations_and_every_corrupted_byte_preserve_output) ... ok
+test_conflicts_regressions_aliasing_and_generation_exhaustion_are_atomic (__main__.OfflineStateTest.test_conflicts_regressions_aliasing_and_generation_exhaustion_are_atomic) ... ok
+test_maximum_packet_and_eight_cross_boot_events_without_eviction (__main__.OfflineStateTest.test_maximum_packet_and_eight_cross_boot_events_without_eviction) ... ok
+test_output_capacity_and_bad_source_fail_without_erasing_previous_bytes (__main__.OfflineStateTest.test_output_capacity_and_bad_source_fail_without_erasing_previous_bytes) ... ok
+test_queue_replacement_requires_a_valid_cumulative_critical_prefix (__main__.OfflineStateTest.test_queue_replacement_requires_a_valid_cumulative_critical_prefix) ... ok
+test_recalculated_checksum_cannot_hide_invalid_schema_or_metadata (__main__.OfflineStateTest.test_recalculated_checksum_cannot_hide_invalid_schema_or_metadata) ... ok
+test_roundtrip_preserves_64bit_identity_and_event_fields (__main__.OfflineStateTest.test_roundtrip_preserves_64bit_identity_and_event_fields) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 2.237s
+
+OK
+EXIT=0
+COMMAND=python -B scripts/test_offline_transaction.py
+test_blank_bootstrap_alternates_slots_and_recovers_latest_generation (__main__.OfflineTransactionTest.test_blank_bootstrap_alternates_slots_and_recovers_latest_generation) ... ok
+test_commit_failure_can_be_uncertain_and_requires_explicit_recovery (__main__.OfflineTransactionTest.test_commit_failure_can_be_uncertain_and_requires_explicit_recovery) ... ok
+test_equal_generation_conflict_is_rejected_but_identical_slots_are_admitted (__main__.OfflineTransactionTest.test_equal_generation_conflict_is_rejected_but_identical_slots_are_admitted) ... ok
+test_every_partial_write_preserves_selected_slot_and_published_memory (__main__.OfflineTransactionTest.test_every_partial_write_preserves_selected_slot_and_published_memory) ... ok
+test_readback_corruption_and_io_errors_do_not_publish_or_initialize_empty (__main__.OfflineTransactionTest.test_readback_corruption_and_io_errors_do_not_publish_or_initialize_empty) ... ok
+test_sdk_binding_has_no_erase_network_wait_or_unconditional_queue_eviction (__main__.OfflineTransactionTest.test_sdk_binding_has_no_erase_network_wait_or_unconditional_queue_eviction) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 2.236s
+
+OK
+EXIT=0
+COMMAND=python -B scripts/test_firmware_core_host.py --repeat 2
+HOST_CORE_PARSER_REGRESSION: PASS (5/5)
+HOST_C_COMPILER: C:/msys64/ucrt64/bin\gcc.EXE
+HOST_FIRMWARE_CORE_SELFTEST: PASS (226/226)
+HOST_BOOT_ENTRY_REPETITIONS: PASS (2; same 226 cases per entry)
+NOTE: Native behavior only. Wokwi/ESP-IDF/SIM/SUP/bench verification not implied.
+EXIT=0
+COMMAND=python -B scripts/test_esp32_network_port.py
+test_frame_preserves_zero_null_source_and_failure_outputs (__main__.Esp32NetworkPortTest.test_frame_preserves_zero_null_source_and_failure_outputs) ... ok
+test_https_authority_admission (__main__.Esp32NetworkPortTest.test_https_authority_admission) ... ok
+test_profile_policy_and_string_bounds (__main__.Esp32NetworkPortTest.test_profile_policy_and_string_bounds) ... ok
+test_queue_body_reply_and_retry_limits (__main__.Esp32NetworkPortTest.test_queue_body_reply_and_retry_limits) ... ok
+test_real_sdk_security_and_nonblocking_boundaries_are_present (__main__.Esp32NetworkPortTest.test_real_sdk_security_and_nonblocking_boundaries_are_present) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 1.080s
+
+OK
+EXIT=0
+COMMAND=python -B scripts/test_esp32_build_gate.py
+usage: build [-h] [--pio-cli PIO_CLI] --evidence-name EVIDENCE_NAME
+build: error: evidence already exists; select a new run name
+...
+----------------------------------------------------------------------
+Ran 3 tests in 0.012s
+
+OK
+EXIT=0
+COMMAND=python -B scripts/test_mysql_integration_gate.py
+.....................
+----------------------------------------------------------------------
+Ran 21 tests in 0.133s
+
+OK
+EXIT=0

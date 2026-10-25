@@ -1,0 +1,16 @@
+COMMAND=python -B scripts/test_offline_state.py
+test_all_truncations_and_every_corrupted_byte_preserve_output (__main__.OfflineStateTest.test_all_truncations_and_every_corrupted_byte_preserve_output) ... ok
+test_conflicts_regressions_aliasing_and_generation_exhaustion_are_atomic (__main__.OfflineStateTest.test_conflicts_regressions_aliasing_and_generation_exhaustion_are_atomic) ... ok
+test_independent_python_crc_and_binary_field_oracle (__main__.OfflineStateTest.test_independent_python_crc_and_binary_field_oracle) ... ok
+test_maximum_names_and_saturated_rejection_counter_have_exact_bounds (__main__.OfflineStateTest.test_maximum_names_and_saturated_rejection_counter_have_exact_bounds) ... ok
+test_maximum_packet_and_eight_cross_boot_events_without_eviction (__main__.OfflineStateTest.test_maximum_packet_and_eight_cross_boot_events_without_eviction) ... ok
+test_output_capacity_and_bad_source_fail_without_erasing_previous_bytes (__main__.OfflineStateTest.test_output_capacity_and_bad_source_fail_without_erasing_previous_bytes) ... ok
+test_queue_replacement_requires_a_valid_cumulative_critical_prefix (__main__.OfflineStateTest.test_queue_replacement_requires_a_valid_cumulative_critical_prefix) ... ok
+test_recalculated_checksum_cannot_hide_invalid_schema_or_metadata (__main__.OfflineStateTest.test_recalculated_checksum_cannot_hide_invalid_schema_or_metadata) ... ok
+test_roundtrip_preserves_64bit_identity_and_event_fields (__main__.OfflineStateTest.test_roundtrip_preserves_64bit_identity_and_event_fields) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 3.610s
+
+OK
+EXIT=0

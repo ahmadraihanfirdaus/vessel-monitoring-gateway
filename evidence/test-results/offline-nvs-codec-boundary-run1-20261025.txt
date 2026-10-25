@@ -1,0 +1,29 @@
+COMMAND=python -B scripts/test_offline_state.py
+test_all_truncations_and_every_corrupted_byte_preserve_output (__main__.OfflineStateTest.test_all_truncations_and_every_corrupted_byte_preserve_output) ... ok
+test_conflicts_regressions_aliasing_and_generation_exhaustion_are_atomic (__main__.OfflineStateTest.test_conflicts_regressions_aliasing_and_generation_exhaustion_are_atomic) ... ok
+test_maximum_names_and_saturated_rejection_counter_have_exact_bounds (__main__.OfflineStateTest.test_maximum_names_and_saturated_rejection_counter_have_exact_bounds) ... FAIL
+test_maximum_packet_and_eight_cross_boot_events_without_eviction (__main__.OfflineStateTest.test_maximum_packet_and_eight_cross_boot_events_without_eviction) ... ok
+test_output_capacity_and_bad_source_fail_without_erasing_previous_bytes (__main__.OfflineStateTest.test_output_capacity_and_bad_source_fail_without_erasing_previous_bytes) ... ok
+test_queue_replacement_requires_a_valid_cumulative_critical_prefix (__main__.OfflineStateTest.test_queue_replacement_requires_a_valid_cumulative_critical_prefix) ... ok
+test_recalculated_checksum_cannot_hide_invalid_schema_or_metadata (__main__.OfflineStateTest.test_recalculated_checksum_cannot_hide_invalid_schema_or_metadata) ... ok
+test_roundtrip_preserves_64bit_identity_and_event_fields (__main__.OfflineStateTest.test_roundtrip_preserves_64bit_identity_and_event_fields) ... ok
+
+======================================================================
+FAIL: test_maximum_names_and_saturated_rejection_counter_have_exact_bounds (__main__.OfflineStateTest.test_maximum_names_and_saturated_rejection_counter_have_exact_bounds)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\test_offline_state.py", line 130, in test_maximum_names_and_saturated_rejection_counter_have_exact_bounds
+    self.c(r'''
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\test_offline_state.py", line 27, in c
+    compile_c(COMMON+'(void)next;(void)scratch;(void)restored;(void)raw;(void)before;\n'+source+'\nreturn 0;}\n', extra_flags=('-Os',))
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\phase9_b4_testlib.py", line 14, in compile_c
+    if p.returncode:raise AssertionError('RUNTIME_FAIL '+p.stdout+p.stderr)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: RUNTIME_FAIL Assertion failed: n==4966u, file <LOCAL_HOME>\AppData\Local\Temp\phase9-b4-dwojc8pr\fixture.c, line 25
+
+
+----------------------------------------------------------------------
+Ran 8 tests in 2.818s
+
+FAILED (failures=1)
+EXIT=1

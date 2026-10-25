@@ -264,3 +264,5 @@ The repository is under preparation for continued engineering development and pu
 **Physical Integration:** NOT_AUTHORIZED / NOT_RUN
 
 Current ESP32 transport continuation: actual SDK adapter, guarded local build and six-step core-to-Laravel/browser integration are recorded in [transport evidence](../evidence/test-results/esp32-transport-summary-20261025.md). The complete approved PHP 8.2.35/MariaDB suite has 326 passing tests. Hardware, trusted-clock/TLS handshake, durable storage, hosted CI and remaining formal protocols are unverified; overall status remains PARTIAL.
+
+The [offline storage continuation](../evidence/test-results/offline-nvs-summary-20261025.md) connects a bounded two-slot NVS worker to the finite simulation and recovered C99-wire integration. Physical persistence, confidentiality, power-loss and timing remain unverified; no formal status is promoted.

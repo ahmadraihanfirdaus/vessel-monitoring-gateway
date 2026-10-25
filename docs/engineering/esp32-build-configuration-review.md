@@ -20,3 +20,13 @@ The script verifies documented static choices and reports available ignored runt
 ## Exit gate for future bench work
 
 Identify exact physical module and flash capacity; verify partition tables, bootloader flash headers, electrical and GPIO compatibility, pinout, isolation/protection, and reviewed bench-power design. Document measured evidence under separate authorization. Until then: **PHYSICAL FLASH CONFIGURATION = NOT_VERIFIED; BENCH INTEGRATION = NOT_AUTHORIZED.**
+
+## Local transport/storage build continuation, 2026-10-25
+
+The [actual SDK build evidence](../../evidence/test-results/offline-nvs-summary-20261025.md)
+records a 1,041,904-byte application within the existing 1 MiB factory partition,
+66,436 bytes static RAM, source-stability digest and offline merged-image hash.
+TLS chain/hostname/date validation and assertions remain enabled. The merge
+contains blank NVS; its SDK-configured 2 MiB size still proves no physical flash
+capacity. Full stack/heap/flash-cache behavior, wear, secret provisioning and
+power-loss recovery require actual device evidence. No upload was performed.

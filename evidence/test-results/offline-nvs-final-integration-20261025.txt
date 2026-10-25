@@ -1,0 +1,40 @@
+COMMAND=python -B scripts/test_offline_state.py
+test_all_truncations_and_every_corrupted_byte_preserve_output (__main__.OfflineStateTest.test_all_truncations_and_every_corrupted_byte_preserve_output) ... ok
+test_conflicts_regressions_aliasing_and_generation_exhaustion_are_atomic (__main__.OfflineStateTest.test_conflicts_regressions_aliasing_and_generation_exhaustion_are_atomic) ... ok
+test_independent_python_crc_and_binary_field_oracle (__main__.OfflineStateTest.test_independent_python_crc_and_binary_field_oracle) ... ok
+test_maximum_names_and_saturated_rejection_counter_have_exact_bounds (__main__.OfflineStateTest.test_maximum_names_and_saturated_rejection_counter_have_exact_bounds) ... ok
+test_maximum_packet_and_eight_cross_boot_events_without_eviction (__main__.OfflineStateTest.test_maximum_packet_and_eight_cross_boot_events_without_eviction) ... ok
+test_output_capacity_and_bad_source_fail_without_erasing_previous_bytes (__main__.OfflineStateTest.test_output_capacity_and_bad_source_fail_without_erasing_previous_bytes) ... ok
+test_queue_replacement_requires_a_valid_cumulative_critical_prefix (__main__.OfflineStateTest.test_queue_replacement_requires_a_valid_cumulative_critical_prefix) ... ok
+test_recalculated_checksum_cannot_hide_invalid_schema_or_metadata (__main__.OfflineStateTest.test_recalculated_checksum_cannot_hide_invalid_schema_or_metadata) ... ok
+test_roundtrip_preserves_64bit_identity_and_event_fields (__main__.OfflineStateTest.test_roundtrip_preserves_64bit_identity_and_event_fields) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 3.309s
+
+OK
+EXIT=0
+COMMAND=python -B scripts/test_offline_transaction.py
+test_blank_bootstrap_alternates_slots_and_recovers_latest_generation (__main__.OfflineTransactionTest.test_blank_bootstrap_alternates_slots_and_recovers_latest_generation) ... ok
+test_commit_failure_can_be_uncertain_and_requires_explicit_recovery (__main__.OfflineTransactionTest.test_commit_failure_can_be_uncertain_and_requires_explicit_recovery) ... ok
+test_equal_generation_conflict_is_rejected_but_identical_slots_are_admitted (__main__.OfflineTransactionTest.test_equal_generation_conflict_is_rejected_but_identical_slots_are_admitted) ... ok
+test_every_partial_write_preserves_selected_slot_and_published_memory (__main__.OfflineTransactionTest.test_every_partial_write_preserves_selected_slot_and_published_memory) ... ok
+test_readback_corruption_and_io_errors_do_not_publish_or_initialize_empty (__main__.OfflineTransactionTest.test_readback_corruption_and_io_errors_do_not_publish_or_initialize_empty) ... ok
+test_sdk_binding_has_no_erase_network_wait_or_unconditional_queue_eviction (__main__.OfflineTransactionTest.test_sdk_binding_has_no_erase_network_wait_or_unconditional_queue_eviction) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 2.323s
+
+OK
+EXIT=0
+COMMAND=python -B scripts/run_mysql_integration.py --php-binary C:/tools/php-8.2.35/php.exe --testing-env --execute --existing-schema
+TEST_CONFIG_AUDIT={"local_testing_file":true,"process_override_names":["APP_KEY","CACHE_STORE","DATABASE_URL","DB_SOCKET","DB_URL","LOG_CHANNEL","QUEUE_CONNECTION","SESSION_DRIVER","VG_PHP_CLI","VG_TEST_EPHEMERAL_KEY","VG_USE_TESTING_ENV"],"phpunit_env":[{"name":"APP_ENV","force":false},{"name":"DB_CONNECTION","force":false},{"name":"APP_MAINTENANCE_DRIVER","force":false},{"name":"BCRYPT_ROUNDS","force":false},{"name":"BROADCAST_CONNECTION","force":false},{"name":"CACHE_STORE","force":false},{"name":"DB_URL","force":false},{"name":"MAIL_MAILER","force":false},{"name":"QUEUE_CONNECTION","force":false},{"name":"SESSION_DRIVER","force":false},{"name":"PULSE_ENABLED","force":false},{"name":"TELESCOPE_ENABLED","force":false},{"name":"NIGHTWATCH_ENABLED","force":false}],"phpunit_server_names":[],"secret_values":"REDACTED_NOT_EMITTED","effective_target":{"host":"127.0.0.1","port":"3307","database":"vessel_gateway_codex_test","username":"vgw_codex","driver":"mysql"},"effective_app_testing":true,"runtime":{"php_version":"8.2.35","php_binary":"C:\\tools\\php-8.2.35\\php.exe"},"app_key_configured":true,"app_key_cipher_compatible":true,"app_key_source":"ephemeral_runner_process","engine":"10.4.32-MariaDB"}
+DATABASE_POSTCHECK=PASS_TEN_TABLES_FIVE_MIGRATIONS_ZERO_APPLICATION_ROWS
+B14_C99_JSONL=PASS_2_CASES_SHA256_9d0edbcc1e050155797b2c8cbe3de5226ffb7bbf01c9a01c252650fbe846525f
+B15_C99_EVENTS=PASS_4_CASES_SHA256_e495ab61324bd0b29f764b33e0187a2892d4a92c054bf9dbc943dca96de3f308
+RUNTIME_C99_WIRE=PASS_6_CASES_SHA256_21930ab910d66844d7903d2e726c3c5a8db9809018deacb0e26d93d61f88ee4a
+MYSQL_MIGRATION=NOT_RUN_EXISTING_SCHEMA_MODE
+MYSQL_LARAVEL_CASES=326 FAILED=0 SKIPPED=0
+MYSQL_LARAVEL_SUITE=PASS
+MYSQL_HTTP_ACK_CROSSCHECK=PASS
+EXIT=0

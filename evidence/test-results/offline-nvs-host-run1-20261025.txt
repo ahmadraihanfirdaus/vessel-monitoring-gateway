@@ -1,0 +1,132 @@
+COMMAND=scripts/test_offline_state.py
+test_all_truncations_and_every_corrupted_byte_preserve_output (__main__.OfflineStateTest.test_all_truncations_and_every_corrupted_byte_preserve_output) ... ok
+test_conflicts_regressions_aliasing_and_generation_exhaustion_are_atomic (__main__.OfflineStateTest.test_conflicts_regressions_aliasing_and_generation_exhaustion_are_atomic) ... ok
+test_maximum_packet_and_eight_cross_boot_events_without_eviction (__main__.OfflineStateTest.test_maximum_packet_and_eight_cross_boot_events_without_eviction) ... ok
+test_output_capacity_and_bad_source_fail_without_erasing_previous_bytes (__main__.OfflineStateTest.test_output_capacity_and_bad_source_fail_without_erasing_previous_bytes) ... ok
+test_queue_replacement_requires_a_valid_cumulative_critical_prefix (__main__.OfflineStateTest.test_queue_replacement_requires_a_valid_cumulative_critical_prefix) ... ok
+test_recalculated_checksum_cannot_hide_invalid_schema_or_metadata (__main__.OfflineStateTest.test_recalculated_checksum_cannot_hide_invalid_schema_or_metadata) ... ok
+test_roundtrip_preserves_64bit_identity_and_event_fields (__main__.OfflineStateTest.test_roundtrip_preserves_64bit_identity_and_event_fields) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 2.442s
+
+OK
+EXIT=0
+COMMAND=scripts/test_offline_transaction.py
+test_blank_bootstrap_alternates_slots_and_recovers_latest_generation (__main__.OfflineTransactionTest.test_blank_bootstrap_alternates_slots_and_recovers_latest_generation) ... FAIL
+test_commit_failure_can_be_uncertain_and_requires_explicit_recovery (__main__.OfflineTransactionTest.test_commit_failure_can_be_uncertain_and_requires_explicit_recovery) ... FAIL
+test_equal_generation_conflict_is_rejected_but_identical_slots_are_admitted (__main__.OfflineTransactionTest.test_equal_generation_conflict_is_rejected_but_identical_slots_are_admitted) ... FAIL
+test_every_partial_write_preserves_selected_slot_and_published_memory (__main__.OfflineTransactionTest.test_every_partial_write_preserves_selected_slot_and_published_memory) ... FAIL
+test_readback_corruption_and_io_errors_do_not_publish_or_initialize_empty (__main__.OfflineTransactionTest.test_readback_corruption_and_io_errors_do_not_publish_or_initialize_empty) ... FAIL
+test_sdk_binding_has_no_erase_network_wait_or_unconditional_queue_eviction (__main__.OfflineTransactionTest.test_sdk_binding_has_no_erase_network_wait_or_unconditional_queue_eviction) ... ok
+
+======================================================================
+FAIL: test_blank_bootstrap_alternates_slots_and_recovers_latest_generation (__main__.OfflineTransactionTest.test_blank_bootstrap_alternates_slots_and_recovers_latest_generation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\test_offline_transaction.py", line 47, in test_blank_bootstrap_alternates_slots_and_recovers_latest_generation
+    self.c(r'''
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\test_offline_transaction.py", line 44, in c
+    compile_c(COMMON+source+'\nreturn 0;}\n', extra_flags=('-Os',))
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\phase9_b4_testlib.py", line 12, in compile_c
+    if b.returncode:raise AssertionError('COMPILE_FAIL '+b.stdout+b.stderr)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: COMPILE_FAIL <LOCAL_HOME>\AppData\Local\Temp\phase9-b4-r7aq93v5\fixture.c: In function 'read_slot':
+<LOCAL_HOME>\AppData\Local\Temp\phase9-b4-r7aq93v5\fixture.c:16:2: error: this 'if' clause does not guard... [-Werror=misleading-indentation]
+   16 |  if(x->tamper_read)out[0]^=1u;return VG_OFFLINE_READ_READY;
+      |  ^~
+<LOCAL_HOME>\AppData\Local\Temp\phase9-b4-r7aq93v5\fixture.c:16:31: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+   16 |  if(x->tamper_read)out[0]^=1u;return VG_OFFLINE_READ_READY;
+      |                               ^~~~~~
+cc1.exe: all warnings being treated as errors
+
+
+======================================================================
+FAIL: test_commit_failure_can_be_uncertain_and_requires_explicit_recovery (__main__.OfflineTransactionTest.test_commit_failure_can_be_uncertain_and_requires_explicit_recovery)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\test_offline_transaction.py", line 72, in test_commit_failure_can_be_uncertain_and_requires_explicit_recovery
+    self.c(r'''
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\test_offline_transaction.py", line 44, in c
+    compile_c(COMMON+source+'\nreturn 0;}\n', extra_flags=('-Os',))
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\phase9_b4_testlib.py", line 12, in compile_c
+    if b.returncode:raise AssertionError('COMPILE_FAIL '+b.stdout+b.stderr)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: COMPILE_FAIL <LOCAL_HOME>\AppData\Local\Temp\phase9-b4-asmmxdsl\fixture.c: In function 'read_slot':
+<LOCAL_HOME>\AppData\Local\Temp\phase9-b4-asmmxdsl\fixture.c:16:2: error: this 'if' clause does not guard... [-Werror=misleading-indentation]
+   16 |  if(x->tamper_read)out[0]^=1u;return VG_OFFLINE_READ_READY;
+      |  ^~
+<LOCAL_HOME>\AppData\Local\Temp\phase9-b4-asmmxdsl\fixture.c:16:31: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+   16 |  if(x->tamper_read)out[0]^=1u;return VG_OFFLINE_READ_READY;
+      |                               ^~~~~~
+cc1.exe: all warnings being treated as errors
+
+
+======================================================================
+FAIL: test_equal_generation_conflict_is_rejected_but_identical_slots_are_admitted (__main__.OfflineTransactionTest.test_equal_generation_conflict_is_rejected_but_identical_slots_are_admitted)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\test_offline_transaction.py", line 93, in test_equal_generation_conflict_is_rejected_but_identical_slots_are_admitted
+    self.c(r'''
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\test_offline_transaction.py", line 44, in c
+    compile_c(COMMON+source+'\nreturn 0;}\n', extra_flags=('-Os',))
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\phase9_b4_testlib.py", line 12, in compile_c
+    if b.returncode:raise AssertionError('COMPILE_FAIL '+b.stdout+b.stderr)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: COMPILE_FAIL <LOCAL_HOME>\AppData\Local\Temp\phase9-b4-zfto4l60\fixture.c: In function 'read_slot':
+<LOCAL_HOME>\AppData\Local\Temp\phase9-b4-zfto4l60\fixture.c:16:2: error: this 'if' clause does not guard... [-Werror=misleading-indentation]
+   16 |  if(x->tamper_read)out[0]^=1u;return VG_OFFLINE_READ_READY;
+      |  ^~
+<LOCAL_HOME>\AppData\Local\Temp\phase9-b4-zfto4l60\fixture.c:16:31: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+   16 |  if(x->tamper_read)out[0]^=1u;return VG_OFFLINE_READ_READY;
+      |                               ^~~~~~
+cc1.exe: all warnings being treated as errors
+
+
+======================================================================
+FAIL: test_every_partial_write_preserves_selected_slot_and_published_memory (__main__.OfflineTransactionTest.test_every_partial_write_preserves_selected_slot_and_published_memory)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\test_offline_transaction.py", line 56, in test_every_partial_write_preserves_selected_slot_and_published_memory
+    self.c(r'''
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\test_offline_transaction.py", line 44, in c
+    compile_c(COMMON+source+'\nreturn 0;}\n', extra_flags=('-Os',))
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\phase9_b4_testlib.py", line 12, in compile_c
+    if b.returncode:raise AssertionError('COMPILE_FAIL '+b.stdout+b.stderr)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: COMPILE_FAIL <LOCAL_HOME>\AppData\Local\Temp\phase9-b4-4zw6on8c\fixture.c: In function 'read_slot':
+<LOCAL_HOME>\AppData\Local\Temp\phase9-b4-4zw6on8c\fixture.c:16:2: error: this 'if' clause does not guard... [-Werror=misleading-indentation]
+   16 |  if(x->tamper_read)out[0]^=1u;return VG_OFFLINE_READ_READY;
+      |  ^~
+<LOCAL_HOME>\AppData\Local\Temp\phase9-b4-4zw6on8c\fixture.c:16:31: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+   16 |  if(x->tamper_read)out[0]^=1u;return VG_OFFLINE_READ_READY;
+      |                               ^~~~~~
+cc1.exe: all warnings being treated as errors
+
+
+======================================================================
+FAIL: test_readback_corruption_and_io_errors_do_not_publish_or_initialize_empty (__main__.OfflineTransactionTest.test_readback_corruption_and_io_errors_do_not_publish_or_initialize_empty)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\test_offline_transaction.py", line 81, in test_readback_corruption_and_io_errors_do_not_publish_or_initialize_empty
+    self.c(r'''
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\test_offline_transaction.py", line 44, in c
+    compile_c(COMMON+source+'\nreturn 0;}\n', extra_flags=('-Os',))
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\phase9_b4_testlib.py", line 12, in compile_c
+    if b.returncode:raise AssertionError('COMPILE_FAIL '+b.stdout+b.stderr)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: COMPILE_FAIL <LOCAL_HOME>\AppData\Local\Temp\phase9-b4-qpc72br_\fixture.c: In function 'read_slot':
+<LOCAL_HOME>\AppData\Local\Temp\phase9-b4-qpc72br_\fixture.c:16:2: error: this 'if' clause does not guard... [-Werror=misleading-indentation]
+   16 |  if(x->tamper_read)out[0]^=1u;return VG_OFFLINE_READ_READY;
+      |  ^~
+<LOCAL_HOME>\AppData\Local\Temp\phase9-b4-qpc72br_\fixture.c:16:31: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+   16 |  if(x->tamper_read)out[0]^=1u;return VG_OFFLINE_READ_READY;
+      |                               ^~~~~~
+cc1.exe: all warnings being treated as errors
+
+
+----------------------------------------------------------------------
+Ran 6 tests in 1.035s
+
+FAILED (failures=5)
+EXIT=1

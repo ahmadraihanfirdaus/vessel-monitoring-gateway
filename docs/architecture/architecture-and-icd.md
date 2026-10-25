@@ -5,9 +5,15 @@
 
 **Document status:** Engineering Design Baseline
 
-**Implementation status:** PLANNED / NOT_IMPLEMENTED
+**Implementation status:** PARTIAL; local software implementation exists, with physical interfaces still unverified
 
-**Verification status:** NOT_RUN
+**Verification status:** PARTIAL; see the unchanged formal SIM/SUP registries and scoped execution evidence
+
+**Status continuation, 2026-10-25:** The original planning inventory below remains
+the interface design boundary. Current [transport](../testing/esp32-transport-integration.md)
+and [offline storage](../testing/esp32-offline-storage.md) software evidence updates
+implementation status without changing interface IDs, hardware selections,
+requirements, TBD values or formal approval. Overall system status remains PARTIAL.
 
 ## 1. Architecture Overview
 
@@ -196,7 +202,7 @@ The IF-01 through IF-11 register is a **planning-level interface inventory**, no
 | Channel contracts (IF-01 through IF-07) | Units, value ranges, sensor-state interpretations, validity/freshness criteria, time references, and error representations require traceable implementation-level definitions and verification. No numeric thresholds or acceptance limits are introduced here. |
 | Bench electrical interfaces (IF-01 through IF-08) | GPIO voltage compatibility, signal conditioning, pin mapping, supply design, and protective or isolated receivers must be reviewed against the selected hardware and the BOM cautions before bench wiring. No physical connection is approved by this register. |
 | Navigation and engine sources (IF-08 and IF-09) | RMC/GGA/VTG labels and the four-engine profile describe simulated development inputs. The simulation-provider execution location and test-harness connection mode still require implementation-level clarification. These entries do not establish complete NMEA conformance, installed navigation equipment, a physical engine count, or real engine telemetry. |
-| Edge-to-backend telemetry (IF-10) | HTTPS is the planned uplink transport. Payload schemas, source provenance, authentication details, event identity, retry/replay handling, and offline-buffer behavior require traceability to approved requirements and implementation evidence; none is represented as implemented. |
+| Edge-to-backend telemetry (IF-10) | HTTPS remains the selected uplink transport. Telemetry/event v1 contracts, authenticated Laravel ingestion, real C99/MariaDB integration and SDK Wi-Fi/HTTPS/NVS adapters have scoped local implementation evidence. Continuous all-domain composition, automatic replay/durable ACK, physical TLS/clock/NVS durability and remaining formal protocols are unverified; see the dated continuation evidence. |
 | Dashboard delivery (IF-11) | `HTTP/JSON/Blade/JS` describes a planning-level web presentation interface. It does not authorize an unauthenticated or publicly exposed plaintext-HTTP deployment. Access control and deployment transport protections require review against approved security requirements. |
 | Local policy and alarms | Local monitoring and alarm evaluation are planned independently of backend availability. Their inclusion does not assert validated fail-safe performance, certified safety protection, or physical engine/steering/ignition actuation. |
 

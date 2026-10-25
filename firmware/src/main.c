@@ -39,6 +39,8 @@
 #include "freertos/task.h"
 #include "esp_random.h"
 #include "esp32_network_client.h"
+#include "esp32_offline_store.h"
+#include "bootloader_random.h"
 #include "runtime_uplink_frame.h"
 #include "mbedtls/platform_util.h"
 #endif
@@ -1196,6 +1198,8 @@ static void run_core_runtime_guard_selftest(void)
 /* Opt-in, externally provisioned NVS profile only. Application logs never
  * include SSID, origin, bearer, device identity or response bodies. */
 static bool demo_network_ready;
+static bool demo_source_ready;
+static bool demo_storage_started;
 static vg_net_profile demo_network_profile;
 static char demo_network_device[VG_TELEMETRY_MAX_ID_LEN + 1u];
 static vg_telemetry_payload_t demo_network_payload;
@@ -1208,22 +1212,36 @@ static uint64_t demo_network_pending_sequence;
 static void demo_network_init(void)
 {
     vg_net_profile_result result = vg_net_load_profile(&demo_network_profile);
-    demo_network_ready = result == VG_NET_PROFILE_READY && vg_net_start(&demo_network_profile);
-    if (demo_network_ready) {
+    demo_source_ready = result == VG_NET_PROFILE_READY;
+    if (demo_source_ready) {
         memcpy(demo_network_device, demo_network_profile.device_id, sizeof(demo_network_device));
         uint8_t entropy[16];
+        /* Exclusive startup: before Wi-Fi or physical ADC acquisition. SDK
+         * entropy source is disabled again before the radio is initialized. */
+        bootloader_random_enable();
         esp_fill_random(entropy, sizeof(entropy));
+        bootloader_random_disable();
         for (size_t i = 0u; i < sizeof(entropy); ++i) {
             (void)snprintf(demo_network_boot + i * 2u, 3u, "%02x", (unsigned)entropy[i]);
         }
+        mbedtls_platform_zeroize(entropy, sizeof(entropy));
+        demo_storage_started = vg_storage_start(demo_network_device, demo_network_boot);
+        demo_network_ready = vg_net_start(&demo_network_profile);
     }
     mbedtls_platform_zeroize(&demo_network_profile, sizeof(demo_network_profile));
     printf("ESP32_NETWORK_PROFILE: %s\n", demo_network_ready ? "ENABLED_UNVERIFIED" :
         (result == VG_NET_PROFILE_ABSENT ? "NOT_CONFIGURED" : "UNAVAILABLE"));
+    printf("ESP32_STORAGE_PROFILE: %s\n", demo_storage_started ? "STARTED_UNVERIFIED" : "UNAVAILABLE");
 }
 
 static void demo_network_pump(void)
 {
+    vg_storage_completion stored;
+    for (unsigned i = 0u; i < 2u && vg_storage_take_completion(&stored); ++i) {
+        printf("ESP32_STORAGE_COMPLETION: status=%u generation=%llu events=%u degraded=%u\n",
+            (unsigned)stored.status, (unsigned long long)stored.generation,
+            (unsigned)stored.retained_events, (unsigned)stored.degraded_recovery);
+    }
     if (!demo_network_ready) return;
     vg_net_completion completion;
     for (unsigned i = 0u; i < 2u && vg_net_take_completion(&completion); ++i) {
@@ -1235,16 +1253,21 @@ static void demo_network_pump(void)
         demo_network_pending_length, demo_network_pending_sequence)) demo_network_pending = false;
 }
 
-static void demo_network_capture(size_t step, uint64_t sequence, uint64_t uptime_ms)
+static void demo_network_capture(size_t step, uint64_t sequence, uint64_t uptime_ms,
+    const vg_event_journal_t *journal)
 {
-    if (!demo_network_ready) return;
+    if (!demo_source_ready) return;
     vg_measurement_t sample;
     if (vg_runtime_sim_measurement(step, &sample) && vg_runtime_uplink_frame(demo_network_device,
         demo_network_boot, sequence, uptime_ms, &sample, &demo_network_payload,
         demo_network_wire, sizeof(demo_network_wire))) {
         demo_network_pending_length = strlen(demo_network_wire);
         demo_network_pending_sequence = sequence;
-        demo_network_pending = true;
+        demo_network_pending = demo_network_ready;
+        if (demo_storage_started && !vg_storage_submit(demo_network_boot, sequence,
+            demo_network_wire, demo_network_pending_length, journal)) {
+            puts("ESP32_STORAGE_SUBMISSION: REFUSED_LATEST_REMAINS_IN_RAM");
+        }
     }
     demo_network_pump();
 }
@@ -1283,7 +1306,8 @@ static void run_esp32_synthetic_timed_demo(void)
             bool ok = (actual_diag == expected[success] && skipped == 0);
             printf("RUNTIME_TIMED_STEP %u: %s\n", success, ok ? "PASS" : "FAIL");
             if (!ok) break;
-            demo_network_capture(success, (uint64_t)success + 1u, (uint64_t)now_us / 1000u);
+            demo_network_capture(success, (uint64_t)success + 1u, (uint64_t)now_us / 1000u,
+                &runtime.flow.journal);
             success++;
         } else if (result != VG_GUARD_WAIT) {
             printf("RUNTIME_TIMED_STATUS: FAIL (%d)\n", (int)result);
