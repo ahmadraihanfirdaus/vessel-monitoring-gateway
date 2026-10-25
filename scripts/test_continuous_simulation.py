@@ -179,7 +179,9 @@ assert(r.alarm_ids.next_id==UINT64_MAX);
                       'vg_net_submit', 'strcmp(continuous_network_profile.device_id',
                       'mbedtls_platform_zeroize', 'bootloader_random_disable',
                       'VG_CONTINUOUS_ENCODING_REFUSED', 'UNAVAILABLE_LOCAL_RAM_ONLY',
-                      'NOT_CONFIGURED_OR_UNAVAILABLE'):
+                      'NOT_CONFIGURED_OR_UNAVAILABLE', 'VG_STORAGE_CRITICAL_FULL',
+                      'NEW_CRITICAL_NOT_RETAINED', 'VG_STORAGE_REJECTED',
+                      'DEGRADED_STORAGE_OLDER_DATA_POSSIBLE'):
             self.assertIn(guard, sdk)
         for forbidden in ('gpio_set_level(', 'nvs_flash_erase(', 'nvs_set_', 'esp_restart('):
             self.assertNotIn(forbidden, sdk)

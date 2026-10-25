@@ -24,6 +24,10 @@ bool vg_storage_start(const char *device, const char *boot);
  * True means queued, not committed. Failure leaves caller data untouched. */
 bool vg_storage_submit(const char *boot, uint64_t sequence, const void *wire,
     size_t length, const vg_event_journal_t *journal);
+/* Full metadata is immutable and cumulative within a boot. Once admitted,
+ * subsequent jobs cannot revert to the legacy metadata-unavailable interface. */
+bool vg_storage_submit_with_alarms(const char *boot, uint64_t sequence, const void *wire,
+    size_t length, const vg_event_journal_t *journal, const vg_alarm_journal_t *metadata);
 bool vg_storage_take_completion(vg_storage_completion *out);
 bool vg_storage_request_recovery(void);
 #endif

@@ -5,6 +5,7 @@
 #include "core_scheduler.h"
 #include "core_alarm.h"
 #include "core_event_journal.h"
+#include "alarm_transition.h"
 #include "safety_local_alarm.h"
 #include "safety_policy.h"
 #include "safety_monitor_policy.h"
@@ -37,6 +38,7 @@ typedef struct {
     vg_alarm_id_allocator_t alarm_ids;
     vg_alarm_t alarms[VG_CONTINUOUS_ALARMS];
     vg_event_journal_t journal;
+    vg_alarm_journal_t alarm_journal;
     uint64_t sequence;
     uint64_t skipped;
     uint64_t encoding_refused;
@@ -120,8 +122,13 @@ static inline void vg_continuous_record(vg_continuous_simulation_t *runtime,
     const vg_alarm_t *alarm, vg_event_type_t type, uint64_t now)
 {
     uint64_t event_id = 0u;
-    if (!vg_journal_append(&runtime->journal, alarm->id, alarm->source_id,
-        VG_SOURCE_SIMULATION, type, now, &event_id) && runtime->journal.count != VG_JOURNAL_CAPACITY)
+    if (!vg_alarm_journal_matches(&runtime->alarm_journal, &runtime->journal) ||
+        runtime->journal.next_id == 0u || runtime->journal.next_id == UINT64_MAX) {
+        vg_continuous_increment(&runtime->alarm_errors);
+        return;
+    }
+    if (!vg_alarm_journal_append(&runtime->journal, &runtime->alarm_journal,
+        alarm, type, now, &event_id) && runtime->journal.count != VG_JOURNAL_CAPACITY)
         vg_continuous_increment(&runtime->alarm_errors);
 }
 
@@ -191,8 +198,8 @@ static inline bool vg_continuous_acknowledge(vg_continuous_simulation_t *runtime
     vg_alarm_t next = runtime->alarms[slot];
     if (!vg_alarm_try_acknowledge(&next, now)) return false;
     uint64_t event_id;
-    if (!vg_journal_append(&runtime->journal, next.id, next.source_id,
-        VG_SOURCE_SIMULATION, VG_EVENT_ALARM_ACK, now, &event_id)) return false;
+    if (!vg_alarm_journal_append(&runtime->journal, &runtime->alarm_journal,
+        &next, VG_EVENT_ALARM_ACK, now, &event_id)) return false;
     runtime->alarms[slot] = next;
     /* Advance monotonic input watermark; a later poll cannot precede this ACK. */
     runtime->scheduler.last_now_ms = now;

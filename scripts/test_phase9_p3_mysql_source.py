@@ -71,10 +71,20 @@ expected_migrations = [
     '2026_10_17_100003_create_telemetry_channels_table.php',
     '2026_10_18_100004_create_monitoring_events_table.php',
     '2026_10_25_100005_create_monitoring_access_tables.php',
+    '2026_10_25_100006_add_alarm_metadata_to_monitoring_events.php',
 ]
 if [p.name for p in migrations] != expected_migrations:
-    raise AssertionError('expected exact four original plus additive monitoring-access migration')
-print('PHASE9_P3_SOURCE FOUR_ORIGINAL_PLUS_MONITORING_ACCESS_MIGRATION: PASS')
+    raise AssertionError('expected exact four original plus access and alarm-metadata migrations')
+print('PHASE9_P3_SOURCE FOUR_ORIGINAL_PLUS_TWO_ADDITIVE_MIGRATIONS: PASS')
+metadata_migration = require('backend/laravel/database/migrations/2026_10_25_100006_add_alarm_metadata_to_monitoring_events.php')
+has(metadata_migration, "$table->json('alarm_metadata')->nullable()", 'METADATA_NULLABLE_NO_INVENTED_HISTORY')
+has(metadata_migration, "$table->dropColumn('alarm_metadata')", 'METADATA_ROLLBACK_COLUMN_ONLY')
+if 'DB::' in metadata_migration or '->default(' in metadata_migration:
+    raise AssertionError('metadata migration must not backfill or invent historical state')
+has(request, "'in:1.0,1.1'", 'EVENT_VERSION_ADMISSION')
+has(request, 'InspectsRawJsonObjects', 'SHARED_RAW_MEMBER_INSPECTION')
+has(request, 'AlarmTransitionMetadata::consistent', 'METADATA_LIFECYCLE_VALIDATION')
+has(service, 'AlarmTransitionMetadata::canonical', 'METADATA_CANONICAL_PERSISTENCE_AND_DEDUP')
 
 for path in [
     ROOT / "backend/laravel/.env.example",

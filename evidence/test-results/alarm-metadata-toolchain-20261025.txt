@@ -1,0 +1,6 @@
+PHP=8.2.35 SAPI=cli INT_BYTES=8
+LARAVEL_LOCK_VERSION=v12.70.0
+PYTHON=3.12.10
+NATIVE_C_COMPILER=gcc.exe (Rev5, Built by MSYS2 project) 16.2.0
+SDK_TOOLCHAIN=Actual version inventory in both PlatformIO build logs; no upload
+GLOBAL_PATH_OR_XAMPP_CHANGE=NONE

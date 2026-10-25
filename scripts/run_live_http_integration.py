@@ -30,6 +30,7 @@ import urllib.request
 
 from runtime_uplink_wire_bridge import build_bytes
 from continuous_simulation_wire_bridge import build_bytes as build_domain_bytes
+from alarm_metadata_wire_bridge import build_bytes as build_alarm_bytes
 from build_esp32_port import source_snapshot as firmware_source_snapshot
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -54,9 +55,10 @@ def owned_temporary_root(folder):
 def source_snapshot():
     records = firmware_source_snapshot()
     paths = [ROOT/'scripts'/name for name in ('run_live_http_integration.py', 'live_http_fixture.php',
-        'live_http_router.php', 'live_http_tls.php', 'runtime_uplink_wire_bridge.py',
+        'live_http_router.php', 'live_http_tls.php', 'live_http_event_race.php', 'runtime_uplink_wire_bridge.py',
         'runtime_uplink_wire_fixture.c', 'continuous_simulation_wire_bridge.py',
-        'continuous_simulation_fixture.c', 'phase9_b4_testlib.py')]
+        'continuous_simulation_fixture.c', 'alarm_metadata_wire_bridge.py',
+        'alarm_metadata_wire_fixture.c', 'phase9_b4_testlib.py')]
     base = ROOT/'backend/laravel'
     paths += [base/'bootstrap/app.php', base/'composer.lock']
     for directory in ('app', 'config', 'routes', 'resources/views', 'tests/Support', 'database/migrations'):
@@ -199,7 +201,76 @@ def api(client, path, data=None, token=None, media='application/json'):
     return client.request(path, data, headers)
 
 
-def suite(client, binary, env, profile, wire, domain_wire, context, port):
+def event_races(client, binary, env, profile, alarm_wire):
+    """Two real PHP kernels/DB transactions; no ordinary app or test-isolation mutation."""
+    folder = Path(env['VG_LIVE_HTTP_LEASE']).parent.resolve()
+    if not owned_temporary_root(folder):
+        raise GateFailure('RACE_TEMPORARY_ROOT_OUTSIDE_OWNED_SCOPE')
+    for case in ('v10i', 'v11i', 'v11c', 'v11n'):
+        processes = []
+        try:
+            for role in ('a', 'b'):
+                if not owned_temporary_root(folder):
+                    raise GateFailure('RACE_TEMPORARY_ROOT_CHANGED')
+                payload = json.loads(alarm_wire.splitlines()[0])
+                payload['boot_id'] = case+'-'+profile['id']
+                if case == 'v10i':
+                    payload['schema_version'] = '1.0'; del payload['alarm']
+                elif case == 'v11c' and role == 'b':
+                    payload['alarm']['reason_code'] += 1
+                path = folder/('event-race-'+case+'-'+role+'.json')
+                with path.open('xb') as output:
+                    output.write(json.dumps(payload).encode())
+                processes.append(subprocess.Popen([binary, '-d', 'display_errors=0', '-d', 'log_errors=0',
+                    str(ROOT/'scripts/live_http_event_race.php'), role, case, '--execute'],
+                    cwd=ROOT, env=env, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                    creationflags=subprocess.CREATE_NO_WINDOW if os.name == 'nt' else 0))
+            until = time.monotonic()+15
+            ready = False
+            while time.monotonic() < until:
+                if any(process.poll() is not None for process in processes):
+                    break
+                ready = all((folder/('event-race-'+case+'-'+role+'.ready')).is_file() for role in ('a', 'b'))
+                if ready:
+                    break
+                time.sleep(0.01)
+            expect('EVENT_RACE_'+case.upper()+'_BOTH_SNAPSHOTS_READY', ready)
+            results = []
+            for role, process in zip(('a', 'b'), processes):
+                if not owned_temporary_root(folder):
+                    raise GateFailure('RACE_TEMPORARY_ROOT_CHANGED')
+                with (folder/('event-race-'+case+'-'+role+'.go')).open('xb') as marker:
+                    marker.write(b'GO\n')
+                output, error = process.communicate(timeout=15)
+                match = re.search(rb'^EVENT_RACE_RESULT=(\d{3})$', output, re.M)
+                if process.returncode != 0 or error or match is None:
+                    raise GateFailure('EVENT_RACE_WORKER_FAILED')
+                results.append(int(match.group(1)))
+                isolation = re.search(rb'^EVENT_RACE_ISOLATION=([A-Z-]+)$', output, re.M)
+                if isolation is None:
+                    raise GateFailure('EVENT_RACE_ISOLATION_MISSING')
+                print('EVENT_RACE_'+case.upper()+'_'+role.upper()+'_ISOLATION='+isolation.group(1).decode('ascii'), flush=True)
+            print('EVENT_RACE_'+case.upper()+'_OBSERVED_STATUSES='+','.join(map(str, results)), flush=True)
+            expect('EVENT_RACE_'+case.upper()+'_EXACT_RESULT', results == [201, 409 if case == 'v11c' else 200])
+        finally:
+            for process in processes:
+                if process.poll() is None:
+                    process.terminate()
+                try:
+                    process.wait(timeout=5)
+                except subprocess.TimeoutExpired:
+                    process.kill(); process.wait(timeout=5)
+                if process.stdout is not None: process.stdout.close()
+                if process.stderr is not None: process.stderr.close()
+    status, _, response = client.request('/api/v1/device/events?limit=100',
+                                        headers={'Authorization': 'Bearer '+env['VG_LIVE_DEVICE_TOKEN']})
+    raced = [item for item in json.loads(response).get('items', []) if item['boot_id'].endswith(profile['id'])]
+    expect('EVENT_RACE_FOUR_IDENTITIES_PERSIST_ONCE', status == 200 and len(raced) == 4)
+    conflict = next(item for item in raced if item['boot_id'].startswith('v11c-'))
+    expect('EVENT_RACE_CONFLICT_DOES_NOT_OVERWRITE_METADATA', conflict['alarm']['reason_code'] == 1001)
+
+
+def suite(client, binary, env, profile, wire, domain_wire, alarm_wire, context, port):
     token = env['VG_LIVE_DEVICE_TOKEN']
 
     def action(mode):
@@ -340,6 +411,33 @@ def suite(client, binary, env, profile, wire, domain_wire, context, port):
     packet = domain_wire.splitlines()[-1]
     status, _, _ = api(client, '/api/v1/telemetry', packet+b' '*(4097-len(packet)), token)
     expect('CONTINUOUS_BYTE_BOUNDARY_REJECTED', status == 413)
+    for index, packet in enumerate(alarm_wire.splitlines()):
+        status, _, _ = api(client, '/api/v1/events', packet, token)
+        expect('ALARM_METADATA_C99_EVENT_'+str(index+1), status == 201)
+    status, _, response = client.request('/api/v1/device/events?limit=100', headers={'Authorization': 'Bearer '+token})
+    items = json.loads(response).get('items', [])
+    complete = [item for item in items if item['schema_version'] == '1.1']
+    expect('ALARM_METADATA_FACTS_PERSISTED', status == 200 and len(items) == 14 and len(complete) == 11)
+    zero = {item['event_id']: item['alarm'] for item in complete if item['boot_id'] == 'synthetic-alarm-zero'}
+    expect('ALARM_ZERO_ACK_NULL_CLEAR_EXACT', len(zero) == 3 and zero['1']['acknowledged_at_ms'] is None
+           and zero['2']['state'] == 'active_ack' and zero['2']['acknowledged_at_ms'] == '0'
+           and zero['2']['cleared_at_ms'] is None and zero['3']['cleared_at_ms'] == '0')
+    packet = alarm_wire.splitlines()[-1]
+    status, _, _ = api(client, '/api/v1/events', packet, token)
+    expect('ALARM_METADATA_EXACT_REPLAY', status == 200)
+    changed = json.loads(packet); changed['alarm']['reason_code'] += 1
+    status, _, _ = api(client, '/api/v1/events', json.dumps(changed).encode(), token)
+    expect('ALARM_METADATA_CONFLICT_PRESERVES_FACT', status == 409)
+    duplicate = alarm_wire.splitlines()[0].replace(b'"priority_code":3', b'"priority_code":3,"\\u0070riority_code":3')
+    status, _, _ = api(client, '/api/v1/events', duplicate, token)
+    expect('ALARM_METADATA_ESCAPED_DUPLICATE_REJECTED', status == 422)
+    bad_ack = alarm_wire.splitlines()[1].replace(b'"cleared_at_ms":null', b'"cleared_at_ms":0')
+    status, _, _ = api(client, '/api/v1/events', bad_ack, token)
+    expect('ALARM_METADATA_ACK_CANNOT_SMUGGLE_CLEAR', status == 422)
+    status, _, body = client.request(device_path)
+    expect('ALARM_METADATA_CONNECTED_BROWSER_FACTS', status == 200 and b'Alarm snapshot at transition' in body
+           and b'active_ack' in body and b'Priority code (demo):' in body and b'NOT_CLEARED' in body)
+    event_races(client, binary, env, profile, alarm_wire)
     logout_token = csrf(body)
     status, _, _ = client.request('/monitoring/'+profile['other'])
     expect('UNGRANTED_DEVICE_404', status == 404)
@@ -423,6 +521,8 @@ def main():
             print('LIVE_HTTP_C99_WIRE_SHA256='+hashlib.sha256(wire).hexdigest(), flush=True)
             domain_wire = build_domain_bytes('runtime:demo')
             print('LIVE_HTTP_CONTINUOUS_C99_WIRE_SHA256='+hashlib.sha256(domain_wire).hexdigest(), flush=True)
+            alarm_wire = build_alarm_bytes('runtime:demo')
+            print('LIVE_HTTP_ALARM_METADATA_C99_WIRE_SHA256='+hashlib.sha256(alarm_wire).hexdigest(), flush=True)
             cert = php_run(args.php_binary, Path('scripts/live_http_tls.php'), [str(folder)], env)
             if cert.returncode:
                 raise GateBlocked('TLS_PREREQUISITE_NO_FIXTURES')
@@ -468,7 +568,7 @@ def main():
             attempted_fixture = True
             prepared = php_run(args.php_binary, Path('scripts/live_http_fixture.php'), ['--prepare', '--execute'], env)
             expect('VERIFIED_ISOLATED_FIXTURE_PREPARATION', prepared.returncode == 0)
-            suite(client, args.php_binary, env, profile, wire, domain_wire, context, port)
+            suite(client, args.php_binary, env, profile, wire, domain_wire, alarm_wire, context, port)
     except GateBlocked as exception:
         print('LIVE_HTTP_GATE=BLOCKED_'+str(exception), flush=True)
         code = 3

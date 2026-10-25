@@ -1,0 +1,70 @@
+COMMAND=python -B scripts/test_phase9_p3_mysql_source.py
+PHASE9_P3_SOURCE MIGRATION_MONITORING_EVENTS: PASS
+PHASE9_P3_SOURCE MIGRATION_DEVICE_ID: PASS
+PHASE9_P3_SOURCE MIGRATION_BOOT_ID: PASS
+PHASE9_P3_SOURCE MIGRATION_EVENT_ID: PASS
+PHASE9_P3_SOURCE MIGRATION_LINKED_ALARM_ID: PASS
+PHASE9_P3_SOURCE MIGRATION_SOURCE_ID: PASS
+PHASE9_P3_SOURCE MIGRATION_SOURCE_MODE: PASS
+PHASE9_P3_SOURCE MIGRATION_EVENT_TYPE: PASS
+PHASE9_P3_SOURCE MIGRATION_OCCURRED_AT_MS: PASS
+PHASE9_P3_SOURCE MIGRATION_RECEIVED_AT: PASS
+PHASE9_P3_SOURCE MIGRATION_MONITORING_EVENTS_IDENTITY_UNIQUE: PASS
+PHASE9_P3_SOURCE UINT64_MAX: PASS
+PHASE9_P3_SOURCE UINT32_MAX: PASS
+PHASE9_P3_SOURCE EVENT_SOURCE_MODES: PASS
+PHASE9_P3_SOURCE EVENT_TYPES: PASS
+PHASE9_P3_SOURCE EVENT_IDEMPOTENT: PASS
+PHASE9_P3_SOURCE EVENT_CONFLICT: PASS
+PHASE9_P3_SOURCE EVENT_IDENTITY_MISMATCH: PASS
+PHASE9_P3_SOURCE ROUTE_V1_EVENTS: PASS
+PHASE9_P3_SOURCE ROUTE_V1_DEVICE_STATE: PASS
+PHASE9_P3_SOURCE ROUTE_V1_DEVICE_HISTORY: PASS
+PHASE9_P3_SOURCE ROUTE_V1_DEVICE_HEALTH: PASS
+PHASE9_P3_SOURCE ROUTE_TELEMETRY_PAYLOAD_SIZE: PASS
+PHASE9_P3_SOURCE ROUTE_DEVICE_AUTH: PASS
+PHASE9_P3_SOURCE HISTORY_CURSOR: PASS
+PHASE9_P3_SOURCE HEALTH_AGE: PASS
+PHASE9_P3_SOURCE DESIGN_EVENT_IDENTITY: PASS
+PHASE9_P3_SOURCE DESIGN_NO_HEALTH_TABLE: PASS
+PHASE9_P3_SOURCE PLAN_NO_DB_EXECUTION: PASS
+PHASE9_P3_SOURCE FOUR_ORIGINAL_PLUS_TWO_ADDITIVE_MIGRATIONS: PASS
+PHASE9_P3_SOURCE METADATA_NULLABLE_NO_INVENTED_HISTORY: PASS
+PHASE9_P3_SOURCE METADATA_ROLLBACK_COLUMN_ONLY: PASS
+PHASE9_P3_SOURCE EVENT_VERSION_ADMISSION: PASS
+PHASE9_P3_SOURCE SHARED_RAW_MEMBER_INSPECTION: PASS
+PHASE9_P3_SOURCE METADATA_LIFECYCLE_VALIDATION: PASS
+PHASE9_P3_SOURCE METADATA_CANONICAL_PERSISTENCE_AND_DEDUP: PASS
+PHASE9_P3_SOURCE MYSQL_ONLY_POLICY: PASS
+PHASE9_P3_MYSQL_SOURCE_TEST: PASS
+
+EXIT=0
+COMMAND=python -B scripts/test_alarm_offline_metadata.py
+test_all_truncations_corrupt_bytes_and_forged_flags_preserve_output (__main__.AlarmOfflineMetadataTest.test_all_truncations_corrupt_bytes_and_forged_flags_preserve_output) ... ok
+test_every_vgs2_partial_write_preserves_selected_metadata_and_state (__main__.AlarmOfflineMetadataTest.test_every_vgs2_partial_write_preserves_selected_metadata_and_state) ... ok
+test_full_metadata_identity_conflict_and_aliases_fail_before_output_mutation (__main__.AlarmOfflineMetadataTest.test_full_metadata_identity_conflict_and_aliases_fail_before_output_mutation) ... ok
+test_independent_vgs2_layout_crc_and_zero_vs_null_flags (__main__.AlarmOfflineMetadataTest.test_independent_vgs2_layout_crc_and_zero_vs_null_flags) ... ok
+test_legacy_bytes_remain_vgs1_and_unknown_history_is_not_reconstructed (__main__.AlarmOfflineMetadataTest.test_legacy_bytes_remain_vgs1_and_unknown_history_is_not_reconstructed) ... ok
+test_metadata_queue_prefix_and_sdk_contract_refuse_downgrade (__main__.AlarmOfflineMetadataTest.test_metadata_queue_prefix_and_sdk_contract_refuse_downgrade) ... ok
+test_transaction_cannot_delete_or_mutate_retained_metadata (__main__.AlarmOfflineMetadataTest.test_transaction_cannot_delete_or_mutate_retained_metadata) ... ok
+test_uncertain_vgs2_commit_exposes_new_ack_only_after_explicit_recovery (__main__.AlarmOfflineMetadataTest.test_uncertain_vgs2_commit_exposes_new_ack_only_after_explicit_recovery) ... ok
+test_worst_case_exact_5142_bound_and_legacy_4862_bound (__main__.AlarmOfflineMetadataTest.test_worst_case_exact_5142_bound_and_legacy_4862_bound) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 4.062s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/check_living_traceability.py
+BASELINE_SHA256: PASS (2/2)
+LIVING_TRACEABILITY: PASS (38/38 mapped, 34 unique planned cases)
+ASSESSMENTS: {'IMPLEMENTED_UNVERIFIED': 22, 'PARTIAL': 16}
+FORMAL_REQUIREMENT_STATUS: {'NOT_RUN': 20, 'PARTIAL': 3, 'PASS': 15}
+FORMAL_SIM_SCENARIOS: PASS=9, NOT_RUN=6
+SUPPLEMENTAL_TESTS: PLANNED=14, PASS=5
+FINAL_REQUIREMENT_APPROVAL: NOT_APPROVED
+TOTAL_SYSTEM_STATUS: PARTIAL
+
+EXIT=0
+CORRECTED_AND_EXTENDED_REGRESSION=PASS_3_COMMANDS

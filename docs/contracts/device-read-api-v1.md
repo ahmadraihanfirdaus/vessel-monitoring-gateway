@@ -72,3 +72,14 @@ combined filters, pagination ties/concurrent arrivals, bounds, malformed
 cursors, no read-side writes, uint64 precision, and C99 wire ingestion/readback.
 Failure-injection tests additionally exercise sanitized dependency errors without
 claiming a real server outage. See the [execution matrix and remaining gaps](../../evidence/test-results/device-read-summary-20261025.md).
+
+## Optional complete alarm event metadata
+
+Event 1.1 items add `alarm` with opaque uint32 priority/reason, transition state
+and boot-relative raised/ACK/CLEAR times. All uint64 read values use decimal
+strings; absent ACK/CLEAR is null and genuine zero is `"0"`. Metadata is an
+immutable event-time snapshot, not an inferred current/global active alarm.
+Invalid/incomplete stored 1.1 metadata reads null; historical 1.0 items retain
+their existing exact property shape and have no reconstructed `alarm` object.
+See `alarm-event-schema-v1.1.json` and the alarm transition integration design.
+Authentication, ownership, filters, cursor, limits and receipt ordering are unchanged.

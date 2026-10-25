@@ -1,0 +1,240 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:vessel-gateway:event:1.1",
+  "title": "Vessel Gateway immutable alarm transition development contract v1.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "device_id",
+    "boot_id",
+    "event_id",
+    "linked_alarm_id",
+    "source_id",
+    "source_mode",
+    "event_type",
+    "occurred_at_ms",
+    "alarm"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.1"
+    },
+    "device_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 48,
+      "pattern": "^[A-Za-z0-9._:-]+$"
+    },
+    "boot_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 48,
+      "pattern": "^[A-Za-z0-9._:-]+$"
+    },
+    "event_id": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 18446744073709551615
+    },
+    "linked_alarm_id": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 18446744073709551615
+    },
+    "source_id": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 4294967295
+    },
+    "source_mode": {
+      "enum": [
+        "simulation",
+        "bench_test"
+      ]
+    },
+    "event_type": {
+      "enum": [
+        "alarm_raised",
+        "alarm_ack",
+        "alarm_cleared"
+      ]
+    },
+    "occurred_at_ms": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 18446744073709551615
+    },
+    "alarm": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "priority_code",
+        "reason_code",
+        "state",
+        "raised_at_ms",
+        "acknowledged_at_ms",
+        "cleared_at_ms"
+      ],
+      "properties": {
+        "priority_code": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4294967295
+        },
+        "reason_code": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4294967295
+        },
+        "state": {
+          "enum": [
+            "active_unack",
+            "active_ack",
+            "cleared"
+          ]
+        },
+        "raised_at_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615
+        },
+        "acknowledged_at_ms": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 18446744073709551615
+        },
+        "cleared_at_ms": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 18446744073709551615
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "active_unack"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "acknowledged_at_ms": {
+                "type": "null"
+              },
+              "cleared_at_ms": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "active_ack"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "acknowledged_at_ms": {
+                "type": "integer"
+              },
+              "cleared_at_ms": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "cleared"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "cleared_at_ms": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "$comment": "Body limit 4096 bytes. Raw JSON integer spelling, escaped duplicate keys, lifecycle time ordering and event/action timestamp equality are additionally checked by actual request admission.",
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "alarm_raised"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "alarm": {
+            "properties": {
+              "state": {
+                "const": "active_unack"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "alarm_ack"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "alarm": {
+            "properties": {
+              "state": {
+                "const": "active_ack"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "alarm_cleared"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "alarm": {
+            "properties": {
+              "state": {
+                "const": "cleared"
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

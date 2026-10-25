@@ -1,0 +1,24 @@
+EARLY_COMPATIBILITY_GATE=PASS_351_PHP_METHODS
+Existing 348 methods plus three metadata consistency methods passed before the new schema was applied. This early gate is not the final full-metadata proof.
+OBSERVED_NATIVE_FIXTURE_COMPILE_FAILURE=WERROR_MISLEADING_INDENTATION
+The first independent VGS2 oracle fixture used a one-line for loop followed by puts on the same line. GCC rejected the fixture under -Werror. Added braces; all six initial VGS2 methods then passed, including the independent byte/CRC oracle. No compiler warning setting was relaxed.
+SCHEMA_PROFILE_ADMISSION=PASS_READ_ONLY
+The exact empty ten-table/five-migration profile was admitted only under explicit previous mode, while ordinary current mode rejected it. No migrations or fixtures were run in that preflight.
+ACTUAL_APPROVED_SCHEMA_UPGRADE=PASS_APPLY_ROLLBACK_REAPPLY
+Explicit upgrade-previous plus migration-roundtrip ran only after verified target/account/empty-schema and native fixture gates. Final upgraded suite: 362 methods, zero failed or skipped. Ten tables now have six migration records. No ordinary dotenv or primary database was bootstrapped.
+OBSERVED_SOURCE_GUARD_FAILURE=FIVE_MIGRATION_INVENTORY_STALE
+Broad regression executed 218 commands; only P3 source inventory still expected five migrations. It now requires the exact six names, nullable metadata/no invented history, column-only rollback and shared strict raw/lifecycle/canonical contracts. Corrected guard PASS; actual six-migration apply/rollback/reapply and 362 methods already PASS. Original failure log retained.
+ADDITIONAL_NATIVE_GATE=UNCERTAIN_VGS2_ACK_COMMIT
+The extended nine-method VGS2 gate proves a failed commit leaves the old in-memory snapshot unchanged; explicit recovery may reveal the fully written new ACK with no CLEAR. This is injected IO, not physical power-loss evidence.
+CONFIRMED_APPLICATION_RACE=REPEATABLE_READ_STALE_VIEW
+Two real PHP kernels/DB transactions were paused after both initial reads saw no row. First request committed 201; identical second request returned 500. Original and instrumented reproduction logs retained; cleanup PASS.
+RACE_FIX=ROLLBACK_AND_SHARED_CURRENT_READ
+Duplicate-key recovery now exits the failed transaction, then classifies the committed winner via a shared current read, including caller-owned outer transaction snapshots. Four final process pairs returned 201/200, 201/200, 201/409 and 201/200; each identity stored once and conflicting metadata did not overwrite the winner.
+FINAL_SCOPE_DISTINCTION=KERNEL_DB_RACES_NOT_PARALLEL_TCP_SERVER_PROOF
+The PHP development server remains a single local server. Race cases dispatch real Laravel request kernels in two independent PHP processes; other integration requests use actual local TCP/TLS. No deployed-server concurrency or physical ESP32 claim.
+POSIX_NATIVE_LINK_DEPENDENCY=EXPLICIT_LIBM
+The common strict C99 fixture compiler now appends libm on non-Windows hosts for NMEA round/floor dependencies. The Windows command is unchanged and is actually tested. POSIX/hosted CI execution remains NOT_RUN; this source correction is not a Linux PASS claim.
+SOURCE_REVIEW_STORAGE_VISIBILITY_GAP=FULL_REJECTED_COMPLETIONS_IGNORED_BY_CONTINUOUS_CONSUMER
+The worker already returned explicit capacity/rejection/degraded results, but continuous entry consumed all except IO_HALTED without reporting them. Added saturated counters and first/periodic FULL/REJECTED messages plus a one-time degraded warning. No storage eviction, new alarm rule, physical action or hardware incident is inferred. Both SDK builds and source-stability gate are rerun for the final firmware change.
+
+CHECKPOINT_COMMAND_CORRECTION: SDK helper refused unsupported environment esp32dev at argparse, before build or hardware action. Correct retained target is esp32dev_espidf. Both handoff commands corrected; no evidence overwritten.

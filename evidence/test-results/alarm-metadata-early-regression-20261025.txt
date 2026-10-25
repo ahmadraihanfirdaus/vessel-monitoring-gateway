@@ -1,0 +1,48 @@
+COMMAND=<LOCAL_HOME>\AppData\Local\Programs\Python\Python312\python.exe -B scripts/test_alarm_transition.py
+test_aliases_and_corrupt_prefix_are_rejected (__main__.AlarmTransitionTest.test_aliases_and_corrupt_prefix_are_rejected) ... ok
+test_full_journal_keeps_snapshots_and_refusal_counter_saturates (__main__.AlarmTransitionTest.test_full_journal_keeps_snapshots_and_refusal_counter_saturates) ... ok
+test_full_lifecycle_is_immutable_and_zero_times_are_not_null (__main__.AlarmTransitionTest.test_full_lifecycle_is_immutable_and_zero_times_are_not_null) ... ok
+test_identity_source_state_and_action_time_are_bound (__main__.AlarmTransitionTest.test_identity_source_state_and_action_time_are_bound) ... ok
+test_mismatched_transition_never_partially_appends (__main__.AlarmTransitionTest.test_mismatched_transition_never_partially_appends) ... ok
+test_uint64_and_u32_boundaries_stay_exact_on_wire (__main__.AlarmTransitionTest.test_uint64_and_u32_boundaries_stay_exact_on_wire) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 1.770s
+
+OK
+
+EXIT=0
+COMMAND=<LOCAL_HOME>\AppData\Local\Programs\Python\Python312\python.exe -B scripts/test_continuous_simulation.py
+test_ack_remains_active_monotonic_and_new_reason_realerts (__main__.ContinuousSimulationTest.test_ack_remains_active_monotonic_and_new_reason_realerts) ... ok
+test_actual_24_frames_all_domains_and_checkpoint_recovery (__main__.ContinuousSimulationTest.test_actual_24_frames_all_domains_and_checkpoint_recovery) ... ok
+test_alarm_id_exhaustion_is_explicit_and_does_not_silence_condition (__main__.ContinuousSimulationTest.test_alarm_id_exhaustion_is_explicit_and_does_not_silence_condition) ... ok
+test_config_rejects_missing_thresholds_physical_monitor_block_and_unterminated_identity (__main__.ContinuousSimulationTest.test_config_rejects_missing_thresholds_physical_monitor_block_and_unterminated_identity) ... ok
+test_domain_rejects_foreign_source_invalid_values_and_future_metadata (__main__.ContinuousSimulationTest.test_domain_rejects_foreign_source_invalid_values_and_future_metadata) ... ok
+test_eight_engines_map_68_fields_without_silent_truncation (__main__.ContinuousSimulationTest.test_eight_engines_map_68_fields_without_silent_truncation) ... ok
+test_engine_lost_null_stopped_zero_and_uint64_not_rounded (__main__.ContinuousSimulationTest.test_engine_lost_null_stopped_zero_and_uint64_not_rounded) ... ok
+test_full_journal_does_not_freeze_local_sampling_or_replace_old_events (__main__.ContinuousSimulationTest.test_full_journal_does_not_freeze_local_sampling_or_replace_old_events) ... ok
+test_legacy_wire_is_byte_identical (__main__.ContinuousSimulationTest.test_legacy_wire_is_byte_identical) ... ok
+test_navigation_no_fix_unknown_checksum_age_boundaries (__main__.ContinuousSimulationTest.test_navigation_no_fix_unknown_checksum_age_boundaries) ... ok
+test_sdk_entry_has_no_physical_output_or_erase_and_separate_target (__main__.ContinuousSimulationTest.test_sdk_entry_has_no_physical_output_or_erase_and_separate_target) ... ok
+test_v11_72_channels_and_4096_bytes_limits_are_independent (__main__.ContinuousSimulationTest.test_v11_72_channels_and_4096_bytes_limits_are_independent) ... ok
+test_wait_regression_skipped_periods_and_sequence_exhaustion (__main__.ContinuousSimulationTest.test_wait_regression_skipped_periods_and_sequence_exhaustion) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 6.754s
+
+OK
+
+EXIT=0
+COMMAND=<LOCAL_HOME>\AppData\Local\Programs\Python\Python312\python.exe -B scripts/run_mysql_integration.py --php-binary C:/tools/php-8.2.35/php.exe --testing-env --execute --existing-schema
+TEST_CONFIG_AUDIT={"local_testing_file":true,"process_override_names":["APP_KEY","CACHE_STORE","DATABASE_URL","DB_SOCKET","DB_URL","LOG_CHANNEL","QUEUE_CONNECTION","SESSION_DRIVER","VG_PHP_CLI","VG_TEST_EPHEMERAL_KEY","VG_USE_TESTING_ENV"],"phpunit_env":[{"name":"APP_ENV","force":false},{"name":"DB_CONNECTION","force":false},{"name":"APP_MAINTENANCE_DRIVER","force":false},{"name":"BCRYPT_ROUNDS","force":false},{"name":"BROADCAST_CONNECTION","force":false},{"name":"CACHE_STORE","force":false},{"name":"DB_URL","force":false},{"name":"MAIL_MAILER","force":false},{"name":"QUEUE_CONNECTION","force":false},{"name":"SESSION_DRIVER","force":false},{"name":"PULSE_ENABLED","force":false},{"name":"TELESCOPE_ENABLED","force":false},{"name":"NIGHTWATCH_ENABLED","force":false}],"phpunit_server_names":[],"secret_values":"REDACTED_NOT_EMITTED","effective_target":{"host":"127.0.0.1","port":"3307","database":"vessel_gateway_codex_test","username":"vgw_codex","driver":"mysql"},"effective_app_testing":true,"runtime":{"php_version":"8.2.35","php_binary":"C:\\tools\\php-8.2.35\\php.exe"},"app_key_configured":true,"app_key_cipher_compatible":true,"app_key_source":"ephemeral_runner_process","engine":"10.4.32-MariaDB"}
+DATABASE_POSTCHECK=PASS_TEN_TABLES_FIVE_MIGRATIONS_ZERO_APPLICATION_ROWS
+B14_C99_JSONL=PASS_2_CASES_SHA256_9d0edbcc1e050155797b2c8cbe3de5226ffb7bbf01c9a01c252650fbe846525f
+B15_C99_EVENTS=PASS_4_CASES_SHA256_e495ab61324bd0b29f764b33e0187a2892d4a92c054bf9dbc943dca96de3f308
+RUNTIME_C99_WIRE=PASS_6_CASES_SHA256_21930ab910d66844d7903d2e726c3c5a8db9809018deacb0e26d93d61f88ee4a
+CONTINUOUS_C99_WIRE=PASS_24_RECOVERED_FRAMES_SHA256_ceda0c0794257456cdaace3d1fb001c6ae430ead882acc693fa36069c1521920
+MYSQL_MIGRATION=NOT_RUN_EXISTING_SCHEMA_MODE
+MYSQL_LARAVEL_CASES=351 FAILED=0 SKIPPED=0
+MYSQL_LARAVEL_SUITE=PASS
+MYSQL_HTTP_ACK_CROSSCHECK=PASS
+
+EXIT=0

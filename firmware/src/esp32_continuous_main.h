@@ -20,6 +20,7 @@
 static vg_continuous_simulation_t continuous;
 static vg_continuous_config_t continuous_config;
 static vg_net_profile continuous_network_profile;
+static char continuous_alarm_wire[1024];
 
 /* Explicit nonsecret demonstration policy in read-only namespace vgw_demo.
  * Provisioning is external and NOT performed by this firmware. No fallback
@@ -85,7 +86,11 @@ void app_main(void)
     puts(storage ? "CONTINUOUS_STORAGE: STARTED_UNVERIFIED" : "CONTINUOUS_STORAGE: UNAVAILABLE_LOCAL_RAM_ONLY");
     puts(network ? "CONTINUOUS_NETWORK: STARTED_UNVERIFIED" : "CONTINUOUS_NETWORK: NOT_CONFIGURED_OR_UNAVAILABLE");
     bool pending = false;
+    bool prefer_event = true, event_encoding_halted = false;
+    size_t events_queued = 0u;
     uint64_t storage_refused = 0u, network_refused = 0u;
+    uint64_t storage_full_reports = 0u, storage_rejected_reports = 0u;
+    bool storage_degraded_reported = false;
     for (;;) {
         now_us = esp_timer_get_time();
         if (now_us < 0) {
@@ -95,13 +100,14 @@ void app_main(void)
         vg_continuous_result_t result = vg_continuous_poll(&continuous, (uint64_t)now_us / 1000u);
         if (result == VG_CONTINUOUS_ENCODED) {
             pending = network;
-            if (storage && !vg_storage_submit(continuous.config.boot, continuous.latest_sequence,
-                continuous.latest_wire, continuous.latest_length, &continuous.journal))
+            if (storage && !vg_storage_submit_with_alarms(continuous.config.boot, continuous.latest_sequence,
+                continuous.latest_wire, continuous.latest_length, &continuous.journal, &continuous.alarm_journal))
                 vg_continuous_increment(&storage_refused);
             if (continuous.sequence % 256u == 0u)
-                printf("CONTINUOUS_DIAGNOSTICS: samples=%llu journal_full=%llu storage_refused=%llu network_refused=%llu\n",
+                printf("CONTINUOUS_DIAGNOSTICS: samples=%llu journal_full=%llu storage_refused=%llu network_refused=%llu storage_full_reports=%llu storage_rejected_reports=%llu events_queued_not_acked=%u\n",
                     (unsigned long long)continuous.sequence, (unsigned long long)continuous.journal.rejected_full,
-                    (unsigned long long)storage_refused, (unsigned long long)network_refused);
+                    (unsigned long long)storage_refused, (unsigned long long)network_refused,
+                    (unsigned long long)storage_full_reports, (unsigned long long)storage_rejected_reports, (unsigned)events_queued);
         } else if (result == VG_CONTINUOUS_ENCODING_REFUSED) {
             if (continuous.encoding_refused == 1u || continuous.encoding_refused % 256u == 0u)
                 puts("CONTINUOUS_ENCODING: REFUSED_LATEST_PACKET_RETAINED_LOCAL_EVALUATION_CONTINUES");
@@ -113,11 +119,42 @@ void app_main(void)
         if (network && vg_net_take_completion(&completion))
             puts(completion.completed ? "CONTINUOUS_HTTP: COMPLETED_NOT_APPLICATION_ACK" : "CONTINUOUS_HTTP: FAILED");
         vg_storage_completion stored;
-        if (storage && vg_storage_take_completion(&stored) && stored.status == VG_STORAGE_IO_HALTED)
-            puts("CONTINUOUS_STORAGE: IO_HALTED_LOCAL_SIMULATION_CONTINUES");
-        if (pending) {
+        if (storage && vg_storage_take_completion(&stored)) {
+            if (stored.status == VG_STORAGE_IO_HALTED)
+                puts("CONTINUOUS_STORAGE: IO_HALTED_LOCAL_SIMULATION_CONTINUES");
+            else if (stored.status == VG_STORAGE_CRITICAL_FULL) {
+                vg_continuous_increment(&storage_full_reports);
+                if (storage_full_reports == 1u || storage_full_reports % 256u == 0u)
+                    puts("CONTINUOUS_STORAGE: BOUNDED_CAPACITY_FULL_NEW_CRITICAL_NOT_RETAINED");
+            } else if (stored.status == VG_STORAGE_REJECTED) {
+                vg_continuous_increment(&storage_rejected_reports);
+                if (storage_rejected_reports == 1u || storage_rejected_reports % 256u == 0u)
+                    puts("CONTINUOUS_STORAGE: REJECTED_SUBMISSION_LATEST_REMAINS_RAM");
+            }
+            if (stored.degraded_recovery && !storage_degraded_reported) {
+                storage_degraded_reported = true;
+                puts("CONTINUOUS_STORAGE: DEGRADED_STORAGE_OLDER_DATA_POSSIBLE");
+            }
+        }
+        /* Current-boot immutable facts are queued at most once each here. The
+         * worker owns its bounded transport retries. No queue/HTTP completion
+         * deletes a retained fact or proves application ACK. Durable replay of
+         * recovered old boots remains a separate receipt/deletion contract. */
+        bool event_pending = network && !event_encoding_halted && events_queued < continuous.alarm_journal.count;
+        if (event_pending && (prefer_event || !pending)) {
+            const vg_alarm_transition_t *transition = &continuous.alarm_journal.entries[events_queued];
+            if (!vg_alarm_transition_json(transition, continuous.config.device, continuous.config.boot,
+                continuous_alarm_wire, sizeof(continuous_alarm_wire))) {
+                vg_continuous_increment(&continuous.alarm_errors);
+                event_encoding_halted = true;
+                puts("CONTINUOUS_EVENT: ENCODING_HALTED_RETAINED_FACT_NOT_SKIPPED");
+            } else if (vg_net_submit(VG_NET_EVENT, continuous_alarm_wire, strlen(continuous_alarm_wire), transition->event.event_id)) {
+                ++events_queued;
+                prefer_event = false;
+            } else vg_continuous_increment(&network_refused);
+        } else if (pending) {
             if (vg_net_submit(VG_NET_TELEMETRY, continuous.latest_wire, continuous.latest_length, continuous.latest_sequence))
-                pending = false;
+                { pending = false; prefer_event = true; }
             else vg_continuous_increment(&network_refused);
         }
         TickType_t ticks = pdMS_TO_TICKS(10u);

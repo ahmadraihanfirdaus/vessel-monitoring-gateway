@@ -93,8 +93,7 @@ static inline bool vg_offline_publish(vg_offline_transaction *tx)
     for (size_t i = 0u; i < tx->current.event_count; ++i) {
         bool found = false;
         for (size_t j = 0u; j < tx->candidate.event_count; ++j) {
-            if (!strcmp(tx->current.events[i].boot, tx->candidate.events[j].boot) &&
-                vg_offline_event_equal(&tx->current.events[i].event, &tx->candidate.events[j].event)) found = true;
+            if (vg_offline_record_equal(&tx->current.events[i], &tx->candidate.events[j])) found = true;
         }
         if (!found) return false;
     }

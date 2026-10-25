@@ -51,3 +51,14 @@ counts rejected attempts. This is explicitly incomplete retention; no FMEA row
 is closed. SDK queue submission compiles, but flash/cache blocking, actual outage
 timing, power loss and residual-risk acceptance remain unverified. Physical
 controls are absent. See the continuous integration summary for the scoped tests.
+
+## Alarm metadata integrity observations, 2026-10-25
+
+Immutable event-time metadata now survives native VGS2 pack/recovery and actual
+Laravel/MariaDB/TLS/read/UI integration. Known retained metadata cannot be
+mutated/dropped by merge or transaction publish, and queue coalescing refuses
+a downgrade. Every partial VGS2 write and uncertain commit are exercised in a
+native IO fixture. These are software observations, not physical crash-durability
+or FMEA closure. Legacy fields remain unavailable, capacity-eight loss is
+explicit, and queued/HTTP completion is not application ACK. Old-boot replay,
+receipt deletion, hardware flash effects and residual-risk acceptance remain open.

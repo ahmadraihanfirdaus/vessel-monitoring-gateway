@@ -35,22 +35,33 @@ try {
     $audit['engine'] = $pdo->query('SELECT VERSION()')->fetchColumn();
     echo 'TEST_CONFIG_AUDIT='.json_encode($audit, JSON_UNESCAPED_SLASHES)."\n";
     $mode = $argv[1] ?? '--check';
-    $modes = ['--check', '--inspect', '--inspect-legacy', '--upgrade-existing', '--roundtrip-existing', '--migrate', '--migration-roundtrip'];
+    $modes = ['--check', '--inspect', '--inspect-legacy', '--upgrade-existing', '--roundtrip-existing', '--migrate', '--migration-roundtrip',
+        '--inspect-previous', '--upgrade-previous', '--upgrade-previous-roundtrip'];
     if (! in_array($mode, $modes, true)) {
         throw new RuntimeException('MYSQL_TEST_BLOCKED: unsupported gate mode.');
     }
-    $existing = in_array($mode, ['--inspect', '--inspect-legacy', '--upgrade-existing', '--roundtrip-existing'], true);
+    if (PHP_VERSION !== '8.2.35') {
+        throw new RuntimeException('MYSQL_TEST_BLOCKED: PHP 8.2.35 runtime required.');
+    }
+    if (! in_array($mode, ['--check', '--inspect', '--inspect-legacy', '--inspect-previous'], true)
+        && (! $audit['app_key_configured'] || ! $audit['app_key_cipher_compatible'])) {
+        throw new RuntimeException('MYSQL_TEST_BLOCKED: valid testing application key required for mutations.');
+    }
+    $existing = in_array($mode, ['--inspect', '--inspect-legacy', '--upgrade-existing', '--roundtrip-existing',
+        '--inspect-previous', '--upgrade-previous', '--upgrade-previous-roundtrip'], true);
     $legacy = in_array($mode, ['--inspect-legacy', '--upgrade-existing'], true);
+    $previous = in_array($mode, ['--inspect-previous', '--upgrade-previous', '--upgrade-previous-roundtrip'], true);
     $tables = static function () use ($pdo): array {
         $names = $pdo->query('SHOW TABLES')->fetchAll(PDO::FETCH_COLUMN);
         sort($names);
         return $names;
     };
     if ($existing) {
-        TestSchema::assertMigratedAndEmpty($pdo, $legacy);
+        TestSchema::assertMigratedAndEmpty($pdo, $legacy, $previous);
         echo $legacy ? "DATABASE_LEGACY_ADMISSION=PASS_FIVE_TABLES_FOUR_MIGRATIONS_ZERO_APPLICATION_ROWS\n"
-            : "DATABASE_POSTCHECK=PASS_TEN_TABLES_FIVE_MIGRATIONS_ZERO_APPLICATION_ROWS\n";
-        if (in_array($mode, ['--inspect', '--inspect-legacy'], true)) {
+            : ($previous ? "DATABASE_PREVIOUS_ADMISSION=PASS_TEN_TABLES_FIVE_MIGRATIONS_ZERO_APPLICATION_ROWS\n"
+                : "DATABASE_POSTCHECK=PASS_TEN_TABLES_SIX_MIGRATIONS_ZERO_APPLICATION_ROWS\n");
+        if (in_array($mode, ['--inspect', '--inspect-legacy', '--inspect-previous'], true)) {
             exit(0);
         }
     } else {
@@ -79,11 +90,11 @@ try {
     if ($mode !== '--roundtrip-existing') {
         $migrate();
     }
-    if ($mode === '--upgrade-existing') {
+    if (in_array($mode, ['--upgrade-existing', '--upgrade-previous'], true)) {
         echo "MYSQL_MIGRATION_UPGRADE=PASS_EXACT_EMPTY_LEGACY_TO_CURRENT\n";
         exit(0);
     }
-    if (in_array($mode, ['--migration-roundtrip', '--roundtrip-existing'], true)) {
+    if (in_array($mode, ['--migration-roundtrip', '--roundtrip-existing', '--upgrade-previous-roundtrip'], true)) {
         if (Artisan::call('migrate:rollback', ['--step' => count(TestSchema::migrations()), '--force' => true, '--no-interaction' => true]) !== 0
             || $tables() !== ['migrations']
             || (int) $pdo->query('SELECT COUNT(*) FROM migrations')->fetchColumn() !== 0) {

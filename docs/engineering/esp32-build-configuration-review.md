@@ -41,3 +41,16 @@ Their source-stability digest is `40b451bba4916f48d5b49fb3ed48231eb6a65b1922adeb
 See the continuous summary for both merged image hashes/evidence. No partition,
 assertion, certificate/date validation or hardware acceptance threshold was relaxed.
 Physical flash, full call stack/heap, NVS power cuts and runtime timing remain NOT_RUN.
+
+## Immutable alarm metadata build, 2026-10-25
+
+The continuous candidate now includes event 1.1 publication and complete VGS2
+metadata storage. Actual SDK binary: 974,032 bytes; static RAM 55,572 bytes;
+largest own compiler frame 880 bytes. Retained full self-test binary: 1,044,112
+bytes; static RAM 66,436 bytes; largest frame 1,616 bytes. Both retain the same
+1 MiB app partition and complete TLS/assertion checks. Source digest:
+`22a297bf2fa3cecb8806d9340dfaa6be59856099f002734ce6d6b97578a5f733`.
+VGS1 encoded maximum stays 4,862 bytes; optional VGS2 maximum is 5,142 with
+a bounded 5,184-byte working allocation. This is no physical flash/NVS/heap or
+full-call-stack proof. See the alarm metadata summary for actual merged hashes,
+native faults, and unperformed external gates. No upload or partition change.

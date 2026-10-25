@@ -1,0 +1,90 @@
+COMMAND=python -B scripts/test_alarm_transition.py
+test_aliases_and_corrupt_prefix_are_rejected (__main__.AlarmTransitionTest.test_aliases_and_corrupt_prefix_are_rejected) ... ok
+test_full_journal_keeps_snapshots_and_refusal_counter_saturates (__main__.AlarmTransitionTest.test_full_journal_keeps_snapshots_and_refusal_counter_saturates) ... ok
+test_full_lifecycle_is_immutable_and_zero_times_are_not_null (__main__.AlarmTransitionTest.test_full_lifecycle_is_immutable_and_zero_times_are_not_null) ... ok
+test_identity_source_state_and_action_time_are_bound (__main__.AlarmTransitionTest.test_identity_source_state_and_action_time_are_bound) ... ok
+test_mismatched_transition_never_partially_appends (__main__.AlarmTransitionTest.test_mismatched_transition_never_partially_appends) ... ok
+test_uint64_and_u32_boundaries_stay_exact_on_wire (__main__.AlarmTransitionTest.test_uint64_and_u32_boundaries_stay_exact_on_wire) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 1.968s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_alarm_offline_metadata.py
+test_all_truncations_corrupt_bytes_and_forged_flags_preserve_output (__main__.AlarmOfflineMetadataTest.test_all_truncations_corrupt_bytes_and_forged_flags_preserve_output) ... ok
+test_every_vgs2_partial_write_preserves_selected_metadata_and_state (__main__.AlarmOfflineMetadataTest.test_every_vgs2_partial_write_preserves_selected_metadata_and_state) ... ok
+test_full_metadata_identity_conflict_and_aliases_fail_before_output_mutation (__main__.AlarmOfflineMetadataTest.test_full_metadata_identity_conflict_and_aliases_fail_before_output_mutation) ... ok
+test_independent_vgs2_layout_crc_and_zero_vs_null_flags (__main__.AlarmOfflineMetadataTest.test_independent_vgs2_layout_crc_and_zero_vs_null_flags) ... ok
+test_legacy_bytes_remain_vgs1_and_unknown_history_is_not_reconstructed (__main__.AlarmOfflineMetadataTest.test_legacy_bytes_remain_vgs1_and_unknown_history_is_not_reconstructed) ... ok
+test_metadata_queue_prefix_and_sdk_contract_refuse_downgrade (__main__.AlarmOfflineMetadataTest.test_metadata_queue_prefix_and_sdk_contract_refuse_downgrade) ... ok
+test_transaction_cannot_delete_or_mutate_retained_metadata (__main__.AlarmOfflineMetadataTest.test_transaction_cannot_delete_or_mutate_retained_metadata) ... ok
+test_uncertain_vgs2_commit_exposes_new_ack_only_after_explicit_recovery (__main__.AlarmOfflineMetadataTest.test_uncertain_vgs2_commit_exposes_new_ack_only_after_explicit_recovery) ... ok
+test_worst_case_exact_5142_bound_and_legacy_4862_bound (__main__.AlarmOfflineMetadataTest.test_worst_case_exact_5142_bound_and_legacy_4862_bound) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 4.079s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_continuous_simulation.py
+test_ack_remains_active_monotonic_and_new_reason_realerts (__main__.ContinuousSimulationTest.test_ack_remains_active_monotonic_and_new_reason_realerts) ... ok
+test_actual_24_frames_all_domains_and_checkpoint_recovery (__main__.ContinuousSimulationTest.test_actual_24_frames_all_domains_and_checkpoint_recovery) ... ok
+test_alarm_id_exhaustion_is_explicit_and_does_not_silence_condition (__main__.ContinuousSimulationTest.test_alarm_id_exhaustion_is_explicit_and_does_not_silence_condition) ... ok
+test_config_rejects_missing_thresholds_physical_monitor_block_and_unterminated_identity (__main__.ContinuousSimulationTest.test_config_rejects_missing_thresholds_physical_monitor_block_and_unterminated_identity) ... ok
+test_domain_rejects_foreign_source_invalid_values_and_future_metadata (__main__.ContinuousSimulationTest.test_domain_rejects_foreign_source_invalid_values_and_future_metadata) ... ok
+test_eight_engines_map_68_fields_without_silent_truncation (__main__.ContinuousSimulationTest.test_eight_engines_map_68_fields_without_silent_truncation) ... ok
+test_engine_lost_null_stopped_zero_and_uint64_not_rounded (__main__.ContinuousSimulationTest.test_engine_lost_null_stopped_zero_and_uint64_not_rounded) ... ok
+test_full_journal_does_not_freeze_local_sampling_or_replace_old_events (__main__.ContinuousSimulationTest.test_full_journal_does_not_freeze_local_sampling_or_replace_old_events) ... ok
+test_legacy_wire_is_byte_identical (__main__.ContinuousSimulationTest.test_legacy_wire_is_byte_identical) ... ok
+test_navigation_no_fix_unknown_checksum_age_boundaries (__main__.ContinuousSimulationTest.test_navigation_no_fix_unknown_checksum_age_boundaries) ... ok
+test_sdk_entry_has_no_physical_output_or_erase_and_separate_target (__main__.ContinuousSimulationTest.test_sdk_entry_has_no_physical_output_or_erase_and_separate_target) ... ok
+test_v11_72_channels_and_4096_bytes_limits_are_independent (__main__.ContinuousSimulationTest.test_v11_72_channels_and_4096_bytes_limits_are_independent) ... ok
+test_wait_regression_skipped_periods_and_sequence_exhaustion (__main__.ContinuousSimulationTest.test_wait_regression_skipped_periods_and_sequence_exhaustion) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 6.865s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_mysql_integration_gate.py
+...............usage: gate [-h] [--execute] [--migration-roundtrip] [--testing-env]
+            [--php-binary PHP_BINARY] [--existing-schema] [--upgrade-previous]
+gate: error: --upgrade-previous requires --execute --existing-schema
+usage: gate [-h] [--execute] [--migration-roundtrip] [--testing-env]
+            [--php-binary PHP_BINARY] [--existing-schema] [--upgrade-previous]
+gate: error: --upgrade-previous requires --execute --existing-schema
+..........
+----------------------------------------------------------------------
+Ran 25 tests in 0.212s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_live_http_integration_gate.py
+test_arbitrary_temporary_directory_is_never_removed (__main__.LiveHttpGateTest.test_arbitrary_temporary_directory_is_never_removed) ... ok
+test_blocked_cleanup_cannot_be_a_pass_and_retains_lease_without_private_key (__main__.LiveHttpGateTest.test_blocked_cleanup_cannot_be_a_pass_and_retains_lease_without_private_key) ... ok
+test_default_is_read_only_and_conflicting_connection_overrides_are_preserved (__main__.LiveHttpGateTest.test_default_is_read_only_and_conflicting_connection_overrides_are_preserved) ... ok
+test_failed_alarm_c99_build_precedes_live_fixture_mutation (__main__.LiveHttpGateTest.test_failed_alarm_c99_build_precedes_live_fixture_mutation) ... ok
+test_failed_c99_assertion_is_fail_and_precedes_any_fixture_mutation (__main__.LiveHttpGateTest.test_failed_c99_assertion_is_fail_and_precedes_any_fixture_mutation) ... ok
+test_failed_domain_c99_build_precedes_any_live_fixture (__main__.LiveHttpGateTest.test_failed_domain_c99_build_precedes_any_live_fixture) ... ok
+test_failed_network_case_stops_owned_process_and_cleans_only_through_guard (__main__.LiveHttpGateTest.test_failed_network_case_stops_owned_process_and_cleans_only_through_guard) ... ok
+test_fixture_write_requires_execute_before_any_environment_or_database_boot (__main__.LiveHttpGateTest.test_fixture_write_requires_execute_before_any_environment_or_database_boot) ... ok
+test_race_barrier_failure_cannot_release_or_leave_a_live_worker (__main__.LiveHttpGateTest.test_race_barrier_failure_cannot_release_or_leave_a_live_worker) ... ok
+test_race_helper_refuses_an_unowned_temporary_root_before_process_or_file_changes (__main__.LiveHttpGateTest.test_race_helper_refuses_an_unowned_temporary_root_before_process_or_file_changes) ... ok
+test_real_php_race_fixture_requires_execute_before_bootstrap_or_environment (__main__.LiveHttpGateTest.test_real_php_race_fixture_requires_execute_before_bootstrap_or_environment) ... ok
+test_rejected_preflight_never_builds_launches_or_prepares_fixtures (__main__.LiveHttpGateTest.test_rejected_preflight_never_builds_launches_or_prepares_fixtures) ... ok
+test_response_leak_guard_also_covers_per_request_unknown_bearer (__main__.LiveHttpGateTest.test_response_leak_guard_also_covers_per_request_unknown_bearer) ... ok
+test_second_race_process_spawn_failure_stops_and_closes_the_first (__main__.LiveHttpGateTest.test_second_race_process_spawn_failure_stops_and_closes_the_first) ... ok
+test_source_change_cannot_be_certified_by_successful_requests_and_cleanup (__main__.LiveHttpGateTest.test_source_change_cannot_be_certified_by_successful_requests_and_cleanup) ... ok
+test_unavailable_tls_prerequisite_blocks_before_server_or_database_fixtures (__main__.LiveHttpGateTest.test_unavailable_tls_prerequisite_blocks_before_server_or_database_fixtures) ... ok
+
+----------------------------------------------------------------------
+Ran 16 tests in 0.428s
+
+OK
+
+EXIT=0

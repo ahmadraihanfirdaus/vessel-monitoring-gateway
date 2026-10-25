@@ -20,6 +20,7 @@ class MonitoringEvent extends Model
         'event_type',
         'occurred_at_ms',
         'received_at',
+        'alarm_metadata',
     ];
 
     protected function casts(): array
@@ -27,6 +28,7 @@ class MonitoringEvent extends Model
         return [
             'source_id' => 'integer',
             'received_at' => 'immutable_datetime',
+            'alarm_metadata' => 'array',
         ];
     }
 

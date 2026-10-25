@@ -20,6 +20,8 @@ typedef struct {
     size_t length;
     uint8_t wire[VG_OFFLINE_WIRE_MAX];
     vg_event_journal_t journal;
+    bool has_metadata;
+    vg_alarm_journal_t metadata;
 } storage_job;
 typedef struct {
     char device[VG_TELEMETRY_MAX_ID_LEN + 1u];
@@ -27,6 +29,8 @@ typedef struct {
     bool has_sequence;
     uint64_t last_sequence;
     vg_event_journal_t accepted_journal;
+    bool accepted_has_metadata;
+    vg_alarm_journal_t accepted_metadata;
     nvs_handle_t handle;
     bool opened;
     QueueHandle_t jobs, results;
@@ -104,9 +108,11 @@ static void storage_worker(void *context)
          * Otherwise explicit recovery retries the retained uncertain write. */
         if (xQueueReceive(ctx->jobs, &ctx->active, retry_active ? 0u : 1u) != pdTRUE && !retry_active) continue;
         retry_active = false;
-        vg_offline_merge_result result = vg_offline_merge(&ctx->transaction.current,
-            ctx->active.boot, ctx->active.sequence, ctx->active.wire, ctx->active.length,
-            &ctx->active.journal, &ctx->transaction.candidate);
+        vg_offline_merge_result result = ctx->active.has_metadata
+            ? vg_offline_merge_with_alarms(&ctx->transaction.current, ctx->active.boot, ctx->active.sequence,
+                ctx->active.wire, ctx->active.length, &ctx->active.journal, &ctx->active.metadata, &ctx->transaction.candidate)
+            : vg_offline_merge(&ctx->transaction.current, ctx->active.boot, ctx->active.sequence,
+                ctx->active.wire, ctx->active.length, &ctx->active.journal, &ctx->transaction.candidate);
         vg_storage_status status = VG_STORAGE_REJECTED;
         if (result == VG_OFFLINE_UNCHANGED) status = VG_STORAGE_UNCHANGED;
         else if (result == VG_OFFLINE_READY || result == VG_OFFLINE_CRITICAL_FULL) {
@@ -151,15 +157,19 @@ bool vg_storage_start(const char *device, const char *boot)
     return true;
 }
 
-bool vg_storage_submit(const char *boot, uint64_t sequence, const void *wire,
-    size_t length, const vg_event_journal_t *journal)
+static bool submit_job(const char *boot, uint64_t sequence, const void *wire,
+    size_t length, const vg_event_journal_t *journal, const vg_alarm_journal_t *metadata)
 {
     if (!storage || (xEventGroupGetBits(storage->status) & STORAGE_HALTED) ||
         !vg_tel_safe_token(boot, VG_TELEMETRY_MAX_ID_LEN) || !wire || length == 0u ||
         strcmp(storage->boot, boot) || length > VG_OFFLINE_WIRE_MAX || !journal ||
         xSemaphoreTake(storage->lock, 0) != pdTRUE) return false;
     if ((storage->has_sequence && sequence <= storage->last_sequence) ||
-        !vg_offline_journal_follows(&storage->accepted_journal, journal)) {
+        !vg_offline_journal_follows(&storage->accepted_journal, journal) ||
+        (metadata && !vg_alarm_journal_matches(metadata, journal)) ||
+        (storage->accepted_has_metadata && (!metadata ||
+            !vg_alarm_journal_follows(&storage->accepted_metadata, metadata))) ||
+        (metadata && !storage->accepted_has_metadata && storage->accepted_journal.count != 0u)) {
         (void)xSemaphoreGive(storage->lock);
         return false;
     }
@@ -169,16 +179,30 @@ bool vg_storage_submit(const char *boot, uint64_t sequence, const void *wire,
     storage->staging.length = length;
     memcpy(storage->staging.wire, wire, length);
     storage->staging.journal = *journal;
+    storage->staging.has_metadata = metadata != NULL;
+    if (metadata) storage->staging.metadata = *metadata;
     /* The one-item queue keeps newest state, never dropping a critical prefix. */
     bool submitted = xQueueOverwrite(storage->jobs, &storage->staging) == pdTRUE;
     if (submitted) {
         storage->has_sequence = true;
         storage->last_sequence = sequence;
         storage->accepted_journal = *journal;
+        storage->accepted_has_metadata = metadata != NULL;
+        if (metadata) storage->accepted_metadata = *metadata;
     }
     memset(&storage->staging, 0, sizeof(storage->staging));
     (void)xSemaphoreGive(storage->lock);
     return submitted;
+}
+bool vg_storage_submit(const char *boot, uint64_t sequence, const void *wire,
+    size_t length, const vg_event_journal_t *journal)
+{
+    return submit_job(boot, sequence, wire, length, journal, NULL);
+}
+bool vg_storage_submit_with_alarms(const char *boot, uint64_t sequence, const void *wire,
+    size_t length, const vg_event_journal_t *journal, const vg_alarm_journal_t *metadata)
+{
+    return metadata && submit_job(boot, sequence, wire, length, journal, metadata);
 }
 bool vg_storage_take_completion(vg_storage_completion *out)
 {

@@ -26,6 +26,7 @@ class LiveHttpGateTest(unittest.TestCase):
             builder = stack.enter_context(patch.object(gate, 'build_bytes', side_effect=fixture) if fixture else
                                           patch.object(gate, 'build_bytes', return_value=b'synthetic-wire\n'))
             stack.enter_context(patch.object(gate, 'build_domain_bytes', return_value=b'synthetic-domain-wire\n'))
+            stack.enter_context(patch.object(gate, 'build_alarm_bytes', return_value=b'synthetic-alarm-wire\n'))
             popen = stack.enter_context(patch.object(gate.subprocess, 'Popen'))
             suite = stack.enter_context(patch.object(gate, 'suite', side_effect=suite_error))
             if snapshots is not None:
@@ -45,6 +46,44 @@ class LiveHttpGateTest(unittest.TestCase):
             with redirect_stdout(output):
                 code = gate.main()
             return code, command, builder, popen, suite, output.getvalue()
+
+    def test_race_helper_refuses_an_unowned_temporary_root_before_process_or_file_changes(self):
+        with tempfile.TemporaryDirectory(prefix='vg-foreign-race-') as folder:
+            marker = Path(folder)/'keep.txt'; marker.write_bytes(b'keep')
+            with patch.object(gate.subprocess, 'Popen') as process, self.assertRaises(gate.GateFailure):
+                gate.event_races(None, 'synthetic-php', {'VG_LIVE_HTTP_LEASE':str(Path(folder)/'vg-live-lease.json')}, {}, b'{}')
+            process.assert_not_called()
+            self.assertEqual(marker.read_bytes(), b'keep')
+
+    def test_second_race_process_spawn_failure_stops_and_closes_the_first(self):
+        packet = b'{"schema_version":"1.1","alarm":{"reason_code":1001}}'
+        with tempfile.TemporaryDirectory(prefix='vg-live-http-') as folder:
+            process = MagicMock(); process.poll.return_value = None
+            with patch.object(gate.subprocess, 'Popen', side_effect=[process, OSError('synthetic')]), self.assertRaises(OSError):
+                gate.event_races(None, 'synthetic-php', {'VG_LIVE_HTTP_LEASE':str(Path(folder)/'vg-live-lease.json')}, {'id':'a'*32}, packet)
+            process.terminate.assert_called_once()
+            process.wait.assert_called_once()
+            process.stdout.close.assert_called_once(); process.stderr.close.assert_called_once()
+            self.assertFalse(list(Path(folder).glob('*.go')))
+
+    def test_race_barrier_failure_cannot_release_or_leave_a_live_worker(self):
+        packet = b'{"schema_version":"1.1","alarm":{"reason_code":1001}}'
+        with tempfile.TemporaryDirectory(prefix='vg-live-http-') as folder:
+            first, second = MagicMock(), MagicMock()
+            first.poll.return_value = 0; second.poll.return_value = None
+            with patch.object(gate.subprocess, 'Popen', side_effect=[first, second]), redirect_stdout(io.StringIO()), self.assertRaises(gate.GateFailure):
+                gate.event_races(None, 'synthetic-php', {'VG_LIVE_HTTP_LEASE':str(Path(folder)/'vg-live-lease.json')}, {'id':'a'*32}, packet)
+            second.terminate.assert_called_once()
+            first.wait.assert_called_once(); second.wait.assert_called_once()
+            self.assertFalse(list(Path(folder).glob('*.go')))
+
+    def test_real_php_race_fixture_requires_execute_before_bootstrap_or_environment(self):
+        env = {key:value for key,value in os.environ.items() if key.upper() in {'PATH','SYSTEMROOT','TEMP','TMP','WINDIR'}}
+        result = subprocess.run([os.environ.get('VG_PHP_CLI','php'),str(gate.ROOT/'scripts/live_http_event_race.php'),'a','v11i'],
+                                env=env,capture_output=True,text=True,timeout=20)
+        self.assertEqual(result.returncode,3)
+        self.assertEqual(result.stdout,'')
+        self.assertIn('explicit supported CLI fixture action required',result.stderr)
 
     def test_default_is_read_only_and_conflicting_connection_overrides_are_preserved(self):
         with patch.dict(os.environ, {'DB_URL': 'synthetic-conflicting-override'}):
@@ -83,6 +122,19 @@ class LiveHttpGateTest(unittest.TestCase):
             self.assertEqual(command.call_count, 1)
             process.assert_not_called()
             self.assertIn('FAIL_PREREQUISITE_ASSERTION', stream.getvalue())
+
+    def test_failed_alarm_c99_build_precedes_live_fixture_mutation(self):
+        stream = io.StringIO()
+        with patch.object(sys, 'argv', ['gate', '--php-binary', 'synthetic-php', '--execute']), \
+             patch.object(gate, 'php_run', return_value=self.result()) as command, \
+             patch.object(gate, 'build_bytes', return_value=b'legacy'), \
+             patch.object(gate, 'build_domain_bytes', return_value=b'domain'), \
+             patch.object(gate, 'build_alarm_bytes', side_effect=AssertionError('synthetic-alarm')), \
+             patch.object(gate.subprocess, 'Popen') as process, redirect_stdout(stream):
+            self.assertEqual(gate.main(), 1)
+        self.assertEqual(command.call_count, 1)
+        process.assert_not_called()
+        self.assertIn('FAIL_PREREQUISITE_ASSERTION', stream.getvalue())
 
     def test_unavailable_tls_prerequisite_blocks_before_server_or_database_fixtures(self):
         code, command, _, popen, suite, output = self.invoke(['--execute'], [self.result(), self.result(3)])

@@ -8,7 +8,7 @@ def compile_c(source, extra_flags=()):
         src=Path(td)/'fixture.c';exe=Path(td)/('f.exe' if os.name=='nt' else 'f')
         src.write_text('#include <assert.h>\n'+source,encoding='utf-8')
         cc=os.environ.get('VG_HOST_CC','gcc')
-        b=subprocess.run([cc,'-std=c99','-Wall','-Wextra','-Werror','-pedantic',*extra_flags,'-I',str(ROOT/'firmware'/'src'),str(src),'-o',str(exe)],capture_output=True,text=True)
+        b=subprocess.run([cc,'-std=c99','-Wall','-Wextra','-Werror','-pedantic',*extra_flags,'-I',str(ROOT/'firmware'/'src'),str(src),'-o',str(exe),*(['-lm'] if os.name != 'nt' else [])],capture_output=True,text=True)
         if b.returncode:raise AssertionError('COMPILE_FAIL '+b.stdout+b.stderr)
         p=subprocess.run([str(exe)],capture_output=True,text=True)
         if p.returncode:raise AssertionError('RUNTIME_FAIL '+p.stdout+p.stderr)

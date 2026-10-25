@@ -760,6 +760,70 @@
       "line_sha256": "994c6aef934a9baf22e0e4e14d0236253e4fca23758d9a81e329990287091561",
       "classification": "RUNTIME_GENERATED_TEST_VALUE",
       "rationale": "Unchanged exact nonsecret line, reviewed again after continuous-simulation CI/HTTP integration. Runtime-generated test value or CI environment-label writer only; no credential material, new pattern exemption or weakened detection."
+    },
+    {
+      "id": "ALARMMETA-CI-NONSECRET-001",
+      "path": ".github/workflows/phase9-multi-context-ci.yml",
+      "file_sha256": "f80c80ffa71c4bf3b100ae79d7827ddbec58c2f67ac80b63167939353683f7b4",
+      "line_sha256": "e52d2a0aee17904e9e0b4a21889e572a42d8b99434d44885e2867934c59dbb4b",
+      "classification": "CI_TEST_CONFIGURATION",
+      "rationale": "Exact unchanged CI label or runtime-generated form-input expression, re-reviewed after complete alarm metadata integration. No literal credential or new detector exemption; old records retained."
+    },
+    {
+      "id": "ALARMMETA-CI-NONSECRET-002",
+      "path": ".github/workflows/phase9-multi-context-ci.yml",
+      "file_sha256": "f80c80ffa71c4bf3b100ae79d7827ddbec58c2f67ac80b63167939353683f7b4",
+      "line_sha256": "ca6dcd3e138310f57f7f86f4061f0dd448f949016058e65ba39ff6fb214029d7",
+      "classification": "CI_TEST_CONFIGURATION",
+      "rationale": "Exact unchanged CI label or runtime-generated form-input expression, re-reviewed after complete alarm metadata integration. No literal credential or new detector exemption; old records retained."
+    },
+    {
+      "id": "ALARMMETA-RUNTIME-INPUT-001",
+      "path": "scripts/run_live_http_integration.py",
+      "file_sha256": "5792fbc9b8706299ef1bce86e4c662625ed2a604684f5506d7ef514f35db41cd",
+      "line_sha256": "56db39b92d76c4b6fba5da1f45cec61b93e5be15eecd72484369ddc89313dbf6",
+      "classification": "RUNTIME_GENERATED_TEST_VALUE",
+      "rationale": "Exact unchanged CI label or runtime-generated form-input expression, re-reviewed after complete alarm metadata integration. No literal credential or new detector exemption; old records retained."
+    },
+    {
+      "id": "ALARMMETA-RUNTIME-INPUT-002",
+      "path": "scripts/run_live_http_integration.py",
+      "file_sha256": "5792fbc9b8706299ef1bce86e4c662625ed2a604684f5506d7ef514f35db41cd",
+      "line_sha256": "2866dff5e418a124d0d4bfa35b2d8811facac27704e1d8345f5b0e92f3299e4f",
+      "classification": "RUNTIME_GENERATED_TEST_VALUE",
+      "rationale": "Exact unchanged CI label or runtime-generated form-input expression, re-reviewed after complete alarm metadata integration. No literal credential or new detector exemption; old records retained."
+    },
+    {
+      "id": "ALARMMETA-RUNTIME-INPUT-003",
+      "path": "scripts/run_live_http_integration.py",
+      "file_sha256": "5792fbc9b8706299ef1bce86e4c662625ed2a604684f5506d7ef514f35db41cd",
+      "line_sha256": "994c6aef934a9baf22e0e4e14d0236253e4fca23758d9a81e329990287091561",
+      "classification": "RUNTIME_GENERATED_TEST_VALUE",
+      "rationale": "Exact unchanged CI label or runtime-generated form-input expression, re-reviewed after complete alarm metadata integration. No literal credential or new detector exemption; old records retained."
+    },
+    {
+      "id": "ALARMRACE-RUNTIME-INPUT-001",
+      "path": "scripts/run_live_http_integration.py",
+      "file_sha256": "fdafd2d6a055891886254d145bf34fbf879f229abb82928fb4f5fd7c3e8c3d09",
+      "line_sha256": "56db39b92d76c4b6fba5da1f45cec61b93e5be15eecd72484369ddc89313dbf6",
+      "classification": "RUNTIME_GENERATED_TEST_VALUE",
+      "rationale": "Exact unchanged runtime form-input expression, re-reviewed after adding actual two-process transaction race gates. Runtime environment/generated values only; no literal credential, no new detector exemption."
+    },
+    {
+      "id": "ALARMRACE-RUNTIME-INPUT-002",
+      "path": "scripts/run_live_http_integration.py",
+      "file_sha256": "fdafd2d6a055891886254d145bf34fbf879f229abb82928fb4f5fd7c3e8c3d09",
+      "line_sha256": "2866dff5e418a124d0d4bfa35b2d8811facac27704e1d8345f5b0e92f3299e4f",
+      "classification": "RUNTIME_GENERATED_TEST_VALUE",
+      "rationale": "Exact unchanged runtime form-input expression, re-reviewed after adding actual two-process transaction race gates. Runtime environment/generated values only; no literal credential, no new detector exemption."
+    },
+    {
+      "id": "ALARMRACE-RUNTIME-INPUT-003",
+      "path": "scripts/run_live_http_integration.py",
+      "file_sha256": "fdafd2d6a055891886254d145bf34fbf879f229abb82928fb4f5fd7c3e8c3d09",
+      "line_sha256": "994c6aef934a9baf22e0e4e14d0236253e4fca23758d9a81e329990287091561",
+      "classification": "RUNTIME_GENERATED_TEST_VALUE",
+      "rationale": "Exact unchanged runtime form-input expression, re-reviewed after adding actual two-process transaction race gates. Runtime environment/generated values only; no literal credential, no new detector exemption."
     }
   ]
 }

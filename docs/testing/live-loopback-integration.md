@@ -108,3 +108,20 @@ Demo presentation is enabled explicitly in the child process. The original six
 1.0 packets, zero/uint64 and all browser/session/auth negatives remain. Source
 stability now includes both full-domain fixture sources. See the continuous
 summary; this does not constitute deployed/ESP32 TLS or formal verification.
+
+## Complete alarm transition continuation
+
+The same guarded lease now carries eleven real C99/VGS2-recovered event 1.1
+facts from independent native fixture stores. Actual TLS ingress/read/UI checks
+cover complete metadata, zero/null ACK/CLEAR, exact replay/conflict, escaped
+nested duplicate keys and contradictory ACK/CLEAR refusal. Source stability
+includes both new alarm fixture files. Current test admission requires the sixth
+Laravel migration and the reviewed event-column inventory. The event wire
+extension does not add an ownership exemption or remote alarm/control action.
+
+Four CLI kernel/DB process pairs now execute controlled concurrent event reads
+inside the same owned lease. They verify exact legacy/new replay, conflicting
+metadata and nested-transaction classification under the server's unchanged
+isolation policy. These cases are distinct from socket concurrency. Barrier,
+process failure, unowned temporary root and execute-before-bootstrap guards are
+covered; all synthetic data is removed only through the existing ownership check.

@@ -35,11 +35,15 @@ def main():
                         help='explicit PHP CLI executable; never modifies PATH')
     parser.add_argument('--existing-schema', action='store_true',
                         help='inspect exact migrated empty schema and run tests without migration reset')
+    parser.add_argument('--upgrade-previous', action='store_true',
+                        help='explicitly admit the exact empty five-migration profile, then apply the sixth migration')
     args = parser.parse_args()
     if args.migration_roundtrip and not args.execute:
         parser.error('--migration-roundtrip requires --execute')
     if args.existing_schema and not args.execute:
         parser.error('--existing-schema requires --execute')
+    if args.upgrade_previous and (not args.execute or not args.existing_schema):
+        parser.error('--upgrade-previous requires --execute --existing-schema')
     env = os.environ.copy()
     env['VG_PHP_CLI'] = args.php_binary
     if args.testing_env:
@@ -55,7 +59,7 @@ def main():
             env[key] = os.environ[key]
     try:
         preflight = run([args.php_binary, 'scripts/mysql_test_gate.php',
-                         '--inspect' if args.existing_schema else '--check'], env)
+                         '--inspect-previous' if args.upgrade_previous else '--inspect' if args.existing_schema else '--check'], env)
         if preflight.returncode:
             for line in preflight.stderr.splitlines():
                 if line.startswith('MYSQL_TEST_BLOCKED:'):
@@ -74,6 +78,7 @@ def main():
                 ('phase9_b15_event_bridge.py', 'events.jsonl', 'VG_B15_EVENT_JSONL'),
                 ('runtime_uplink_wire_bridge.py', 'runtime.jsonl', 'VG_RUNTIME_WIRE_JSONL'),
                 ('continuous_simulation_wire_bridge.py', 'continuous.jsonl', 'VG_CONTINUOUS_WIRE_JSONL'),
+                ('alarm_metadata_wire_bridge.py', 'alarms.jsonl', 'VG_ALARM_METADATA_WIRE_JSONL'),
             ]:
                 output = temp / name
                 generated = run([sys.executable, '-B', 'scripts/'+script, '--output', str(output)], env)
@@ -83,8 +88,10 @@ def main():
                 print(generated.stdout, end='')
                 env[variable] = str(output)
             env['VG_B17_RECEIPTS_JSONL'] = str(temp / 'receipts.jsonl')
-            if not args.existing_schema or args.migration_roundtrip:
-                mode = ('--roundtrip-existing' if args.existing_schema else
+            if not args.existing_schema or args.migration_roundtrip or args.upgrade_previous:
+                mode = ('--upgrade-previous-roundtrip' if args.upgrade_previous and args.migration_roundtrip else
+                        '--upgrade-previous' if args.upgrade_previous else
+                        '--roundtrip-existing' if args.existing_schema else
                         '--migration-roundtrip' if args.migration_roundtrip else '--migrate')
                 migrated = run([args.php_binary, 'scripts/mysql_test_gate.php', mode], env)
                 print(migrated.stdout, end='')
