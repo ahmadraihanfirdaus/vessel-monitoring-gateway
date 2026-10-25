@@ -315,7 +315,7 @@ jobs:
       - uses: shivammathur/setup-php@v2
         with:
           php-version: '8.2.35'
-          extensions: pdo_mysql, mbstring, dom, xml, xmlwriter
+          extensions: pdo_mysql, mbstring, dom, xml, xmlwriter, openssl
           coverage: none
       - name: Install PHP dependencies
         run: composer install --no-progress --prefer-dist --no-interaction
@@ -326,6 +326,13 @@ jobs:
       - name: C99 through Laravel and real isolated MySQL with migration roundtrip
         # Guarded equivalent of php artisan migrate --force; no dotenv loading.
         run: python3 -B ../../scripts/run_mysql_integration.py --execute --migration-roundtrip
+      - name: Real loopback TLS and persistent browser-session integration
+        working-directory: .
+        env:
+          VG_PHP_CLI: php
+        run: |
+          python3 -B scripts/test_live_http_integration_gate.py
+          python3 -B scripts/run_live_http_integration.py --php-binary php --execute
 
   # B9 HTTP dispatch: no MySQL service/migrations; tests do not call DB.
   backend-http-no-db-b9:

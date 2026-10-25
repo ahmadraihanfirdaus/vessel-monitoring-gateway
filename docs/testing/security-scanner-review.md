@@ -51,3 +51,17 @@ hash pins after adding the SDK job and PHP patch pin; no credential expression
 was relaxed. Certificate expiry checks were explicitly enabled in SDK defaults
 and the local generated configuration, with build/start guards against insecure
 TLS. Actual TLS/clock integration remains NOT_RUN.
+
+## Actual loopback HTTP/TLS continuation
+
+The host loopback pipeline now has actual certificate/hostname/plaintext
+negatives and persistent session/CSRF/grant/rate-limit evidence. This uses an
+ephemeral private test deployment; ESP32 and deployed/public TLS remain NOT_RUN.
+The original 36 occurrences are unchanged historical review. Seven additional
+informational occurrences are classified in the
+[live HTTP triage](../../evidence/test-results/live-http-security-triage-20261025.csv):
+two unchanged CI labels, two historical validity labels and three runtime form
+input expressions. Exact file/line pins approve no literal credentials and waive
+no strong-token/private-key/URL/path/encoding/privacy checks. See the
+[execution summary](../../evidence/test-results/live-http-summary-20261025.md)
+for actual source-stable network results and guarded fixture cleanup.

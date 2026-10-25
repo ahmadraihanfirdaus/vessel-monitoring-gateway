@@ -664,6 +664,62 @@
       "line_sha256": "ca6dcd3e138310f57f7f86f4061f0dd448f949016058e65ba39ff6fb214029d7",
       "classification": "CI_TEST_CONFIGURATION",
       "rationale": "Unchanged exact CI boolean/environment-label writer after adding offline storage tests; no credential value or new exemption."
+    },
+    {
+      "id": "LIVEHTTP-CI-NONSECRET-001",
+      "path": ".github/workflows/phase9-multi-context-ci.yml",
+      "file_sha256": "e8b0b2ce9c10f625e743743b1b8945f2ab658cf541cfcb6c1a42cf1afade4a99",
+      "line_sha256": "e52d2a0aee17904e9e0b4a21889e572a42d8b99434d44885e2867934c59dbb4b",
+      "classification": "CI_TEST_CONFIGURATION",
+      "rationale": "Unchanged exact ephemeral CI environment-label writer after adding loopback integration; no credential value or new exemption."
+    },
+    {
+      "id": "LIVEHTTP-CI-NONSECRET-002",
+      "path": ".github/workflows/phase9-multi-context-ci.yml",
+      "file_sha256": "e8b0b2ce9c10f625e743743b1b8945f2ab658cf541cfcb6c1a42cf1afade4a99",
+      "line_sha256": "ca6dcd3e138310f57f7f86f4061f0dd448f949016058e65ba39ff6fb214029d7",
+      "classification": "CI_TEST_CONFIGURATION",
+      "rationale": "Unchanged exact ephemeral CI environment-label writer after adding loopback integration; no credential value or new exemption."
+    },
+    {
+      "id": "LIVEHTTP-AUDIT-LABEL-001",
+      "path": "evidence/test-results/live-http-network-run1-20261025.txt",
+      "file_sha256": "ab179af37143ffd05fe46545da4c307e89d70bad906311dd3c33289a06705bff",
+      "line_sha256": "d94596f51cdf609d5affe2588eb2d950d6a56b9bd41f9aff9b1c9c453d341ab1",
+      "classification": "AUDIT_RESULT_LABEL",
+      "rationale": "Historical validity/source label only, not APP_KEY material. Current output uses separate validity booleans; original diagnostic retained."
+    },
+    {
+      "id": "LIVEHTTP-AUDIT-LABEL-002",
+      "path": "evidence/test-results/live-http-preflight-run2-20261025.txt",
+      "file_sha256": "3bdf1b0214400ce1b6a6de359bd875caf630978eda4468031a4878e70f7fe552",
+      "line_sha256": "d94596f51cdf609d5affe2588eb2d950d6a56b9bd41f9aff9b1c9c453d341ab1",
+      "classification": "AUDIT_RESULT_LABEL",
+      "rationale": "Historical validity/source label only, not APP_KEY material. Current output uses separate validity booleans; original diagnostic retained."
+    },
+    {
+      "id": "LIVEHTTP-RUNTIME-INPUT-001",
+      "path": "scripts/run_live_http_integration.py",
+      "file_sha256": "d18963109ac22982a229af07f7c9c5ffa70e2f9f1091547f4df778b33d9a0fa9",
+      "line_sha256": "56db39b92d76c4b6fba5da1f45cec61b93e5be15eecd72484369ddc89313dbf6",
+      "classification": "RUNTIME_GENERATED_TEST_VALUE",
+      "rationale": "Test form input from a dedicated ephemeral process variable or freshly generated runtime value; no literal credential, value output or argument. Exact reviewed bytes only."
+    },
+    {
+      "id": "LIVEHTTP-RUNTIME-INPUT-002",
+      "path": "scripts/run_live_http_integration.py",
+      "file_sha256": "d18963109ac22982a229af07f7c9c5ffa70e2f9f1091547f4df778b33d9a0fa9",
+      "line_sha256": "2866dff5e418a124d0d4bfa35b2d8811facac27704e1d8345f5b0e92f3299e4f",
+      "classification": "RUNTIME_GENERATED_TEST_VALUE",
+      "rationale": "Test form input from a dedicated ephemeral process variable or freshly generated runtime value; no literal credential, value output or argument. Exact reviewed bytes only."
+    },
+    {
+      "id": "LIVEHTTP-RUNTIME-INPUT-003",
+      "path": "scripts/run_live_http_integration.py",
+      "file_sha256": "d18963109ac22982a229af07f7c9c5ffa70e2f9f1091547f4df778b33d9a0fa9",
+      "line_sha256": "994c6aef934a9baf22e0e4e14d0236253e4fca23758d9a81e329990287091561",
+      "classification": "RUNTIME_GENERATED_TEST_VALUE",
+      "rationale": "Test form input from a dedicated ephemeral process variable or freshly generated runtime value; no literal credential, value output or argument. Exact reviewed bytes only."
     }
   ]
 }

@@ -1,0 +1,3 @@
+COMMAND=python -B scripts/run_live_http_integration.py --php-binary C:/tools/php-8.2.35/php.exe --testing-env
+LIVE_HTTP_GATE=BLOCKED_PREFLIGHT_NO_FIXTURES
+EXIT=3

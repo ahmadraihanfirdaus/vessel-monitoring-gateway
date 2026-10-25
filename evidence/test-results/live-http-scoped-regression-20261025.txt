@@ -1,0 +1,453 @@
+COMMAND=python -B scripts/test_phase9_b10_tst002.py
+test_b10_job_is_isolated_and_registered (__main__.Workflow.test_b10_job_is_isolated_and_registered) ... ok
+test_trace_is_scoped_and_formal_open (__main__.Workflow.test_trace_is_scoped_and_formal_open) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.001s
+
+OK
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b11_tst002.py
+B11_CI_POLICY=PASS_NO_DB_HTTP_TEST_JOB
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b12_tst002.py
+B12_CI=PASS_DB_FREE_ROUTE_DISPATCH
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b13_tst002.py
+B13_CI_POLICY=PASS
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b14_tst002.py
+test_bridge_gated_in_no_db_job (__main__.CI.test_bridge_gated_in_no_db_job) ... ok
+test_compiler_fails_closed (__main__.CI.test_compiler_fails_closed) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.001s
+
+OK
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b15_tst002.py
+B15_TST002=PASS_CI_REAL_JOURNAL_NO_DB
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b16_tst002.py
+B16_CI=PASS_SCOPED_NO_DB_HTTP_RUNNER
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b17_tst002.py
+B17_CI=PASS_ISOLATED_HTTP_RECONCILIATION
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b18_tst002.py
+B18_TST002=PASS_HOST_ONLY_JOB_NO_DB_NO_PUSH
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b19_tst002.py
+B19_CI=PASS_HOST_AND_BACKEND_ISOLATION_PRESERVED
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b20_tst002.py
+B20_TST002=PASS_CI_REGISTRATION_NO_DB_RUNNER_SCOPE
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b21_tst002.py
+B21_TST002=PASS_CI_HOST_ONLY_REGISTRATION
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b22_tst002.py
+B22_TST002=PASS_HOST_CI_REGISTERED
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b23_tst002.py
+B23_TST002=PASS_HOST_CI_SUITES_REGISTERED
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b24_tst002.py
+B24_TST002=PASS_CI_REGISTERED_AND_MOCK_DB_BOUNDARY_PRESERVED
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b25_tst002.py
+B25_TST002=PASS_CI_HOST_GATES_AND_PRESERVED_MYSQL_JOB
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b26_tst002.py
+B26_TST002=PASS_REGISTERED_HOST_GATES_MYSQL_JOB_UNCHANGED
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b27_tst002.py
+B27_TST002=PASS_HOST_CI_REGISTERED_PRESERVED_MYSQL_JOB
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b28_tst002.py
+B28_TST002=PASS_CI_HOST_ONLY_MYSQL_ISOLATION_PRESERVED
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b29_tst002.py
+B29_TST002=PASS_CI_HOST_ONLY_MYSQL_JOB_PRESERVED
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b30_tst002.py
+B30_TST002=PASS_CI_HOST_ONLY_MYSQL_JOB_PRESERVED
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b31_tst002.py
+B31_TST002=PASS_CI_HOST_ONLY_MYSQL_JOB_PRESERVED
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b32_tst002.py
+B32_TST002=PASS_HOST_REGISTRY_MYSQL_ISOLATION_PRESERVED
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b33_tst002.py
+B33_TST002=PASS_HOST_REGISTRY_MYSQL_ISOLATION_PRESERVED
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b34_tst002.py
+B34_TST002=PASS_HOST_REGISTRY_MYSQL_ISOLATION_PRESERVED
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b35_tst002.py
+B35_TST002=PASS_HOST_REGISTRY_MYSQL_ISOLATION_PRESERVED
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b36_tst002.py
+B36_TST002=PASS_HOST_REGISTRY_MYSQL_BOUNDARY_UNCHANGED
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b37_tst002.py
+B37_TST002=PASS_HOST_ONLY_CI_ISOLATED_FROM_MYSQL
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b38_tst002.py
+B38_TST002=PASS_CI_ISOLATED_FROM_MYSQL_OLD_GATES_RETAINED
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b39_tst002.py
+B39_TST002=PASS_CI_PRESERVES_MYSQL_JOB_AND_ISOLATES_HOST_SCOPE
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b40_tst002.py
+B40_TST002=PASS_CI_HOST_JOB_MYSQL_ISOLATED_AND_FOUR_GATES_REGISTERED
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b41_tst002.py
+B41_TST002=PASS_CI_HOST_JOB_REGISTERED_WITH_MYSQL_ISOLATION
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b42_tst002.py
+B42_TST002=PASS_CI_HOST_JOB_REGISTERED_WITH_MYSQL_ISOLATION
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b43_tst002.py
+B43_TST002=PASS_HOST_NONCE_LEDGER_AND_MYSQL_CI_ISOLATION
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b44_tst002.py
+B44_TST002=PASS_HOST_SIGNED_RESTART_SNAPSHOT_MYSQL_CI_SEPARATION
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b45_tst002.py
+B45_TST002=PASS_CI_HOST_ONLY_NO_MYSQL_JOB_CHANGE
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b46_tst002.py
+B46_TST002=PASS_CI_HOST_ONLY_BACKEND_JOBS_PRESERVED
+EXIT=0
+COMMAND=python -B scripts/test_phase9_p2_mysql_source.py
+PHASE9_P2_MYSQL_SOURCE FILE_PHASE9-P2-IMPLEMENTATION-PLAN.MD: PASS
+PHASE9_P2_MYSQL_SOURCE FILE_API.PHP: PASS
+PHASE9_P2_MYSQL_SOURCE FILE_DEVICE.PHP: PASS
+PHASE9_P2_MYSQL_SOURCE FILE_TELEMETRYSAMPLE.PHP: PASS
+PHASE9_P2_MYSQL_SOURCE FILE_TELEMETRYCHANNEL.PHP: PASS
+PHASE9_P2_MYSQL_SOURCE FILE_DEVICETOKENAUTHENTICATOR.PHP: PASS
+PHASE9_P2_MYSQL_SOURCE FILE_TELEMETRYINGESTSERVICE.PHP: PASS
+PHASE9_P2_MYSQL_SOURCE FILE_ENSURETELEMETRYPAYLOADSIZE.PHP: PASS
+PHASE9_P2_MYSQL_SOURCE FILE_AUTHENTICATEDEVICETOKEN.PHP: PASS
+PHASE9_P2_MYSQL_SOURCE FILE_TELEMETRYINGESTREQUEST.PHP: PASS
+PHASE9_P2_MYSQL_SOURCE FILE_TELEMETRYINGESTCONTROLLER.PHP: PASS
+PHASE9_P2_MYSQL_SOURCE FILE_2026_10_17_100001_CREATE_DEVICES_TABLE.PHP: PASS
+PHASE9_P2_MYSQL_SOURCE FILE_2026_10_17_100002_CREATE_TELEMETRY_SAMPLES_TABLE.PHP: PASS
+PHASE9_P2_MYSQL_SOURCE FILE_2026_10_17_100003_CREATE_TELEMETRY_CHANNELS_TABLE.PHP: PASS
+PHASE9_P2_MYSQL_SOURCE FILE_TELEMETRYINGESTTEST.PHP: PASS
+PHASE9_P2_MYSQL_SOURCE ENV_EXAMPLE_MYSQL: PASS
+PHASE9_P2_MYSQL_SOURCE ENV_EXAMPLE_HOST: PASS
+PHASE9_P2_MYSQL_SOURCE ENV_EXAMPLE_PORT: PASS
+PHASE9_P2_MYSQL_SOURCE CONFIG_DEFAULT_MYSQL: PASS
+PHASE9_P2_MYSQL_SOURCE CONFIG_MYSQL_DATABASE_EXTERNAL: PASS
+PHASE9_P2_MYSQL_SOURCE CONFIG_MYSQL_USERNAME_EXTERNAL: PASS
+PHASE9_P2_MYSQL_SOURCE CONFIG_MYSQL_PASSWORD_EXTERNAL: PASS
+PHASE9_P2_MYSQL_SOURCE PHPUNIT_MYSQL: PASS
+PHASE9_P2_MYSQL_SOURCE PHPUNIT_NO_SQLITE_POLICY: PASS
+PHASE9_P2_MYSQL_SOURCE COMPOSER_NO_SQLITE_CREATE: PASS
+PHASE9_P2_MYSQL_SOURCE COMPOSER_NO_AUTO_MIGRATE: PASS
+PHASE9_P2_MYSQL_SOURCE BOOTSTRAP_API_ROUTE: PASS
+PHASE9_P2_MYSQL_SOURCE BOOTSTRAP_SIZE_ALIAS: PASS
+PHASE9_P2_MYSQL_SOURCE BOOTSTRAP_DEVICE_ALIAS: PASS
+PHASE9_P2_MYSQL_SOURCE API_ENDPOINT: PASS
+PHASE9_P2_MYSQL_SOURCE API_MIDDLEWARE_ORDER: PASS
+PHASE9_P2_MYSQL_SOURCE REQUEST_SCHEMA_1_0: PASS
+PHASE9_P2_MYSQL_SOURCE REQUEST_CHANNEL_LIMIT_16: PASS
+PHASE9_P2_MYSQL_SOURCE REQUEST_SOURCE_MODES: PASS
+PHASE9_P2_MYSQL_SOURCE REQUEST_QUALITY_MODES: PASS
+PHASE9_P2_MYSQL_SOURCE REQUEST_NULL_CONTRACT: PASS
+PHASE9_P2_MYSQL_SOURCE REQUEST_FINITE_CONTRACT: PASS
+PHASE9_P2_MYSQL_SOURCE DEVICE_DIGEST_COLUMN: PASS
+PHASE9_P2_MYSQL_SOURCE DEVICE_DISABLED_DEFAULT: PASS
+PHASE9_P2_MYSQL_SOURCE IDENTIFIER_BINARY_COLLATION: PASS
+PHASE9_P2_MYSQL_SOURCE SAMPLE_IDENTITY_UNIQUE: PASS
+PHASE9_P2_MYSQL_SOURCE SAMPLE_DEVICE_EXTERNAL_STRING: PASS
+PHASE9_P2_MYSQL_SOURCE SAMPLE_DEVICE_NO_INTERNAL_FOREIGNID: PASS
+PHASE9_P2_MYSQL_SOURCE SAMPLE_DEVICE_EXTERNAL_FK: PASS
+PHASE9_P2_MYSQL_SOURCE SERVICE_USES_EXTERNAL_DEVICE_ID: PASS
+PHASE9_P2_MYSQL_SOURCE DEVICE_RELATION_USES_EXTERNAL_DEVICE_ID: PASS
+PHASE9_P2_MYSQL_SOURCE SAMPLE_RELATION_USES_EXTERNAL_DEVICE_ID: PASS
+PHASE9_P2_MYSQL_SOURCE CHANNEL_NAME_UNIQUE: PASS
+PHASE9_P2_MYSQL_SOURCE DEDUP_TRANSACTION: PASS
+PHASE9_P2_MYSQL_SOURCE DEDUP_IDENTITY_BOOT: PASS
+PHASE9_P2_MYSQL_SOURCE DEDUP_IDENTITY_SEQUENCE: PASS
+PHASE9_P2_MYSQL_SOURCE DEDUP_MYSQL_1062: PASS
+PHASE9_P2_MYSQL_SOURCE DEDUP_CONFLICT_STATUS: PASS
+PHASE9_P2_MYSQL_SOURCE UINT64_BIGINT_PRESERVATION: PASS
+PHASE9_P2_MYSQL_SOURCE UINT64_MAX_BOUND: PASS
+PHASE9_P2_MYSQL_SOURCE UINT64_RAW_JSON_NUMBER_GUARD: PASS
+PHASE9_P2_MYSQL_SOURCE UINT64_NO_GLOBAL_FIELD_OCCURRENCE_COUNT: PASS
+PHASE9_P2_MYSQL_SOURCE UINT64_SEQUENCE_CHANNEL_REGRESSION_TEST_DEFINED: PASS
+PHASE9_P2_MYSQL_SOURCE UINT64_SERVICE_NORMALIZATION: PASS
+PHASE9_P2_MYSQL_SOURCE UINT64_DEVICE_NO_INTEGER_CAST: PASS
+PHASE9_P2_MYSQL_SOURCE UINT64_SAMPLE_NO_INTEGER_CAST: PASS
+PHASE9_P2_MYSQL_SOURCE UINT64_FEATURE_TEST_DEFINED: PASS
+PHASE9_P2_MYSQL_SOURCE UINT64_QUOTED_REJECTION_TEST_DEFINED: PASS
+PHASE9_P2_MYSQL_SOURCE NO_ENV_IN_INDEX: PASS
+PHASE9_P2_MYSQL_SOURCE NO_SQLITE_IN_INDEX: PASS
+PHASE9_P2_MYSQL_SOURCE NO_VENDOR_IN_INDEX: PASS
+PHASE9_P2_MYSQL_SOURCE P2_APPLICATION_MIGRATIONS_PRESERVED: PASS
+PHASE9_P2_MYSQL_SOURCE RAW_JSON_STRUCTURAL_MEMBER_PARSER: PASS
+PHASE9_P2_MYSQL_SOURCE RAW_JSON_TOP_LEVEL_UNIQUE_GUARD: PASS
+PHASE9_P2_MYSQL_SOURCE RAW_JSON_DUPLICATE_KEY_HELPER: PASS
+PHASE9_P2_MYSQL_SOURCE RAW_UINT64_STRUCTURAL_TOP_LEVEL_LOOKUP: PASS
+PHASE9_P2_MYSQL_SOURCE RAW_UINT64_NO_GLOBAL_SEQUENCE_REGEX: PASS
+PHASE9_P2_MYSQL_SOURCE RAW_UINT64_NESTED_SEQUENCE_BYPASS_TEST_DEFINED: PASS
+PHASE9_P2_MYSQL_SOURCE RAW_DUPLICATE_TOP_LEVEL_TEST_DEFINED: PASS
+PHASE9_P2_MYSQL_SOURCE RAW_DUPLICATE_CHANNEL_TEST_DEFINED: PASS
+PHASE9_P2_MYSQL_SOURCE WIRE_CHANNEL_EXACT_VALUE_QUALITY_MEMBERS: PASS
+PHASE9_P2_MYSQL_SOURCE WIRE_VALUE_MEMBER_EXPLICITLY_PRESENT: PASS
+PHASE9_P2_MYSQL_SOURCE WIRE_ABSENT_VALUE_MEMBER_REJECTION_TEST_DEFINED: PASS
+PHASE9_P2_MYSQL_SOURCE_TEST: PASS
+EXIT=0
+COMMAND=python -B scripts/test_phase9_p3_mysql_source.py
+PHASE9_P3_SOURCE MIGRATION_MONITORING_EVENTS: PASS
+PHASE9_P3_SOURCE MIGRATION_DEVICE_ID: PASS
+PHASE9_P3_SOURCE MIGRATION_BOOT_ID: PASS
+PHASE9_P3_SOURCE MIGRATION_EVENT_ID: PASS
+PHASE9_P3_SOURCE MIGRATION_LINKED_ALARM_ID: PASS
+PHASE9_P3_SOURCE MIGRATION_SOURCE_ID: PASS
+PHASE9_P3_SOURCE MIGRATION_SOURCE_MODE: PASS
+PHASE9_P3_SOURCE MIGRATION_EVENT_TYPE: PASS
+PHASE9_P3_SOURCE MIGRATION_OCCURRED_AT_MS: PASS
+PHASE9_P3_SOURCE MIGRATION_RECEIVED_AT: PASS
+PHASE9_P3_SOURCE MIGRATION_MONITORING_EVENTS_IDENTITY_UNIQUE: PASS
+PHASE9_P3_SOURCE UINT64_MAX: PASS
+PHASE9_P3_SOURCE UINT32_MAX: PASS
+PHASE9_P3_SOURCE EVENT_SOURCE_MODES: PASS
+PHASE9_P3_SOURCE EVENT_TYPES: PASS
+PHASE9_P3_SOURCE EVENT_IDEMPOTENT: PASS
+PHASE9_P3_SOURCE EVENT_CONFLICT: PASS
+PHASE9_P3_SOURCE EVENT_IDENTITY_MISMATCH: PASS
+PHASE9_P3_SOURCE ROUTE_V1_EVENTS: PASS
+PHASE9_P3_SOURCE ROUTE_V1_DEVICE_STATE: PASS
+PHASE9_P3_SOURCE ROUTE_V1_DEVICE_HISTORY: PASS
+PHASE9_P3_SOURCE ROUTE_V1_DEVICE_HEALTH: PASS
+PHASE9_P3_SOURCE ROUTE_TELEMETRY_PAYLOAD_SIZE: PASS
+PHASE9_P3_SOURCE ROUTE_DEVICE_AUTH: PASS
+PHASE9_P3_SOURCE HISTORY_CURSOR: PASS
+PHASE9_P3_SOURCE HEALTH_AGE: PASS
+PHASE9_P3_SOURCE DESIGN_EVENT_IDENTITY: PASS
+PHASE9_P3_SOURCE DESIGN_NO_HEALTH_TABLE: PASS
+PHASE9_P3_SOURCE PLAN_NO_DB_EXECUTION: PASS
+PHASE9_P3_SOURCE FOUR_ORIGINAL_PLUS_MONITORING_ACCESS_MIGRATION: PASS
+PHASE9_P3_SOURCE MYSQL_ONLY_POLICY: PASS
+PHASE9_P3_MYSQL_SOURCE_TEST: PASS
+EXIT=0
+COMMAND=python -B scripts/test_phase9_tst002_ci_policy.py
+....
+----------------------------------------------------------------------
+Ran 4 tests in 0.001s
+
+OK
+EXIT=0
+COMMAND=python -B scripts/test_phase9_ui001_dashboard.py
+....
+----------------------------------------------------------------------
+Ran 4 tests in 0.042s
+
+OK
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b12_http_boundary.py
+test_middleware_uses_no_store_private (__main__.Boundary.test_middleware_uses_no_store_private) ... ok
+test_no_db_in_feature_tests (__main__.Boundary.test_no_db_in_feature_tests) ... ok
+test_registration_and_six_route_bindings (__main__.Boundary.test_registration_and_six_route_bindings) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.001s
+
+OK
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b13_cursor_contract.py
+B13_CURSOR_POLICY=PASS_8_CASES_STATIC
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b9_tst001.py
+test_ci_no_database_job (__main__.B9Scope.test_ci_no_database_job) ... ok
+test_open_formal_trace (__main__.B9Scope.test_open_formal_trace) ... ok
+test_real_routes_and_full_boundaries (__main__.B9Scope.test_real_routes_and_full_boundaries) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.001s
+
+OK
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b9_http_probe.py
+test_real_middleware_media_and_size_boundaries (__main__.B9HttpProbe.test_real_middleware_media_and_size_boundaries) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.045s
+
+OK
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b4_integrated.py
+test_c_producer_to_php_validator_null_and_security_boundary (__main__.Integrated.test_c_producer_to_php_validator_null_and_security_boundary) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.782s
+
+OK
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b5_integrated.py
+test_replay_ack_then_host_ingest (__main__.Integrated.test_replay_ack_then_host_ingest) ... ok
+test_security_strict_dedup_flow (__main__.Integrated.test_security_strict_dedup_flow) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.349s
+
+OK
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b6_integrated.py
+test_c99_wire_to_php_decision (__main__.EndToEnd.test_c99_wire_to_php_decision) ... ok
+test_denied_claim_not_receipt (__main__.EndToEnd.test_denied_claim_not_receipt) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.690s
+
+OK
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b8_integrated.py
+test_alarm_blocks_receipt_until_explicit_recovery (__main__.Integrated.test_alarm_blocks_receipt_until_explicit_recovery) ... ok
+test_synthetic_sec_and_replay_integrate (__main__.Integrated.test_synthetic_sec_and_replay_integrate) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.320s
+
+OK
+EXIT=0
+COMMAND=python -B scripts/test_mysql_integration_gate.py
+.....................
+----------------------------------------------------------------------
+Ran 21 tests in 0.141s
+
+OK
+EXIT=0
+COMMAND=python -B scripts/test_audit_precommit_security.py
+.......................
+----------------------------------------------------------------------
+Ran 23 tests in 11.831s
+
+OK
+EXIT=0
+COMMAND=python -B scripts/check_living_traceability.py
+BASELINE_SHA256: PASS (2/2)
+LIVING_TRACEABILITY: PASS (38/38 mapped, 34 unique planned cases)
+ASSESSMENTS: {'IMPLEMENTED_UNVERIFIED': 20, 'PARTIAL': 18}
+FORMAL_REQUIREMENT_STATUS: {'NOT_RUN': 20, 'PARTIAL': 3, 'PASS': 15}
+FORMAL_SIM_SCENARIOS: PASS=9, NOT_RUN=6
+SUPPLEMENTAL_TESTS: PLANNED=14, PASS=5
+FINAL_REQUIREMENT_APPROVAL: NOT_APPROVED
+TOTAL_SYSTEM_STATUS: PARTIAL
+EXIT=0
+COMMAND=python -B scripts/audit_phase9_p1_security_review.py
+REVIEW_HASH backend/laravel/.editorconfig f78cc5a2ef8ba61ad956d0f5db453748a981270f6a1b9f4a5a00df8690e7946d
+REVIEW_HASH backend/laravel/app/Models/User.php 41d800ffd4887c75e66af8eaedc756edce052eb662baae357308c6e364a6c9d2
+REVIEW_HASH backend/laravel/artisan f91a517c0c5d3a904c3f390933964a5e08ec1fc68146882730daac4aca4ffcec
+REVIEW_HASH backend/laravel/composer.lock 6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2
+REVIEW_HASH backend/laravel/config/database.php 43b43e74db771fa0da206a2c86c91d3bf84698acc95af29482032cbe981ce7f7
+REVIEW_HASH backend/laravel/config/mail.php c43ff49a31c5f32ce21eb7159f2a4b3cd2f4074eaed5838d265646dbfedd3474
+REVIEW_HASH backend/laravel/public/.htaccess b7e379c77639fd56144947dbae84c84eb466d9c686ea81f2f013ae85421da923
+REVIEW_SEMANTIC backend/laravel/app/Models/User.php:46: PASS
+REVIEW_SEMANTIC backend/laravel/config/database.php:54: PASS
+REVIEW_SEMANTIC backend/laravel/config/database.php:74: PASS
+REVIEW_SEMANTIC backend/laravel/config/database.php:94: PASS
+REVIEW_SEMANTIC backend/laravel/config/database.php:109: PASS
+REVIEW_SEMANTIC backend/laravel/config/database.php:160: PASS
+REVIEW_SEMANTIC backend/laravel/config/database.php:173: PASS
+REVIEW_SEMANTIC backend/laravel/config/mail.php:47: PASS
+REVIEW_COMPOSER_LOCK_JSON: PASS
+REVIEW_LARAVEL_FRAMEWORK_VERSION: v12.70.0
+REVIEW_PINNED_FRAMEWORK_FILES: PASS
+=== PHASE 2.7B.5K.5 - PUBLIC SECURITY AUDIT ===
+Git index entries: 1086
+Untracked candidates: 23
+Total candidates: 1109
+
+Potential security findings: 0
+Manual review warnings: 0
+Hash-pinned non-secret reviews: 32
+Reviewed dependency author metadata: 141
+
+REVIEWED NON-SECRET: .github/workflows/phase9-multi-context-ci.yml:294 [index] - OFFLINE-CI-NONSECRET-001 / CI_TEST_CONFIGURATION
+REVIEWED NON-SECRET: .github/workflows/phase9-multi-context-ci.yml:360 [index] - OFFLINE-CI-NONSECRET-002 / CI_TEST_CONFIGURATION
+REVIEWED NON-SECRET: .github/workflows/phase9-multi-context-ci.yml:294 [working] - LIVEHTTP-CI-NONSECRET-001 / CI_TEST_CONFIGURATION
+REVIEWED NON-SECRET: .github/workflows/phase9-multi-context-ci.yml:367 [working] - LIVEHTTP-CI-NONSECRET-002 / CI_TEST_CONFIGURATION
+REVIEWED NON-SECRET: backend/laravel/app/Http/Controllers/MonitoringSessionController.php:17 [index] - MONITORING-NONSECRET-001 / SOURCE_CONTRACT_TOKEN
+REVIEWED NON-SECRET: backend/laravel/app/Models/User.php:46 [index] - NONSECRET-005 / FRAMEWORK_CAST
+REVIEWED NON-SECRET: backend/laravel/tests/Feature/FirmwareMySqlIntegrationTest.php:192 [index] - MONITORING-NONSECRET-002 / RUNTIME_GENERATED_TEST_VALUE
+REVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringAccessTest.php:98 [index] - MONITORING-NONSECRET-003 / RUNTIME_GENERATED_TEST_VALUE
+REVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringAccessTest.php:100 [index] - MONITORING-NONSECRET-004 / RUNTIME_GENERATED_TEST_VALUE
+REVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringAccessTest.php:111 [index] - MONITORING-NONSECRET-005 / RUNTIME_GENERATED_TEST_VALUE
+REVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringAccessTest.php:114 [index] - MONITORING-NONSECRET-006 / RUNTIME_GENERATED_TEST_VALUE
+REVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringBoundaryTest.php:35 [index] - MONITORING-NONSECRET-011 / RUNTIME_GENERATED_TEST_VALUE
+REVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringOperatorTest.php:22 [index] - MONITORING-NONSECRET-007 / ENVIRONMENT_VARIABLE_NAME
+REVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringOperatorTest.php:37 [index] - MONITORING-NONSECRET-008 / ENVIRONMENT_VARIABLE_NAME
+REVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringOperatorTest.php:46 [index] - MONITORING-NONSECRET-009 / ENVIRONMENT_VARIABLE_NAME
+REVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringOperatorTest.php:52 [index] - MONITORING-NONSECRET-008 / ENVIRONMENT_VARIABLE_NAME
+REVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringOperatorTest.php:67 [index] - MONITORING-NONSECRET-010 / ENVIRONMENT_VARIABLE_NAME
+REVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringOperatorTest.php:72 [index] - MONITORING-NONSECRET-008 / ENVIRONMENT_VARIABLE_NAME
+REVIEWED NON-SECRET: backend/laravel/tests/Support/MonitoringFixtures.php:13 [index] - MONITORING-NONSECRET-012 / RUNTIME_GENERATED_TEST_VALUE
+REVIEWED NON-SECRET: backend/laravel/tests/Support/MySqlIsolation.php:93 [index] - MONITORING-NONSECRET-013 / ENVIRONMENT_VARIABLE_NAME
+REVIEWED NON-SECRET: backend/laravel/tests/Unit/MySqlIsolationTest.php:120 [index] - NONSECRET-007 / SYNTHETIC_NEGATIVE_FIXTURE
+REVIEWED NON-SECRET: backend/laravel/tests/Unit/TestEnvironmentTest.php:30 [index] - NONSECRET-008 / SYNTHETIC_NEGATIVE_FIXTURE
+REVIEWED NON-SECRET: evidence/test-results/live-http-network-run1-20261025.txt:2 [untracked] - LIVEHTTP-AUDIT-LABEL-001 / AUDIT_RESULT_LABEL
+REVIEWED NON-SECRET: evidence/test-results/live-http-preflight-run2-20261025.txt:2 [untracked] - LIVEHTTP-AUDIT-LABEL-002 / AUDIT_RESULT_LABEL
+REVIEWED NON-SECRET: evidence/test-results/phase9-p3-security-review-20261018.txt:12 [index] - NONSECRET-009 / AUDIT_RESULT_LABEL
+REVIEWED NON-SECRET: evidence/test-results/phase9-p3-security-review-20261018.txt:13 [index] - NONSECRET-010 / AUDIT_RESULT_LABEL
+REVIEWED NON-SECRET: evidence/test-results/phase9-p3-security-review-20261018.txt:12 [working] - NONSECRET-011 / AUDIT_RESULT_LABEL
+REVIEWED NON-SECRET: evidence/test-results/phase9-p3-security-review-20261018.txt:13 [working] - NONSECRET-012 / AUDIT_RESULT_LABEL
+REVIEWED NON-SECRET: scripts/run_live_http_integration.py:295 [untracked] - LIVEHTTP-RUNTIME-INPUT-001 / RUNTIME_GENERATED_TEST_VALUE
+REVIEWED NON-SECRET: scripts/run_live_http_integration.py:336 [untracked] - LIVEHTTP-RUNTIME-INPUT-002 / RUNTIME_GENERATED_TEST_VALUE
+REVIEWED NON-SECRET: scripts/run_live_http_integration.py:341 [untracked] - LIVEHTTP-RUNTIME-INPUT-003 / RUNTIME_GENERATED_TEST_VALUE
+REVIEWED NON-SECRET: scripts/test_phase9_b39_contract.py:16 [index] - NONSECRET-013 / SOURCE_CONTRACT_TOKEN
+
+PASS: No prohibited files detected
+PASS: No obvious secrets detected
+PASS: Git index and working content checked
+RESULT: AUTOMATED SECURITY SCREEN PASSED
+
+NOTE: This scan is not a confidentiality guarantee
+NOTE: Unsupported binary files are blocked
+NOTE: Manual semantic review is still mandatory
+NOTE: No files were modified
+NOTE: Passing does not authorize publication
+=== PHASE 2.7B.5K.5 COMPLETE ===
+PHASE9_P1_PINNED_FRAMEWORK_REVIEW: PASS
+PHASE9_P1_CURRENT_SECURITY_GATE: PASS_ZERO_UNRESOLVED_FINDINGS
+EXIT=0
+COMMAND=python -B scripts/test_live_http_integration_gate.py
+test_arbitrary_temporary_directory_is_never_removed (__main__.LiveHttpGateTest.test_arbitrary_temporary_directory_is_never_removed) ... ok
+test_blocked_cleanup_cannot_be_a_pass_and_retains_lease_without_private_key (__main__.LiveHttpGateTest.test_blocked_cleanup_cannot_be_a_pass_and_retains_lease_without_private_key) ... ok
+test_default_is_read_only_and_conflicting_connection_overrides_are_preserved (__main__.LiveHttpGateTest.test_default_is_read_only_and_conflicting_connection_overrides_are_preserved) ... ok
+test_failed_c99_assertion_is_fail_and_precedes_any_fixture_mutation (__main__.LiveHttpGateTest.test_failed_c99_assertion_is_fail_and_precedes_any_fixture_mutation) ... ok
+test_failed_network_case_stops_owned_process_and_cleans_only_through_guard (__main__.LiveHttpGateTest.test_failed_network_case_stops_owned_process_and_cleans_only_through_guard) ... ok
+test_fixture_write_requires_execute_before_any_environment_or_database_boot (__main__.LiveHttpGateTest.test_fixture_write_requires_execute_before_any_environment_or_database_boot) ... ok
+test_rejected_preflight_never_builds_launches_or_prepares_fixtures (__main__.LiveHttpGateTest.test_rejected_preflight_never_builds_launches_or_prepares_fixtures) ... ok
+test_response_leak_guard_also_covers_per_request_unknown_bearer (__main__.LiveHttpGateTest.test_response_leak_guard_also_covers_per_request_unknown_bearer) ... ok
+test_source_change_cannot_be_certified_by_successful_requests_and_cleanup (__main__.LiveHttpGateTest.test_source_change_cannot_be_certified_by_successful_requests_and_cleanup) ... ok
+test_unavailable_tls_prerequisite_blocks_before_server_or_database_fixtures (__main__.LiveHttpGateTest.test_unavailable_tls_prerequisite_blocks_before_server_or_database_fixtures) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.265s
+
+OK
+EXIT=0
+COMMAND=C:/tools/php-8.2.35/php.exe -l backend/laravel/tests/Support/TestSchema.php
+No syntax errors detected in backend/laravel/tests/Support/TestSchema.php
+EXIT=0
+COMMAND=C:/tools/php-8.2.35/php.exe -l backend/laravel/tests/Support/LiveHttpSafety.php
+No syntax errors detected in backend/laravel/tests/Support/LiveHttpSafety.php
+EXIT=0
+COMMAND=C:/tools/php-8.2.35/php.exe -l backend/laravel/tests/Feature/LiveHttpSafetyTest.php
+No syntax errors detected in backend/laravel/tests/Feature/LiveHttpSafetyTest.php
+EXIT=0
+COMMAND=C:/tools/php-8.2.35/php.exe -l scripts/live_http_fixture.php
+No syntax errors detected in scripts/live_http_fixture.php
+EXIT=0
+COMMAND=C:/tools/php-8.2.35/php.exe -l scripts/live_http_router.php
+No syntax errors detected in scripts/live_http_router.php
+EXIT=0
+COMMAND=C:/tools/php-8.2.35/php.exe -l scripts/live_http_tls.php
+No syntax errors detected in scripts/live_http_tls.php
+EXIT=0

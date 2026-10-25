@@ -39,6 +39,17 @@ final class TestSchema
 
     public static function assertMigratedAndEmpty(PDO $pdo, bool $legacy = false): void
     {
+        self::assertCatalog($pdo, $legacy);
+        foreach (array_diff(self::tables($legacy), ['migrations']) as $table) {
+            if ((int) $pdo->query('SELECT COUNT(*) FROM '.$table)->fetchColumn() !== 0) {
+                throw new RuntimeException('MYSQL_TEST_BLOCKED: preexisting application rows prohibited.');
+            }
+        }
+    }
+
+    /** Shape only. Populated HTTP fixtures additionally require exact lease ownership. */
+    public static function assertCatalog(PDO $pdo, bool $legacy = false): void
+    {
         $tables = $pdo->query('SHOW FULL TABLES')->fetchAll(PDO::FETCH_NUM);
         $names = [];
         foreach ($tables as [$name, $type]) {
@@ -50,11 +61,6 @@ final class TestSchema
         sort($names);
         if ($names !== self::tables($legacy)) {
             throw new RuntimeException('MYSQL_TEST_BLOCKED: expected migrated test schema required.');
-        }
-        foreach (array_diff($names, ['migrations']) as $table) {
-            if ((int) $pdo->query('SELECT COUNT(*) FROM '.$table)->fetchColumn() !== 0) {
-                throw new RuntimeException('MYSQL_TEST_BLOCKED: preexisting application rows prohibited.');
-            }
         }
         if ($pdo->query('SELECT migration FROM migrations ORDER BY migration')->fetchAll(PDO::FETCH_COLUMN) !== self::migrations($legacy)) {
             throw new RuntimeException('MYSQL_TEST_BLOCKED: migration repository inventory mismatch.');

@@ -1,0 +1,121 @@
+<?php
+
+/** Explicit test fixture lifecycle; no migrations, production bootstrap or seeding. */
+use App\Models\Device;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
+use Tests\Support\LiveHttpSafety;
+use Tests\Support\TestSchema;
+
+require dirname(__DIR__).'/backend/laravel/vendor/autoload.php';
+
+try {
+    if (PHP_SAPI !== 'cli') {
+        throw new RuntimeException('LIVE_HTTP_BLOCKED: fixture lifecycle is CLI only.');
+    }
+    $mode = $argv[1] ?? '--check';
+    $mutations = ['--prepare', '--revoke', '--grant', '--disable', '--enable', '--clear-cache', '--cleanup'];
+    if (! in_array($mode, array_merge(['--check', '--inspect-owned', '--session-audit'], $mutations), true) ||
+        (in_array($mode, $mutations, true) && ($argv[2] ?? '') !== '--execute')) {
+        throw new RuntimeException('LIVE_HTTP_BLOCKED: explicit supported fixture action required.');
+    }
+    $profile = LiveHttpSafety::fromEnvironment();
+    $app = LiveHttpSafety::application($profile);
+    if (in_array($mode, ['--check', '--prepare'], true)) {
+        TestSchema::assertMigratedAndEmpty(DB::connection('mysql')->getPdo());
+    } else {
+        LiveHttpSafety::assertOwnedRows($profile);
+    }
+    if ($mode === '--check') {
+        echo 'LIVE_HTTP_CONFIG_AUDIT='.json_encode(['environment' => 'testing', 'php' => PHP_VERSION,
+            'target' => ['host' => config('database.connections.mysql.host'), 'port' => config('database.connections.mysql.port'),
+                'database' => config('database.connections.mysql.database'), 'username' => config('database.connections.mysql.username')],
+            'session_driver' => config('session.driver'), 'cache_driver' => config('cache.default'),
+            'secure_cookie' => config('session.secure'), 'app_debug' => config('app.debug'),
+            'app_key_configured' => true, 'app_key_cipher_compatible' => true,
+            'app_key_source' => 'ephemeral_runner_process', 'overrides' => $app->make('live-http-test-audit')], JSON_UNESCAPED_SLASHES)."\n";
+        echo "LIVE_HTTP_PREFLIGHT=PASS_EXACT_EMPTY_APPROVED_CATALOG_PHP_8_2_35_VALID_PROCESS_KEY\n";
+        exit(0);
+    }
+    if ($mode === '--inspect-owned') {
+        echo "LIVE_HTTP_OWNERSHIP=PASS_EXACT_TEST_NAMESPACE\n";
+        exit(0);
+    }
+    if ($mode === '--session-audit') {
+        // Internal runner capture only: never emit raw session IDs/cookies.
+        $sessions = DB::table('sessions')->where('user_agent', $profile['agent'])
+            ->get(['id', 'user_id'])->map(static fn ($row) => [
+                'fingerprint' => hash('sha256', $row->id), 'authenticated' => $row->user_id !== null]);
+        echo json_encode(['sessions' => $sessions], JSON_THROW_ON_ERROR)."\n";
+        exit(0);
+    }
+    if ($mode === '--prepare') {
+        $input = getenv('VG_LIVE_LOGIN_SECRET');
+        $material = getenv('VG_LIVE_DEVICE_TOKEN');
+        if (! is_string($input) || strlen($input) < 16 || strlen($input) > 72 ||
+            ! is_string($material) || preg_match('/\A[a-f0-9]{64}\z/', $material) !== 1) {
+            throw new RuntimeException('LIVE_HTTP_BLOCKED: dedicated process test inputs required.');
+        }
+        DB::transaction(static function () use ($profile, $input, $material): void {
+            $user = new User;
+            $user->name = $profile['name'];
+            $user->email = $profile['email'];
+            $user->password = $input;
+            $user->save();
+            $device = Device::query()->create(['device_id' => $profile['device'],
+                'token_digest' => hash('sha256', $material), 'enabled' => true]);
+            Device::query()->create(['device_id' => $profile['other'],
+                'token_digest' => hash('sha256', hash('sha256', 'other:'.$material)), 'enabled' => true]);
+            DB::table('monitoring_device_access')->insert(['user_id' => $user->id,
+                'device_id' => $device->device_id]);
+        });
+    } elseif ($mode === '--cleanup') {
+        // Ownership is checked again inside the transaction before exact deletes.
+        DB::transaction(static function () use ($profile): void {
+            LiveHttpSafety::assertOwnedRows($profile);
+            $devices = [$profile['device'], $profile['other']];
+            $userIds = User::query()->where('email', $profile['email'])->pluck('id')->all();
+            DB::table('sessions')->where('user_agent', $profile['agent'])->where('ip_address', '127.0.0.1')->delete();
+            $samples = DB::table('telemetry_samples')->whereIn('device_id', $devices)->select('id');
+            DB::table('telemetry_channels')->whereIn('telemetry_sample_id', $samples)->delete();
+            DB::table('telemetry_samples')->whereIn('device_id', $devices)->delete();
+            DB::table('monitoring_events')->whereIn('device_id', $devices)->delete();
+            DB::table('monitoring_device_access')->whereIn('user_id', $userIds)->delete();
+            Device::query()->whereIn('device_id', $devices)->delete();
+            User::query()->where('email', $profile['email'])->delete();
+            foreach (['cache', 'cache_locks'] as $table) {
+                $like = str_replace(['\\', '_', '%'], ['\\\\', '\\_', '\\%'], $profile['prefix']).'%';
+                DB::table($table)->where('key', 'like', $like)->delete();
+            }
+        });
+        TestSchema::assertMigratedAndEmpty(DB::connection('mysql')->getPdo());
+    } elseif ($mode === '--clear-cache') {
+        foreach (['cache', 'cache_locks'] as $table) {
+            $like = str_replace(['\\', '_', '%'], ['\\\\', '\\_', '\\%'], $profile['prefix']).'%';
+            DB::table($table)->where('key', 'like', $like)->delete();
+        }
+    } else {
+        $user = User::query()->where('email', $profile['email'])->firstOrFail();
+        $device = Device::query()->where('device_id', $profile['device'])->firstOrFail();
+        if ($mode === '--revoke') {
+            DB::table('monitoring_device_access')->where('user_id', $user->id)->where('device_id', $device->device_id)->delete();
+        } elseif ($mode === '--grant') {
+            DB::table('monitoring_device_access')->insertOrIgnore(['user_id' => $user->id, 'device_id' => $device->device_id]);
+            if (! DB::table('monitoring_device_access')->where('user_id', $user->id)->where('device_id', $device->device_id)->exists()) {
+                throw new RuntimeException('LIVE_HTTP_BLOCKED: fixture grant was not applied.');
+            }
+        } else {
+            $user->disabled_at = $mode === '--disable' ? now() : null;
+            $user->save();
+        }
+    }
+    echo 'LIVE_HTTP_ACTION='.strtoupper(substr($mode, 2))."_PASS\n";
+} catch (Throwable $exception) {
+    // Exception messages can contain SQL bindings/keys. Never emit them.
+    fwrite(STDERR, 'LIVE_HTTP_GATE=BLOCKED_'.class_basename($exception)."\n");
+    if ($exception instanceof RuntimeException &&
+        preg_match('/\A(?:LIVE_HTTP|MYSQL_TEST|TEST_BOOT)_BLOCKED: [A-Za-z0-9 ._-]{1,160}\z/', $exception->getMessage()) === 1) {
+        fwrite(STDERR, $exception->getMessage()."\n");
+    }
+    exit(3);
+}

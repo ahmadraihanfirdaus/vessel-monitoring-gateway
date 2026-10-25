@@ -61,7 +61,7 @@ This establishes structural traceability coverage. It does not demonstrate compl
 | Monitoring dashboard | IMPLEMENTED_UNVERIFIED; grant-scoped connected views, configured freshness, event/health/evidence rendering; SIM-010/SUP-015 not executed |
 | Network / offline transport | PARTIAL; actual ESP-IDF Wi-Fi/HTTPS adapter compiled locally, host oracles retained; NVS worker/transaction code connected; physical TLS/NVS durability unverified |
 | CI | PARTIAL; PR workflow source present; hosted run unverified here |
-| C99 / Laravel / database integration | PHP 8.2.35 / approved MariaDB migration roundtrip and 326 tests PASS; direct MySQL 8 / hosted CI NOT_RUN |
+| C99 / Laravel / database integration | PHP 8.2.35 / approved MariaDB migration roundtrip and 335 tests PASS; direct MySQL 8 / hosted CI NOT_RUN |
 | Hardware bench verification | NOT_RUN |
 
 Roadmap gate completion is scoped evidence, not a declaration that every mapped mandatory requirement is fully verified.
@@ -186,3 +186,5 @@ The [2026-10-25 device read integration](../../evidence/test-results/device-read
 Current ESP32 transport continuation: actual SDK adapter, guarded local build and six-step core-to-Laravel/browser integration are recorded in [transport evidence](../../evidence/test-results/esp32-transport-summary-20261025.md). The complete approved PHP 8.2.35/MariaDB suite has 326 passing tests. Hardware, trusted-clock/TLS handshake, durable storage, hosted CI and remaining formal protocols are unverified; overall status remains PARTIAL.
 
 The [offline storage continuation](../../evidence/test-results/offline-nvs-summary-20261025.md) connects a bounded two-slot NVS worker to the finite simulation and recovered C99-wire integration. Physical persistence, confidentiality, power-loss and timing remain unverified; no formal status is promoted.
+
+The [real loopback HTTP/TLS continuation](../../evidence/test-results/live-http-summary-20261025.md) records 335 PHP/Laravel methods, 65 actual network assertions and ten orchestration fault methods. Cookie/form, CSRF, session/grant and certificate negatives have local evidence. Graphical browser, deployed/ESP32 TLS, physical NVS and remaining formal gates stay open.
