@@ -33,11 +33,12 @@ typedef struct {
     vg_alarm_journal_t accepted_metadata;
     nvs_handle_t handle;
     bool opened;
-    QueueHandle_t jobs, results;
+    QueueHandle_t jobs, results, recovered;
     SemaphoreHandle_t lock;
     EventGroupHandle_t status;
     TaskHandle_t task;
     storage_job active, staging;
+    vg_recovered_events recovered_view;
     vg_offline_transaction transaction;
 } storage_client;
 
@@ -76,7 +77,10 @@ static bool recover(storage_client *ctx)
     if (nvs_flash_init() != ESP_OK || nvs_open("vgw_state", NVS_READWRITE, &ctx->handle) != ESP_OK) return false;
     ctx->opened = true;
     vg_offline_io io = {ctx, read_slot, write_slot, commit_slots};
-    return vg_offline_recover(&ctx->transaction, io, ctx->device);
+    if (!vg_offline_recover(&ctx->transaction, io, ctx->device) ||
+        !vg_recovered_events_capture(&ctx->transaction.current,
+            ctx->transaction.degraded, &ctx->recovered_view)) return false;
+    return xQueueOverwrite(ctx->recovered, &ctx->recovered_view) == pdTRUE;
 }
 static void emit(storage_client *ctx, vg_storage_status status, uint64_t sequence)
 {
@@ -142,12 +146,14 @@ bool vg_storage_start(const char *device, const char *boot)
     (void)vg_journal_init(&ctx->accepted_journal);
     ctx->jobs = xQueueCreate(1u, sizeof(storage_job));
     ctx->results = xQueueCreate(2u, sizeof(vg_storage_completion));
+    ctx->recovered = xQueueCreate(1u, sizeof(vg_recovered_events));
     ctx->lock = xSemaphoreCreateMutex();
     ctx->status = xEventGroupCreate();
-    if (!ctx->jobs || !ctx->results || !ctx->lock || !ctx->status ||
+    if (!ctx->jobs || !ctx->results || !ctx->recovered || !ctx->lock || !ctx->status ||
         xTaskCreate(storage_worker, "vgw_storage", STORAGE_STACK, ctx, 1u, &ctx->task) != pdPASS) {
         if (ctx->jobs) vQueueDelete(ctx->jobs);
         if (ctx->results) vQueueDelete(ctx->results);
+        if (ctx->recovered) vQueueDelete(ctx->recovered);
         if (ctx->lock) vSemaphoreDelete(ctx->lock);
         if (ctx->status) vEventGroupDelete(ctx->status);
         free(ctx);
@@ -207,6 +213,10 @@ bool vg_storage_submit_with_alarms(const char *boot, uint64_t sequence, const vo
 bool vg_storage_take_completion(vg_storage_completion *out)
 {
     return storage && out && xQueueReceive(storage->results, out, 0) == pdTRUE;
+}
+bool vg_storage_take_recovered_events(vg_recovered_events *out)
+{
+    return storage && out && xQueueReceive(storage->recovered, out, 0) == pdTRUE;
 }
 bool vg_storage_request_recovery(void)
 {

@@ -1,0 +1,6 @@
+REPLAY_NATIVE_RUN1=FAIL_FIXTURE_UNUSED_STATIC_VARIABLES_UNDER_WERROR
+CORRECTION=Mark fixture-only variables used in common C entry; preserve all compiler flags.
+REPLAY_NATIVE_RUN2=PASS_12_NEW_13_CONTINUOUS_6_TRANSITION_9_METADATA_METHODS
+REPLAY_FIXTURE_RUN1=FAIL_SHARED_ALARM_RAISE_REFUSED_REUSED_CLEARED_RECORD_AFTER_ALLOCATOR_RESTART
+CORRECTION=New-boot fixture explicitly zeroes the volatile alarm record before restarting its per-boot allocator. No production alarm identity check weakened.
+HARDWARE_NVS_POWER_LOSS=NOT_RUN

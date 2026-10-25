@@ -824,6 +824,46 @@
       "line_sha256": "994c6aef934a9baf22e0e4e14d0236253e4fca23758d9a81e329990287091561",
       "classification": "RUNTIME_GENERATED_TEST_VALUE",
       "rationale": "Exact unchanged runtime form-input expression, re-reviewed after adding actual two-process transaction race gates. Runtime environment/generated values only; no literal credential, no new detector exemption."
+    },
+    {
+      "id": "REPLAY-CI-NONSECRET-001",
+      "path": ".github/workflows/phase9-multi-context-ci.yml",
+      "file_sha256": "ba76b3217e9af0f04b597fa670cfcc1d79602c3ebbd768443e0b9a3da39b344c",
+      "line_sha256": "e52d2a0aee17904e9e0b4a21889e572a42d8b99434d44885e2867934c59dbb4b",
+      "classification": "CI_TEST_CONFIGURATION",
+      "rationale": "Exact unchanged reviewed CI label or runtime-generated form-input expression. Compared byte-for-byte with committed metadata baseline; whole-file pin renewed after recovered replay integration. No literal credential or detector exemption."
+    },
+    {
+      "id": "REPLAY-CI-NONSECRET-002",
+      "path": ".github/workflows/phase9-multi-context-ci.yml",
+      "file_sha256": "ba76b3217e9af0f04b597fa670cfcc1d79602c3ebbd768443e0b9a3da39b344c",
+      "line_sha256": "ca6dcd3e138310f57f7f86f4061f0dd448f949016058e65ba39ff6fb214029d7",
+      "classification": "CI_TEST_CONFIGURATION",
+      "rationale": "Exact unchanged reviewed CI label or runtime-generated form-input expression. Compared byte-for-byte with committed metadata baseline; whole-file pin renewed after recovered replay integration. No literal credential or detector exemption."
+    },
+    {
+      "id": "REPLAY-RUNTIME-INPUT-001",
+      "path": "scripts/run_live_http_integration.py",
+      "file_sha256": "4190de5007565c98df7f33078559d0fe5783a824cc7c6157d82729ce28171f89",
+      "line_sha256": "56db39b92d76c4b6fba5da1f45cec61b93e5be15eecd72484369ddc89313dbf6",
+      "classification": "RUNTIME_GENERATED_TEST_VALUE",
+      "rationale": "Exact unchanged reviewed CI label or runtime-generated form-input expression. Compared byte-for-byte with committed metadata baseline; whole-file pin renewed after recovered replay integration. No literal credential or detector exemption."
+    },
+    {
+      "id": "REPLAY-RUNTIME-INPUT-002",
+      "path": "scripts/run_live_http_integration.py",
+      "file_sha256": "4190de5007565c98df7f33078559d0fe5783a824cc7c6157d82729ce28171f89",
+      "line_sha256": "2866dff5e418a124d0d4bfa35b2d8811facac27704e1d8345f5b0e92f3299e4f",
+      "classification": "RUNTIME_GENERATED_TEST_VALUE",
+      "rationale": "Exact unchanged reviewed CI label or runtime-generated form-input expression. Compared byte-for-byte with committed metadata baseline; whole-file pin renewed after recovered replay integration. No literal credential or detector exemption."
+    },
+    {
+      "id": "REPLAY-RUNTIME-INPUT-003",
+      "path": "scripts/run_live_http_integration.py",
+      "file_sha256": "4190de5007565c98df7f33078559d0fe5783a824cc7c6157d82729ce28171f89",
+      "line_sha256": "994c6aef934a9baf22e0e4e14d0236253e4fca23758d9a81e329990287091561",
+      "classification": "RUNTIME_GENERATED_TEST_VALUE",
+      "rationale": "Exact unchanged reviewed CI label or runtime-generated form-input expression. Compared byte-for-byte with committed metadata baseline; whole-file pin renewed after recovered replay integration. No literal credential or detector exemption."
     }
   ]
 }

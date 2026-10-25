@@ -54,3 +54,14 @@ VGS1 encoded maximum stays 4,862 bytes; optional VGS2 maximum is 5,142 with
 a bounded 5,184-byte working allocation. This is no physical flash/NVS/heap or
 full-call-stack proof. See the alarm metadata summary for actual merged hashes,
 native faults, and unperformed external gates. No upload or partition change.
+
+## Recovered event replay build, checkpoint 2026-10-26
+
+Both actual SDK targets compile the bounded recovery-export queue and shared
+replay admission. Candidate image975856 bytes/static RAM57004/largest own frame944;
+retained image1044352 bytes/largest frame1616. Source digest
+`0602eed18cc45351f4652d970e0c75f3d725f9278ab49b54f6be35f15e6bdad1`.
+The existing1048576 app cap, TLS/assertions and2048 frame cap are unchanged.
+This gives4224 bytes app margin on the retained selftest; full-stack/heap/flash
+and concurrent IO timing require physical evidence. No device uploaded/erased.
+See recovered replay summary for merged hashes and all unperformed gates.

@@ -1,0 +1,4 @@
+path,sha256_before,sha256_after,change
+evidence/test-results/esp32-transport-sdk-build-recovered-replay-run1-20261025.txt,9167ee6a8eac9649b4240de315aafa9603ddc92f0e5e5fe18395d90543d07d66,ee7620d71a68b5130ed8c811d7087b77880158d85c727b35d7dac07c21499289,Whitespace only; all diagnostic/result content retained
+evidence/test-results/esp32-transport-sdk-build-recovered-replay-legacy-run1-20261025.txt,b840a73d682863c6efab16e59bac41644dd8f1629293ce7d00bc1efab8b4ddf8,d5ddd541d244f466706f0057ed2e409c3e15ab4ad5156edf15c5dab477d9a3a4,Whitespace only; all diagnostic/result content retained
+evidence/test-results/recovered-replay-wire-run2-20261025.txt,5ed71c51e0044720e6e246bb609d5b33923187226dbe101a7da66eca24544d88,d1bfb15372c572dabbc54ef455df52ab67a1190e17b859320cabc1206a4fe026,CRLF to LF only; all content retained

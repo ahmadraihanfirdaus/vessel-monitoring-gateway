@@ -1,0 +1,184 @@
+COMMAND=python -B scripts/test_offline_replay.py
+test_actual_worker_and_sdk_use_zero_wait_shared_path_without_deletion (__main__.OfflineReplayTest.test_actual_worker_and_sdk_use_zero_wait_shared_path_without_deletion) ... ok
+test_bounded_fields_source_metadata_and_generation_corruption_refused (__main__.OfflineReplayTest.test_bounded_fields_source_metadata_and_generation_corruption_refused) ... FAIL
+test_buffer_boundary_and_alias_cannot_damage_retained_view (__main__.OfflineReplayTest.test_buffer_boundary_and_alias_cannot_damage_retained_view) ... ok
+test_capture_invalid_or_alias_does_not_publish_or_mutate (__main__.OfflineReplayTest.test_capture_invalid_or_alias_does_not_publish_or_mutate) ... FAIL
+test_current_progress_survives_new_recovery_and_unsupported_does_not_block (__main__.OfflineReplayTest.test_current_progress_survives_new_recovery_and_unsupported_does_not_block) ... FAIL
+test_duplicate_identity_rejects_same_boot_but_allows_different_boot (__main__.OfflineReplayTest.test_duplicate_identity_rejects_same_boot_but_allows_different_boot) ... FAIL
+test_full_metadata_is_an_immutable_zero_time_snapshot (__main__.OfflineReplayTest.test_full_metadata_is_an_immutable_zero_time_snapshot) ... ok
+test_full_sources_alternate_and_backpressure_does_not_advance (__main__.OfflineReplayTest.test_full_sources_alternate_and_backpressure_does_not_advance) ... FAIL
+test_invalid_progress_wrong_source_and_fake_unsupported_do_not_advance (__main__.OfflineReplayTest.test_invalid_progress_wrong_source_and_fake_unsupported_do_not_advance) ... FAIL
+test_legacy_is_exact_nine_fields_without_fabricated_metadata (__main__.OfflineReplayTest.test_legacy_is_exact_nine_fields_without_fabricated_metadata) ... FAIL
+test_maximum_unsigned_values_and_bench_source_preserve_identity (__main__.OfflineReplayTest.test_maximum_unsigned_values_and_bench_source_preserve_identity) ... FAIL
+test_unsupported_legacy_is_explicit_and_retained_while_next_can_encode (__main__.OfflineReplayTest.test_unsupported_legacy_is_explicit_and_retained_while_next_can_encode) ... ok
+
+======================================================================
+FAIL: test_bounded_fields_source_metadata_and_generation_corruption_refused (__main__.OfflineReplayTest.test_bounded_fields_source_metadata_and_generation_corruption_refused)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\test_offline_replay.py", line 78, in test_bounded_fields_source_metadata_and_generation_corruption_refused
+    self.c(r'''
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\test_offline_replay.py", line 14, in c
+    return compile_c(PREFIX+BASE+source+'\nreturn 0;}\n', extra_flags=('-Os',))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\phase9_b4_testlib.py", line 12, in compile_c
+    if b.returncode:raise AssertionError('COMPILE_FAIL '+b.stdout+b.stderr)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: COMPILE_FAIL <LOCAL_HOME>\AppData\Local\Temp\phase9-b4-tim9z919\fixture.c:4:13: error: 'encoded' defined but not used [-Werror=unused-variable]
+    4 | static char encoded[1024];
+      |             ^~~~~~~
+cc1.exe: all warnings being treated as errors
+
+
+======================================================================
+FAIL: test_capture_invalid_or_alias_does_not_publish_or_mutate (__main__.OfflineReplayTest.test_capture_invalid_or_alias_does_not_publish_or_mutate)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\test_offline_replay.py", line 66, in test_capture_invalid_or_alias_does_not_publish_or_mutate
+    self.c(r'''
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\test_offline_replay.py", line 14, in c
+    return compile_c(PREFIX+BASE+source+'\nreturn 0;}\n', extra_flags=('-Os',))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\phase9_b4_testlib.py", line 12, in compile_c
+    if b.returncode:raise AssertionError('COMPILE_FAIL '+b.stdout+b.stderr)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: COMPILE_FAIL <LOCAL_HOME>\AppData\Local\Temp\phase9-b4-hbpii01u\fixture.c:4:13: error: 'encoded' defined but not used [-Werror=unused-variable]
+    4 | static char encoded[1024];
+      |             ^~~~~~~
+cc1.exe: all warnings being treated as errors
+
+
+======================================================================
+FAIL: test_current_progress_survives_new_recovery_and_unsupported_does_not_block (__main__.OfflineReplayTest.test_current_progress_survives_new_recovery_and_unsupported_does_not_block)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\test_offline_replay.py", line 123, in test_current_progress_survives_new_recovery_and_unsupported_does_not_block
+    self.c(r'''
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\test_offline_replay.py", line 14, in c
+    return compile_c(PREFIX+BASE+source+'\nreturn 0;}\n', extra_flags=('-Os',))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\phase9_b4_testlib.py", line 12, in compile_c
+    if b.returncode:raise AssertionError('COMPILE_FAIL '+b.stdout+b.stderr)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: COMPILE_FAIL <LOCAL_HOME>\AppData\Local\Temp\phase9-b4-2wutupot\fixture.c:4:13: error: 'encoded' defined but not used [-Werror=unused-variable]
+    4 | static char encoded[1024];
+      |             ^~~~~~~
+<LOCAL_HOME>\AppData\Local\Temp\phase9-b4-2wutupot\fixture.c:3:33: error: 'saved_view' defined but not used [-Werror=unused-variable]
+    3 | static vg_recovered_events view,saved_view;
+      |                                 ^~~~~~~~~~
+<LOCAL_HOME>\AppData\Local\Temp\phase9-b4-2wutupot\fixture.c:3:28: error: 'view' defined but not used [-Werror=unused-variable]
+    3 | static vg_recovered_events view,saved_view;
+      |                            ^~~~
+cc1.exe: all warnings being treated as errors
+
+
+======================================================================
+FAIL: test_duplicate_identity_rejects_same_boot_but_allows_different_boot (__main__.OfflineReplayTest.test_duplicate_identity_rejects_same_boot_but_allows_different_boot)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\test_offline_replay.py", line 58, in test_duplicate_identity_rejects_same_boot_but_allows_different_boot
+    self.c(r'''
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\test_offline_replay.py", line 14, in c
+    return compile_c(PREFIX+BASE+source+'\nreturn 0;}\n', extra_flags=('-Os',))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\phase9_b4_testlib.py", line 12, in compile_c
+    if b.returncode:raise AssertionError('COMPILE_FAIL '+b.stdout+b.stderr)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: COMPILE_FAIL <LOCAL_HOME>\AppData\Local\Temp\phase9-b4-2cyy3zqx\fixture.c:3:33: error: 'saved_view' defined but not used [-Werror=unused-variable]
+    3 | static vg_recovered_events view,saved_view;
+      |                                 ^~~~~~~~~~
+cc1.exe: all warnings being treated as errors
+
+
+======================================================================
+FAIL: test_full_sources_alternate_and_backpressure_does_not_advance (__main__.OfflineReplayTest.test_full_sources_alternate_and_backpressure_does_not_advance)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\test_offline_replay.py", line 110, in test_full_sources_alternate_and_backpressure_does_not_advance
+    self.c(r'''
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\test_offline_replay.py", line 14, in c
+    return compile_c(PREFIX+BASE+source+'\nreturn 0;}\n', extra_flags=('-Os',))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\phase9_b4_testlib.py", line 12, in compile_c
+    if b.returncode:raise AssertionError('COMPILE_FAIL '+b.stdout+b.stderr)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: COMPILE_FAIL <LOCAL_HOME>\AppData\Local\Temp\phase9-b4-8cf48rg9\fixture.c:4:13: error: 'encoded' defined but not used [-Werror=unused-variable]
+    4 | static char encoded[1024];
+      |             ^~~~~~~
+<LOCAL_HOME>\AppData\Local\Temp\phase9-b4-8cf48rg9\fixture.c:3:33: error: 'saved_view' defined but not used [-Werror=unused-variable]
+    3 | static vg_recovered_events view,saved_view;
+      |                                 ^~~~~~~~~~
+<LOCAL_HOME>\AppData\Local\Temp\phase9-b4-8cf48rg9\fixture.c:3:28: error: 'view' defined but not used [-Werror=unused-variable]
+    3 | static vg_recovered_events view,saved_view;
+      |                            ^~~~
+cc1.exe: all warnings being treated as errors
+
+
+======================================================================
+FAIL: test_invalid_progress_wrong_source_and_fake_unsupported_do_not_advance (__main__.OfflineReplayTest.test_invalid_progress_wrong_source_and_fake_unsupported_do_not_advance)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\test_offline_replay.py", line 135, in test_invalid_progress_wrong_source_and_fake_unsupported_do_not_advance
+    self.c(r'''
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\test_offline_replay.py", line 14, in c
+    return compile_c(PREFIX+BASE+source+'\nreturn 0;}\n', extra_flags=('-Os',))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\phase9_b4_testlib.py", line 12, in compile_c
+    if b.returncode:raise AssertionError('COMPILE_FAIL '+b.stdout+b.stderr)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: COMPILE_FAIL <LOCAL_HOME>\AppData\Local\Temp\phase9-b4-ju5ir_ef\fixture.c:4:13: error: 'encoded' defined but not used [-Werror=unused-variable]
+    4 | static char encoded[1024];
+      |             ^~~~~~~
+<LOCAL_HOME>\AppData\Local\Temp\phase9-b4-ju5ir_ef\fixture.c:3:33: error: 'saved_view' defined but not used [-Werror=unused-variable]
+    3 | static vg_recovered_events view,saved_view;
+      |                                 ^~~~~~~~~~
+<LOCAL_HOME>\AppData\Local\Temp\phase9-b4-ju5ir_ef\fixture.c:3:28: error: 'view' defined but not used [-Werror=unused-variable]
+    3 | static vg_recovered_events view,saved_view;
+      |                            ^~~~
+cc1.exe: all warnings being treated as errors
+
+
+======================================================================
+FAIL: test_legacy_is_exact_nine_fields_without_fabricated_metadata (__main__.OfflineReplayTest.test_legacy_is_exact_nine_fields_without_fabricated_metadata)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\test_offline_replay.py", line 34, in test_legacy_is_exact_nine_fields_without_fabricated_metadata
+    packet = json.loads(self.c(r'''
+                        ^^^^^^^^^^^
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\test_offline_replay.py", line 14, in c
+    return compile_c(PREFIX+BASE+source+'\nreturn 0;}\n', extra_flags=('-Os',))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\phase9_b4_testlib.py", line 12, in compile_c
+    if b.returncode:raise AssertionError('COMPILE_FAIL '+b.stdout+b.stderr)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: COMPILE_FAIL <LOCAL_HOME>\AppData\Local\Temp\phase9-b4-414eyqmd\fixture.c:3:33: error: 'saved_view' defined but not used [-Werror=unused-variable]
+    3 | static vg_recovered_events view,saved_view;
+      |                                 ^~~~~~~~~~
+cc1.exe: all warnings being treated as errors
+
+
+======================================================================
+FAIL: test_maximum_unsigned_values_and_bench_source_preserve_identity (__main__.OfflineReplayTest.test_maximum_unsigned_values_and_bench_source_preserve_identity)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\test_offline_replay.py", line 45, in test_maximum_unsigned_values_and_bench_source_preserve_identity
+    packet = json.loads(self.c(r'''
+                        ^^^^^^^^^^^
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\test_offline_replay.py", line 14, in c
+    return compile_c(PREFIX+BASE+source+'\nreturn 0;}\n', extra_flags=('-Os',))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\phase9_b4_testlib.py", line 12, in compile_c
+    if b.returncode:raise AssertionError('COMPILE_FAIL '+b.stdout+b.stderr)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: COMPILE_FAIL <LOCAL_HOME>\AppData\Local\Temp\phase9-b4-ryhf_p_v\fixture.c:3:33: error: 'saved_view' defined but not used [-Werror=unused-variable]
+    3 | static vg_recovered_events view,saved_view;
+      |                                 ^~~~~~~~~~
+cc1.exe: all warnings being treated as errors
+
+
+----------------------------------------------------------------------
+Ran 12 tests in 3.026s
+
+FAILED (failures=8)
+
+EXIT=1

@@ -1,0 +1,72 @@
+COMMAND=python -B scripts/test_offline_replay.py
+test_actual_worker_and_sdk_use_zero_wait_shared_path_without_deletion (__main__.OfflineReplayTest.test_actual_worker_and_sdk_use_zero_wait_shared_path_without_deletion) ... ok
+test_bounded_fields_source_metadata_and_generation_corruption_refused (__main__.OfflineReplayTest.test_bounded_fields_source_metadata_and_generation_corruption_refused) ... ok
+test_buffer_boundary_and_alias_cannot_damage_retained_view (__main__.OfflineReplayTest.test_buffer_boundary_and_alias_cannot_damage_retained_view) ... ok
+test_capture_invalid_or_alias_does_not_publish_or_mutate (__main__.OfflineReplayTest.test_capture_invalid_or_alias_does_not_publish_or_mutate) ... ok
+test_current_progress_survives_new_recovery_and_unsupported_does_not_block (__main__.OfflineReplayTest.test_current_progress_survives_new_recovery_and_unsupported_does_not_block) ... ok
+test_duplicate_identity_rejects_same_boot_but_allows_different_boot (__main__.OfflineReplayTest.test_duplicate_identity_rejects_same_boot_but_allows_different_boot) ... ok
+test_full_metadata_is_an_immutable_zero_time_snapshot (__main__.OfflineReplayTest.test_full_metadata_is_an_immutable_zero_time_snapshot) ... ok
+test_full_sources_alternate_and_backpressure_does_not_advance (__main__.OfflineReplayTest.test_full_sources_alternate_and_backpressure_does_not_advance) ... ok
+test_invalid_progress_wrong_source_and_fake_unsupported_do_not_advance (__main__.OfflineReplayTest.test_invalid_progress_wrong_source_and_fake_unsupported_do_not_advance) ... ok
+test_legacy_is_exact_nine_fields_without_fabricated_metadata (__main__.OfflineReplayTest.test_legacy_is_exact_nine_fields_without_fabricated_metadata) ... ok
+test_maximum_unsigned_values_and_bench_source_preserve_identity (__main__.OfflineReplayTest.test_maximum_unsigned_values_and_bench_source_preserve_identity) ... ok
+test_unsupported_legacy_is_explicit_and_retained_while_next_can_encode (__main__.OfflineReplayTest.test_unsupported_legacy_is_explicit_and_retained_while_next_can_encode) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 4.093s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_continuous_simulation.py
+test_ack_remains_active_monotonic_and_new_reason_realerts (__main__.ContinuousSimulationTest.test_ack_remains_active_monotonic_and_new_reason_realerts) ... ok
+test_actual_24_frames_all_domains_and_checkpoint_recovery (__main__.ContinuousSimulationTest.test_actual_24_frames_all_domains_and_checkpoint_recovery) ... ok
+test_alarm_id_exhaustion_is_explicit_and_does_not_silence_condition (__main__.ContinuousSimulationTest.test_alarm_id_exhaustion_is_explicit_and_does_not_silence_condition) ... ok
+test_config_rejects_missing_thresholds_physical_monitor_block_and_unterminated_identity (__main__.ContinuousSimulationTest.test_config_rejects_missing_thresholds_physical_monitor_block_and_unterminated_identity) ... ok
+test_domain_rejects_foreign_source_invalid_values_and_future_metadata (__main__.ContinuousSimulationTest.test_domain_rejects_foreign_source_invalid_values_and_future_metadata) ... ok
+test_eight_engines_map_68_fields_without_silent_truncation (__main__.ContinuousSimulationTest.test_eight_engines_map_68_fields_without_silent_truncation) ... ok
+test_engine_lost_null_stopped_zero_and_uint64_not_rounded (__main__.ContinuousSimulationTest.test_engine_lost_null_stopped_zero_and_uint64_not_rounded) ... ok
+test_full_journal_does_not_freeze_local_sampling_or_replace_old_events (__main__.ContinuousSimulationTest.test_full_journal_does_not_freeze_local_sampling_or_replace_old_events) ... ok
+test_legacy_wire_is_byte_identical (__main__.ContinuousSimulationTest.test_legacy_wire_is_byte_identical) ... ok
+test_navigation_no_fix_unknown_checksum_age_boundaries (__main__.ContinuousSimulationTest.test_navigation_no_fix_unknown_checksum_age_boundaries) ... ok
+test_sdk_entry_has_no_physical_output_or_erase_and_separate_target (__main__.ContinuousSimulationTest.test_sdk_entry_has_no_physical_output_or_erase_and_separate_target) ... ok
+test_v11_72_channels_and_4096_bytes_limits_are_independent (__main__.ContinuousSimulationTest.test_v11_72_channels_and_4096_bytes_limits_are_independent) ... ok
+test_wait_regression_skipped_periods_and_sequence_exhaustion (__main__.ContinuousSimulationTest.test_wait_regression_skipped_periods_and_sequence_exhaustion) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 7.363s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_alarm_transition.py
+test_aliases_and_corrupt_prefix_are_rejected (__main__.AlarmTransitionTest.test_aliases_and_corrupt_prefix_are_rejected) ... ok
+test_full_journal_keeps_snapshots_and_refusal_counter_saturates (__main__.AlarmTransitionTest.test_full_journal_keeps_snapshots_and_refusal_counter_saturates) ... ok
+test_full_lifecycle_is_immutable_and_zero_times_are_not_null (__main__.AlarmTransitionTest.test_full_lifecycle_is_immutable_and_zero_times_are_not_null) ... ok
+test_identity_source_state_and_action_time_are_bound (__main__.AlarmTransitionTest.test_identity_source_state_and_action_time_are_bound) ... ok
+test_mismatched_transition_never_partially_appends (__main__.AlarmTransitionTest.test_mismatched_transition_never_partially_appends) ... ok
+test_uint64_and_u32_boundaries_stay_exact_on_wire (__main__.AlarmTransitionTest.test_uint64_and_u32_boundaries_stay_exact_on_wire) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 1.747s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_alarm_offline_metadata.py
+test_all_truncations_corrupt_bytes_and_forged_flags_preserve_output (__main__.AlarmOfflineMetadataTest.test_all_truncations_corrupt_bytes_and_forged_flags_preserve_output) ... ok
+test_every_vgs2_partial_write_preserves_selected_metadata_and_state (__main__.AlarmOfflineMetadataTest.test_every_vgs2_partial_write_preserves_selected_metadata_and_state) ... ok
+test_full_metadata_identity_conflict_and_aliases_fail_before_output_mutation (__main__.AlarmOfflineMetadataTest.test_full_metadata_identity_conflict_and_aliases_fail_before_output_mutation) ... ok
+test_independent_vgs2_layout_crc_and_zero_vs_null_flags (__main__.AlarmOfflineMetadataTest.test_independent_vgs2_layout_crc_and_zero_vs_null_flags) ... ok
+test_legacy_bytes_remain_vgs1_and_unknown_history_is_not_reconstructed (__main__.AlarmOfflineMetadataTest.test_legacy_bytes_remain_vgs1_and_unknown_history_is_not_reconstructed) ... ok
+test_metadata_queue_prefix_and_sdk_contract_refuse_downgrade (__main__.AlarmOfflineMetadataTest.test_metadata_queue_prefix_and_sdk_contract_refuse_downgrade) ... ok
+test_transaction_cannot_delete_or_mutate_retained_metadata (__main__.AlarmOfflineMetadataTest.test_transaction_cannot_delete_or_mutate_retained_metadata) ... ok
+test_uncertain_vgs2_commit_exposes_new_ack_only_after_explicit_recovery (__main__.AlarmOfflineMetadataTest.test_uncertain_vgs2_commit_exposes_new_ack_only_after_explicit_recovery) ... ok
+test_worst_case_exact_5142_bound_and_legacy_4862_bound (__main__.AlarmOfflineMetadataTest.test_worst_case_exact_5142_bound_and_legacy_4862_bound) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 4.292s
+
+OK
+
+EXIT=0

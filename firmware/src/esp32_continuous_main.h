@@ -21,6 +21,8 @@ static vg_continuous_simulation_t continuous;
 static vg_continuous_config_t continuous_config;
 static vg_net_profile continuous_network_profile;
 static char continuous_alarm_wire[1024];
+static vg_recovered_events continuous_recovered;
+static vg_replay_progress continuous_replay;
 
 /* Explicit nonsecret demonstration policy in read-only namespace vgw_demo.
  * Provisioning is external and NOT performed by this firmware. No fallback
@@ -87,7 +89,7 @@ void app_main(void)
     puts(network ? "CONTINUOUS_NETWORK: STARTED_UNVERIFIED" : "CONTINUOUS_NETWORK: NOT_CONFIGURED_OR_UNAVAILABLE");
     bool pending = false;
     bool prefer_event = true, event_encoding_halted = false;
-    size_t events_queued = 0u;
+    bool recovered_ready = false;
     uint64_t storage_refused = 0u, network_refused = 0u;
     uint64_t storage_full_reports = 0u, storage_rejected_reports = 0u;
     bool storage_degraded_reported = false;
@@ -104,10 +106,12 @@ void app_main(void)
                 continuous.latest_wire, continuous.latest_length, &continuous.journal, &continuous.alarm_journal))
                 vg_continuous_increment(&storage_refused);
             if (continuous.sequence % 256u == 0u)
-                printf("CONTINUOUS_DIAGNOSTICS: samples=%llu journal_full=%llu storage_refused=%llu network_refused=%llu storage_full_reports=%llu storage_rejected_reports=%llu events_queued_not_acked=%u\n",
+                printf("CONTINUOUS_DIAGNOSTICS: samples=%llu journal_full=%llu storage_refused=%llu network_refused=%llu storage_full_reports=%llu storage_rejected_reports=%llu events_queued_not_acked=%u recovered_visited=%u recovered_unpublishable=%u\n",
                     (unsigned long long)continuous.sequence, (unsigned long long)continuous.journal.rejected_full,
                     (unsigned long long)storage_refused, (unsigned long long)network_refused,
-                    (unsigned long long)storage_full_reports, (unsigned long long)storage_rejected_reports, (unsigned)events_queued);
+                    (unsigned long long)storage_full_reports, (unsigned long long)storage_rejected_reports,
+                    (unsigned)continuous_replay.current_queued, (unsigned)continuous_replay.recovered_visited,
+                    (unsigned)continuous_replay.recovered_unpublishable);
         } else if (result == VG_CONTINUOUS_ENCODING_REFUSED) {
             if (continuous.encoding_refused == 1u || continuous.encoding_refused % 256u == 0u)
                 puts("CONTINUOUS_ENCODING: REFUSED_LATEST_PACKET_RETAINED_LOCAL_EVALUATION_CONTINUES");
@@ -136,20 +140,55 @@ void app_main(void)
                 puts("CONTINUOUS_STORAGE: DEGRADED_STORAGE_OLDER_DATA_POSSIBLE");
             }
         }
-        /* Current-boot immutable facts are queued at most once each here. The
-         * worker owns its bounded transport retries. No queue/HTTP completion
-         * deletes a retained fact or proves application ACK. Durable replay of
-         * recovered old boots remains a separate receipt/deletion contract. */
-        bool event_pending = network && !event_encoding_halted && events_queued < continuous.alarm_journal.count;
+        if (storage && vg_storage_take_recovered_events(&continuous_recovered)) {
+            recovered_ready = vg_recovered_events_valid(&continuous_recovered) &&
+                !strcmp(continuous_recovered.device, continuous.config.device);
+            continuous_replay.recovered_visited = 0u;
+            continuous_replay.recovered_unpublishable = 0u;
+            continuous_replay.prefer_recovered = true;
+            if (recovered_ready)
+                printf("CONTINUOUS_REPLAY: RECOVERED_EVENTS=%u GENERATION=%llu DEGRADED=%u NO_DELETION_RECEIPT\n",
+                    (unsigned)continuous_recovered.event_count,
+                    (unsigned long long)continuous_recovered.generation, (unsigned)continuous_recovered.degraded);
+            else puts("CONTINUOUS_REPLAY: INVALID_RECOVERY_VIEW_NOT_PUBLISHED");
+        }
+        /* Fair bounded queueing of immutable recovered/current facts. Explicit
+         * recovery may replay duplicates. No queue/HTTP completion deletes a
+         * retained fact, advances a durable ACK or changes an alarm condition. */
+        size_t recovered_count = recovered_ready ? continuous_recovered.event_count : 0u;
+        vg_replay_choice choice = vg_replay_choose(&continuous_replay, recovered_count, continuous.alarm_journal.count);
+        if (network && !event_encoding_halted && choice == VG_REPLAY_CHOICE_INVALID) {
+            vg_continuous_increment(&continuous.alarm_errors);
+            event_encoding_halted = true;
+            puts("CONTINUOUS_REPLAY: INVALID_PROGRESS_RETAINED_FACTS_NOT_SKIPPED");
+        }
+        bool event_pending = network && !event_encoding_halted && choice > VG_REPLAY_NONE;
         if (event_pending && (prefer_event || !pending)) {
-            const vg_alarm_transition_t *transition = &continuous.alarm_journal.entries[events_queued];
-            if (!vg_alarm_transition_json(transition, continuous.config.device, continuous.config.boot,
-                continuous_alarm_wire, sizeof(continuous_alarm_wire))) {
+            uint64_t event_id;
+            vg_replay_encode_result encoded;
+            if (choice == VG_REPLAY_RECOVERED) {
+                size_t index = continuous_replay.recovered_visited;
+                event_id = continuous_recovered.events[index].event.event_id;
+                encoded = vg_recovered_event_json(&continuous_recovered, index,
+                    continuous_alarm_wire, sizeof(continuous_alarm_wire));
+            } else {
+                const vg_alarm_transition_t *transition =
+                    &continuous.alarm_journal.entries[continuous_replay.current_queued];
+                event_id = transition->event.event_id;
+                encoded = vg_alarm_transition_json(transition, continuous.config.device, continuous.config.boot,
+                    continuous_alarm_wire, sizeof(continuous_alarm_wire)) ? VG_REPLAY_ENCODED : VG_REPLAY_BUFFER_REFUSED;
+            }
+            if (encoded == VG_REPLAY_UNSUPPORTED_TYPE) {
+                puts("CONTINUOUS_REPLAY: UNSUPPORTED_LEGACY_TYPE_RETAINED_NOT_PUBLISHED");
+                if (!vg_replay_mark(&continuous_replay, recovered_count,
+                    continuous.alarm_journal.count, choice, true)) event_encoding_halted = true;
+            } else if (encoded != VG_REPLAY_ENCODED) {
                 vg_continuous_increment(&continuous.alarm_errors);
                 event_encoding_halted = true;
                 puts("CONTINUOUS_EVENT: ENCODING_HALTED_RETAINED_FACT_NOT_SKIPPED");
-            } else if (vg_net_submit(VG_NET_EVENT, continuous_alarm_wire, strlen(continuous_alarm_wire), transition->event.event_id)) {
-                ++events_queued;
+            } else if (vg_net_submit(VG_NET_EVENT, continuous_alarm_wire, strlen(continuous_alarm_wire), event_id)) {
+                if (!vg_replay_mark(&continuous_replay, recovered_count,
+                    continuous.alarm_journal.count, choice, false)) event_encoding_halted = true;
                 prefer_event = false;
             } else vg_continuous_increment(&network_refused);
         } else if (pending) {

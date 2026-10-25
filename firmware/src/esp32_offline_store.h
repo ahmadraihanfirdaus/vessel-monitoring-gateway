@@ -2,6 +2,7 @@
 #define VG_ESP32_OFFLINE_STORE_H
 
 #include "offline_transaction.h"
+#include "offline_replay.h"
 
 typedef enum {
     VG_STORAGE_RECOVERED = 1, VG_STORAGE_COMMITTED, VG_STORAGE_CRITICAL_FULL,
@@ -29,6 +30,9 @@ bool vg_storage_submit(const char *boot, uint64_t sequence, const void *wire,
 bool vg_storage_submit_with_alarms(const char *boot, uint64_t sequence, const void *wire,
     size_t length, const vg_event_journal_t *journal, const vg_alarm_journal_t *metadata);
 bool vg_storage_take_completion(vg_storage_completion *out);
+/* Successful recovery only: zero-wait bounded copy, no NVS IO in caller.
+ * Repeated explicit recovery can yield duplicates; never a deletion receipt. */
+bool vg_storage_take_recovered_events(vg_recovered_events *out);
 bool vg_storage_request_recovery(void);
 #endif
 

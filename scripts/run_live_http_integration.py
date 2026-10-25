@@ -31,6 +31,7 @@ import urllib.request
 from runtime_uplink_wire_bridge import build_bytes
 from continuous_simulation_wire_bridge import build_bytes as build_domain_bytes
 from alarm_metadata_wire_bridge import build_bytes as build_alarm_bytes
+from recovered_replay_wire_bridge import build_bytes as build_replay_bytes
 from build_esp32_port import source_snapshot as firmware_source_snapshot
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -58,7 +59,8 @@ def source_snapshot():
         'live_http_router.php', 'live_http_tls.php', 'live_http_event_race.php', 'runtime_uplink_wire_bridge.py',
         'runtime_uplink_wire_fixture.c', 'continuous_simulation_wire_bridge.py',
         'continuous_simulation_fixture.c', 'alarm_metadata_wire_bridge.py',
-        'alarm_metadata_wire_fixture.c', 'phase9_b4_testlib.py')]
+        'alarm_metadata_wire_fixture.c', 'recovered_replay_wire_bridge.py',
+        'recovered_replay_wire_fixture.c', 'test_offline_transaction.py', 'phase9_b4_testlib.py')]
     base = ROOT/'backend/laravel'
     paths += [base/'bootstrap/app.php', base/'composer.lock']
     for directory in ('app', 'config', 'routes', 'resources/views', 'tests/Support', 'database/migrations'):
@@ -270,7 +272,7 @@ def event_races(client, binary, env, profile, alarm_wire):
     expect('EVENT_RACE_CONFLICT_DOES_NOT_OVERWRITE_METADATA', conflict['alarm']['reason_code'] == 1001)
 
 
-def suite(client, binary, env, profile, wire, domain_wire, alarm_wire, context, port):
+def suite(client, binary, env, profile, wire, domain_wire, alarm_wire, replay_wire, context, port):
     token = env['VG_LIVE_DEVICE_TOKEN']
 
     def action(mode):
@@ -437,6 +439,42 @@ def suite(client, binary, env, profile, wire, domain_wire, alarm_wire, context, 
     status, _, body = client.request(device_path)
     expect('ALARM_METADATA_CONNECTED_BROWSER_FACTS', status == 200 and b'Alarm snapshot at transition' in body
            and b'active_ack' in body and b'Priority code (demo):' in body and b'NOT_CLEARED' in body)
+    for index, packet in enumerate(replay_wire.splitlines()):
+        status, _, _ = api(client, '/api/v1/events', packet, token)
+        expect('RECOVERED_C99_CROSS_BOOT_EVENT_'+str(index+1), status == 201)
+        status, _, response = api(client, '/api/v1/events', packet, token)
+        expect('RECOVERED_C99_EXACT_DUPLICATE_'+str(index+1),
+               status == 200 and json.loads(response)['result'] == 'identical_event_duplicate')
+    status, _, response = api(client, '/api/v1/device/events?limit=100', token=token)
+    recovered = [item for item in json.loads(response).get('items', [])
+                 if item['boot_id'] in ('boot-a', 'replay-boot-b', 'replay-boot-c')]
+    expect('RECOVERED_THREE_BOOT_IDS_REMAIN_DISTINCT', status == 200 and len(recovered) == 6
+           and sorted(item['boot_id'] for item in recovered if item['event_id'] == '1')
+           == ['boot-a', 'replay-boot-b', 'replay-boot-c'])
+    legacy = [item for item in recovered if item['schema_version'] == '1.0']
+    expect('RECOVERED_LEGACY_METADATA_NOT_FABRICATED', len(legacy) == 2
+           and all('alarm' not in item for item in legacy)
+           and any(item['event_type'] == 'fault' and item['source_mode'] == 'bench_test'
+                   and item['linked_alarm_id'] == '0' for item in legacy))
+    ack = [item for item in recovered if item['boot_id'] == 'replay-boot-b' and item['event_id'] == '2']
+    expect('RECOVERED_ACK_ZERO_IS_NOT_NULL_OR_CLEAR', len(ack) == 1 and ack[0]['alarm']['state'] == 'active_ack'
+           and ack[0]['alarm']['acknowledged_at_ms'] == '0' and ack[0]['alarm']['cleared_at_ms'] is None)
+    changed = json.loads(replay_wire.splitlines()[-1]); changed['alarm']['reason_code'] = 1003
+    status, _, _ = api(client, '/api/v1/events', json.dumps(changed).encode(), token)
+    expect('RECOVERED_VALID_METADATA_CONFLICT_REJECTED', status == 409)
+    status, _, response = api(client, '/api/v1/device/state', token=token)
+    expect('RECOVERED_EVENT_REPLAY_PRESERVES_LATEST_TELEMETRY', status == 200
+           and json.loads(response)['state']['sequence'] == 24)
+    packet = replay_wire.splitlines()[0]
+    status, _, _ = api(client, '/api/v1/events', packet+b' '*(4097-len(packet)), token)
+    expect('RECOVERED_REPLAY_BODY_CAP_RETAINED', status == 413)
+    duplicate = packet.replace(b'"boot_id":', b'"boot_id":"spoof","\\u0062oot_id":')
+    status, _, _ = api(client, '/api/v1/events', duplicate, token)
+    expect('RECOVERED_REPLAY_ESCAPED_BOOT_DUPLICATE_REJECTED', status == 422)
+    status, _, body = client.request(device_path)
+    expect('RECOVERED_CONNECTED_BROWSER_ORIGINAL_BOOT_FACTS', status == 200
+           and all(boot in body for boot in (b'boot-a', b'replay-boot-b', b'replay-boot-c'))
+           and b'tidak direkonstruksi dari event lain' in body and b'ACK bukan CLEAR' in body)
     event_races(client, binary, env, profile, alarm_wire)
     logout_token = csrf(body)
     status, _, _ = client.request('/monitoring/'+profile['other'])
@@ -523,6 +561,8 @@ def main():
             print('LIVE_HTTP_CONTINUOUS_C99_WIRE_SHA256='+hashlib.sha256(domain_wire).hexdigest(), flush=True)
             alarm_wire = build_alarm_bytes('runtime:demo')
             print('LIVE_HTTP_ALARM_METADATA_C99_WIRE_SHA256='+hashlib.sha256(alarm_wire).hexdigest(), flush=True)
+            replay_wire = build_replay_bytes('runtime:demo')
+            print('LIVE_HTTP_RECOVERED_REPLAY_C99_WIRE_SHA256='+hashlib.sha256(replay_wire).hexdigest(), flush=True)
             cert = php_run(args.php_binary, Path('scripts/live_http_tls.php'), [str(folder)], env)
             if cert.returncode:
                 raise GateBlocked('TLS_PREREQUISITE_NO_FIXTURES')
@@ -568,7 +608,7 @@ def main():
             attempted_fixture = True
             prepared = php_run(args.php_binary, Path('scripts/live_http_fixture.php'), ['--prepare', '--execute'], env)
             expect('VERIFIED_ISOLATED_FIXTURE_PREPARATION', prepared.returncode == 0)
-            suite(client, args.php_binary, env, profile, wire, domain_wire, alarm_wire, context, port)
+            suite(client, args.php_binary, env, profile, wire, domain_wire, alarm_wire, replay_wire, context, port)
     except GateBlocked as exception:
         print('LIVE_HTTP_GATE=BLOCKED_'+str(exception), flush=True)
         code = 3

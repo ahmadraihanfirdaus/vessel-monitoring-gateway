@@ -85,16 +85,16 @@ class RunnerSafetyTest(unittest.TestCase):
         status,calls,output=self.invoke(['--execute','--existing-schema'],self.report_result(xml))
         self.assertEqual(status,0)
         self.assertEqual(calls[0].args[0][-1],'--inspect')
-        self.assertEqual(len(calls),8)
+        self.assertEqual(len(calls),9)
         self.assertNotIn('--migrate',[x for call in calls for x in call.args[0]])
         self.assertIn('NOT_RUN_EXISTING_SCHEMA_MODE',output)
 
     def test_existing_schema_roundtrip_requires_verified_mode(self):
         status,calls,_=self.invoke(['--execute','--existing-schema','--migration-roundtrip'],
-                                  [self.result(),self.result(),self.result(),self.result(),self.result(),self.result(),self.result(3)])
+                                  [self.result()] * 7 + [self.result(3)])
         self.assertEqual(status,3)
         self.assertEqual(calls[0].args[0][-1],'--inspect')
-        self.assertEqual(calls[6].args[0][-1],'--roundtrip-existing')
+        self.assertEqual(calls[7].args[0][-1],'--roundtrip-existing')
 
     def test_missing_c99_tool_blocks_before_schema_mutation(self):
         status, calls, output = self.invoke(['--execute'], [self.result(), self.result(1)])
@@ -128,13 +128,21 @@ class RunnerSafetyTest(unittest.TestCase):
         self.assertEqual(calls[5].args[0][2], 'scripts/alarm_metadata_wire_bridge.py')
         self.assertIn('BLOCKED_C99_FIXTURE_BUILD_NO_MIGRATIONS', output)
 
+    def test_recovered_replay_fixture_failure_blocks_before_any_database_mutation(self):
+        status, calls, output = self.invoke(['--execute'], [self.result()] * 6 + [self.result(1)])
+        self.assertEqual(status, 3)
+        self.assertEqual(len(calls), 7)
+        self.assertEqual(calls[6].args[0][2], 'scripts/recovered_replay_wire_bridge.py')
+        self.assertIn('BLOCKED_C99_FIXTURE_BUILD_NO_MIGRATIONS', output)
+        self.assertFalse(any('--migrate' in call.args[0] for call in calls))
+
     def test_previous_upgrade_uses_exact_previous_inspection_and_explicit_roundtrip(self):
         status, calls, _ = self.invoke(['--execute', '--existing-schema', '--upgrade-previous', '--migration-roundtrip'],
-                                     [self.result()] * 6 + [self.result(3)])
+                                     [self.result()] * 7 + [self.result(3)])
         self.assertEqual(status, 3)
         self.assertEqual(calls[0].args[0][-1], '--inspect-previous')
-        self.assertEqual(calls[6].args[0][-1], '--upgrade-previous-roundtrip')
-        self.assertEqual(len(calls), 7)
+        self.assertEqual(calls[7].args[0][-1], '--upgrade-previous-roundtrip')
+        self.assertEqual(len(calls), 8)
 
     def test_previous_upgrade_cannot_imply_execution_or_missing_existing_schema(self):
         for args in (['--upgrade-previous'], ['--execute', '--upgrade-previous']):
@@ -144,25 +152,24 @@ class RunnerSafetyTest(unittest.TestCase):
 
     def test_migration_failure_blocks_phpunit(self):
         status, calls, output = self.invoke(['--execute', '--migration-roundtrip'],
-            [self.result(), self.result(), self.result(), self.result(), self.result(), self.result(), self.result(3)])
+            [self.result()] * 7 + [self.result(3)])
         self.assertEqual(status, 3)
-        self.assertEqual(len(calls), 7)
+        self.assertEqual(len(calls), 8)
         self.assertEqual(calls[-1].args[0][-1], '--migration-roundtrip')
         self.assertIn('BLOCKED_MIGRATION_GATE', output)
 
     def test_test_failure_blocks_receipt_crosscheck_and_does_not_echo_bindings(self):
         status, calls, output = self.invoke(['--execute'],
-            [self.result(), self.result(), self.result(), self.result(), self.result(), self.result(), self.result(),
-             self.result(1, 'synthetic-sensitive-marker', 'synthetic-sensitive-marker')])
+            [self.result()] * 8 + [self.result(1, 'synthetic-sensitive-marker', 'synthetic-sensitive-marker')])
         self.assertEqual(status, 1)
-        self.assertEqual(len(calls), 8)
-        self.assertEqual(calls[6].args[0][-1], '--migrate')
+        self.assertEqual(len(calls), 9)
+        self.assertEqual(calls[7].args[0][-1], '--migrate')
         self.assertNotIn('synthetic-sensitive-marker', output)
 
     def test_missing_junit_report_cannot_be_pass(self):
-        status, calls, output = self.invoke(['--execute'], [self.result()] * 8)
+        status, calls, output = self.invoke(['--execute'], [self.result()] * 9)
         self.assertEqual(status, 3)
-        self.assertEqual(len(calls), 8)
+        self.assertEqual(len(calls), 9)
         self.assertIn('BLOCKED_MISSING_REPORT', output)
 
     def test_timeout_is_blocked(self):
@@ -181,27 +188,27 @@ class RunnerSafetyTest(unittest.TestCase):
         for xml in ('<testsuites/>', '<testsuites><testcase><skipped/></testcase></testsuites>', '<bad'):
             status, calls, _ = self.invoke(['--execute'], self.report_result(xml))
             self.assertEqual(status, 3)
-            self.assertEqual(len(calls), 8)
+            self.assertEqual(len(calls), 9)
 
     def test_junit_failure_blocks_even_if_subprocess_claims_success(self):
         status, calls, output = self.invoke(['--execute'], self.report_result(
             '<testsuites><testcase name="failure_case"><failure>synthetic-sensitive-marker</failure></testcase></testsuites>'))
         self.assertEqual(status, 1)
-        self.assertEqual(len(calls), 8)
+        self.assertEqual(len(calls), 9)
         self.assertNotIn('synthetic-sensitive-marker', output)
 
     def test_success_requires_migrations_phpunit_and_receipt_crosscheck(self):
         status, calls, output = self.invoke(['--execute'], self.report_result(
             '<testsuites><testcase name="executed_case"/></testsuites>'))
         self.assertEqual(status, 0)
-        self.assertEqual(len(calls), 9)
+        self.assertEqual(len(calls), 10)
         self.assertIn('MYSQL_HTTP_ACK_CROSSCHECK=PASS', output)
 
     def test_failed_receipt_crosscheck_fails_batch(self):
         status, calls, output = self.invoke(['--execute'], self.report_result(
             '<testsuites><testcase name="executed_case"/></testsuites>', 1))
         self.assertEqual(status, 1)
-        self.assertEqual(len(calls), 9)
+        self.assertEqual(len(calls), 10)
         self.assertIn('MYSQL_HTTP_ACK_CROSSCHECK=FAIL', output)
 
     def test_real_php_guard_denies_missing_environment_without_dotenv_fallback(self):

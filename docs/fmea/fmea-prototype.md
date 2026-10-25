@@ -62,3 +62,17 @@ native IO fixture. These are software observations, not physical crash-durabilit
 or FMEA closure. Legacy fields remain unavailable, capacity-eight loss is
 explicit, and queued/HTTP completion is not application ACK. Old-boot replay,
 receipt deletion, hardware flash effects and residual-risk acceptance remain open.
+
+## Recovered-event replay continuation, 2026-10-26
+
+The worker exports only successfully recovered immutable critical-event facts
+through a bounded zero-wait queue. Original boot identity, legacy metadata
+absence and explicit degraded status remain visible. Unsupported historical
+recovery types are reported/retained; invalid encoding/progress halts event
+publication without halting local observation. Queue admission is not delivery
+confirmation and no retained event is deleted or alarm cleared. Capacity-eight
+exhaustion, authenticated receipts and durable retirement remain open risks.
+Additional queue/context copies have bounded allocation; native/SDK static RAM
+and own-frame results do not verify full heap/stack/timing or physical power-loss
+behavior. No FMEA item is formally closed by the local replay tests. See the
+recovered replay summary for actual source proofs and external NOT_RUN gates.

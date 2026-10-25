@@ -27,6 +27,7 @@ class LiveHttpGateTest(unittest.TestCase):
                                           patch.object(gate, 'build_bytes', return_value=b'synthetic-wire\n'))
             stack.enter_context(patch.object(gate, 'build_domain_bytes', return_value=b'synthetic-domain-wire\n'))
             stack.enter_context(patch.object(gate, 'build_alarm_bytes', return_value=b'synthetic-alarm-wire\n'))
+            stack.enter_context(patch.object(gate, 'build_replay_bytes', return_value=b'synthetic-replay-wire\n'))
             popen = stack.enter_context(patch.object(gate.subprocess, 'Popen'))
             suite = stack.enter_context(patch.object(gate, 'suite', side_effect=suite_error))
             if snapshots is not None:
@@ -142,6 +143,20 @@ class LiveHttpGateTest(unittest.TestCase):
         self.assertEqual(command.call_count, 2)
         popen.assert_not_called(); suite.assert_not_called()
         self.assertIn('BLOCKED_TLS_PREREQUISITE_NO_FIXTURES', output)
+
+    def test_failed_recovered_replay_build_never_prepares_live_database_fixture(self):
+        stream = io.StringIO()
+        with patch.object(sys, 'argv', ['gate', '--php-binary', 'synthetic-php', '--execute']), \
+             patch.object(gate, 'php_run', return_value=self.result()) as command, \
+             patch.object(gate, 'build_bytes', return_value=b'legacy'), \
+             patch.object(gate, 'build_domain_bytes', return_value=b'domain'), \
+             patch.object(gate, 'build_alarm_bytes', return_value=b'alarm'), \
+             patch.object(gate, 'build_replay_bytes', side_effect=AssertionError('synthetic-replay')), \
+             patch.object(gate.subprocess, 'Popen') as process, redirect_stdout(stream):
+            self.assertEqual(gate.main(), 1)
+        self.assertEqual(command.call_count, 1)
+        process.assert_not_called()
+        self.assertIn('FAIL_PREREQUISITE_ASSERTION', stream.getvalue())
 
     def test_failed_network_case_stops_owned_process_and_cleans_only_through_guard(self):
         code, command, _, popen, _, output = self.invoke(['--execute'], [self.result()] * 4,

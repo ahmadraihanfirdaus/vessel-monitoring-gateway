@@ -1,0 +1,8 @@
+path,file_count,bytes,action,qualification
+firmware/.pio/build,3867,325078219,RETAINED_READ_ONLY,Metadata only; no content/credential reads or deletion
+backend/laravel/vendor,8574,66825925,RETAINED_READ_ONLY,Metadata only; no content/credential reads or deletion
+backend/laravel/bootstrap/cache,3,22734,RETAINED_READ_ONLY,Metadata only; no content/credential reads or deletion
+backend/laravel/storage/framework/views,57,273471,RETAINED_READ_ONLY,Metadata only; no content/credential reads or deletion
+backend/laravel/storage/logs,1,14,RETAINED_READ_ONLY,Metadata only; no content/credential reads or deletion
+scripts/__pycache__,8,73971,RETAINED_READ_ONLY,Metadata only; no content/credential reads or deletion
+evidence/test-results,440,2312678,RETAINED_READ_ONLY,Metadata only; no content/credential reads or deletion

@@ -79,6 +79,7 @@ def main():
                 ('runtime_uplink_wire_bridge.py', 'runtime.jsonl', 'VG_RUNTIME_WIRE_JSONL'),
                 ('continuous_simulation_wire_bridge.py', 'continuous.jsonl', 'VG_CONTINUOUS_WIRE_JSONL'),
                 ('alarm_metadata_wire_bridge.py', 'alarms.jsonl', 'VG_ALARM_METADATA_WIRE_JSONL'),
+                ('recovered_replay_wire_bridge.py', 'replayed.jsonl', 'VG_RECOVERED_REPLAY_WIRE_JSONL'),
             ]:
                 output = temp / name
                 generated = run([sys.executable, '-B', 'scripts/'+script, '--output', str(output)], env)
