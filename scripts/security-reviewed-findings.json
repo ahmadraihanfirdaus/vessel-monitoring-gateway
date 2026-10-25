@@ -528,6 +528,110 @@
       "line_sha256": "2b59a06e8f31a3bb13a6071fc05475068f9af9d3515f0be63b695495983f1662",
       "classification": "UPSTREAM_AUTHOR_METADATA",
       "rationale": "Dependency authors email field in the byte-pinned reviewed Composer lockfile, under a package with a recorded public GitHub source; not a project or operational contact."
+    },
+    {
+      "id": "MONITORING-NONSECRET-001",
+      "path": "backend/laravel/app/Http/Controllers/MonitoringSessionController.php",
+      "file_sha256": "277478fd6dd8c0448b440c9ffb78903366aa933aac082416e5eb770d88d4c585",
+      "line_sha256": "0108d8a6464096ab68b275bf99b211f41ca291732d827c45f6026d66c3e9a27c",
+      "classification": "SOURCE_CONTRACT_TOKEN",
+      "rationale": "Laravel required/string/max validation rule metadata for the password field; no password value."
+    },
+    {
+      "id": "MONITORING-NONSECRET-002",
+      "path": "backend/laravel/tests/Feature/FirmwareMySqlIntegrationTest.php",
+      "file_sha256": "a420e56a680c8de320cf695ab021eb2975c67f17fa4f879759ce4633be2f259e",
+      "line_sha256": "52bc049de26287b7aa3f68380e4914989b64af9b4fd7234e694b19d21fdc7286",
+      "classification": "RUNTIME_GENERATED_TEST_VALUE",
+      "rationale": "Synthetic test account/input generated from random_bytes at runtime, not a literal credential. Exact reviewed source bytes only."
+    },
+    {
+      "id": "MONITORING-NONSECRET-003",
+      "path": "backend/laravel/tests/Feature/MonitoringAccessTest.php",
+      "file_sha256": "8585ba105349eadce2a705c08aa2ff8e6b30fceb8c1a65c961e314eff5059480",
+      "line_sha256": "ee2bb3f55480e41ddb9b6105b9f78c409cab1b52824a50aed7c2241490b23b0c",
+      "classification": "RUNTIME_GENERATED_TEST_VALUE",
+      "rationale": "Synthetic test account/input generated from random_bytes at runtime, not a literal credential. Exact reviewed source bytes only."
+    },
+    {
+      "id": "MONITORING-NONSECRET-004",
+      "path": "backend/laravel/tests/Feature/MonitoringAccessTest.php",
+      "file_sha256": "8585ba105349eadce2a705c08aa2ff8e6b30fceb8c1a65c961e314eff5059480",
+      "line_sha256": "928a8dbef319f32d80efa356600dc3351ebc0d3acdb5da762cef5769e89e44b5",
+      "classification": "RUNTIME_GENERATED_TEST_VALUE",
+      "rationale": "Synthetic test account/input generated from random_bytes at runtime, not a literal credential. Exact reviewed source bytes only."
+    },
+    {
+      "id": "MONITORING-NONSECRET-005",
+      "path": "backend/laravel/tests/Feature/MonitoringAccessTest.php",
+      "file_sha256": "8585ba105349eadce2a705c08aa2ff8e6b30fceb8c1a65c961e314eff5059480",
+      "line_sha256": "0d5c6b789052775bbdfb04743b0fb5eef17cb90f1e61624989297afba5edd728",
+      "classification": "RUNTIME_GENERATED_TEST_VALUE",
+      "rationale": "Synthetic test account/input generated from random_bytes at runtime, not a literal credential. Exact reviewed source bytes only."
+    },
+    {
+      "id": "MONITORING-NONSECRET-006",
+      "path": "backend/laravel/tests/Feature/MonitoringAccessTest.php",
+      "file_sha256": "8585ba105349eadce2a705c08aa2ff8e6b30fceb8c1a65c961e314eff5059480",
+      "line_sha256": "db462de2e641c2ed8f94ec2ef3adb661a08e1eb193597bceb9b144e4994cc89f",
+      "classification": "RUNTIME_GENERATED_TEST_VALUE",
+      "rationale": "Synthetic test account/input generated from random_bytes at runtime, not a literal credential. Exact reviewed source bytes only."
+    },
+    {
+      "id": "MONITORING-NONSECRET-007",
+      "path": "backend/laravel/tests/Feature/MonitoringOperatorTest.php",
+      "file_sha256": "063933689bd75ed54e3f2b442268becd1db9d26c680dec18ab938eff7077c639",
+      "line_sha256": "c35e3a2913f760e0636b755762042933a4f19f260dc07c3f8de5c873797c17a3",
+      "classification": "ENVIRONMENT_VARIABLE_NAME",
+      "rationale": "Dedicated process-environment name concatenation; runtime references/restoration or deliberately overlength synthetic negative fixture, not a literal secret."
+    },
+    {
+      "id": "MONITORING-NONSECRET-008",
+      "path": "backend/laravel/tests/Feature/MonitoringOperatorTest.php",
+      "file_sha256": "063933689bd75ed54e3f2b442268becd1db9d26c680dec18ab938eff7077c639",
+      "line_sha256": "8165bfe997c2c0cb795a36d1945eaf2db5ebd4ba9fee81ac20e79862b3f38904",
+      "classification": "ENVIRONMENT_VARIABLE_NAME",
+      "rationale": "Dedicated process-environment name concatenation; runtime references/restoration or deliberately overlength synthetic negative fixture, not a literal secret."
+    },
+    {
+      "id": "MONITORING-NONSECRET-009",
+      "path": "backend/laravel/tests/Feature/MonitoringOperatorTest.php",
+      "file_sha256": "063933689bd75ed54e3f2b442268becd1db9d26c680dec18ab938eff7077c639",
+      "line_sha256": "a8e92f2e5e8de17b7f9d1782516538fd7cefe0596af9aa4e93d0888dd617324c",
+      "classification": "ENVIRONMENT_VARIABLE_NAME",
+      "rationale": "Dedicated process-environment name concatenation; runtime references/restoration or deliberately overlength synthetic negative fixture, not a literal secret."
+    },
+    {
+      "id": "MONITORING-NONSECRET-010",
+      "path": "backend/laravel/tests/Feature/MonitoringOperatorTest.php",
+      "file_sha256": "063933689bd75ed54e3f2b442268becd1db9d26c680dec18ab938eff7077c639",
+      "line_sha256": "d374df0436904d66f21322daf8a9a9e49939042e82ff089e34c97547a4e072d7",
+      "classification": "ENVIRONMENT_VARIABLE_NAME",
+      "rationale": "Dedicated process-environment name concatenation; runtime references/restoration or deliberately overlength synthetic negative fixture, not a literal secret."
+    },
+    {
+      "id": "MONITORING-NONSECRET-011",
+      "path": "backend/laravel/tests/Feature/MonitoringBoundaryTest.php",
+      "file_sha256": "542219dc36d3305363cd559b7bbcd3128496bf2f1b1ed560a8cc303ead0ee0e5",
+      "line_sha256": "b14335bfcbb1b12c3984300a9dc1a695dffc66090bd08608cb049050f78d5b26",
+      "classification": "RUNTIME_GENERATED_TEST_VALUE",
+      "rationale": "Synthetic test account/input generated from random_bytes at runtime, not a literal credential. Exact reviewed source bytes only."
+    },
+    {
+      "id": "MONITORING-NONSECRET-012",
+      "path": "backend/laravel/tests/Support/MonitoringFixtures.php",
+      "file_sha256": "753fd757c82a0222878ee52f191c226a5ace53841f76e759a19ae252957eaf4b",
+      "line_sha256": "4f64cd297193f62435e527fbab4d18e8b60beafaf8c9218eb58f106a4f2668f3",
+      "classification": "RUNTIME_GENERATED_TEST_VALUE",
+      "rationale": "Synthetic test account/input generated from random_bytes at runtime, not a literal credential. Exact reviewed source bytes only."
+    },
+    {
+      "id": "MONITORING-NONSECRET-013",
+      "path": "backend/laravel/tests/Support/MySqlIsolation.php",
+      "file_sha256": "13c52a0a6f7771be5d040c655c00316d951ced015e02bb83fcf9a37c6b1098ba",
+      "line_sha256": "c7ea48f0a77a1ec24edf8224103819e92ba4484526ad615364cdbba731f9bfe8",
+      "classification": "ENVIRONMENT_VARIABLE_NAME",
+      "rationale": "Existing credential-name mapping only; primary effective configuration/server/grant methods byte-identical, secondary overrides and schema checks strengthened. No credential value."
     }
   ]
 }

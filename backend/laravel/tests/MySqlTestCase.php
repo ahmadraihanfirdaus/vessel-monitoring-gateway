@@ -15,6 +15,7 @@ abstract class MySqlTestCase extends TestCase
         $config = $app['config'];
         MySqlIsolation::assertEffectiveConfiguration($env,
             $config->get('database.connections.mysql'), $config->get('database.default'));
+        MySqlIsolation::assertAncillaryConfiguration($config->get('session'), $config->get('cache.stores.database'), $config->get('auth'));
         try {
             $pdo = DB::connection('mysql')->getPdo();
             MySqlIsolation::verify($pdo, $env);

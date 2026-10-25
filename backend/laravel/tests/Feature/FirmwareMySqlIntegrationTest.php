@@ -185,6 +185,18 @@ class FirmwareMySqlIntegrationTest extends MySqlTestCase
             ->assertJsonPath('items.0.occurred_at_ms', $maximum);
     }
 
+    public function test_c99_sample_reaches_only_a_granted_browser_dashboard(): void
+    {
+        $bearer = $this->device('b14-demo-device');
+        $this->postWire('/api/v1/telemetry', $this->wire('VG_B14_WIRE_JSONL'), $bearer)->assertCreated();
+        $user = \App\Models\User::query()->create(['name' => 'Synthetic browser operator', 'email' => 'browser@example.com', 'password' => bin2hex(random_bytes(20))]);
+        $this->actingAs($user, 'web')->get('/monitoring/b14-demo-device')->assertNotFound();
+        DB::table('monitoring_device_access')->insert(['user_id' => $user->id, 'device_id' => 'b14-demo-device']);
+        config(['monitoring.stale_after_seconds' => 10, 'monitoring.offline_after_seconds' => 30]);
+        $this->get('/monitoring/b14-demo-device')->assertOk()->assertSee('zero_test')->assertSee('bilge_level')
+            ->assertSee('MISSING')->assertSee('VALID')->assertSee('SIMULATION')->assertSee('LIVE');
+    }
+
     public function test_event_conflict_and_foreign_device_cannot_rewrite_or_insert_events(): void
     {
         $bearer = $this->device('b15-demo-device');

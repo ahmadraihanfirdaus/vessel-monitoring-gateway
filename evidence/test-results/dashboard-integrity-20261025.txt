@@ -1,0 +1,34 @@
+BASELINE_HEAD=ccf57405634c8752b11fb3e34ac72281cee386ac
+BRANCH=develop
+PRESTAGE_INDEX=EMPTY_PASS
+PROTECTED_LOCKED_REQUIREMENTS_AND_FIRMWARE_HASHES=PASS_UNCHANGED
+AGENTS_AND_SECRET_FILES=NOT_MODIFIED_NOT_STAGED
+FOUR_ORIGINAL_MIGRATIONS=UNCHANGED
+FORMAL_SIM_SUP_REGISTRIES=BYTE_UNCHANGED
+LOCAL_DB=APPROVED_ISOLATED_ONLY
+SCHEMA=TEN_TABLES_FIVE_MIGRATIONS_ZERO_APPLICATION_ROWS_POSTCHECK
+PHP=8.2.35_EXPLICIT_BINARY
+FINAL_SUITE=325_PASS_ZERO_FAILED_ZERO_SKIPPED
+POLICY_REGRESSION=53_COMMANDS_PASS
+PHP_LINT=28_COMMANDS_PLUS_TWO_FINAL_CHANGED_FILE_RECHECKS_PASS
+SCANNER_ADVERSARIAL=22_PASS
+SCOPE_SEMANTIC_REVIEW=PASS
+Browser queries use explicit web sessions and per-device grants; no credential columns selected.
+Revoked/disabled access checked on every read; login/CSRF/throttle/storage error paths tested.
+Password input/process-only provisioning; bcrypt 72-byte limit and Unicode rejection enforced.
+No account/password argument, echo, or main-database command executed.
+One sample read supplies state/health; raw quality/null/zero/source identities preserved.
+Configured receipt-age policy only; unknown/future/unconfigured states fail visibly.
+Eight real data sections; no inferred OEM units, alarm-clear state or physical output controls.
+Formal registry read is bounded, exact-ID/status validated and serves no file body/path/free text.
+Secondary session/cache connection/table and auth override admission now fail closed.
+New reviewed findings are exact non-secret source lines only; strong credential checks remain active.
+Candidate cleanup metadata only; six generated/dependency categories retained.
+Real TCP browser/TLS/hosted CI/ESP32 physical/formal execution remains NOT_RUN.
+EXACT_INDEX_DIFF_AND_SECURITY_RECHECK=REQUIRED_BEFORE_LOCAL_COMMIT
+LOCAL_DOCUMENT_LINKS=PASS_43
+AGENTS_SHA256=421e2b5d5748cf5e4bdac3c189223915850c8894688a7e3ffd090975aa87864b
+FIRST_STAGED_DIFF=FAIL_DIAGNOSTIC_BLANK_LINE_AT_EOF
+POSTFAIL_INDEX=EMPTY_CONFIRMED_NO_COMMIT
+dashboard-boundary-diagnostic-detail-20261025.txt EOF_BLANK_LINES_NORMALIZED BEFORE_SHA256=0455a1549da1abfa57f3b2bd6b78266e70b3ab2fa1fcb97ccdd6bf597f08a8a2 AFTER_SHA256=39b77e0b5a4fe296821f4df75915349b77704bff4b5282b4b495d655f93ee1f4 DIAGNOSTIC_TEXT_UNCHANGED=PASS
+STAGED_DIFF_AND_SECURITY_RETRY=REQUIRED

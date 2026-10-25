@@ -8,12 +8,13 @@ class Boundary(unittest.TestCase):
         src=(R/'backend/laravel/app/Http/Middleware/NoStoreDeviceResponse.php').read_text()
         for text in ["'no-store, private'", "'no-cache'", "setVary('Authorization', false)"]:
             self.assertIn(text,src)
-    def test_registration_and_five_route_bindings(self):
+    def test_registration_and_six_route_bindings(self):
         bootstrap=(R/'backend/laravel/bootstrap/app.php').read_text()
         routes=(R/'backend/laravel/routes/api.php').read_text()
         self.assertIn("'device.response.no-store' =>",bootstrap)
-        self.assertEqual(routes.count("'device.response.no-store'"),5)
-        self.assertEqual(routes.count("'device.auth'"),5)
+        self.assertIn("'/v1/device/events'",routes)
+        self.assertEqual(routes.count("'device.response.no-store'"),6)
+        self.assertEqual(routes.count("'device.auth'"),6)
         self.assertEqual(routes.count("'telemetry.payload.size'"),2)
         self.assertLess(routes.index("'device.response.no-store'"),routes.index("'telemetry.payload.size'"))
     def test_no_db_in_feature_tests(self):

@@ -58,10 +58,10 @@ This establishes structural traceability coverage. It does not demonstrate compl
 | Navigation | Phase 7 scoped gate COMPLETE; SIM-008/SIM-009 PASS; SUP-007 remains NOT_RUN |
 | Telemetry contract | Phase 8 scoped contract gate COMPLETE; SUP-011/SUP-012, TEL-003 backend dedup and SIM-014 remain NOT_RUN |
 | Laravel backend | PARTIAL; ingestion, migrations, authenticated read APIs and historical scoped evidence present |
-| Monitoring dashboard | PARTIAL; authenticated placeholder views and quality labels; no device data connection |
+| Monitoring dashboard | IMPLEMENTED_UNVERIFIED; grant-scoped connected views, configured freshness, event/health/evidence rendering; SIM-010/SUP-015 not executed |
 | Network / offline transport | PARTIAL; host adapters and checkpoint oracles; no verified ESP32 Wi-Fi/TLS or durable storage |
 | CI | PARTIAL; PR workflow source present; hosted run unverified here |
-| C99 / Laravel / database integration | PHP 8.2.35 / approved MariaDB migration roundtrip and 215 tests PASS; direct MySQL 8 / hosted CI NOT_RUN |
+| C99 / Laravel / database integration | PHP 8.2.35 / approved MariaDB migration roundtrip and 325 tests PASS; direct MySQL 8 / hosted CI NOT_RUN |
 | Hardware bench verification | NOT_RUN |
 
 Roadmap gate completion is scoped evidence, not a declaration that every mapped mandatory requirement is fully verified.
@@ -144,7 +144,7 @@ The following work remains necessary:
 
 1. Complete the clean tracked-only public archive procedure before publication use.
 2. Preserve the [executed security/PHP 8.2.35/MariaDB gates](../../evidence/test-results/security-php8235-summary-20261025.md); separately execute the MySQL 8 CI profile. No manual database shortcut.
-3. Complete ESP32 network/storage, connected dashboard, receipt ordering semantics, and end-to-end verification.
+3. Complete ESP32 network/storage, authorized dashboard deployment configuration, receipt ordering semantics, and end-to-end verification.
 4. Execute remaining formal scenarios SIM-010 through SIM-015.
 5. Execute the 14 remaining supplemental tests using their specified verification methods; preserve the five existing accepted records.
 6. Record actual results, source commit SHA, test environment, expected/actual outcomes, and supporting evidence.
@@ -181,4 +181,4 @@ The controlled internal engineering baseline is not included in the public repos
 
 The LOCKED matrix remains unchanged as the historical initial snapshot. The editable living register and test-level execution records are the current companion status. No requirement is promoted to `VERIFIED` by this reconciliation, and no operational installation, physical integration, calibration, certification or production-readiness claim is authorized.
 
-The [2026-10-25 device read integration](../../evidence/test-results/device-read-summary-20261025.md) adds own-device event history and verifies bounded telemetry channel hydration in 251 PHP 8.2.35/MariaDB tests. UI-002 still has placeholder views; neither UI requirement nor any SIM/SUP status is promoted by this prerequisite.
+The [2026-10-25 device read integration](../../evidence/test-results/device-read-summary-20261025.md) adds own-device event history and verifies bounded telemetry channel hydration in 251 PHP 8.2.35/MariaDB tests. UI-002 still had placeholder views at that prerequisite checkpoint. The later [connected dashboard slice](../../evidence/test-results/dashboard-summary-20261025.md) implements browser grants, sessions, configured freshness and all eight views. UI-001/UI-002 are IMPLEMENTED_UNVERIFIED; their formal statuses remain NOT_RUN.

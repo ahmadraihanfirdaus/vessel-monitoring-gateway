@@ -1,0 +1,11 @@
+CASE=test_monitoring_storage_failure_is_sanitized_and_uncacheable
+Tests\Feature\MonitoringBoundaryTest::test_monitoring_storage_failure_is_sanitized_and_uncacheable
+Failed asserting that 'Authorization' [ASCII](length: 13) contains "Cookie" [ASCII](length: 6).
+
+C:\vessel-monitoring-gateway-public-cleanroom\backend\laravel\tests\Feature\MonitoringBoundaryTest.php:25
+CASE=test_login_storage_failure_outside_device_controller_is_sanitized
+Tests\Feature\MonitoringBoundaryTest::test_login_storage_failure_outside_device_controller_is_sanitized
+Expected response status code [503] but received 500.
+Failed asserting that 500 is identical to 503.
+
+The following exception occurred during the last request:

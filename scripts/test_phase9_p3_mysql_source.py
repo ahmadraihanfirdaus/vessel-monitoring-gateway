@@ -65,11 +65,16 @@ has(design, "No separate `device_health` table", "DESIGN_NO_HEALTH_TABLE")
 has(plan, "must not", "PLAN_NO_DB_EXECUTION")
 
 migrations = sorted((ROOT / "backend/laravel/database/migrations").glob("*.php"))
-if len(migrations) != 4:
-    raise AssertionError(
-        f"expected 4 Laravel migrations, found {len(migrations)}"
-    )
-print("PHASE9_P3_SOURCE EXACTLY_FOUR_LARAVEL_MIGRATIONS: PASS")
+expected_migrations = [
+    '2026_10_17_100001_create_devices_table.php',
+    '2026_10_17_100002_create_telemetry_samples_table.php',
+    '2026_10_17_100003_create_telemetry_channels_table.php',
+    '2026_10_18_100004_create_monitoring_events_table.php',
+    '2026_10_25_100005_create_monitoring_access_tables.php',
+]
+if [p.name for p in migrations] != expected_migrations:
+    raise AssertionError('expected exact four original plus additive monitoring-access migration')
+print('PHASE9_P3_SOURCE FOUR_ORIGINAL_PLUS_MONITORING_ACCESS_MIGRATION: PASS')
 
 for path in [
     ROOT / "backend/laravel/.env.example",

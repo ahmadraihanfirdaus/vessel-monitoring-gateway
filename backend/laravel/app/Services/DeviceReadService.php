@@ -54,7 +54,21 @@ class DeviceReadService
 
     public function health(Device $device): array
     {
+        return $this->healthFromSample($device, $this->latestSample($device->device_id));
+    }
+
+    /** One sample lookup supplies both browser state and matching health metadata. */
+    public function snapshot(Device $device): array
+    {
         $sample = $this->latestSample($device->device_id);
+        return [
+            'state' => $sample === null ? null : $this->sampleToArray($sample, $this->channelsForSamples([$sample->id])[$sample->id] ?? []),
+            'health' => $this->healthFromSample($device, $sample),
+        ];
+    }
+
+    private function healthFromSample(Device $device, ?object $sample): array
+    {
         $lastSeenRaw = $device->getRawOriginal('last_seen_at');
         $ageSeconds = null;
 

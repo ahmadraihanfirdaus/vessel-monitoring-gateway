@@ -19,5 +19,15 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
+        $exceptions->render(static function (\Illuminate\Database\QueryException $exception, \Illuminate\Http\Request $request) {
+            if ($request->is('login', 'logout', 'monitoring', 'monitoring/*')) {
+                return \App\Support\DependencyUnavailableResponse::forConnectionFailure($exception);
+            }
+            return null;
+        });
+        // Exceptions raised before controller/middleware completion (CSRF,
+        // throttle, session/auth storage) must not become cacheable HTML.
+        $exceptions->respond(static function (\Symfony\Component\HttpFoundation\Response $response, \Throwable $exception, \Illuminate\Http\Request $request) {
+            return \App\Support\MonitoringResponse::decorate($request, $response);
+        });
     })->create();

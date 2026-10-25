@@ -4,7 +4,7 @@
 
 **Portfolio category:** Embedded firmware prototype and traceable engineering development (simulation only).
 
-This repository contains a **partial development-only monitoring prototype**, not a completed or production-ready vessel system. Roadmap Phases 3 through 8 have closed their scoped development/software-simulation exit gates: firmware core, simulator/bench-interface providers, safety policy, four-engine model, NMEA-style navigation, and telemetry contract. Phase 9 Laravel/MySQL source and historical scoped evidence are present. Dedicated formal software-simulation scenarios **SIM-001 through SIM-009 are recorded PASS**; SIM-010 through SIM-015 remain NOT_RUN. SUP-001/003/006/016/019 are recorded PASS; the other 14 supplemental cases remain PLANNED. The complete backend, connected dashboard, ESP32 network transport, end-to-end validation, physical bench execution, calibration, vessel integration, certification, and production readiness are not complete.
+This repository contains a **partial development-only monitoring prototype**, not a completed or production-ready vessel system. Roadmap Phases 3 through 8 have closed their scoped development/software-simulation exit gates: firmware core, simulator/bench-interface providers, safety policy, four-engine model, NMEA-style navigation, and telemetry contract. Phase 9 Laravel/MySQL source and historical scoped evidence are present. Dedicated formal software-simulation scenarios **SIM-001 through SIM-009 are recorded PASS**; SIM-010 through SIM-015 remain NOT_RUN. SUP-001/003/006/016/019 are recorded PASS; the other 14 supplemental cases remain PLANNED. Complete-system backend/dashboard verification, ESP32 network transport, end-to-end validation, physical bench execution, calibration, vessel integration, certification, and production readiness are not complete.
 
 
 The design emphasizes modular embedded software, sensor quality, fault handling, data-source separation, and requirement traceability. Public examples are intended to use synthetic or laboratory-generated data; no operational vessel deployment is claimed.
@@ -25,9 +25,9 @@ The design emphasizes modular embedded software, sensor quality, fault handling,
 
 ## Project Status
 
-**Current roadmap position:** scoped Phases 3-8 and pre-Phase-9 R1 gates have committed evidence. Phase 9 implementation and historical scoped closure exist; formal verification remains open. The [guarded integration gate](docs/testing/mysql-integration-gate.md) passed migration roundtrip and 251 tests with explicit PHP 8.2.35 and approved isolated MariaDB. [Security content review](docs/testing/security-scanner-review.md) has zero unresolved findings/privacy warnings with exact documented non-secret/metadata reviews; this is not publication authorization. MySQL 8 and hosted CI remain NOT_RUN. System PARTIAL; final approval NOT_APPROVED.
+**Current roadmap position:** scoped Phases 3-8 and pre-Phase-9 R1 gates have committed evidence. Phase 9 implementation and historical scoped closure exist; formal verification remains open. The [guarded integration gate](docs/testing/mysql-integration-gate.md) passed migration roundtrip and 325 tests with explicit PHP 8.2.35 and approved isolated MariaDB. [Security content review](docs/testing/security-scanner-review.md) has zero unresolved findings/privacy warnings with exact documented non-secret/metadata reviews; this is not publication authorization. MySQL 8 and hosted CI remain NOT_RUN. System PARTIAL; final approval NOT_APPROVED.
 
-[Device read integration evidence](evidence/test-results/device-read-summary-20261025.md) records authenticated event history, filters, exact integer provenance and bounded telemetry channel hydration. The connected dashboard and its authorization/freshness policy remain open.
+[Device read integration evidence](evidence/test-results/device-read-summary-20261025.md) records authenticated event history, filters, exact integer provenance and bounded telemetry channel hydration. [Connected dashboard evidence](evidence/test-results/dashboard-summary-20261025.md) now records per-device user grants, session security, configurable freshness and eight data-driven views. Deployment policy/channel assignments and formal verification remain open.
 
 Current development status:
 
@@ -39,8 +39,8 @@ Current development status:
 | Firmware/provider/safety/engine/navigation/telemetry development | Scoped roadmap gates Phases 3–8 complete; total system still PARTIAL |
 | Formal SIM execution | SIM-001..SIM-009 PASS; SIM-010..SIM-015 NOT_RUN |
 | Supplemental SUP execution | 5 recorded PASS; 14 PLANNED |
-| Laravel/MySQL backend | PARTIAL; PHP 8.2.35 / approved MariaDB migration roundtrip and 215 tests PASS; direct MySQL 8 NOT_RUN |
-| Dashboard / end-to-end integration | Auth-protected placeholder views remain unconnected; in-process C99/Laravel/MariaDB persistence PASS; network/TLS end-to-end NOT_RUN |
+| Laravel/MySQL backend | PARTIAL; PHP 8.2.35 / approved MariaDB migration roundtrip and 325 tests PASS; direct MySQL 8 NOT_RUN |
+| Dashboard / end-to-end integration | Connected per-grant browser views and C99/Laravel/MariaDB rendering PASS locally; formal/deployed browser/network/TLS end-to-end NOT_RUN |
 | Firmware network / offline recovery | Host-only adapters and B3–B46 development fixtures; ESP32 Wi-Fi/TLS, durable storage and physical recovery unverified |
 | CI | PR workflow source exists; hosted execution not verified in this local session |
 | Physical integration | NOT_AUTHORIZED / NOT_RUN |
@@ -170,7 +170,7 @@ The following limitations apply:
 | `requirements/` | System requirements and traceability matrices |
 | `firmware/` | ESP-IDF development firmware and Wokwi config; low-level self-tests present |
 | `simulator/` | Planned hardware, engine, navigation, and fault simulation |
-| `backend/` | Laravel API, migrations, read services, tests, and unconnected dashboard views |
+| `backend/` | Laravel API, migrations, read services, tests, and connected grant-scoped dashboard views |
 | `docs/` | Architecture, interfaces, engineering decisions, standards, and verification plans |
 | `evidence/` | Recorded historical and current firmware self-test evidence |
 | `.github/workflows/` | Scoped firmware host and Laravel/MySQL CI workflow source |
@@ -224,7 +224,7 @@ The first repository-content script screens Git candidates for prohibited paths 
 
 ## Next Engineering Milestones
 
-Run the MySQL 8 CI profile where available; scoped local PHP 8.2.35/MariaDB and security content gates now have evidence. Continue the connected dashboard, ESP32 transport/storage, receipt-order semantics and dedicated remaining SIM/SUP protocols. Host checkpoint oracles do not establish durable storage or hardware recovery. Publication retains its separate archive and disclosure-review gates.
+Run the MySQL 8 CI profile where available; scoped local PHP 8.2.35/MariaDB and security content gates now have evidence. Configure authorized dashboard policy/channel assignments and continue ESP32 transport/storage, receipt-order semantics and dedicated remaining SIM/SUP protocols. Host checkpoint oracles do not establish durable storage or hardware recovery. Publication retains its separate archive and disclosure-review gates.
 
 ## Engineering Baseline and Scope Control
 

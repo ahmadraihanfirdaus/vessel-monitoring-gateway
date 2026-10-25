@@ -42,6 +42,22 @@ class SecurityAuditRegressionTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         self.assertIn("RESULT: AUTOMATED SECURITY SCREEN PASSED", result.stdout)
 
+    def test_runtime_test_generation_requires_exact_review_and_changes_invalidate_it(self):
+        self.write('runtime.php', self.assignment('bin2hex(random_bytes(20))', True))
+        self.assertNotEqual(self.scan().returncode, 0)
+        self.reviewed('runtime.php', classification='RUNTIME_GENERATED_TEST_VALUE')
+        self.assertEqual(self.scan().returncode, 0)
+        self.write('runtime.php', self.assignment(repr(secrets.token_hex(16)), True))
+        self.assertNotEqual(self.scan().returncode, 0)
+
+    def test_runtime_review_still_cannot_waive_credential_token(self):
+        token = 'ghp_' + 'C' * 25
+        self.write('runtime.php', self.assignment(repr(token), True))
+        self.reviewed('runtime.php', classification='RUNTIME_GENERATED_TEST_VALUE')
+        result = self.scan()
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('Possible credential token', result.stdout)
+
     def test_staged_token_in_c_is_rejected(self):
         fake_token = "ghp_" + "A" * 25
         self.write("firmware/src/clean.c", f'const char *sample = "{fake_token}";\n')

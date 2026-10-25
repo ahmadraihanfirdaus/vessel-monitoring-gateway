@@ -17,6 +17,6 @@ final class NoStoreDeviceResponse
         // Do not overwrite CORS or reverse-proxy Vary selections.
         $response->setVary('Authorization', false);
 
-        return $response;
+        return \App\Support\MonitoringResponse::decorate($request, $response);
     }
 }

@@ -17,7 +17,7 @@ final class TestEnvironment
             'phpunit_server_names' => [], 'secret_values' => 'REDACTED_NOT_EMITTED'];
         $names = array_unique(array_merge(array_keys(getenv()), array_keys($_ENV), array_keys($_SERVER)));
         foreach ($names as $name) {
-            if (preg_match('/\A(?:APP_|DB_|MYSQL_|DATABASE_|VG_|CACHE_|SESSION_|QUEUE_|LOG_|MAIL_|REDIS_)/', $name)) {
+            if (preg_match('/\A(?:APP_|AUTH_|DB_|MYSQL_|DATABASE_|VG_|CACHE_|SESSION_|QUEUE_|LOG_|MAIL_|REDIS_)/', $name)) {
                 $audit['process_override_names'][] = $name;
             }
         }

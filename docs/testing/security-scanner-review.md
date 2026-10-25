@@ -35,3 +35,7 @@ python -B scripts/run_mysql_integration.py --php-binary C:/tools/php-8.2.35/php.
 ```
 
 For Python scripts that invoke PHP, set the child-process `VG_PHP_CLI` to the same explicit executable. See [current execution evidence](../../evidence/test-results/security-php8235-summary-20261025.md) for actual outcomes and retained failures. Firmware hardware, ESP32/NVS durability, hosted CI, direct MySQL 8, deployed TLS, online dependency-advisory checks and dedicated remaining SIM/SUP protocols are not established by these gates.
+
+## Connected dashboard continuation
+
+The connected dashboard adds a finite RUNTIME_GENERATED_TEST_VALUE classification for exact manually reviewed random test expressions. There is no automatic function or test-directory exemption: absent review or changed file/line bytes still fail. Strong tokens/private keys/credential URLs remain non-waivable. Fifteen current non-secret occurrences (including repeated environment-name lines) have 13 distinct added records; older records remain for the index/history transition. Primary effective credential/server/grant methods are unchanged. The dashboard triage and 22 adversarial scanner methods are recorded in [dashboard evidence](../../evidence/test-results/dashboard-summary-20261025.md).

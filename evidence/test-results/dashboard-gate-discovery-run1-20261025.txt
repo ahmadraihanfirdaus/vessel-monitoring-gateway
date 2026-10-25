@@ -1,0 +1,1 @@
+Gate orchestrator initially named four nonexistent legacy scripts; no gate command ran. Correct paths were discovered read-only with rg --files; actual B4/B5/B6/B8 integrated gates are used below. No test was skipped or substituted.

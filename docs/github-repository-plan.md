@@ -4,13 +4,13 @@
 
 **Document Status:** Engineering Development Roadmap
 
-**Current Phase:** Phases 3–8 scoped roadmap gates COMPLETE; Phase 9 scoped implementation audit PASS; Phase 9 scoped documentary closure RECORDED; formal verification OPEN
+**Current Phase:** Phases 3–8 scoped roadmap gates COMPLETE; Phase 9 scoped implementation audit PASS; Phase 9 scoped documentary closure RECORDED; Phase 10 local dashboard software IMPLEMENTED; formal verification OPEN
 
 **Implementation Status:** PHASE9_SCOPED_IMPLEMENTATION_AUDIT_PASS / PHASE9_SCOPED_DOCUMENTARY_CLOSURE_RECORDED / FORMAL_VERIFICATION_OPEN / OVERALL_SYSTEM_PARTIAL
 
-**System Verification Status:** PARTIAL — formal software-simulation SIM-001..SIM-009 PASS; SIM-010..SIM-015 and SUP-001..SUP-019 remain open
+**System Verification Status:** PARTIAL — formal software-simulation SIM-001..SIM-009 PASS; SIM-010..SIM-015 NOT_RUN; SUP-001/003/006/016/019 PASS; other 14 SUP PLANNED
 
-Current local read integration (2026-10-25): authenticated event history and telemetry channel hydration pass 251 real Laravel/MariaDB tests with PHP 8.2.35. See [execution matrix](../evidence/test-results/device-read-summary-20261025.md). This is a Phase 10 data prerequisite; connected dashboard, operator authorization, freshness policy and formal verification remain open.
+Current local dashboard integration (2026-10-25): per-grant user sessions, configurable freshness, eight connected views and C99/MariaDB rendering pass 325 Laravel tests with explicit PHP 8.2.35. See [execution matrix](../evidence/test-results/dashboard-summary-20261025.md). Local software implementation is recorded; deployment policy, hosted CI, physical integration and formal verification remain open.
 
 ## 1. Purpose
 
@@ -119,7 +119,7 @@ Each phase has defined work and exit criteria. Advancement requires review of th
 
 Roadmap Phases 3 through 8 have each satisfied their **scoped development/software-simulation exit criterion** with committed evidence. This includes the firmware-core gate, development simulator/bench-interface providers, safety-policy scenarios, four-engine model, NMEA-style navigation, and telemetry-contract foundation. Pre-Phase-9 repair R1 subsequently corrected identified firmware edge cases and hardened Wokwi log verification without changing the LOCKED baseline.
 
-This does **not** mean the complete system or every requirement is verified. Phase 9 Laravel/MySQL scoped implementation has satisfied its roadmap exit criterion based on the recorded P1/P2 and post-security-fix P3 feature-test evidence; P3 runtime HTTP reexecution after the security fix remains NOT_RUN, and Phase 9 scoped documentary closure is recorded; formal verification remains open. Phase 10 dashboard, Phase 11 end-to-end scenarios, CI/evidence consolidation, bench hardware, and survey-readiness work remain ahead. Physical integration, calibration, certification, field validation and production readiness remain unclaimed.
+This does **not** mean the complete system or every requirement is verified. Phase 9 Laravel/MySQL scoped implementation has satisfied its roadmap exit criterion based on the recorded P1/P2 and post-security-fix P3 feature-test evidence; the historical P3 runtime HTTP reexecution was NOT_RUN at that checkpoint; current kernel/MariaDB reexecution is recorded separately, and Phase 9 scoped documentary closure is recorded; formal verification remains open. Phase 10 has local dashboard implementation evidence; Phase 11 end-to-end scenarios, CI/evidence consolidation, bench hardware, and survey-readiness work remain ahead. Physical integration, calibration, certification, field validation and production readiness remain unclaimed.
 
 The working traceability state is:
 
@@ -137,7 +137,7 @@ The working traceability state is:
 
 The LOCKED matrix remains a historical initial snapshot. Current implementation/formal status is maintained in `docs/testing/living-requirement-status.csv` and test-level execution records. Roadmap closure never overrides unresolved requirement scope.
 
-2026-10-25 actual-HEAD reconciliation: network/outage host adapters, authenticated dashboard placeholders and PR workflow source already exist as partial foundations. The [guarded integration gate](testing/mysql-integration-gate.md) now records explicit PHP 8.2.35 / approved MariaDB migration roundtrip, 215 Laravel/PHPUnit tests and C99 receipt crosscheck PASS. [Scoped security review](testing/security-scanner-review.md) has zero unresolved findings/warnings with exact review records. Direct MySQL 8/hosted CI, connected dashboard, durable ESP32 storage and formal closure remain open.
+Earlier 2026-10-25 checkpoint reconciliation: network/outage host adapters, authenticated dashboard placeholders and PR workflow source already exist as partial foundations. The [guarded integration gate](testing/mysql-integration-gate.md) now records explicit PHP 8.2.35 / approved MariaDB migration roundtrip, 215 Laravel/PHPUnit tests and C99 receipt crosscheck PASS. [Scoped security review](testing/security-scanner-review.md) has zero unresolved findings/warnings with exact review records. Direct MySQL 8/hosted CI, connected dashboard, durable ESP32 storage and formal closure remain open.
 
 ## 6. Verification and Evidence Requirements
 
@@ -251,11 +251,11 @@ If the required rights or publication authorization cannot be confirmed, the rep
 
 The repository is under preparation for continued engineering development and public portfolio review.
 
-**Current Phase:** Phases 3–8 scoped roadmap gates COMPLETE; Phase 9 scoped implementation audit PASS; Phase 9 scoped documentary closure RECORDED; formal verification OPEN
+**Current Phase:** Phases 3–8 scoped roadmap gates COMPLETE; Phase 9 scoped implementation audit PASS; Phase 9 scoped documentary closure RECORDED; Phase 10 local dashboard software IMPLEMENTED; formal verification OPEN
 
 **Implementation Status:** PHASE9_SCOPED_IMPLEMENTATION_AUDIT_PASS / PHASE9_SCOPED_DOCUMENTARY_CLOSURE_RECORDED / FORMAL_VERIFICATION_OPEN / OVERALL_SYSTEM_PARTIAL
 
-**Functional Verification Status:** PARTIAL — SIM-001..SIM-009 PASS with formal software-simulation evidence; SIM-010..SIM-015 and SUP-001..SUP-019 remain open
+**Functional Verification Status:** PARTIAL — SIM-001..SIM-009 PASS with formal software-simulation evidence; SIM-010..SIM-015 NOT_RUN; SUP-001/003/006/016/019 PASS; other 14 SUP PLANNED
 
 **Final Requirement Verification Approval:** NOT_APPROVED
 

@@ -13,7 +13,8 @@ final class MySqlIsolation
         $values = [];
         foreach (['APP_ENV', 'DB_CONNECTION', 'DB_HOST', 'DB_PORT', 'DB_DATABASE',
             'DB_USERNAME', 'DB_PASSWORD', 'DB_URL', 'DATABASE_URL', 'DB_SOCKET',
-            'VG_MYSQL_TEST_ACK', 'GITHUB_ACTIONS'] as $name) {
+            'VG_MYSQL_TEST_ACK', 'GITHUB_ACTIONS', 'SESSION_CONNECTION', 'SESSION_TABLE',
+            'DB_CACHE_CONNECTION', 'DB_CACHE_LOCK_CONNECTION', 'DB_CACHE_TABLE', 'DB_CACHE_LOCK_TABLE'] as $name) {
             $value = getenv($name);
             $values[$name] = $value === false ? null : $value;
         }
@@ -42,6 +43,16 @@ final class MySqlIsolation
         foreach (['DB_URL', 'DATABASE_URL', 'DB_SOCKET'] as $name) {
             if (($env[$name] ?? '') !== '' && ($env[$name] ?? null) !== null) {
                 throw new RuntimeException('MYSQL_TEST_BLOCKED: connection overrides prohibited.');
+            }
+        }
+        foreach (['SESSION_CONNECTION', 'DB_CACHE_CONNECTION', 'DB_CACHE_LOCK_CONNECTION'] as $name) {
+            if (! in_array($env[$name] ?? null, [null, '', 'mysql'], true)) {
+                throw new RuntimeException('MYSQL_TEST_BLOCKED: secondary connection override prohibited.');
+            }
+        }
+        foreach (['SESSION_TABLE' => 'sessions', 'DB_CACHE_TABLE' => 'cache', 'DB_CACHE_LOCK_TABLE' => 'cache_locks'] as $name => $expected) {
+            if (! in_array($env[$name] ?? null, [null, '', $expected], true)) {
+                throw new RuntimeException('MYSQL_TEST_BLOCKED: secondary table override prohibited.');
             }
         }
     }
@@ -123,16 +134,23 @@ final class MySqlIsolation
 
     public static function assertMigratedAndEmpty(PDO $pdo): void
     {
-        $tables = $pdo->query('SHOW TABLES')->fetchAll(PDO::FETCH_COLUMN);
-        sort($tables);
-        $expected = ['devices', 'migrations', 'monitoring_events', 'telemetry_channels', 'telemetry_samples'];
-        if ($tables !== $expected) {
-            throw new RuntimeException('MYSQL_TEST_BLOCKED: expected migrated test schema required.');
-        }
-        foreach (['devices', 'monitoring_events', 'telemetry_channels', 'telemetry_samples'] as $table) {
-            if ((int) $pdo->query('SELECT COUNT(*) FROM '.$table)->fetchColumn() !== 0) {
-                throw new RuntimeException('MYSQL_TEST_BLOCKED: preexisting application rows prohibited.');
+        TestSchema::assertMigratedAndEmpty($pdo);
+    }
+
+    public static function assertAncillaryConfiguration(array $session, array $cache, array $auth): void
+    {
+        foreach ([$session['connection'] ?? null, $cache['connection'] ?? null, $cache['lock_connection'] ?? null] as $connection) {
+            if (! in_array($connection, [null, '', 'mysql'], true)) {
+                throw new RuntimeException('MYSQL_TEST_BLOCKED: effective secondary connection override.');
             }
+        }
+        if (($session['table'] ?? null) !== 'sessions' || ($cache['table'] ?? null) !== 'cache'
+            || ! in_array($cache['lock_table'] ?? null, [null, 'cache_locks'], true)
+            || ($auth['defaults']['guard'] ?? null) !== 'web'
+            || ($auth['guards']['web']['driver'] ?? null) !== 'session'
+            || ($auth['guards']['web']['provider'] ?? null) !== 'users'
+            || ($auth['providers']['users']['model'] ?? null) !== \App\Models\User::class) {
+            throw new RuntimeException('MYSQL_TEST_BLOCKED: effective session cache or auth configuration override.');
         }
     }
 }

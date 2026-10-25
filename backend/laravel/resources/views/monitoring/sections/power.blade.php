@@ -1,5 +1,3 @@
-<section class="panel" aria-label="Power">
-  <h2>Power</h2>
-  <p class="muted">Tidak ada pengukuran daya aktual yang ditampilkan.</p>
-  <p>DATA NOT CONNECTED · DEVELOPMENT ONLY</p>
-</section>
+<section class="panel" aria-label="Power"><h2>Power</h2>
+<p>Channel sesuai konfigurasi pemetaan eksplisit; quality dan freshness sample tetap berlaku.</p>
+@include('monitoring.channel-table', ['channels' => $sectionChannels['power']])</section>
