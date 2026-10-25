@@ -1,0 +1,49 @@
+Processing esp32dev_espidf (platform: espressif32@7.1.3; board: esp32dev; framework: espidf)
+--------------------------------------------------------------------------------
+Verbose mode can be enabled via `-v, --verbose` option
+CONFIGURATION: https://docs.platformio.org/page/boards/espressif32/esp32dev.html
+PLATFORM: Espressif 32 (7.1.3) > Espressif ESP32 Dev Module
+HARDWARE: ESP32 240MHz, 320KB RAM, 4MB Flash
+DEBUG: Current (cmsis-dap) External (cmsis-dap, esp-bridge, esp-prog, iot-bus-jtag, jlink, minimodule, olimex-arm-usb-ocd, olimex-arm-usb-ocd-h, olimex-arm-usb-tiny-h, olimex-jtag-tiny, tumpa)
+PACKAGES:
+ - framework-espidf @ 4.60100.0 (6.1.0)
+ - tool-cmake @ 3.30.2
+ - tool-esp-rom-elfs @ 0.0.1+20241011
+ - tool-esptoolpy @ 2.41100.260830 (4.11.0)
+ - tool-idf @ 1.0.1
+ - tool-mconf @ 1.4060000.20190628 (406.0.0)
+ - tool-ninja @ 1.9.0
+ - tool-riscv32-esp-elf-gdb @ 11.2.0+20220823
+ - tool-xtensa-esp-elf-gdb @ 11.2.0+20230208
+ - toolchain-esp32ulp @ 1.23800.240113 (2.38.0)
+ - toolchain-xtensa-esp-elf @ 15.2.0+20251204
+Reading CMake configuration...
+Warning! Flash memory size mismatch detected. Expected 4MB, found 2MB!
+Please select a proper value in your `sdkconfig.defaults` or via the `menuconfig` target!
+LDF: Library Dependency Finder -> https://bit.ly/configure-pio-ldf
+LDF Modes: Finder ~ chain, Compatibility ~ soft
+Found 0 compatible libraries
+Scanning dependencies...
+No dependencies
+Building in release mode
+Compiling .pio\build\esp32dev_espidf\src\main.c.o
+Linking .pio\build\esp32dev_espidf\firmware.elf
+Retrieving maximum program size .pio\build\esp32dev_espidf\firmware.elf
+Checking size .pio\build\esp32dev_espidf\firmware.elf
+Advanced Memory Usage is available via "PlatformIO Home > Project Inspect"
+RAM:   [==        ]  20.3% (used 66412 bytes from 327680 bytes)
+Flash: [==========]  98.5% (used 1033189 bytes from 1048576 bytes)
+Building .pio\build\esp32dev_espidf\firmware.bin
+esptool.py v4.11.0
+Creating esp32 image...
+Merged 3 ELF sections
+Successfully created esp32 image.
+========================= [SUCCESS] Took 8.22 seconds =========================
+esptool.py v4.11.0
+Flash params set to 0x0210
+SHA digest in image updated
+Wrote 0x200000 bytes to file C:\vessel-monitoring-gateway-public-cleanroom\firmware\.pio\build\esp32dev_espidf\firmware.merged.bin, ready to flash to offset 0x0
+ESP32_SIM_MERGE=PASS_SHA256_17ca8795a55fe4ad3172cc459b61c6d0505995d553a72c23722878c2391c8cba
+ESP32_SIM_LAYOUT=2MB_SDK_CONFIG_ONLY_PHYSICAL_FLASH_UNVERIFIED
+ESP32_OWN_LARGEST_STACK_FRAME=1616
+ESP32_FULL_CALL_STACK_AND_HEAP=NOT_RUN_HARDWARE_WATERMARK_REQUIRED

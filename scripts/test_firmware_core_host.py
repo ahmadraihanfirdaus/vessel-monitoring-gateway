@@ -100,6 +100,8 @@ def find_compiler():
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--parser-only", action="store_true", help="run self-test of log validator only")
+    parser.add_argument("--repeat", type=int, choices=(1, 2), default=1,
+                        help="repeat the actual boot entry in one process to detect retained fixture state")
     args = parser.parse_args()
     verify_parser_selftest()
     if args.parser_only:
@@ -111,7 +113,8 @@ def main() -> int:
     with tempfile.TemporaryDirectory(prefix="vg_host_core_") as tmp:
         temp = Path(tmp)
         entry = temp / "entry.c"
-        entry.write_text("extern void app_main(void);\nint main(void) { app_main(); return 0; }\n", encoding="utf-8")
+        calls = ''.join('puts("HOST_BOOT_ENTRY_'+str(i)+'"); app_main();' for i in range(args.repeat))
+        entry.write_text('#include <stdio.h>\nextern void app_main(void);\nint main(void) { '+calls+' return 0; }\n', encoding="utf-8")
         exe = temp / ("core_test.exe" if sys.platform == "win32" else "core_test")
         command = [compiler, "-std=c11", "-Wall", "-Wextra", "-Werror", "-pedantic", "-O1", "-g",
                    str(ROOT / "firmware/src/main.c"), str(entry), "-o", str(exe)]
@@ -128,7 +131,13 @@ def main() -> int:
             print(test.stdout + test.stderr, file=sys.stderr)
             return 1
         try:
-            verify_log(test.stdout)
+            chunks = re.split(r'^HOST_BOOT_ENTRY_\d+\r?$', test.stdout, flags=re.M)
+            if chunks[0].strip() or len(chunks) != args.repeat + 1:
+                raise ValueError('Wrong boot-entry execution count')
+            for chunk in chunks[1:]:
+                verify_log(chunk)
+                if re.search(r':\s*FAIL\b', chunk):
+                    raise ValueError('An emitted non-core suite/case reported failure')
         except ValueError as e:
             print(f"FAIL: native firmware self-test: {e}", file=sys.stderr)
             print(test.stdout, file=sys.stderr)
@@ -136,6 +145,7 @@ def main() -> int:
         print(f"HOST_C_COMPILER: {compiler}")
         total = sum(count for _, count in SUITES.values())
         print(f"HOST_FIRMWARE_CORE_SELFTEST: PASS ({total}/{total})")
+        print(f"HOST_BOOT_ENTRY_REPETITIONS: PASS ({args.repeat}; same {total} cases per entry)")
         print("NOTE: Native behavior only. Wokwi/ESP-IDF/SIM/SUP/bench verification not implied.")
     return 0
 

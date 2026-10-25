@@ -4,6 +4,7 @@ from contextlib import redirect_stdout
 import io
 import base64
 import os
+import re
 from pathlib import Path
 import subprocess
 import sys
@@ -84,16 +85,16 @@ class RunnerSafetyTest(unittest.TestCase):
         status,calls,output=self.invoke(['--execute','--existing-schema'],self.report_result(xml))
         self.assertEqual(status,0)
         self.assertEqual(calls[0].args[0][-1],'--inspect')
-        self.assertEqual(len(calls),5)
+        self.assertEqual(len(calls),6)
         self.assertNotIn('--migrate',[x for call in calls for x in call.args[0]])
         self.assertIn('NOT_RUN_EXISTING_SCHEMA_MODE',output)
 
     def test_existing_schema_roundtrip_requires_verified_mode(self):
         status,calls,_=self.invoke(['--execute','--existing-schema','--migration-roundtrip'],
-                                  [self.result(),self.result(),self.result(),self.result(3)])
+                                  [self.result(),self.result(),self.result(),self.result(),self.result(3)])
         self.assertEqual(status,3)
         self.assertEqual(calls[0].args[0][-1],'--inspect')
-        self.assertEqual(calls[3].args[0][-1],'--roundtrip-existing')
+        self.assertEqual(calls[4].args[0][-1],'--roundtrip-existing')
 
     def test_missing_c99_tool_blocks_before_schema_mutation(self):
         status, calls, output = self.invoke(['--execute'], [self.result(), self.result(1)])
@@ -106,27 +107,34 @@ class RunnerSafetyTest(unittest.TestCase):
         self.assertEqual(status, 3)
         self.assertEqual(len(calls), 3)
 
-    def test_migration_failure_blocks_phpunit(self):
-        status, calls, output = self.invoke(['--execute', '--migration-roundtrip'],
-            [self.result(), self.result(), self.result(), self.result(3)])
+    def test_runtime_fixture_failure_also_blocks_before_migration(self):
+        status, calls, output = self.invoke(['--execute'], [self.result(), self.result(), self.result(), self.result(1)])
         self.assertEqual(status, 3)
         self.assertEqual(len(calls), 4)
+        self.assertEqual(calls[3].args[0][2], 'scripts/runtime_uplink_wire_bridge.py')
+        self.assertIn('BLOCKED_C99_FIXTURE_BUILD_NO_MIGRATIONS', output)
+
+    def test_migration_failure_blocks_phpunit(self):
+        status, calls, output = self.invoke(['--execute', '--migration-roundtrip'],
+            [self.result(), self.result(), self.result(), self.result(), self.result(3)])
+        self.assertEqual(status, 3)
+        self.assertEqual(len(calls), 5)
         self.assertEqual(calls[-1].args[0][-1], '--migration-roundtrip')
         self.assertIn('BLOCKED_MIGRATION_GATE', output)
 
     def test_test_failure_blocks_receipt_crosscheck_and_does_not_echo_bindings(self):
         status, calls, output = self.invoke(['--execute'],
-            [self.result(), self.result(), self.result(), self.result(),
+            [self.result(), self.result(), self.result(), self.result(), self.result(),
              self.result(1, 'synthetic-sensitive-marker', 'synthetic-sensitive-marker')])
         self.assertEqual(status, 1)
-        self.assertEqual(len(calls), 5)
-        self.assertEqual(calls[3].args[0][-1], '--migrate')
+        self.assertEqual(len(calls), 6)
+        self.assertEqual(calls[4].args[0][-1], '--migrate')
         self.assertNotIn('synthetic-sensitive-marker', output)
 
     def test_missing_junit_report_cannot_be_pass(self):
-        status, calls, output = self.invoke(['--execute'], [self.result()] * 5)
+        status, calls, output = self.invoke(['--execute'], [self.result()] * 6)
         self.assertEqual(status, 3)
-        self.assertEqual(len(calls), 5)
+        self.assertEqual(len(calls), 6)
         self.assertIn('BLOCKED_MISSING_REPORT', output)
 
     def test_timeout_is_blocked(self):
@@ -145,27 +153,27 @@ class RunnerSafetyTest(unittest.TestCase):
         for xml in ('<testsuites/>', '<testsuites><testcase><skipped/></testcase></testsuites>', '<bad'):
             status, calls, _ = self.invoke(['--execute'], self.report_result(xml))
             self.assertEqual(status, 3)
-            self.assertEqual(len(calls), 5)
+            self.assertEqual(len(calls), 6)
 
     def test_junit_failure_blocks_even_if_subprocess_claims_success(self):
         status, calls, output = self.invoke(['--execute'], self.report_result(
             '<testsuites><testcase name="failure_case"><failure>synthetic-sensitive-marker</failure></testcase></testsuites>'))
         self.assertEqual(status, 1)
-        self.assertEqual(len(calls), 5)
+        self.assertEqual(len(calls), 6)
         self.assertNotIn('synthetic-sensitive-marker', output)
 
     def test_success_requires_migrations_phpunit_and_receipt_crosscheck(self):
         status, calls, output = self.invoke(['--execute'], self.report_result(
             '<testsuites><testcase name="executed_case"/></testsuites>'))
         self.assertEqual(status, 0)
-        self.assertEqual(len(calls), 6)
+        self.assertEqual(len(calls), 7)
         self.assertIn('MYSQL_HTTP_ACK_CROSSCHECK=PASS', output)
 
     def test_failed_receipt_crosscheck_fails_batch(self):
         status, calls, output = self.invoke(['--execute'], self.report_result(
             '<testsuites><testcase name="executed_case"/></testsuites>', 1))
         self.assertEqual(status, 1)
-        self.assertEqual(len(calls), 6)
+        self.assertEqual(len(calls), 7)
         self.assertIn('MYSQL_HTTP_ACK_CROSSCHECK=FAIL', output)
 
     def test_real_php_guard_denies_missing_environment_without_dotenv_fallback(self):
@@ -179,14 +187,17 @@ class RunnerSafetyTest(unittest.TestCase):
 
     def test_all_database_tests_use_guard_and_transactions_instead_of_schema_reset(self):
         folder = gate.ROOT / 'backend/laravel/tests/Feature'
-        names = ['TelemetryIngestTest.php', 'EventIngestTest.php', 'DeviceReadApiTest.php',
-                 'FirmwareMySqlIntegrationTest.php']
+        names = [path.name for path in folder.glob('*.php')
+                 if 'extends MySqlTestCase' in path.read_text(encoding='utf-8')]
+        self.assertGreaterEqual(len(names), 4)
+        self.assertIn('RuntimeUplinkIntegrationTest.php', names)
         for name in names:
-            source = (folder / name).read_text()
+            source = (folder / name).read_text(encoding='utf-8')
             self.assertIn('extends MySqlTestCase', source)
-            self.assertIn('use DatabaseTransactions;', source)
+            self.assertRegex(source, r'\buse\s+DatabaseTransactions(?:\s*[,;])')
             self.assertNotIn('RefreshDatabase', source)
-        integration = (folder / names[-1]).read_text()
+
+        integration = (folder / 'FirmwareMySqlIntegrationTest.php').read_text(encoding='utf-8')
         self.assertNotIn('Mockery', integration)
         self.assertNotIn('mock(', integration)
 

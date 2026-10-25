@@ -2,15 +2,28 @@ name: Phase 9 scoped host and Laravel CI
 on:
   pull_request:
   workflow_dispatch:
+permissions:
+  contents: read
 jobs:
   firmware-host:
     runs-on: ubuntu-24.04
+    env:
+      VG_PHP_CLI: php
     steps:
       - uses: actions/checkout@v4
       - name: Install host build tools
-        run: sudo apt-get update && sudo apt-get install -y gcc python3 php-cli
+        run: sudo apt-get update && sudo apt-get install -y gcc python3
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2.35'
+      - name: Verify selected PHP runtime
+        run: php -r "exit(PHP_VERSION === '8.2.35' ? 0 : 1);"
       - name: Run existing core tests
-        run: python3 -B scripts/test_firmware_core_host.py
+        run: python3 -B scripts/test_firmware_core_host.py --repeat 2
+      - name: ESP32 transport pure admission and runtime wire
+        run: |
+          python3 -B scripts/test_esp32_network_port.py
+          python3 -B scripts/test_esp32_build_gate.py
       - name: NET-001 host-only checks
         run: python3 -B scripts/test_phase9_net001_host_adapter.py
       - name: SYS-003 host-only checks
@@ -299,7 +312,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y gcc python3
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
+          php-version: '8.2.35'
           extensions: pdo_mysql, mbstring, dom, xml, xmlwriter
           coverage: none
       - name: Install PHP dependencies
@@ -329,7 +342,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
+          php-version: '8.2.35'
           extensions: mbstring, dom, xmlwriter, pdo_mysql
           coverage: none
       - name: Install Laravel test dependencies (no DB)
@@ -431,3 +444,16 @@ jobs:
         run: php artisan test --filter=Phase9B17HttpReceiptExportTest
       - name: B17 reconcile actual HTTP receipts with bounded C99 ACK
         run: python3 -B scripts/phase9_b17_receipt_crosscheck.py --input /tmp/vg-b17-receipts.jsonl --evidence-dir /tmp
+
+  firmware-esp32-sdk:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned local-build CLI
+        run: python -m pip install platformio==6.2.0
+      - name: Build fixed ESP32 image and verify one MiB app budget
+        run: python -B scripts/build_esp32_port.py --evidence-name esp32-transport-sdk-build-ci.txt

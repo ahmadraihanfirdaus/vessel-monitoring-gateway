@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <math.h>
+#include <string.h>
 #include "engine_model.h"
 
 static inline void vg_f1_record(const char *name, bool ok,
@@ -15,6 +16,7 @@ static inline void vg_f1_record(const char *name, bool ok,
 
 static inline void run_phase6_f1_engine_model_selftest(void)
 {
+    /* Reset boot-scoped model scratch rather than multiplying task stack use. */
     unsigned passed = 0u, total = 0u;
 
     vg_f1_record("SCOPE_SIMULATION_ONLY", VG_SOURCE_SIMULATION != VG_SOURCE_PHYSICAL, &passed, &total);
@@ -33,7 +35,8 @@ static inline void run_phase6_f1_engine_model_selftest(void)
     vg_f1_record("COMM_LOST_KNOWN", vg_engine_comm_quality_is_known(VG_ENGINE_COMM_LOST), &passed, &total);
     vg_f1_record("COMM_INVALID_REJECTED", !vg_engine_comm_quality_is_known((vg_engine_comm_quality_t)99), &passed, &total);
 
-    vg_engine_model_t model = {0};
+    static vg_engine_model_t model;
+    memset(&model, 0, sizeof(model));
     vg_f1_record("MODEL_ZERO_COUNT_REJECTED", !vg_engine_model_init(&model, 0u), &passed, &total);
     vg_f1_record("MODEL_OVER_CAPACITY_REJECTED", !vg_engine_model_init(&model, VG_ENGINE_MODEL_MAX_ENGINES + 1u), &passed, &total);
     vg_f1_record("MODEL_NULL_REJECTED", !vg_engine_model_init(NULL, 4u), &passed, &total);
@@ -89,7 +92,8 @@ static inline void run_phase6_f1_engine_model_selftest(void)
     vg_f1_record("MODEL_GET_OOB_REJECTED", !vg_engine_model_get(&model, 4u, &out), &passed, &total);
     vg_f1_record("MODEL_GET_NULL_REJECTED", !vg_engine_model_get(&model, 0u, NULL), &passed, &total);
 
-    vg_engine_model_t normal4 = {0};
+    static vg_engine_model_t normal4;
+    memset(&normal4, 0, sizeof(normal4));
     vg_f1_record("DEMO_FOUR_NORMAL_BUILD", vg_engine_demo_four_profile(&normal4, false), &passed, &total);
     vg_f1_record("DEMO_FOUR_NORMAL_COUNT", normal4.engine_count == 4u, &passed, &total);
     vg_f1_record("DEMO_FOUR_FIELDS_EXPOSED",
@@ -113,7 +117,8 @@ static inline void run_phase6_f1_engine_model_selftest(void)
     vg_f1_record("NORMAL_PROFILE_ENGINE3_EVALUATED", vg_engine_evaluate_rpm_deviation(&normal4, 2u, &cfg, &result), &passed, &total);
     vg_f1_record("NORMAL_PROFILE_ENGINE3_NO_WARNING", result.evaluated && !result.warning && result.engine_id == 3u && result.peer_count == 3u, &passed, &total);
 
-    vg_engine_model_t sim007 = {0};
+    static vg_engine_model_t sim007;
+    memset(&sim007, 0, sizeof(sim007));
     vg_f1_record("SIM007_PROFILE_BUILD", vg_engine_demo_four_profile(&sim007, true), &passed, &total);
     vg_f1_record("SIM007_ENGINE3_LOWER", sim007.engines[2].rpm < sim007.engines[0].rpm && sim007.engines[2].rpm < sim007.engines[1].rpm && sim007.engines[2].rpm < sim007.engines[3].rpm, &passed, &total);
 
@@ -133,20 +138,23 @@ static inline void run_phase6_f1_engine_model_selftest(void)
     vg_f1_record("SIM007_ENGINE4_EVALUATED", vg_engine_evaluate_rpm_deviation(&sim007, 3u, &cfg, &e4), &passed, &total);
     vg_f1_record("SIM007_ENGINE4_NOT_FALSE_POSITIVE", e4.evaluated && !e4.warning, &passed, &total);
 
-    vg_engine_model_t lost_peer = sim007;
+    static vg_engine_model_t lost_peer;
+    lost_peer = sim007;
     lost_peer.engines[1].state = VG_ENGINE_STATE_UNKNOWN;
     lost_peer.engines[1].rpm = 0.0f;
     lost_peer.engines[1].communication_quality = VG_ENGINE_COMM_LOST;
     vg_engine_deviation_result_t isolated = {0};
     vg_f1_record("LOST_PEER_EXCLUDED", vg_engine_evaluate_rpm_deviation(&lost_peer, 2u, &cfg, &isolated) && isolated.peer_count == 2u, &passed, &total);
 
-    vg_engine_model_t lost_target = sim007;
+    static vg_engine_model_t lost_target;
+    lost_target = sim007;
     lost_target.engines[2].state = VG_ENGINE_STATE_UNKNOWN;
     lost_target.engines[2].rpm = 0.0f;
     lost_target.engines[2].communication_quality = VG_ENGINE_COMM_LOST;
     vg_f1_record("LOST_TARGET_NOT_EVALUATED", !vg_engine_evaluate_rpm_deviation(&lost_target, 2u, &cfg, &result), &passed, &total);
 
-    vg_engine_model_t single = {0};
+    static vg_engine_model_t single;
+    memset(&single, 0, sizeof(single));
     (void)vg_engine_model_init(&single, 1u);
     vg_f1_record("SINGLE_ENGINE_DEVIATION_REJECTED", !vg_engine_evaluate_rpm_deviation(&single, 0u, &cfg, &result), &passed, &total);
     vg_f1_record("DEVIATION_NULL_MODEL_REJECTED", !vg_engine_evaluate_rpm_deviation(NULL, 0u, &cfg, &result), &passed, &total);

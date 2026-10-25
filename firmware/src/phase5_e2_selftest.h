@@ -41,6 +41,8 @@ static inline vg_fuel_vapor_sample_t vg_e2_fuel_sample(
 
 static inline void run_phase5_e2_fuel_safety_selftest(void)
 {
+    /* Boot-scoped, single-threaded fixtures use reset static scratch so
+     * model/journal copies do not consume the small ESP main task stack. */
     unsigned passed = 0u;
     unsigned total = 0u;
 
@@ -179,7 +181,8 @@ static inline void run_phase5_e2_fuel_safety_selftest(void)
     vg_e2_record("NULL_OUTPUT_REJECTED",
         !vg_prestart_evaluate_fuel_vapor(&config, &alarm, NULL), &passed, &total);
 
-    vg_safety_policy_runtime_t runtime = {0};
+    static vg_safety_policy_runtime_t runtime;
+    memset(&runtime, 0, sizeof(runtime));
     vg_e2_record("RUNTIME_INIT", vg_safety_policy_runtime_init(&runtime), &passed, &total);
     vg_e2_record("RUNTIME_INITIAL_EMPTY",
         runtime.initialized && !runtime.has_alarm && runtime.journal.count == 0u, &passed, &total);
@@ -214,7 +217,8 @@ static inline void run_phase5_e2_fuel_safety_selftest(void)
         !vg_safety_policy_runtime_raise(&runtime, &alarm_decision, 20u, 2u, 1020u) &&
         runtime.journal.count == 2u, &passed, &total);
 
-    vg_safety_policy_runtime_t missing_runtime = {0};
+    static vg_safety_policy_runtime_t missing_runtime;
+    memset(&missing_runtime, 0, sizeof(missing_runtime));
     vg_e2_record("SIM004_RUNTIME_INIT",
         vg_safety_policy_runtime_init(&missing_runtime), &passed, &total);
     vg_e2_record("SIM004_FAULT_VISIBLE_TRANSACTION",
@@ -229,7 +233,8 @@ static inline void run_phase5_e2_fuel_safety_selftest(void)
         missing_runtime.local_output.led_active &&
         missing_runtime.local_output.buzzer_active, &passed, &total);
 
-    vg_safety_policy_runtime_t full = {0};
+    static vg_safety_policy_runtime_t full;
+    memset(&full, 0, sizeof(full));
     bool full_ok = vg_safety_policy_runtime_init(&full);
     for (size_t i = 0u; full_ok && i < VG_JOURNAL_CAPACITY; ++i) {
         uint64_t event_id = 0u;

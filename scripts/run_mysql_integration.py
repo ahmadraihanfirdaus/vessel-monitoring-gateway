@@ -72,6 +72,7 @@ def main():
             for script, name, variable in [
                 ('phase9_b14_wire_bridge.py', 'wire.jsonl', 'VG_B14_WIRE_JSONL'),
                 ('phase9_b15_event_bridge.py', 'events.jsonl', 'VG_B15_EVENT_JSONL'),
+                ('runtime_uplink_wire_bridge.py', 'runtime.jsonl', 'VG_RUNTIME_WIRE_JSONL'),
             ]:
                 output = temp / name
                 generated = run([sys.executable, '-B', 'scripts/'+script, '--output', str(output)], env)

@@ -1,0 +1,175 @@
+Processing esp32dev_espidf (platform: espressif32@7.1.3; board: esp32dev; framework: espidf)
+--------------------------------------------------------------------------------
+Verbose mode can be enabled via `-v, --verbose` option
+CONFIGURATION: https://docs.platformio.org/page/boards/espressif32/esp32dev.html
+PLATFORM: Espressif 32 (7.1.3) > Espressif ESP32 Dev Module
+HARDWARE: ESP32 240MHz, 320KB RAM, 4MB Flash
+DEBUG: Current (cmsis-dap) External (cmsis-dap, esp-bridge, esp-prog, iot-bus-jtag, jlink, minimodule, olimex-arm-usb-ocd, olimex-arm-usb-ocd-h, olimex-arm-usb-tiny-h, olimex-jtag-tiny, tumpa)
+PACKAGES:
+ - framework-espidf @ 4.60100.0 (6.1.0)
+ - tool-cmake @ 3.30.2
+ - tool-esp-rom-elfs @ 0.0.1+20241011
+ - tool-esptoolpy @ 2.41100.260830 (4.11.0)
+ - tool-idf @ 1.0.1
+ - tool-mconf @ 1.4060000.20190628 (406.0.0)
+ - tool-ninja @ 1.9.0
+ - tool-riscv32-esp-elf-gdb @ 11.2.0+20220823
+ - tool-xtensa-esp-elf-gdb @ 11.2.0+20230208
+ - toolchain-esp32ulp @ 1.23800.240113 (2.38.0)
+ - toolchain-xtensa-esp-elf @ 15.2.0+20251204
+Reading CMake configuration...
+Warning! Flash memory size mismatch detected. Expected 4MB, found 2MB!
+Please select a proper value in your `sdkconfig.defaults` or via the `menuconfig` target!
+LDF: Library Dependency Finder -> https://bit.ly/configure-pio-ldf
+LDF Modes: Finder ~ chain, Compatibility ~ soft
+Found 0 compatible libraries
+Scanning dependencies...
+No dependencies
+Building in release mode
+Compiling .pio\build\esp32dev_espidf\src\esp32_network_client.c.o
+Archiving .pio\build\esp32dev_espidf\esp-idf\mbedtls\mbedtls\tf-psa-crypto\core\libtfpsacrypto.a
+Compiling .pio\build\esp32dev_espidf\esp-tls\esp_tls.c.o
+Compiling .pio\build\esp32dev_espidf\esp-tls\esp-tls-crypto\esp_tls_crypto.c.o
+Compiling .pio\build\esp32dev_espidf\esp-tls\esp_tls_error_capture.c.o
+Compiling .pio\build\esp32dev_espidf\esp-tls\esp_tls_platform_port.c.o
+Compiling .pio\build\esp32dev_espidf\esp-tls\esp_tls_mbedtls.c.o
+Compiling .pio\build\esp32dev_espidf\esp_http_client\esp_http_client.c.o
+Compiling .pio\build\esp32dev_espidf\esp_http_client\lib\http_auth.c.o
+Compiling .pio\build\esp32dev_espidf\esp_http_client\lib\http_header.c.o
+Compiling .pio\build\esp32dev_espidf\esp_http_client\lib\http_utils.c.o
+Compiling .pio\build\esp32dev_espidf\esp_netif\esp_netif_handlers.c.o
+Archiving .pio\build\esp32dev_espidf\esp-idf\esp-tls\libesp-tls.a
+Compiling .pio\build\esp32dev_espidf\esp_netif\esp_netif_objects.c.o
+Compiling .pio\build\esp32dev_espidf\esp_netif\esp_netif_defaults.c.o
+Compiling .pio\build\esp32dev_espidf\esp_netif\lwip\esp_netif_lwip.c.o
+Compiling .pio\build\esp32dev_espidf\esp_netif\lwip\esp_netif_sntp.c.o
+Compiling .pio\build\esp32dev_espidf\esp_netif\lwip\esp_netif_lwip_defaults.c.o
+Compiling .pio\build\esp32dev_espidf\esp_netif\lwip\netif\wlanif.c.o
+Compiling .pio\build\esp32dev_espidf\esp_netif\lwip\netif\ethernetif.c.o
+Compiling .pio\build\esp32dev_espidf\esp_netif\lwip\netif\esp_pbuf_ref.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\apps\sntp\sntp.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\api\api_lib.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\api\api_msg.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\api\err.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\api\if_api.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\api\netbuf.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\api\netdb.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\api\netifapi.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\api\sockets.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\api\tcpip.c.o
+Archiving .pio\build\esp32dev_espidf\esp-idf\esp_http_client\libesp_http_client.a
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\apps\sntp\sntp.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\apps\netbiosns\netbiosns.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\core\def.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\core\dns.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\core\inet_chksum.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\core\init.c.o
+Archiving .pio\build\esp32dev_espidf\esp-idf\esp_netif\libesp_netif.a
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\core\ip.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\core\mem.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\core\memp.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\core\netif.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\core\pbuf.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\core\raw.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\core\stats.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\core\sys.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\core\tcp.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\core\tcp_in.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\core\tcp_out.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\core\timeouts.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\core\udp.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\core\ipv4\autoip.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\core\ipv4\dhcp.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\core\ipv4\etharp.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\core\ipv4\icmp.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\core\ipv4\igmp.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\core\ipv4\ip4.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\core\ipv4\ip4_napt.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\core\ipv4\ip4_addr.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\core\ipv4\ip4_frag.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\core\ipv6\dhcp6.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\core\ipv6\ethip6.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\core\ipv6\icmp6.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\core\ipv6\inet6.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\core\ipv6\ip6.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\core\ipv6\ip6_addr.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\core\ipv6\ip6_frag.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\core\ipv6\mld6.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\core\ipv6\nd6.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\netif\ethernet.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\netif\bridgeif.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\netif\bridgeif_fdb.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\netif\slipif.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\netif\ppp\auth.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\netif\ppp\ccp.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\netif\ppp\chap-md5.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\netif\ppp\chap-new.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\netif\ppp\chap_ms.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\netif\ppp\demand.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\netif\ppp\eap.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\netif\ppp\ecp.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\netif\ppp\eui64.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\netif\ppp\fsm.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\netif\ppp\ipcp.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\netif\ppp\ipv6cp.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\netif\ppp\lcp.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\netif\ppp\magic.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\netif\ppp\mppe.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\netif\ppp\multilink.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\netif\ppp\ppp.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\netif\ppp\pppapi.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\netif\ppp\pppcrypt.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\netif\ppp\pppoe.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\netif\ppp\pppol2tp.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\netif\ppp\pppos.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\netif\ppp\upap.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\netif\ppp\utils.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\netif\ppp\vj.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\port\hooks\tcp_isn_default.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\port\hooks\lwip_default_hooks.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\port\debug\lwip_debug.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\port\sockets_ext.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\port\freertos\sys_arch.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\port\if_index.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\port\acd_dhcp_check.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\port\esp32xx\vfs_lwip.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\apps\ping\ping_sock.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\netif\ppp\polarssl\arc4.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\netif\ppp\polarssl\des.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\netif\ppp\polarssl\md4.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\netif\ppp\polarssl\md5.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\lwip\src\netif\ppp\polarssl\sha1.c.o
+Compiling .pio\build\esp32dev_espidf\lwip\apps\dhcpserver\dhcpserver.c.o
+Compiling .pio\build\esp32dev_espidf\nvs_flash\src\nvs_api.cpp.o
+Compiling .pio\build\esp32dev_espidf\nvs_flash\src\nvs_cxx_api.cpp.o
+Compiling .pio\build\esp32dev_espidf\nvs_flash\src\nvs_item_hash_list.cpp.o
+Compiling .pio\build\esp32dev_espidf\nvs_flash\src\nvs_page.cpp.o
+Compiling .pio\build\esp32dev_espidf\nvs_flash\src\nvs_pagemanager.cpp.o
+Compiling .pio\build\esp32dev_espidf\nvs_flash\src\nvs_storage.cpp.o
+Compiling .pio\build\esp32dev_espidf\nvs_flash\src\nvs_handle_simple.cpp.o
+Compiling .pio\build\esp32dev_espidf\nvs_flash\src\nvs_handle_locked.cpp.o
+Compiling .pio\build\esp32dev_espidf\nvs_flash\src\nvs_partition.cpp.o
+Compiling .pio\build\esp32dev_espidf\nvs_flash\src\nvs_partition_lookup.cpp.o
+Compiling .pio\build\esp32dev_espidf\nvs_flash\src\nvs_partition_manager.cpp.o
+Compiling .pio\build\esp32dev_espidf\nvs_flash\src\nvs_types.cpp.o
+Compiling .pio\build\esp32dev_espidf\nvs_flash\src\nvs_platform.cpp.o
+Compiling .pio\build\esp32dev_espidf\nvs_flash\src\nvs_bootloader.c.o
+Compiling .pio\build\esp32dev_espidf\nvs_flash\src\nvs_encrypted_partition.cpp.o
+Archiving .pio\build\esp32dev_espidf\esp-idf\lwip\liblwip.a
+Compiling .pio\build\esp32dev_espidf\nvs_flash\src\nvs_bootloader_aes.c.o
+Compiling .pio\build\esp32dev_espidf\nvs_flash\src\nvs_bootloader_xts_aes.c.o
+Archiving .pio\build\esp32dev_espidf\esp-idf\nvs_flash\libnvs_flash.a
+Generating project linker script .pio\build\esp32dev_espidf\sections.ld
+Skipping linker fragment parsing, fragment files unchanged
+Linking .pio\build\esp32dev_espidf\firmware.elf
+Retrieving maximum program size .pio\build\esp32dev_espidf\firmware.elf
+Checking size .pio\build\esp32dev_espidf\firmware.elf
+Advanced Memory Usage is available via "PlatformIO Home > Project Inspect"
+RAM:   [==        ]  18.2% (used 59724 bytes from 327680 bytes)
+Flash: [==========]  98.5% (used 1033149 bytes from 1048576 bytes)
+Building .pio\build\esp32dev_espidf\firmware.bin
+esptool.py v4.11.0
+Creating esp32 image...
+Merged 3 ELF sections
+Successfully created esp32 image.
+========================= [SUCCESS] Took 37.91 seconds =========================

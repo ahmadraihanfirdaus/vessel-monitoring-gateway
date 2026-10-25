@@ -1,0 +1,34 @@
+COMMAND=['python', '-B', 'scripts/test_esp32_build_gate.py']
+usage: build [-h] [--pio-cli PIO_CLI] --evidence-name EVIDENCE_NAME
+build: error: evidence already exists; select a new run name
+...
+----------------------------------------------------------------------
+Ran 3 tests in 0.049s
+
+OK
+EXIT=0
+COMMAND=['python', '-B', 'scripts/test_esp32_network_port.py']
+test_frame_preserves_zero_null_source_and_failure_outputs (__main__.Esp32NetworkPortTest.test_frame_preserves_zero_null_source_and_failure_outputs) ... ok
+test_https_authority_admission (__main__.Esp32NetworkPortTest.test_https_authority_admission) ... ok
+test_profile_policy_and_string_bounds (__main__.Esp32NetworkPortTest.test_profile_policy_and_string_bounds) ... ok
+test_queue_body_reply_and_retry_limits (__main__.Esp32NetworkPortTest.test_queue_body_reply_and_retry_limits) ... ok
+test_real_sdk_security_and_nonblocking_boundaries_are_present (__main__.Esp32NetworkPortTest.test_real_sdk_security_and_nonblocking_boundaries_are_present) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 1.247s
+
+OK
+EXIT=0
+COMMAND=['python', '-B', 'scripts/test_mysql_integration_gate.py']
+.....................
+----------------------------------------------------------------------
+Ran 21 tests in 0.139s
+
+OK
+EXIT=0
+COMMAND=['python', '-B', 'scripts/test_firmware_core_host.py']
+HOST_CORE_PARSER_REGRESSION: PASS (5/5)
+HOST_C_COMPILER: C:/msys64/ucrt64/bin\gcc.EXE
+HOST_FIRMWARE_CORE_SELFTEST: PASS (226/226)
+NOTE: Native behavior only. Wokwi/ESP-IDF/SIM/SUP/bench verification not implied.
+EXIT=0

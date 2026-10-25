@@ -1,0 +1,2 @@
+BOOT_FIXTURE_REENTRY=FAIL_SECOND_EXECUTION
+The initial whole-entry replay exposed preexisting runtime/guard/flow static fixtures retaining initialization between runs. Failed case: RUNTIME_TEST/ZERO_UNINITIALIZED_REJECTED. Test assertions retained; static fixtures now reset before reuse.

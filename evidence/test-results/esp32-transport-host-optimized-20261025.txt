@@ -1,0 +1,29 @@
+COMMAND=scripts/test_esp32_network_port.py
+test_frame_preserves_zero_null_source_and_failure_outputs (__main__.Esp32NetworkPortTest.test_frame_preserves_zero_null_source_and_failure_outputs) ... ok
+test_https_authority_admission (__main__.Esp32NetworkPortTest.test_https_authority_admission) ... ok
+test_profile_policy_and_string_bounds (__main__.Esp32NetworkPortTest.test_profile_policy_and_string_bounds) ... ok
+test_queue_body_reply_and_retry_limits (__main__.Esp32NetworkPortTest.test_queue_body_reply_and_retry_limits) ... ok
+test_real_sdk_security_and_nonblocking_boundaries_are_present (__main__.Esp32NetworkPortTest.test_real_sdk_security_and_nonblocking_boundaries_are_present) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 1.171s
+
+OK
+EXIT=0
+
+COMMAND=scripts/test_mysql_integration_gate.py
+.....................
+----------------------------------------------------------------------
+Ran 21 tests in 0.222s
+
+OK
+EXIT=0
+
+COMMAND=scripts/test_phase9_b4_integrated.py
+test_c_producer_to_php_validator_null_and_security_boundary (__main__.Integrated.test_c_producer_to_php_validator_null_and_security_boundary) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.659s
+
+OK
+EXIT=0

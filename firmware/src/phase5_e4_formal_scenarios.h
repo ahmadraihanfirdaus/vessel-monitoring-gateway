@@ -92,6 +92,8 @@ static inline vg_monitor_policy_config_t vg_e4_monitor_alert_config(void)
  */
 static inline void run_phase5_e4_formal_scenarios(void)
 {
+    /* Boot-scoped, single-threaded fixtures use reset static scratch so
+     * model/journal copies do not consume the small ESP main task stack. */
     unsigned passed = 0u;
     unsigned total = 0u;
 
@@ -150,7 +152,8 @@ static inline void run_phase5_e4_formal_scenarios(void)
     /* SIM-003: fuel-vapor ALARM blocks virtual start and raises local alarm/event. */
     vg_fuel_vapor_sample_t fuel_alarm = {0};
     fuel_decision = (vg_prestart_decision_t){0};
-    vg_safety_policy_runtime_t prestart_runtime = {0};
+    static vg_safety_policy_runtime_t prestart_runtime;
+    memset(&prestart_runtime, 0, sizeof(prestart_runtime));
     bool sim003 =
         vg_e4_get_fuel_step(2u, &fuel_alarm) &&
         fuel_alarm.state == VG_FUEL_VAPOR_ALARM &&
@@ -180,7 +183,8 @@ static inline void run_phase5_e4_formal_scenarios(void)
     /* SIM-004: missing fuel-vapor data fails safe and exposes a fault reason/event. */
     vg_fuel_vapor_sample_t fuel_missing = {0};
     fuel_decision = (vg_prestart_decision_t){0};
-    vg_safety_policy_runtime_t missing_runtime = {0};
+    static vg_safety_policy_runtime_t missing_runtime;
+    memset(&missing_runtime, 0, sizeof(missing_runtime));
     bool sim004 =
         vg_e4_get_fuel_step(3u, &fuel_missing) &&
         fuel_missing.state == VG_FUEL_VAPOR_FAULT &&
@@ -205,7 +209,8 @@ static inline void run_phase5_e4_formal_scenarios(void)
     /* SIM-005: high-water monitoring raises alert/event; no BLOCK interlock exists. */
     vg_bilge_sample_t bilge_high = {0};
     bilge_decision = (vg_monitor_decision_t){0};
-    vg_safety_monitor_runtime_t bilge_runtime = {0};
+    static vg_safety_monitor_runtime_t bilge_runtime;
+    memset(&bilge_runtime, 0, sizeof(bilge_runtime));
     bool sim005 =
         vg_e4_get_bilge_step(1u, &bilge_high) &&
         bilge_high.state == VG_BILGE_HIGH &&
@@ -232,7 +237,8 @@ static inline void run_phase5_e4_formal_scenarios(void)
     /* SIM-006: high compartment temperature crosses demo alarm threshold. */
     vg_temperature_sample_t temp_alarm = {0};
     temp_decision = (vg_monitor_decision_t){0};
-    vg_safety_monitor_runtime_t temp_runtime = {0};
+    static vg_safety_monitor_runtime_t temp_runtime;
+    memset(&temp_runtime, 0, sizeof(temp_runtime));
     bool sim006 =
         vg_e4_get_temperature_step(2u, &temp_alarm) &&
         temp_alarm.meta.quality == VG_QUALITY_VALID &&

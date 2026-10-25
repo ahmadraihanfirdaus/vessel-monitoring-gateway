@@ -51,6 +51,8 @@ static inline vg_temperature_sample_t vg_e3_temperature_sample(
 
 static inline void run_phase5_e3_monitor_safety_selftest(void)
 {
+    /* Boot-scoped, single-threaded fixtures use reset static scratch so
+     * model/journal copies do not consume the small ESP main task stack. */
     unsigned passed = 0u;
     unsigned total = 0u;
 
@@ -279,7 +281,8 @@ static inline void run_phase5_e3_monitor_safety_selftest(void)
     vg_e3_record("TEMP_NULL_OUTPUT_REJECTED",
         !vg_monitor_evaluate_temperature(&config, &temp_alarm, NULL), &passed, &total);
 
-    vg_safety_monitor_runtime_t runtime = {0};
+    static vg_safety_monitor_runtime_t runtime;
+    memset(&runtime, 0, sizeof(runtime));
     vg_e3_record("RUNTIME_INIT",
         vg_safety_monitor_runtime_init(&runtime), &passed, &total);
     vg_e3_record("RUNTIME_INITIAL_EMPTY",
@@ -321,7 +324,8 @@ static inline void run_phase5_e3_monitor_safety_selftest(void)
         !runtime.local_output.led_active &&
         !runtime.local_output.buzzer_active, &passed, &total);
 
-    vg_safety_monitor_runtime_t temp_runtime = {0};
+    static vg_safety_monitor_runtime_t temp_runtime;
+    memset(&temp_runtime, 0, sizeof(temp_runtime));
     vg_e3_record("SIM006_RUNTIME_INIT",
         vg_safety_monitor_runtime_init(&temp_runtime), &passed, &total);
     vg_e3_record("SIM006_RAISE_TRANSACTION",
@@ -337,7 +341,8 @@ static inline void run_phase5_e3_monitor_safety_selftest(void)
         temp_runtime.local_output.led_active &&
         temp_runtime.local_output.buzzer_active, &passed, &total);
 
-    vg_safety_monitor_runtime_t full = {0};
+    static vg_safety_monitor_runtime_t full;
+    memset(&full, 0, sizeof(full));
     bool full_ok = vg_safety_monitor_runtime_init(&full);
     for (size_t i = 0u; full_ok && i < VG_JOURNAL_CAPACITY; ++i) {
         uint64_t event_id = 0u;

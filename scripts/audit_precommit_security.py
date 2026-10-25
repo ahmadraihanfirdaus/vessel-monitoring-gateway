@@ -24,6 +24,7 @@ TEXT_FILENAMES = {
     "CHANGELOG",
     "README",
     ".editorconfig", ".htaccess", "artisan", "composer.lock",
+    "sdkconfig.defaults",  # ESP-IDF text configuration; all content checks apply.
 }
 
 SENSITIVE_NAMES = {

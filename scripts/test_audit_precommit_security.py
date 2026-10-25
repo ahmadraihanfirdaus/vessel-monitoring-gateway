@@ -42,6 +42,18 @@ class SecurityAuditRegressionTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         self.assertIn("RESULT: AUTOMATED SECURITY SCREEN PASSED", result.stdout)
 
+    def test_sdk_defaults_are_scanned_as_text_without_a_secret_exemption(self):
+        self.write('firmware/sdkconfig.defaults', 'CONFIG_MBEDTLS_HAVE_TIME_DATE=y\n')
+        self.assertEqual(self.scan().returncode, 0)
+        self.write('firmware/sdkconfig.defaults', self.assignment(repr(secrets.token_hex(16))))
+        result = self.scan()
+        self.assertEqual(result.returncode, 1)
+        self.assertIn('Possible hardcoded secret', result.stdout)
+        self.write('firmware/sdkconfig.defaults', 'ghp_'+'Z'*25+'\n')
+        self.assertEqual(self.scan().returncode, 1)
+        (self.repo/'firmware/sdkconfig.defaults').write_bytes(b'\x00\xff')
+        self.assertEqual(self.scan().returncode, 1)
+
     def test_runtime_test_generation_requires_exact_review_and_changes_invalidate_it(self):
         self.write('runtime.php', self.assignment('bin2hex(random_bytes(20))', True))
         self.assertNotEqual(self.scan().returncode, 0)

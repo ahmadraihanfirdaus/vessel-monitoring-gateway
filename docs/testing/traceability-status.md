@@ -59,9 +59,9 @@ This establishes structural traceability coverage. It does not demonstrate compl
 | Telemetry contract | Phase 8 scoped contract gate COMPLETE; SUP-011/SUP-012, TEL-003 backend dedup and SIM-014 remain NOT_RUN |
 | Laravel backend | PARTIAL; ingestion, migrations, authenticated read APIs and historical scoped evidence present |
 | Monitoring dashboard | IMPLEMENTED_UNVERIFIED; grant-scoped connected views, configured freshness, event/health/evidence rendering; SIM-010/SUP-015 not executed |
-| Network / offline transport | PARTIAL; host adapters and checkpoint oracles; no verified ESP32 Wi-Fi/TLS or durable storage |
+| Network / offline transport | PARTIAL; actual ESP-IDF Wi-Fi/HTTPS adapter compiled locally, host oracles retained; physical TLS/NVS durability unverified |
 | CI | PARTIAL; PR workflow source present; hosted run unverified here |
-| C99 / Laravel / database integration | PHP 8.2.35 / approved MariaDB migration roundtrip and 325 tests PASS; direct MySQL 8 / hosted CI NOT_RUN |
+| C99 / Laravel / database integration | PHP 8.2.35 / approved MariaDB migration roundtrip and 326 tests PASS; direct MySQL 8 / hosted CI NOT_RUN |
 | Hardware bench verification | NOT_RUN |
 
 Roadmap gate completion is scoped evidence, not a declaration that every mapped mandatory requirement is fully verified.
@@ -182,3 +182,5 @@ The controlled internal engineering baseline is not included in the public repos
 The LOCKED matrix remains unchanged as the historical initial snapshot. The editable living register and test-level execution records are the current companion status. No requirement is promoted to `VERIFIED` by this reconciliation, and no operational installation, physical integration, calibration, certification or production-readiness claim is authorized.
 
 The [2026-10-25 device read integration](../../evidence/test-results/device-read-summary-20261025.md) adds own-device event history and verifies bounded telemetry channel hydration in 251 PHP 8.2.35/MariaDB tests. UI-002 still had placeholder views at that prerequisite checkpoint. The later [connected dashboard slice](../../evidence/test-results/dashboard-summary-20261025.md) implements browser grants, sessions, configured freshness and all eight views. UI-001/UI-002 are IMPLEMENTED_UNVERIFIED; their formal statuses remain NOT_RUN.
+
+Current ESP32 transport continuation: actual SDK adapter, guarded local build and six-step core-to-Laravel/browser integration are recorded in [transport evidence](../../evidence/test-results/esp32-transport-summary-20261025.md). The complete approved PHP 8.2.35/MariaDB suite has 326 passing tests. Hardware, trusted-clock/TLS handshake, durable storage, hosted CI and remaining formal protocols are unverified; overall status remains PARTIAL.

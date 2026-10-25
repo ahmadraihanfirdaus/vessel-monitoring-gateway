@@ -37,6 +37,10 @@
 #include "esp_timer.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
+#include "esp_random.h"
+#include "esp32_network_client.h"
+#include "runtime_uplink_frame.h"
+#include "mbedtls/platform_util.h"
 #endif
 
 /*
@@ -834,7 +838,7 @@ static void run_core_flow_selftest(void)
     printf("FLOW_TEST %s: %s\n", name, ok ? "PASS" : "FAIL"); \
 } while (0)
 
-    static vg_core_flow_t flow = {0};
+    static vg_core_flow_t flow;
     memset(&flow, 0, sizeof(flow));
     vg_measurement_t good = {VG_SOURCE_SIMULATION, VG_QUALITY_VALID, true, 42.0f};
     vg_measurement_t missing = {VG_SOURCE_SIMULATION, VG_QUALITY_MISSING, false, 0.0f};
@@ -902,13 +906,13 @@ static void run_core_flow_selftest(void)
         NULL, &diagnostic) == VG_FLOW_REJECTED);
     FLOW_CHECK("NULL_DIAG_REJECTED", vg_flow_sample(&flow, &good, 100,
         &skipped, NULL) == VG_FLOW_REJECTED);
-    static vg_core_flow_t bench_flow = {0};
+    static vg_core_flow_t bench_flow;
     memset(&bench_flow, 0, sizeof(bench_flow));
     FLOW_CHECK("BENCH_MODE_ACCEPTED", vg_flow_init(&bench_flow, 7,
         VG_SOURCE_BENCH_TEST, 3, 9, 10, 10) &&
         vg_flow_sample(&bench_flow, &bench, 10, &skipped, &diagnostic) ==
         VG_FLOW_PROCESSED && bench_flow.diagnostic.health == VG_DIAG_HEALTHY);
-    static vg_core_flow_t tight = {0};
+    static vg_core_flow_t tight;
     memset(&tight, 0, sizeof(tight));
     (void)vg_flow_init(&tight, 5, VG_SOURCE_SIMULATION, 1, 2, 1, 0);
     FLOW_CHECK("FULL_PREP_FIRST", vg_flow_sample(&tight, &missing, 0,
@@ -933,7 +937,7 @@ static void run_core_flow_selftest(void)
     FLOW_CHECK("FULL_RETRY_IDEMPOTENT", vg_flow_sample(&tight, &missing, 8,
         &skipped, &diagnostic) == VG_FLOW_JOURNAL_FULL &&
         tight.scheduler.next_due_ms == old_deadline && tight.journal.count == old_count);
-    static vg_core_flow_t ack_full = {0};
+    static vg_core_flow_t ack_full;
     memset(&ack_full, 0, sizeof(ack_full));
     (void)vg_flow_init(&ack_full, 8, VG_SOURCE_SIMULATION, 1, 2, 1, 10);
     (void)vg_flow_sample(&ack_full, &missing, 10, &skipped, &diagnostic);
@@ -969,7 +973,8 @@ static void run_core_runtime_sim_selftest(void)
     printf("RUNTIME_TEST %s: %s\n", (name), ok ? "PASS" : "FAIL"); \
     ++total; if (ok) ++passed; \
 } while (0)
-    static vg_runtime_sim_t runtime = {0};
+    static vg_runtime_sim_t runtime;
+    memset(&runtime, 0, sizeof(runtime));
     vg_diag_result_t diag = VG_DIAG_REJECTED;
     uint64_t skipped = 99;
     vg_measurement_t sample = {0};
@@ -1043,7 +1048,8 @@ static void run_core_runtime_sim_selftest(void)
         runtime.flow.journal.events[1].type == VG_EVENT_ALARM_CLEARED &&
         runtime.flow.journal.events[2].type == VG_EVENT_ALARM_RAISED &&
         runtime.flow.journal.events[3].type == VG_EVENT_ALARM_CLEARED);
-    static vg_runtime_sim_t late = {0};
+    static vg_runtime_sim_t late;
+    memset(&late, 0, sizeof(late));
     (void)vg_runtime_sim_init(&late, 18, 10, 10);
     RUNTIME_CHECK("MISSED_DEADLINES",
         vg_runtime_sim_poll(&late, 49, &skipped, &diag) == VG_RUNTIME_SIM_PROCESSED &&
@@ -1051,7 +1057,8 @@ static void run_core_runtime_sim_selftest(void)
     RUNTIME_CHECK("REGRESSION_REJECTED",
         vg_runtime_sim_poll(&late, 48, &skipped, &diag) == VG_RUNTIME_SIM_TIME_REGRESSION &&
         late.next_step == 1 && late.flow.journal.count == 0);
-    static vg_runtime_sim_t full = {0};
+    static vg_runtime_sim_t full;
+    memset(&full, 0, sizeof(full));
     (void)vg_runtime_sim_init(&full, 19, 1, 0);
     uint64_t event_id = 0;
     bool filled = true;
@@ -1072,12 +1079,14 @@ static void run_core_runtime_sim_selftest(void)
     RUNTIME_CHECK("FULL_RETRY_NO_ADVANCE",
         vg_runtime_sim_poll(&full, 1, &skipped, &diag) == VG_RUNTIME_SIM_JOURNAL_FULL &&
         full.next_step == 1 && full.flow.alarm_ids.next_id == 1);
-    static vg_runtime_sim_t corrupted = {0};
+    static vg_runtime_sim_t corrupted;
+    memset(&corrupted, 0, sizeof(corrupted));
     (void)vg_runtime_sim_init(&corrupted, 20, 10, 10);
     corrupted.next_step = VG_RUNTIME_SIM_STEPS + 1;
     RUNTIME_CHECK("CORRUPT_CURSOR_REJECTED",
         vg_runtime_sim_poll(&corrupted, 10, &skipped, &diag) == VG_RUNTIME_SIM_REJECTED);
-    static vg_runtime_sim_t physical = {0};
+    static vg_runtime_sim_t physical;
+    memset(&physical, 0, sizeof(physical));
     (void)vg_runtime_sim_init(&physical, 21, 10, 10);
     physical.flow.source_mode = VG_SOURCE_PHYSICAL;
     RUNTIME_CHECK("PHYSICAL_SOURCE_REJECTED",
@@ -1097,8 +1106,10 @@ static void run_core_runtime_guard_selftest(void)
     printf("GUARD_TEST %s: %s\n", name, ok ? "PASS" : "FAIL"); \
     ++total; if (ok) ++passed; \
 } while (0)
-    static vg_runtime_sim_t runtime = {0};
-    static vg_runtime_guard_t guard = {0};
+    static vg_runtime_sim_t runtime;
+    memset(&runtime, 0, sizeof(runtime));
+    static vg_runtime_guard_t guard;
+    memset(&guard, 0, sizeof(guard));
     uint64_t skipped = 77;
     vg_diag_result_t diag = VG_DIAG_REJECTED;
     GUARD_CHECK("ZERO_UNINITIALIZED_REJECTED",
@@ -1135,8 +1146,10 @@ static void run_core_runtime_guard_selftest(void)
     GUARD_CHECK("COMPLETE_NO_REPEAT", vg_guard_poll(&guard, &runtime,
         80, &skipped, &diag) == VG_GUARD_ALREADY_STOPPED && guard.processed_count == 6);
 
-    static vg_runtime_sim_t full = {0};
-    static vg_runtime_guard_t backpressure = {0};
+    static vg_runtime_sim_t full;
+    memset(&full, 0, sizeof(full));
+    static vg_runtime_guard_t backpressure;
+    memset(&backpressure, 0, sizeof(backpressure));
     uint64_t id = 0;
     bool prepared = vg_runtime_sim_init(&full, 89, 1, 0);
     for (size_t i = 0; prepared && i < VG_JOURNAL_CAPACITY; ++i)
@@ -1153,8 +1166,10 @@ static void run_core_runtime_guard_selftest(void)
         2, &skipped, &diag) == VG_GUARD_ALREADY_STOPPED &&
         backpressure.journal_full_count == 1 && full.next_step == 1);
 
-    static vg_runtime_sim_t regression = {0};
-    static vg_runtime_guard_t clock_guard = {0};
+    static vg_runtime_sim_t regression;
+    memset(&regression, 0, sizeof(regression));
+    static vg_runtime_guard_t clock_guard;
+    memset(&clock_guard, 0, sizeof(clock_guard));
     (void)vg_runtime_sim_init(&regression, 90, 10, 10);
     (void)vg_guard_init(&clock_guard, &regression);
     (void)vg_guard_poll(&clock_guard, &regression, 10, &skipped, &diag);
@@ -1167,7 +1182,8 @@ static void run_core_runtime_guard_selftest(void)
     clock_guard.wait_count = UINT64_MAX;
     GUARD_CHECK("SATURATING_COUNTER", (
         vg_guard_increment(&clock_guard.wait_count), clock_guard.wait_count == UINT64_MAX));
-    static vg_runtime_sim_t physical = {0};
+    static vg_runtime_sim_t physical;
+    memset(&physical, 0, sizeof(physical));
     (void)vg_runtime_sim_init(&physical, 91, 10, 10);
     physical.flow.source_mode = VG_SOURCE_PHYSICAL;
     GUARD_CHECK("PHYSICAL_REJECTED", !vg_guard_init(&guard, &physical));
@@ -1177,14 +1193,72 @@ static void run_core_runtime_guard_selftest(void)
 }
 
 #ifdef ESP_PLATFORM
+/* Opt-in, externally provisioned NVS profile only. Application logs never
+ * include SSID, origin, bearer, device identity or response bodies. */
+static bool demo_network_ready;
+static vg_net_profile demo_network_profile;
+static char demo_network_device[VG_TELEMETRY_MAX_ID_LEN + 1u];
+static vg_telemetry_payload_t demo_network_payload;
+static char demo_network_wire[VG_NET_BODY_MAX + 1u];
+static char demo_network_boot[33];
+static bool demo_network_pending;
+static size_t demo_network_pending_length;
+static uint64_t demo_network_pending_sequence;
+
+static void demo_network_init(void)
+{
+    vg_net_profile_result result = vg_net_load_profile(&demo_network_profile);
+    demo_network_ready = result == VG_NET_PROFILE_READY && vg_net_start(&demo_network_profile);
+    if (demo_network_ready) {
+        memcpy(demo_network_device, demo_network_profile.device_id, sizeof(demo_network_device));
+        uint8_t entropy[16];
+        esp_fill_random(entropy, sizeof(entropy));
+        for (size_t i = 0u; i < sizeof(entropy); ++i) {
+            (void)snprintf(demo_network_boot + i * 2u, 3u, "%02x", (unsigned)entropy[i]);
+        }
+    }
+    mbedtls_platform_zeroize(&demo_network_profile, sizeof(demo_network_profile));
+    printf("ESP32_NETWORK_PROFILE: %s\n", demo_network_ready ? "ENABLED_UNVERIFIED" :
+        (result == VG_NET_PROFILE_ABSENT ? "NOT_CONFIGURED" : "UNAVAILABLE"));
+}
+
+static void demo_network_pump(void)
+{
+    if (!demo_network_ready) return;
+    vg_net_completion completion;
+    for (unsigned i = 0u; i < 2u && vg_net_take_completion(&completion); ++i) {
+        printf("ESP32_NETWORK_COMPLETION: %s status=%d bytes=%u\n",
+            completion.completed ? "HTTP_COMPLETED_NOT_APPLICATION_ACK" : "FAILED",
+            completion.http_status, (unsigned)completion.response_length);
+    }
+    if (demo_network_pending && vg_net_submit(VG_NET_TELEMETRY, demo_network_wire,
+        demo_network_pending_length, demo_network_pending_sequence)) demo_network_pending = false;
+}
+
+static void demo_network_capture(size_t step, uint64_t sequence, uint64_t uptime_ms)
+{
+    if (!demo_network_ready) return;
+    vg_measurement_t sample;
+    if (vg_runtime_sim_measurement(step, &sample) && vg_runtime_uplink_frame(demo_network_device,
+        demo_network_boot, sequence, uptime_ms, &sample, &demo_network_payload,
+        demo_network_wire, sizeof(demo_network_wire))) {
+        demo_network_pending_length = strlen(demo_network_wire);
+        demo_network_pending_sequence = sequence;
+        demo_network_pending = true;
+    }
+    demo_network_pump();
+}
+
 /* Demonstrates ACTUAL cooperative ESP-IDF timer polling with a synthetic
  * six-step source. Bounded in time and samples; NOT a deployed monitor or
  * FreeRTOS long-running acquisition task. No hardware interfaces used.
  */
 static void run_esp32_synthetic_timed_demo(void)
 {
-    static vg_runtime_sim_t runtime = {0};
-    static vg_runtime_guard_t guard = {0};
+    static vg_runtime_sim_t runtime;
+    memset(&runtime, 0, sizeof(runtime));
+    static vg_runtime_guard_t guard;
+    memset(&guard, 0, sizeof(guard));
     int64_t start_us = esp_timer_get_time();
     if (start_us < 0 || !vg_runtime_sim_init(&runtime, 101, 200,
                                (uint64_t)start_us / 1000u + 200u) ||
@@ -1209,11 +1283,13 @@ static void run_esp32_synthetic_timed_demo(void)
             bool ok = (actual_diag == expected[success] && skipped == 0);
             printf("RUNTIME_TIMED_STEP %u: %s\n", success, ok ? "PASS" : "FAIL");
             if (!ok) break;
+            demo_network_capture(success, (uint64_t)success + 1u, (uint64_t)now_us / 1000u);
             success++;
         } else if (result != VG_GUARD_WAIT) {
             printf("RUNTIME_TIMED_STATUS: FAIL (%d)\n", (int)result);
             break;
         }
+        demo_network_pump();
         vTaskDelay(pdMS_TO_TICKS(20) > 0 ? pdMS_TO_TICKS(20) : 1);
     }
     uint64_t ignored_skipped = 0;
@@ -1269,6 +1345,7 @@ void app_main(void)
      * specific. No safety acceptance threshold is established. */
     printf("C4_MAIN_STACK_WATERMARK_RAW_BEFORE: %u\n",
            (unsigned)uxTaskGetStackHighWaterMark(NULL));
+    demo_network_init();
     run_esp32_synthetic_timed_demo();
     printf("C4_MAIN_STACK_WATERMARK_RAW_AFTER: %u\n",
            (unsigned)uxTaskGetStackHighWaterMark(NULL));

@@ -1,0 +1,2 @@
+BOOT_REENTRY_SETUP=FAIL_BEFORE_EXECUTION
+The first ad-hoc GCC invocation did not provide the child GCC runtime search path. Compilation returned nonzero without diagnostic text; no test executable ran. Retry supplies the existing toolchain bin directory in child PATH only.

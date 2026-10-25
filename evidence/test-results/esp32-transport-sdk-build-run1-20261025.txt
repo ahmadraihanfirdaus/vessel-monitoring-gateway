@@ -1,0 +1,68 @@
+Processing esp32dev_espidf (platform: espressif32@7.1.3; board: esp32dev; framework: espidf)
+--------------------------------------------------------------------------------
+PermissionError: Traceback (most recent call last):
+  File "<LOCAL_HOME>\.platformio\penv\Lib\site-packages\platformio\__main__.py", line 103, in main
+    cli()  # pylint: disable=no-value-for-parameter
+    ^^^^^
+  File "<LOCAL_HOME>\.platformio\penv\Lib\site-packages\click\core.py", line 1631, in __call__
+    return self.main(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<LOCAL_HOME>\.platformio\penv\Lib\site-packages\click\core.py", line 1552, in main
+    rv = self.invoke(ctx)
+         ^^^^^^^^^^^^^^^^
+  File "<LOCAL_HOME>\.platformio\penv\Lib\site-packages\platformio\cli.py", line 85, in invoke
+    return super().invoke(ctx)
+           ^^^^^^^^^^^^^^^^^^^
+  File "<LOCAL_HOME>\.platformio\penv\Lib\site-packages\click\core.py", line 2032, in invoke
+    return _process_result(sub_ctx.command.invoke(sub_ctx))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<LOCAL_HOME>\.platformio\penv\Lib\site-packages\click\core.py", line 1415, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<LOCAL_HOME>\.platformio\penv\Lib\site-packages\click\core.py", line 910, in invoke
+    return callback(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<LOCAL_HOME>\.platformio\penv\Lib\site-packages\click\decorators.py", line 34, in new_func
+    return f(get_current_context(), *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<LOCAL_HOME>\.platformio\penv\Lib\site-packages\platformio\run\cli.py", line 155, in cli
+    process_env(
+  File "<LOCAL_HOME>\.platformio\penv\Lib\site-packages\platformio\run\cli.py", line 218, in process_env
+    ).process()
+      ^^^^^^^^^
+  File "<LOCAL_HOME>\.platformio\penv\Lib\site-packages\platformio\run\processor.py", line 81, in process
+    install_project_env_dependencies(
+  File "<LOCAL_HOME>\.platformio\penv\Lib\site-packages\platformio\package\commands\install.py", line 134, in install_project_env_dependencies
+    _install_project_env_platform(project_env, options),
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<LOCAL_HOME>\.platformio\penv\Lib\site-packages\platformio\package\commands\install.py", line 151, in _install_project_env_platform
+    PlatformPackageManager().install(
+  File "<LOCAL_HOME>\.platformio\penv\Lib\site-packages\platformio\package\manager\platform.py", line 50, in install
+    pkg = super().install(spec, force=force, skip_dependencies=True)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<LOCAL_HOME>\.platformio\penv\Lib\site-packages\platformio\package\manager\_install.py", line 46, in install
+    self.lock()
+  File "<LOCAL_HOME>\.platformio\penv\Lib\site-packages\platformio\package\manager\base.py", line 99, in lock
+    self._lockfile.acquire()
+  File "<LOCAL_HOME>\.platformio\penv\Lib\site-packages\platformio\package\lockfile.py", line 95, in acquire
+    return self._lock()
+           ^^^^^^^^^^^^
+  File "<LOCAL_HOME>\.platformio\penv\Lib\site-packages\platformio\package\lockfile.py", line 65, in _lock
+    self._fp = open(  # pylint: disable=consider-using-with
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: '<LOCAL_HOME>\\.platformio\\platforms.lock'
+
+============================================================
+
+An unexpected error occurred. Further steps:
+
+* Verify that you have the latest version of PlatformIO using
+  `python -m pip install -U platformio` command
+
+* Try to find answer in FAQ Troubleshooting section
+  https://docs.platformio.org/page/faq/index.html
+
+* Report this problem to the developers
+  https://github.com/platformio/platformio-core/issues
+
+============================================================

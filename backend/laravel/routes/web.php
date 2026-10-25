@@ -12,5 +12,5 @@ Route::middleware('device.response.no-store')->group(function () {
     Route::post('/logout', [\App\Http\Controllers\MonitoringSessionController::class, 'destroy'])->middleware('auth:web')->name('logout');
     Route::middleware('auth:web')->get('/monitoring', \App\Http\Controllers\MonitoringController::class)->name('monitoring.index');
     Route::middleware('auth:web')->get('/monitoring/{device}', \App\Http\Controllers\MonitoringController::class)
-        ->where('device', '[A-Za-z0-9._-]{1,48}')->name('monitoring.device');
+        ->where('device', '[A-Za-z0-9._:-]{1,48}')->name('monitoring.device');
 });

@@ -39,3 +39,15 @@ For Python scripts that invoke PHP, set the child-process `VG_PHP_CLI` to the sa
 ## Connected dashboard continuation
 
 The connected dashboard adds a finite RUNTIME_GENERATED_TEST_VALUE classification for exact manually reviewed random test expressions. There is no automatic function or test-directory exemption: absent review or changed file/line bytes still fail. Strong tokens/private keys/credential URLs remain non-waivable. Fifteen current non-secret occurrences (including repeated environment-name lines) have 13 distinct added records; older records remain for the index/history transition. Primary effective credential/server/grant methods are unchanged. The dashboard triage and 22 adversarial scanner methods are recorded in [dashboard evidence](../../evidence/test-results/dashboard-summary-20261025.md).
+
+## ESP32 SDK continuation
+
+The exact text filename `sdkconfig.defaults` is now decoded and scanned with
+the existing content, encoding and size checks. Its initial unsupported-format
+failure is retained in transport evidence. It receives no content exemption:
+new adversarial cases reject secret assignments, strong tokens and binary data
+in this format. Two exact unchanged CI environment-label lines have renewed file
+hash pins after adding the SDK job and PHP patch pin; no credential expression
+was relaxed. Certificate expiry checks were explicitly enabled in SDK defaults
+and the local generated configuration, with build/start guards against insecure
+TLS. Actual TLS/clock integration remains NOT_RUN.
