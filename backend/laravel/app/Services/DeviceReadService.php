@@ -15,7 +15,10 @@ class DeviceReadService
 
         return [
             'device_id' => $device->device_id,
-            'state' => $sample === null ? null : $this->sampleToArray($sample),
+            'state' => $sample === null ? null : $this->sampleToArray(
+                $sample,
+                $this->channelsForSamples([$sample->id])[$sample->id] ?? []
+            ),
         ];
     }
 
@@ -36,9 +39,10 @@ class DeviceReadService
             ->orderByDesc('id')
             ->cursorPaginate($limit, ['*'], 'cursor', $cursor);
 
+        $channels = $this->channelsForSamples(array_map(static fn (object $sample) => $sample->id, $paginator->items()));
         $items = [];
         foreach ($paginator->items() as $sample) {
-            $items[] = $this->sampleToArray($sample);
+            $items[] = $this->sampleToArray($sample, $channels[$sample->id] ?? []);
         }
 
         return [
@@ -83,22 +87,28 @@ class DeviceReadService
             ->first();
     }
 
-    private function sampleToArray(object $sample): array
+    private function channelsForSamples(array $sampleIds): array
     {
-        $channels = DB::table('telemetry_channels')
-            ->where('telemetry_sample_id', $sample->id)
-            ->orderBy('name')
-            ->get()
-            ->mapWithKeys(static function (object $channel): array {
-                return [
-                    $channel->name => [
-                        'value' => $channel->value,
-                        'quality' => $channel->quality,
-                    ],
-                ];
-            })
-            ->all();
+        if ($sampleIds === []) {
+            return [];
+        }
 
+        $channels = [];
+        foreach (DB::table('telemetry_channels')
+            ->whereIn('telemetry_sample_id', $sampleIds)
+            ->orderBy('name')
+            ->get() as $channel) {
+            $channels[$channel->telemetry_sample_id][$channel->name] = [
+                'value' => $channel->value,
+                'quality' => $channel->quality,
+            ];
+        }
+
+        return $channels;
+    }
+
+    private function sampleToArray(object $sample, array $channels): array
+    {
         return [
             'schema_version' => $sample->schema_version,
             'device_id' => $sample->device_id,

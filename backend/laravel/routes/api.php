@@ -25,3 +25,6 @@ Route::get('/v1/device/history', \App\Http\Controllers\Api\DeviceHistoryControll
 
 Route::get('/v1/device/health', \App\Http\Controllers\Api\DeviceHealthController::class)
     ->middleware(['device.response.no-store', 'device.auth']);
+
+Route::get('/v1/device/events', \App\Http\Controllers\Api\DeviceEventHistoryController::class)
+    ->middleware(['device.response.no-store', 'device.auth']);

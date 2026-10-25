@@ -10,6 +10,8 @@
 
 **System Verification Status:** PARTIAL — formal software-simulation SIM-001..SIM-009 PASS; SIM-010..SIM-015 and SUP-001..SUP-019 remain open
 
+Current local read integration (2026-10-25): authenticated event history and telemetry channel hydration pass 251 real Laravel/MariaDB tests with PHP 8.2.35. See [execution matrix](../evidence/test-results/device-read-summary-20261025.md). This is a Phase 10 data prerequisite; connected dashboard, operator authorization, freshness policy and formal verification remain open.
+
 ## 1. Purpose
 
 This document defines the planned repository structure, development phases, verification milestones, and publication boundaries for the Vessel Monitoring Gateway.

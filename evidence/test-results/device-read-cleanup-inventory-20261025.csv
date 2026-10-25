@@ -1,0 +1,7 @@
+﻿"path","file_count","bytes","assessment","action","reason"
+"firmware/.pio/build","1929","149182531","GENERATED_OR_DEPENDENCY_REVIEW_CANDIDATE","RETAINED_READ_ONLY","May be needed for offline tools, runtime, or historical inspection; no deletion authorized by this inventory"
+"backend/laravel/vendor","8574","66825925","GENERATED_OR_DEPENDENCY_REVIEW_CANDIDATE","RETAINED_READ_ONLY","May be needed for offline tools, runtime, or historical inspection; no deletion authorized by this inventory"
+"backend/laravel/bootstrap/cache","3","22734","GENERATED_OR_DEPENDENCY_REVIEW_CANDIDATE","RETAINED_READ_ONLY","May be needed for offline tools, runtime, or historical inspection; no deletion authorized by this inventory"
+"backend/laravel/storage/framework/views","39","248695","GENERATED_OR_DEPENDENCY_REVIEW_CANDIDATE","RETAINED_READ_ONLY","May be needed for offline tools, runtime, or historical inspection; no deletion authorized by this inventory"
+"backend/laravel/storage/logs","1","14","GENERATED_OR_DEPENDENCY_REVIEW_CANDIDATE","RETAINED_READ_ONLY","May be needed for offline tools, runtime, or historical inspection; no deletion authorized by this inventory"
+"scripts/__pycache__","7","64889","GENERATED_OR_DEPENDENCY_REVIEW_CANDIDATE","RETAINED_READ_ONLY","May be needed for offline tools, runtime, or historical inspection; no deletion authorized by this inventory"

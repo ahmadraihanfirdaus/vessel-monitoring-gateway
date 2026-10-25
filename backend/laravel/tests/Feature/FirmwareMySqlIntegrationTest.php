@@ -160,7 +160,29 @@ class FirmwareMySqlIntegrationTest extends MySqlTestCase
                 'event_type' => $type, 'source_mode' => $i === 2 ? 'bench_test' : 'simulation']);
         }
         $this->assertDatabaseCount('monitoring_events', 4);
+        $read = $this->withToken($bearer)->getJson('/api/v1/device/events')->assertOk()->assertJsonCount(4, 'items');
+        $this->assertSame(['fault', 'alarm_cleared', 'alarm_ack', 'alarm_raised'], array_column($read->json('items'), 'event_type'));
+        $read->assertJsonPath('items.1.source_mode', 'bench_test')
+            ->assertJsonPath('items.2.linked_alarm_id', '7')->assertJsonPath('items.2.event_id', '2');
+        $this->assertArrayNotHasKey('alarm_status', $read->json('items.2'));
+        $this->assertStringContainsString('no-store', (string) $read->headers->get('Cache-Control'));
+        $this->withToken($bearer)->getJson('/api/v1/device/events?event_type=alarm_ack')
+            ->assertOk()->assertJsonCount(1, 'items')->assertJsonPath('items.0.event_type', 'alarm_ack');
         // Persistence of ACK is not an instruction to clear a local alarm.
+    }
+
+    public function test_event_uint64_wire_round_trips_to_decimal_read_contract(): void
+    {
+        $bearer = $this->device('b15-demo-device');
+        $raw = $this->wire('VG_B15_EVENT_JSONL');
+        $maximum = '18446744073709551615';
+        $raw = str_replace(['"event_id":1', '"linked_alarm_id":7', '"occurred_at_ms":100'],
+            ['"event_id":'.$maximum, '"linked_alarm_id":'.$maximum, '"occurred_at_ms":'.$maximum], $raw);
+        $this->postWire('/api/v1/events', $raw, $bearer)->assertCreated();
+        $this->postWire('/api/v1/events', $raw, $bearer)->assertOk()->assertJsonPath('result', 'identical_event_duplicate');
+        $this->withToken($bearer)->getJson('/api/v1/device/events')->assertOk()->assertJsonCount(1, 'items')
+            ->assertJsonPath('items.0.event_id', $maximum)->assertJsonPath('items.0.linked_alarm_id', $maximum)
+            ->assertJsonPath('items.0.occurred_at_ms', $maximum);
     }
 
     public function test_event_conflict_and_foreign_device_cannot_rewrite_or_insert_events(): void
@@ -176,6 +198,9 @@ class FirmwareMySqlIntegrationTest extends MySqlTestCase
         $this->postWire('/api/v1/events', $raw, null)->assertUnauthorized();
         $this->assertDatabaseCount('monitoring_events', 1);
         $this->assertDatabaseHas('monitoring_events', ['event_id' => 1, 'linked_alarm_id' => 7]);
+        $this->withToken($bearer)->getJson('/api/v1/device/events')->assertOk()
+            ->assertJsonCount(1, 'items')->assertJsonPath('items.0.linked_alarm_id', '7');
+        $this->withToken($other)->getJson('/api/v1/device/events')->assertOk()->assertJsonPath('items', []);
         $this->assertNull(Device::query()->where('device_id', 'foreign-synthetic-device')->first()->last_seen_at);
     }
 }

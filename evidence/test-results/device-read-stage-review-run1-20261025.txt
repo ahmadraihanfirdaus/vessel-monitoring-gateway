@@ -1,0 +1,12 @@
+EXACT_STAGE=29_APPROVED_FILES
+STAGED_DIFF_CHECK=FAIL
+Two new unittest evidence logs had a blank line containing one space:
+- device-read-isolation-regression-20261025.txt line 7
+- device-read-scanner-regression-20261025.txt line 7
+No application test failed. Prestage tracked-only diff check cannot inspect untracked logs.
+Commit script stopped before scanner/commit and restored only its exact staged paths.
+POSTFAIL_INDEX=EMPTY_CONFIRMED
+LOCAL_COMMIT=NOT_CREATED
+Correction: remove one blank-line space per log; retain all diagnostic and test text.
+Before/after hashes appended to device-read-evidence-encoding-20261025.txt.
+Staged diff and content scan must pass again before commit.

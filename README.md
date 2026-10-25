@@ -25,7 +25,9 @@ The design emphasizes modular embedded software, sensor quality, fault handling,
 
 ## Project Status
 
-**Current roadmap position:** scoped Phases 3-8 and pre-Phase-9 R1 gates have committed evidence. Phase 9 implementation and historical scoped closure exist; formal verification remains open. The [guarded integration gate](docs/testing/mysql-integration-gate.md) passed migration roundtrip and 215 tests with explicit PHP 8.2.35 and approved isolated MariaDB. [Security content review](docs/testing/security-scanner-review.md) has zero unresolved findings/privacy warnings with exact documented non-secret/metadata reviews; this is not publication authorization. MySQL 8 and hosted CI remain NOT_RUN. System PARTIAL; final approval NOT_APPROVED.
+**Current roadmap position:** scoped Phases 3-8 and pre-Phase-9 R1 gates have committed evidence. Phase 9 implementation and historical scoped closure exist; formal verification remains open. The [guarded integration gate](docs/testing/mysql-integration-gate.md) passed migration roundtrip and 251 tests with explicit PHP 8.2.35 and approved isolated MariaDB. [Security content review](docs/testing/security-scanner-review.md) has zero unresolved findings/privacy warnings with exact documented non-secret/metadata reviews; this is not publication authorization. MySQL 8 and hosted CI remain NOT_RUN. System PARTIAL; final approval NOT_APPROVED.
+
+[Device read integration evidence](evidence/test-results/device-read-summary-20261025.md) records authenticated event history, filters, exact integer provenance and bounded telemetry channel hydration. The connected dashboard and its authorization/freshness policy remain open.
 
 Current development status:
 

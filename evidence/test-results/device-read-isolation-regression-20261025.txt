@@ -1,0 +1,11 @@
+python : ....................
+At line:3 char:1
++ python -B scripts/test_mysql_integration_gate.py 2>&1 | Tee-Object -F ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (....................:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+
+----------------------------------------------------------------------
+Ran 20 tests in 0.182s
+
+OK

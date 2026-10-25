@@ -1,0 +1,25 @@
+BASELINE_HEAD=b999492c7f12d4e19cc6270983e4390122455e81
+BRANCH=develop
+PRESTAGE_INDEX=EMPTY_PASS
+LOCKED_AND_TWO_PROTECTED_FIRMWARE_HASHES=PASS_UNCHANGED
+DOTENV_FILES=IGNORED_UNTRACKED_NO_VALUES_EMITTED
+DIFF_WHITESPACE=PASS
+SEMANTIC_SCOPE_REVIEW=PASS
+Authentication uses existing enabled device bearer middleware; no caller device selector.
+All event queries include authenticated device; user filter names/values strictly validated.
+Canonical existing received_at/id cursor validator reused; responses bounded 1..100.
+Public event fields explicit; uint64 values decimal strings; no credentials/internal row fields.
+ACK/clear and source modes preserved; no inferred alarm clearance or physical control.
+Telemetry channel query uses only returned sample IDs; no extra-page/foreign hydration.
+Real isolated MariaDB suite 251/251; rollback/apply/reapply PASS; postcheck zero app rows.
+Dependency failure injection is supplemental, not a real outage claim.
+No migrations, locked requirement changes, secret files, firmware changes or remote operations.
+Six cleanup categories retained; no file deletion.
+UTF-16 evidence failure retained and corrected losslessly; no scanner exceptions added.
+External hardware/TLS/hosted CI/formal protocols remain outside local proof and NOT_RUN.
+EXACT_STAGE_AND_INDEX_SECURITY_RECHECK=REQUIRED_BEFORE_LOCAL_COMMIT
+FIRST_STAGED_DIFF=FAIL_EVIDENCE_BLANK_SPACES_ONLY
+POSTFAIL_INDEX=EMPTY_VERIFIED
+CORRECTION=ONLY_TWO_BLANK_LINE_SPACES_REMOVED_WITH_HASH_RECORD
+STAGED_DIFF_AND_INDEX_SCAN=REQUIRED_ON_RETRY
+LOCAL_DOCUMENT_LINKS=PASS_37_RELATIVE_TARGETS_EXIST

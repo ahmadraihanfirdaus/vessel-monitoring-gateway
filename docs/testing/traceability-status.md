@@ -180,3 +180,5 @@ The controlled internal engineering baseline is not included in the public repos
 **Physical Integration:** NOT_AUTHORIZED / NOT_RUN
 
 The LOCKED matrix remains unchanged as the historical initial snapshot. The editable living register and test-level execution records are the current companion status. No requirement is promoted to `VERIFIED` by this reconciliation, and no operational installation, physical integration, calibration, certification or production-readiness claim is authorized.
+
+The [2026-10-25 device read integration](../../evidence/test-results/device-read-summary-20261025.md) adds own-device event history and verifies bounded telemetry channel hydration in 251 PHP 8.2.35/MariaDB tests. UI-002 still has placeholder views; neither UI requirement nor any SIM/SUP status is promoted by this prerequisite.

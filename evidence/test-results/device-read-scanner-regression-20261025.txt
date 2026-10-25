@@ -1,0 +1,11 @@
+python : ....................
+At line:2 char:1
++ python -B scripts/test_audit_precommit_security.py 2>&1 | Tee-Object  ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (....................:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+
+----------------------------------------------------------------------
+Ran 20 tests in 9.105s
+
+OK
