@@ -130,8 +130,8 @@ The working traceability state is:
 | Supplemental planned tests | 19 |
 | Total planned test cases | 34 |
 | Requirements with planned verification mappings | 38/38 |
-| Formal SIM execution | SIM-001..SIM-009 PASS; SIM-010..SIM-015 NOT_RUN |
-| Supplemental execution | SUP-001/003/006/016/019 PASS; other 14 PLANNED |
+| Formal SIM execution | SIM-001..SIM-009, SIM-011 and SIM-014/SIM-015 PASS; SIM-010/SIM-012/SIM-013 NOT_RUN |
+| Supplemental execution | 18 SUP PASS; SUP-018 PLANNED |
 | Requirement-level final approval | NOT_APPROVED |
 | Total system status | PARTIAL |
 
@@ -287,3 +287,9 @@ operator/deployedTLS/ESP32/NVS/powerloss/currentWokwi/hostedCI remain NOT_RUN.
 Both [Codex resume](handoff/CODEX_RESUME.md) and [ChatGPT context](handoff/CHATGPT_CONTEXT.md)
 are saved and updated automatically at safe checkpoints. Stage/commit only all
 mandatory local gates PASS, exact approved scope, NO PUSH; systemPARTIAL.
+
+Retry-ordering continuation20261027: actual native failed-completion cursor skip
+is fixed with exact context/source/epoch rewind; PHP388/TLS225/Chrome/regression247
+and both current SDK builds have [scoped evidence](../evidence/test-results/event-delivery-retry-summary-20261027.md).
+No new phase, formal scenario promotion, implicit retry policy or physical control.
+SIM010/012/013 and hostedSUP018 remain open; overall systemPARTIAL/finalNOT_APPROVED.

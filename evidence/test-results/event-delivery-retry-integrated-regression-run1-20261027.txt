@@ -1,0 +1,1876 @@
+Actual247command integration regression: prior246 plus new pinned-parent/current/fault-admission unit. PHP8.2.35 explicit; DB/TLS/Chrome/SDK gates separately executed.
+COMMAND=python -B scripts/test_phase9_b10_tst002.py
+test_b10_job_is_isolated_and_registered (__main__.Workflow.test_b10_job_is_isolated_and_registered) ... ok
+test_trace_is_scoped_and_formal_open (__main__.Workflow.test_trace_is_scoped_and_formal_open) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.001s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b11_tst002.py
+B11_CI_POLICY=PASS_NO_DB_HTTP_TEST_JOB
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b12_tst002.py
+B12_CI=PASS_DB_FREE_ROUTE_DISPATCH
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b13_tst002.py
+B13_CI_POLICY=PASS
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b14_tst002.py
+test_bridge_gated_in_no_db_job (__main__.CI.test_bridge_gated_in_no_db_job) ... ok
+test_compiler_fails_closed (__main__.CI.test_compiler_fails_closed) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.001s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b15_tst002.py
+B15_TST002=PASS_CI_REAL_JOURNAL_NO_DB
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b16_tst002.py
+B16_CI=PASS_SCOPED_NO_DB_HTTP_RUNNER
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b17_tst002.py
+B17_CI=PASS_ISOLATED_HTTP_RECONCILIATION
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b18_tst002.py
+B18_TST002=PASS_HOST_ONLY_JOB_NO_DB_NO_PUSH
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b19_tst002.py
+B19_CI=PASS_HOST_AND_BACKEND_ISOLATION_PRESERVED
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b20_tst002.py
+B20_TST002=PASS_CI_REGISTRATION_NO_DB_RUNNER_SCOPE
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b21_tst002.py
+B21_TST002=PASS_CI_HOST_ONLY_REGISTRATION
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b22_tst002.py
+B22_TST002=PASS_HOST_CI_REGISTERED
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b23_tst002.py
+B23_TST002=PASS_HOST_CI_SUITES_REGISTERED
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b24_tst002.py
+B24_TST002=PASS_CI_REGISTERED_AND_MOCK_DB_BOUNDARY_PRESERVED
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b25_tst002.py
+B25_TST002=PASS_CI_HOST_GATES_AND_PRESERVED_MYSQL_JOB
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b26_tst002.py
+B26_TST002=PASS_REGISTERED_HOST_GATES_MYSQL_JOB_UNCHANGED
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b27_tst002.py
+B27_TST002=PASS_HOST_CI_REGISTERED_PRESERVED_MYSQL_JOB
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b28_tst002.py
+B28_TST002=PASS_CI_HOST_ONLY_MYSQL_ISOLATION_PRESERVED
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b29_tst002.py
+B29_TST002=PASS_CI_HOST_ONLY_MYSQL_JOB_PRESERVED
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b30_tst002.py
+B30_TST002=PASS_CI_HOST_ONLY_MYSQL_JOB_PRESERVED
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b31_tst002.py
+B31_TST002=PASS_CI_HOST_ONLY_MYSQL_JOB_PRESERVED
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b32_tst002.py
+B32_TST002=PASS_HOST_REGISTRY_MYSQL_ISOLATION_PRESERVED
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b33_tst002.py
+B33_TST002=PASS_HOST_REGISTRY_MYSQL_ISOLATION_PRESERVED
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b34_tst002.py
+B34_TST002=PASS_HOST_REGISTRY_MYSQL_ISOLATION_PRESERVED
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b35_tst002.py
+B35_TST002=PASS_HOST_REGISTRY_MYSQL_ISOLATION_PRESERVED
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b36_tst002.py
+B36_TST002=PASS_HOST_REGISTRY_MYSQL_BOUNDARY_UNCHANGED
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b37_tst002.py
+B37_TST002=PASS_HOST_ONLY_CI_ISOLATED_FROM_MYSQL
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b38_tst002.py
+B38_TST002=PASS_CI_ISOLATED_FROM_MYSQL_OLD_GATES_RETAINED
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b39_tst002.py
+B39_TST002=PASS_CI_PRESERVES_MYSQL_JOB_AND_ISOLATES_HOST_SCOPE
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b40_tst002.py
+B40_TST002=PASS_CI_HOST_JOB_MYSQL_ISOLATED_AND_FOUR_GATES_REGISTERED
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b41_tst002.py
+B41_TST002=PASS_CI_HOST_JOB_REGISTERED_WITH_MYSQL_ISOLATION
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b42_tst002.py
+B42_TST002=PASS_CI_HOST_JOB_REGISTERED_WITH_MYSQL_ISOLATION
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b43_tst002.py
+B43_TST002=PASS_HOST_NONCE_LEDGER_AND_MYSQL_CI_ISOLATION
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b44_tst002.py
+B44_TST002=PASS_HOST_SIGNED_RESTART_SNAPSHOT_MYSQL_CI_SEPARATION
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b45_tst002.py
+B45_TST002=PASS_CI_HOST_ONLY_NO_MYSQL_JOB_CHANGE
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b46_tst002.py
+B46_TST002=PASS_CI_HOST_ONLY_BACKEND_JOBS_PRESERVED
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_p2_mysql_source.py
+PHASE9_P2_MYSQL_SOURCE FILE_PHASE9-P2-IMPLEMENTATION-PLAN.MD: PASS
+PHASE9_P2_MYSQL_SOURCE FILE_API.PHP: PASS
+PHASE9_P2_MYSQL_SOURCE FILE_DEVICE.PHP: PASS
+PHASE9_P2_MYSQL_SOURCE FILE_TELEMETRYSAMPLE.PHP: PASS
+PHASE9_P2_MYSQL_SOURCE FILE_TELEMETRYCHANNEL.PHP: PASS
+PHASE9_P2_MYSQL_SOURCE FILE_DEVICETOKENAUTHENTICATOR.PHP: PASS
+PHASE9_P2_MYSQL_SOURCE FILE_TELEMETRYINGESTSERVICE.PHP: PASS
+PHASE9_P2_MYSQL_SOURCE FILE_ENSURETELEMETRYPAYLOADSIZE.PHP: PASS
+PHASE9_P2_MYSQL_SOURCE FILE_AUTHENTICATEDEVICETOKEN.PHP: PASS
+PHASE9_P2_MYSQL_SOURCE FILE_TELEMETRYINGESTREQUEST.PHP: PASS
+PHASE9_P2_MYSQL_SOURCE FILE_TELEMETRYINGESTCONTROLLER.PHP: PASS
+PHASE9_P2_MYSQL_SOURCE FILE_2026_10_17_100001_CREATE_DEVICES_TABLE.PHP: PASS
+PHASE9_P2_MYSQL_SOURCE FILE_2026_10_17_100002_CREATE_TELEMETRY_SAMPLES_TABLE.PHP: PASS
+PHASE9_P2_MYSQL_SOURCE FILE_2026_10_17_100003_CREATE_TELEMETRY_CHANNELS_TABLE.PHP: PASS
+PHASE9_P2_MYSQL_SOURCE FILE_TELEMETRYINGESTTEST.PHP: PASS
+PHASE9_P2_MYSQL_SOURCE ENV_EXAMPLE_MYSQL: PASS
+PHASE9_P2_MYSQL_SOURCE ENV_EXAMPLE_HOST: PASS
+PHASE9_P2_MYSQL_SOURCE ENV_EXAMPLE_PORT: PASS
+PHASE9_P2_MYSQL_SOURCE CONFIG_DEFAULT_MYSQL: PASS
+PHASE9_P2_MYSQL_SOURCE CONFIG_MYSQL_DATABASE_EXTERNAL: PASS
+PHASE9_P2_MYSQL_SOURCE CONFIG_MYSQL_USERNAME_EXTERNAL: PASS
+PHASE9_P2_MYSQL_SOURCE CONFIG_MYSQL_PASSWORD_EXTERNAL: PASS
+PHASE9_P2_MYSQL_SOURCE PHPUNIT_MYSQL: PASS
+PHASE9_P2_MYSQL_SOURCE PHPUNIT_NO_SQLITE_POLICY: PASS
+PHASE9_P2_MYSQL_SOURCE COMPOSER_NO_SQLITE_CREATE: PASS
+PHASE9_P2_MYSQL_SOURCE COMPOSER_NO_AUTO_MIGRATE: PASS
+PHASE9_P2_MYSQL_SOURCE BOOTSTRAP_API_ROUTE: PASS
+PHASE9_P2_MYSQL_SOURCE BOOTSTRAP_SIZE_ALIAS: PASS
+PHASE9_P2_MYSQL_SOURCE BOOTSTRAP_DEVICE_ALIAS: PASS
+PHASE9_P2_MYSQL_SOURCE API_ENDPOINT: PASS
+PHASE9_P2_MYSQL_SOURCE API_MIDDLEWARE_ORDER: PASS
+PHASE9_P2_MYSQL_SOURCE REQUEST_SCHEMA_1_0_AND_OPTIONAL_1_1: PASS
+PHASE9_P2_MYSQL_SOURCE REQUEST_CHANNEL_LIMIT_VERSIONED_16_72: PASS
+PHASE9_P2_MYSQL_SOURCE LEGACY_SCHEMA_RETAINS_1_0_16: PASS
+PHASE9_P2_MYSQL_SOURCE OPTIONAL_SCHEMA_1_1_72: PASS
+PHASE9_P2_MYSQL_SOURCE REAL_VERSION_BOUNDARY_TEST_DEFINED: PASS
+PHASE9_P2_MYSQL_SOURCE REQUEST_SOURCE_MODES: PASS
+PHASE9_P2_MYSQL_SOURCE REQUEST_QUALITY_MODES: PASS
+PHASE9_P2_MYSQL_SOURCE REQUEST_NULL_CONTRACT: PASS
+PHASE9_P2_MYSQL_SOURCE REQUEST_FINITE_CONTRACT: PASS
+PHASE9_P2_MYSQL_SOURCE DEVICE_DIGEST_COLUMN: PASS
+PHASE9_P2_MYSQL_SOURCE DEVICE_DISABLED_DEFAULT: PASS
+PHASE9_P2_MYSQL_SOURCE IDENTIFIER_BINARY_COLLATION: PASS
+PHASE9_P2_MYSQL_SOURCE SAMPLE_IDENTITY_UNIQUE: PASS
+PHASE9_P2_MYSQL_SOURCE SAMPLE_DEVICE_EXTERNAL_STRING: PASS
+PHASE9_P2_MYSQL_SOURCE SAMPLE_DEVICE_NO_INTERNAL_FOREIGNID: PASS
+PHASE9_P2_MYSQL_SOURCE SAMPLE_DEVICE_EXTERNAL_FK: PASS
+PHASE9_P2_MYSQL_SOURCE SERVICE_USES_EXTERNAL_DEVICE_ID: PASS
+PHASE9_P2_MYSQL_SOURCE DEVICE_RELATION_USES_EXTERNAL_DEVICE_ID: PASS
+PHASE9_P2_MYSQL_SOURCE SAMPLE_RELATION_USES_EXTERNAL_DEVICE_ID: PASS
+PHASE9_P2_MYSQL_SOURCE CHANNEL_NAME_UNIQUE: PASS
+PHASE9_P2_MYSQL_SOURCE DEDUP_TRANSACTION: PASS
+PHASE9_P2_MYSQL_SOURCE DEDUP_IDENTITY_BOOT: PASS
+PHASE9_P2_MYSQL_SOURCE DEDUP_IDENTITY_SEQUENCE: PASS
+PHASE9_P2_MYSQL_SOURCE DEDUP_MYSQL_1062: PASS
+PHASE9_P2_MYSQL_SOURCE DEDUP_CONFLICT_STATUS: PASS
+PHASE9_P2_MYSQL_SOURCE UINT64_BIGINT_PRESERVATION: PASS
+PHASE9_P2_MYSQL_SOURCE UINT64_MAX_BOUND: PASS
+PHASE9_P2_MYSQL_SOURCE UINT64_RAW_JSON_NUMBER_GUARD: PASS
+PHASE9_P2_MYSQL_SOURCE UINT64_NO_GLOBAL_FIELD_OCCURRENCE_COUNT: PASS
+PHASE9_P2_MYSQL_SOURCE UINT64_SEQUENCE_CHANNEL_REGRESSION_TEST_DEFINED: PASS
+PHASE9_P2_MYSQL_SOURCE UINT64_SERVICE_NORMALIZATION: PASS
+PHASE9_P2_MYSQL_SOURCE UINT64_DEVICE_NO_INTEGER_CAST: PASS
+PHASE9_P2_MYSQL_SOURCE UINT64_SAMPLE_NO_INTEGER_CAST: PASS
+PHASE9_P2_MYSQL_SOURCE UINT64_FEATURE_TEST_DEFINED: PASS
+PHASE9_P2_MYSQL_SOURCE UINT64_QUOTED_REJECTION_TEST_DEFINED: PASS
+PHASE9_P2_MYSQL_SOURCE NO_ENV_IN_INDEX: PASS
+PHASE9_P2_MYSQL_SOURCE NO_SQLITE_IN_INDEX: PASS
+PHASE9_P2_MYSQL_SOURCE NO_VENDOR_IN_INDEX: PASS
+PHASE9_P2_MYSQL_SOURCE P2_APPLICATION_MIGRATIONS_PRESERVED: PASS
+PHASE9_P2_MYSQL_SOURCE RAW_JSON_STRUCTURAL_MEMBER_PARSER: PASS
+PHASE9_P2_MYSQL_SOURCE RAW_JSON_TOP_LEVEL_UNIQUE_GUARD: PASS
+PHASE9_P2_MYSQL_SOURCE RAW_JSON_DUPLICATE_KEY_HELPER: PASS
+PHASE9_P2_MYSQL_SOURCE RAW_UINT64_STRUCTURAL_TOP_LEVEL_LOOKUP: PASS
+PHASE9_P2_MYSQL_SOURCE RAW_UINT64_NO_GLOBAL_SEQUENCE_REGEX: PASS
+PHASE9_P2_MYSQL_SOURCE RAW_UINT64_NESTED_SEQUENCE_BYPASS_TEST_DEFINED: PASS
+PHASE9_P2_MYSQL_SOURCE RAW_DUPLICATE_TOP_LEVEL_TEST_DEFINED: PASS
+PHASE9_P2_MYSQL_SOURCE RAW_DUPLICATE_CHANNEL_TEST_DEFINED: PASS
+PHASE9_P2_MYSQL_SOURCE WIRE_CHANNEL_EXACT_VALUE_QUALITY_MEMBERS: PASS
+PHASE9_P2_MYSQL_SOURCE WIRE_VALUE_MEMBER_EXPLICITLY_PRESENT: PASS
+PHASE9_P2_MYSQL_SOURCE WIRE_ABSENT_VALUE_MEMBER_REJECTION_TEST_DEFINED: PASS
+PHASE9_P2_MYSQL_SOURCE_TEST: PASS
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_p3_mysql_source.py
+PHASE9_P3_SOURCE MIGRATION_MONITORING_EVENTS: PASS
+PHASE9_P3_SOURCE MIGRATION_DEVICE_ID: PASS
+PHASE9_P3_SOURCE MIGRATION_BOOT_ID: PASS
+PHASE9_P3_SOURCE MIGRATION_EVENT_ID: PASS
+PHASE9_P3_SOURCE MIGRATION_LINKED_ALARM_ID: PASS
+PHASE9_P3_SOURCE MIGRATION_SOURCE_ID: PASS
+PHASE9_P3_SOURCE MIGRATION_SOURCE_MODE: PASS
+PHASE9_P3_SOURCE MIGRATION_EVENT_TYPE: PASS
+PHASE9_P3_SOURCE MIGRATION_OCCURRED_AT_MS: PASS
+PHASE9_P3_SOURCE MIGRATION_RECEIVED_AT: PASS
+PHASE9_P3_SOURCE MIGRATION_MONITORING_EVENTS_IDENTITY_UNIQUE: PASS
+PHASE9_P3_SOURCE UINT64_MAX: PASS
+PHASE9_P3_SOURCE UINT32_MAX: PASS
+PHASE9_P3_SOURCE EVENT_SOURCE_MODES: PASS
+PHASE9_P3_SOURCE EVENT_TYPES: PASS
+PHASE9_P3_SOURCE EVENT_IDEMPOTENT: PASS
+PHASE9_P3_SOURCE EVENT_CONFLICT: PASS
+PHASE9_P3_SOURCE EVENT_IDENTITY_MISMATCH: PASS
+PHASE9_P3_SOURCE ROUTE_V1_EVENTS: PASS
+PHASE9_P3_SOURCE ROUTE_V1_DEVICE_STATE: PASS
+PHASE9_P3_SOURCE ROUTE_V1_DEVICE_HISTORY: PASS
+PHASE9_P3_SOURCE ROUTE_V1_DEVICE_HEALTH: PASS
+PHASE9_P3_SOURCE ROUTE_TELEMETRY_PAYLOAD_SIZE: PASS
+PHASE9_P3_SOURCE ROUTE_DEVICE_AUTH: PASS
+PHASE9_P3_SOURCE HISTORY_CURSOR: PASS
+PHASE9_P3_SOURCE HEALTH_AGE: PASS
+PHASE9_P3_SOURCE DESIGN_EVENT_IDENTITY: PASS
+PHASE9_P3_SOURCE DESIGN_NO_HEALTH_TABLE: PASS
+PHASE9_P3_SOURCE PLAN_NO_DB_EXECUTION: PASS
+PHASE9_P3_SOURCE FOUR_ORIGINAL_PLUS_TWO_ADDITIVE_MIGRATIONS: PASS
+PHASE9_P3_SOURCE METADATA_NULLABLE_NO_INVENTED_HISTORY: PASS
+PHASE9_P3_SOURCE METADATA_ROLLBACK_COLUMN_ONLY: PASS
+PHASE9_P3_SOURCE EVENT_VERSION_ADMISSION: PASS
+PHASE9_P3_SOURCE SHARED_RAW_MEMBER_INSPECTION: PASS
+PHASE9_P3_SOURCE METADATA_LIFECYCLE_VALIDATION: PASS
+PHASE9_P3_SOURCE METADATA_CANONICAL_PERSISTENCE_AND_DEDUP: PASS
+PHASE9_P3_SOURCE MYSQL_ONLY_POLICY: PASS
+PHASE9_P3_MYSQL_SOURCE_TEST: PASS
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_tst002_ci_policy.py
+....
+----------------------------------------------------------------------
+Ran 4 tests in 0.001s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_ui001_dashboard.py
+....
+----------------------------------------------------------------------
+Ran 4 tests in 0.046s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b12_http_boundary.py
+test_middleware_uses_no_store_private (__main__.Boundary.test_middleware_uses_no_store_private) ... ok
+test_no_db_in_feature_tests (__main__.Boundary.test_no_db_in_feature_tests) ... ok
+test_registration_and_six_route_bindings (__main__.Boundary.test_registration_and_six_route_bindings) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.001s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b13_cursor_contract.py
+B13_CURSOR_POLICY=PASS_8_CASES_STATIC
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b9_tst001.py
+test_ci_no_database_job (__main__.B9Scope.test_ci_no_database_job) ... ok
+test_open_formal_trace (__main__.B9Scope.test_open_formal_trace) ... ok
+test_real_routes_and_full_boundaries (__main__.B9Scope.test_real_routes_and_full_boundaries) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.001s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b9_http_probe.py
+test_real_middleware_media_and_size_boundaries (__main__.B9HttpProbe.test_real_middleware_media_and_size_boundaries) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.059s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b4_integrated.py
+test_c_producer_to_php_validator_null_and_security_boundary (__main__.Integrated.test_c_producer_to_php_validator_null_and_security_boundary) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.721s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b5_integrated.py
+test_replay_ack_then_host_ingest (__main__.Integrated.test_replay_ack_then_host_ingest) ... ok
+test_security_strict_dedup_flow (__main__.Integrated.test_security_strict_dedup_flow) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.343s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b6_integrated.py
+test_c99_wire_to_php_decision (__main__.EndToEnd.test_c99_wire_to_php_decision) ... ok
+test_denied_claim_not_receipt (__main__.EndToEnd.test_denied_claim_not_receipt) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.612s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b8_integrated.py
+test_alarm_blocks_receipt_until_explicit_recovery (__main__.Integrated.test_alarm_blocks_receipt_until_explicit_recovery) ... ok
+test_synthetic_sec_and_replay_integrate (__main__.Integrated.test_synthetic_sec_and_replay_integrate) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.256s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_mysql_integration_gate.py
+...................usage: gate [-h] [--execute] [--migration-roundtrip] [--testing-env]
+            [--php-binary PHP_BINARY] [--existing-schema] [--upgrade-previous]
+gate: error: --upgrade-previous requires --execute --existing-schema
+usage: gate [-h] [--execute] [--migration-roundtrip] [--testing-env]
+            [--php-binary PHP_BINARY] [--existing-schema] [--upgrade-previous]
+gate: error: --upgrade-previous requires --execute --existing-schema
+.............
+----------------------------------------------------------------------
+Ran 32 tests in 1.304s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_audit_precommit_security.py
+.......................
+----------------------------------------------------------------------
+Ran 23 tests in 10.711s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/check_living_traceability.py
+BASELINE_SHA256: PASS (2/2)
+LIVING_TRACEABILITY: PASS (38/38 mapped, 34 unique planned cases)
+ASSESSMENTS: {'IMPLEMENTED_UNVERIFIED': 22, 'PARTIAL': 16}
+FORMAL_REQUIREMENT_STATUS: {'NOT_RUN': 4, 'PARTIAL': 2, 'PASS': 32}
+FORMAL_SIM_SCENARIOS: PASS=12, NOT_RUN=3
+SUPPLEMENTAL_TESTS: PLANNED=1, PASS=18
+FINAL_REQUIREMENT_APPROVAL: NOT_APPROVED
+TOTAL_SYSTEM_STATUS: PARTIAL
+PUBLIC_REFERENCE_AUDIT: PASS (38 requirements, 163 file references; protected template metadata only; no DB/network)
+
+EXIT=0
+COMMAND=python -B scripts/audit_phase9_p1_security_review.py
+REVIEW_HASH backend/laravel/.editorconfig f78cc5a2ef8ba61ad956d0f5db453748a981270f6a1b9f4a5a00df8690e7946d
+REVIEW_HASH backend/laravel/app/Models/User.php 41d800ffd4887c75e66af8eaedc756edce052eb662baae357308c6e364a6c9d2
+REVIEW_HASH backend/laravel/artisan f91a517c0c5d3a904c3f390933964a5e08ec1fc68146882730daac4aca4ffcec
+REVIEW_HASH backend/laravel/composer.lock 6e9abe630d8690285b0741b50362d46cdec83851ef90a3c3a9cd69b0eea4eba2
+REVIEW_HASH backend/laravel/config/database.php 43b43e74db771fa0da206a2c86c91d3bf84698acc95af29482032cbe981ce7f7
+REVIEW_HASH backend/laravel/config/mail.php c43ff49a31c5f32ce21eb7159f2a4b3cd2f4074eaed5838d265646dbfedd3474
+REVIEW_HASH backend/laravel/public/.htaccess b7e379c77639fd56144947dbae84c84eb466d9c686ea81f2f013ae85421da923
+REVIEW_SEMANTIC backend/laravel/app/Models/User.php:46: PASS
+REVIEW_SEMANTIC backend/laravel/config/database.php:54: PASS
+REVIEW_SEMANTIC backend/laravel/config/database.php:74: PASS
+REVIEW_SEMANTIC backend/laravel/config/database.php:94: PASS
+REVIEW_SEMANTIC backend/laravel/config/database.php:109: PASS
+REVIEW_SEMANTIC backend/laravel/config/database.php:160: PASS
+REVIEW_SEMANTIC backend/laravel/config/database.php:173: PASS
+REVIEW_SEMANTIC backend/laravel/config/mail.php:47: PASS
+REVIEW_COMPOSER_LOCK_JSON: PASS
+REVIEW_LARAVEL_FRAMEWORK_VERSION: v12.70.0
+REVIEW_PINNED_FRAMEWORK_FILES: PASS
+=== PHASE 2.7B.5K.5 - PUBLIC SECURITY AUDIT ===
+Git index entries: 1450
+Untracked candidates: 21
+Total candidates: 1471
+
+Potential security findings: 0
+Manual review warnings: 0
+Hash-pinned non-secret reviews: 37
+Reviewed dependency author metadata: 141
+
+REVIEWED NON-SECRET: .github/workflows/phase9-multi-context-ci.yml:331 [index] - RECEIPTEXPIRY-FAULTTRACE-CI-NONSECRET-001 / CI_TEST_CONFIGURATION
+REVIEWED NON-SECRET: .github/workflows/phase9-multi-context-ci.yml:404 [index] - RECEIPTEXPIRY-FAULTTRACE-CI-NONSECRET-002 / CI_TEST_CONFIGURATION
+REVIEWED NON-SECRET: .github/workflows/phase9-multi-context-ci.yml:336 [working] - EVENTRETRY-RECEIPTEXPIRY-FAULTTRACE-CI-NONSECRET-001 / CI_TEST_CONFIGURATION
+REVIEWED NON-SECRET: .github/workflows/phase9-multi-context-ci.yml:409 [working] - EVENTRETRY-RECEIPTEXPIRY-FAULTTRACE-CI-NONSECRET-002 / CI_TEST_CONFIGURATION
+REVIEWED NON-SECRET: backend/laravel/app/Http/Controllers/MonitoringSessionController.php:17 [index] - MONITORING-NONSECRET-001 / SOURCE_CONTRACT_TOKEN
+REVIEWED NON-SECRET: backend/laravel/app/Models/User.php:46 [index] - NONSECRET-005 / FRAMEWORK_CAST
+REVIEWED NON-SECRET: backend/laravel/tests/Feature/FirmwareMySqlIntegrationTest.php:192 [index] - MONITORING-NONSECRET-002 / RUNTIME_GENERATED_TEST_VALUE
+REVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringAccessTest.php:98 [index] - MONITORING-NONSECRET-003 / RUNTIME_GENERATED_TEST_VALUE
+REVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringAccessTest.php:100 [index] - MONITORING-NONSECRET-004 / RUNTIME_GENERATED_TEST_VALUE
+REVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringAccessTest.php:111 [index] - MONITORING-NONSECRET-005 / RUNTIME_GENERATED_TEST_VALUE
+REVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringAccessTest.php:114 [index] - MONITORING-NONSECRET-006 / RUNTIME_GENERATED_TEST_VALUE
+REVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringBoundaryTest.php:35 [index] - MONITORING-NONSECRET-011 / RUNTIME_GENERATED_TEST_VALUE
+REVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringOperatorTest.php:22 [index] - MONITORING-NONSECRET-007 / ENVIRONMENT_VARIABLE_NAME
+REVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringOperatorTest.php:37 [index] - MONITORING-NONSECRET-008 / ENVIRONMENT_VARIABLE_NAME
+REVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringOperatorTest.php:46 [index] - MONITORING-NONSECRET-009 / ENVIRONMENT_VARIABLE_NAME
+REVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringOperatorTest.php:52 [index] - MONITORING-NONSECRET-008 / ENVIRONMENT_VARIABLE_NAME
+REVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringOperatorTest.php:67 [index] - MONITORING-NONSECRET-010 / ENVIRONMENT_VARIABLE_NAME
+REVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringOperatorTest.php:72 [index] - MONITORING-NONSECRET-008 / ENVIRONMENT_VARIABLE_NAME
+REVIEWED NON-SECRET: backend/laravel/tests/Support/MonitoringFixtures.php:13 [index] - MONITORING-NONSECRET-012 / RUNTIME_GENERATED_TEST_VALUE
+REVIEWED NON-SECRET: backend/laravel/tests/Support/MySqlIsolation.php:93 [index] - MONITORING-NONSECRET-013 / ENVIRONMENT_VARIABLE_NAME
+REVIEWED NON-SECRET: backend/laravel/tests/Unit/MySqlIsolationTest.php:120 [index] - NONSECRET-007 / SYNTHETIC_NEGATIVE_FIXTURE
+REVIEWED NON-SECRET: backend/laravel/tests/Unit/TestEnvironmentTest.php:30 [index] - NONSECRET-008 / SYNTHETIC_NEGATIVE_FIXTURE
+REVIEWED NON-SECRET: evidence/test-results/live-http-network-run1-20261025.txt:2 [index] - LIVEHTTP-AUDIT-LABEL-001 / AUDIT_RESULT_LABEL
+REVIEWED NON-SECRET: evidence/test-results/live-http-preflight-run2-20261025.txt:2 [index] - LIVEHTTP-AUDIT-LABEL-002 / AUDIT_RESULT_LABEL
+REVIEWED NON-SECRET: evidence/test-results/phase9-p3-security-review-20261018.txt:12 [index] - NONSECRET-009 / AUDIT_RESULT_LABEL
+REVIEWED NON-SECRET: evidence/test-results/phase9-p3-security-review-20261018.txt:13 [index] - NONSECRET-010 / AUDIT_RESULT_LABEL
+REVIEWED NON-SECRET: evidence/test-results/phase9-p3-security-review-20261018.txt:12 [working] - NONSECRET-011 / AUDIT_RESULT_LABEL
+REVIEWED NON-SECRET: evidence/test-results/phase9-p3-security-review-20261018.txt:13 [working] - NONSECRET-012 / AUDIT_RESULT_LABEL
+REVIEWED NON-SECRET: scripts/run_live_http_integration.py:489 [index] - RECEIPTEXPIRY-FAULTSTORAGE-DATAUI-RECEIPT-RUNTIME-INPUT-001 / RUNTIME_GENERATED_TEST_VALUE
+REVIEWED NON-SECRET: scripts/run_live_http_integration.py:681 [index] - RECEIPTEXPIRY-FAULTSTORAGE-DATAUI-RECEIPT-RUNTIME-INPUT-002 / RUNTIME_GENERATED_TEST_VALUE
+REVIEWED NON-SECRET: scripts/run_live_http_integration.py:686 [index] - RECEIPTEXPIRY-FAULTSTORAGE-DATAUI-RECEIPT-RUNTIME-INPUT-003 / RUNTIME_GENERATED_TEST_VALUE
+REVIEWED NON-SECRET: scripts/run_live_http_integration.py:529 [working] - EVENTRETRY-RECEIPTEXPIRY-FAULTSTORAGE-DATAUI-RECEIPT-RUNTIME-INPUT-001 / RUNTIME_GENERATED_TEST_VALUE
+REVIEWED NON-SECRET: scripts/run_live_http_integration.py:754 [working] - EVENTRETRY-RECEIPTEXPIRY-FAULTSTORAGE-DATAUI-RECEIPT-RUNTIME-INPUT-002 / RUNTIME_GENERATED_TEST_VALUE
+REVIEWED NON-SECRET: scripts/run_live_http_integration.py:759 [working] - EVENTRETRY-RECEIPTEXPIRY-FAULTSTORAGE-DATAUI-RECEIPT-RUNTIME-INPUT-003 / RUNTIME_GENERATED_TEST_VALUE
+REVIEWED NON-SECRET: scripts/test_browser_monitoring_bridge.py:23 [index] - RECEIPTEXPIRY-OPAQUE-NEGATIVE-ENV-SENTINEL / SYNTHETIC_NEGATIVE_FIXTURE
+REVIEWED NON-SECRET: scripts/test_browser_monitoring_bridge.py:23 [index] - RECEIPTEXPIRY-OPAQUE-NEGATIVE-ENV-SENTINEL / SYNTHETIC_NEGATIVE_FIXTURE
+REVIEWED NON-SECRET: scripts/test_phase9_b39_contract.py:16 [index] - NONSECRET-013 / SOURCE_CONTRACT_TOKEN
+
+PASS: No prohibited files detected
+PASS: No obvious secrets detected
+PASS: Git index and working content checked
+RESULT: AUTOMATED SECURITY SCREEN PASSED
+
+NOTE: This scan is not a confidentiality guarantee
+NOTE: Unsupported binary files are blocked
+NOTE: Manual semantic review is still mandatory
+NOTE: No files were modified
+NOTE: Passing does not authorize publication
+=== PHASE 2.7B.5K.5 COMPLETE ===
+PHASE9_P1_PINNED_FRAMEWORK_REVIEW: PASS
+PHASE9_P1_CURRENT_SECURITY_GATE: PASS_ZERO_UNRESOLVED_FINDINGS
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b18_checkpoint.py
+B18_HOST_RESTART=PASS_SAVED_8_RESTORED_8_EVICTED_2_PENDING_RESET
+B18_HOST_NEGATIVE=PASS_WRONG_ID_TRUNCATED_CORRUPT_TRAILING_ATOMIC
+B18_CHECKPOINT_SHA256=d0046b6c8ad741a753d36a437a9de59b27164ddcb45495a5807fc316385377e9
+B18_POWERLOSS_DURABILITY=NOT_VERIFIED_HOST_FIXTURE_ONLY
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b18_contract.py
+B18_CONTRACT=PASS_HOST_BOUNDARY_INTEGRITY_RESTART_NOT_HARDWARE
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b18_negative.py
+B18_NEGATIVE_CONTRACT=PASS_NO_RESTORE_PARTIAL_ADVANCE
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b19_contract.py
+B19_CONTRACT=PASS_B18_COMPATIBLE_GEN_GUARD_AND_HOST_ONLY
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b19_dual_slot.py
+B19_HOST_DUAL_SLOT=PASS_GEN_11_AND_CONSERVATIVE_GEN_10_RESTART
+B19_HOST_CORRUPTION=PASS_TORN_NEWEST_BITFLIP_BOTH_BAD_REFUSED
+B19_ACK_PENDING=PASS_NEVER_RESTORED_FROM_EITHER_GENERATION
+B19_SLOT_HASH_SHA256=7a866d74e401085e67bf88c45802b721637cd2678eaec67ffc094ed40f9de035
+B19_DISK_ATOMICITY_AND_ESP_NVS=NOT_VERIFIED
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b19_negative.py
+B19_NEGATIVE_POLICY=PASS_CORRUPT_TORN_BOTH_BAD_STRICT_COMPILER
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b20_contract.py
+B20_CONTRACT=PASS_PREPARE_GUARDS_AND_READBACK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b20_negative.py
+B20_NEGATIVE=PASS_TORN_CORRUPT_NO_ROLLBACK_SPLIT_BRAIN_SOURCE
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b20_update.py
+B20_HOST_TRANSACTIONS=PASS_3_SCENARIOS_TWO_PROCESSES
+B20_RECOVERY=PASS_TORN_CORRUPT_FALLBACK_AND_SUCCESSFUL_UPDATE
+B20_ACK=PASS_PENDING_RESET_AND_CONFIRMED_HIGHWATER_PRESERVED
+B20_HASH_SHA256=fd93f043542e284051a9e3a7d8b21a62b89334ced0498c239c6e373a7f2a9d34
+B20_DISK_ATOMICITY_ESP_NVS_POWERLOSS=NOT_VERIFIED
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b21_contract.py
+B21_CONTRACT=PASS_FAIL_CLOSED_CUT_AND_RESTORE_HOST_BOUNDARY
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b21_cut_matrix.py
+B21_HOST_MATRIX=PASS_EXHAUSTIVE_PREFIX_AND_BIT_FLIPS_NO_DB
+B21_CUT_CASES=122
+B21_FAULT_CASES=1220
+B21_FORMAL_DURABILITY=NOT_VERIFIED
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b21_negative.py
+B21_NEGATIVE=PASS_TRUNC_STALE_BITFLIP_INVALID_ARGS_AND_ACK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_net001_host_adapter.py
+......
+----------------------------------------------------------------------
+Ran 6 tests in 1.315s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_sys004_no_actuator.py
+test_allowlist_and_blocklist (__main__.Sys004TopicGate.test_allowlist_and_blocklist) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.213s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_live_http_integration_gate.py
+test_arbitrary_temporary_directory_is_never_removed (__main__.LiveHttpGateTest.test_arbitrary_temporary_directory_is_never_removed) ... ok
+test_blocked_cleanup_cannot_be_a_pass_and_retains_lease_without_private_key (__main__.LiveHttpGateTest.test_blocked_cleanup_cannot_be_a_pass_and_retains_lease_without_private_key) ... ok
+test_default_is_read_only_and_conflicting_connection_overrides_are_preserved (__main__.LiveHttpGateTest.test_default_is_read_only_and_conflicting_connection_overrides_are_preserved) ... ok
+test_failed_alarm_c99_build_precedes_live_fixture_mutation (__main__.LiveHttpGateTest.test_failed_alarm_c99_build_precedes_live_fixture_mutation) ... ok
+test_failed_c99_assertion_is_fail_and_precedes_any_fixture_mutation (__main__.LiveHttpGateTest.test_failed_c99_assertion_is_fail_and_precedes_any_fixture_mutation) ... ok
+test_failed_domain_c99_build_precedes_any_live_fixture (__main__.LiveHttpGateTest.test_failed_domain_c99_build_precedes_any_live_fixture) ... ok
+test_failed_network_case_stops_owned_process_and_cleans_only_through_guard (__main__.LiveHttpGateTest.test_failed_network_case_stops_owned_process_and_cleans_only_through_guard) ... ok
+test_failed_recovered_replay_build_never_prepares_live_database_fixture (__main__.LiveHttpGateTest.test_failed_recovered_replay_build_never_prepares_live_database_fixture) ... ok
+test_fixture_write_requires_execute_before_any_environment_or_database_boot (__main__.LiveHttpGateTest.test_fixture_write_requires_execute_before_any_environment_or_database_boot) ... ok
+test_formal_read_only_audit_never_accepts_arbitrary_action_or_missing_lease (__main__.LiveHttpGateTest.test_formal_read_only_audit_never_accepts_arbitrary_action_or_missing_lease) ... ok
+test_native_receipt_bridge_never_overwrites_existing_binary (__main__.LiveHttpGateTest.test_native_receipt_bridge_never_overwrites_existing_binary) ... ok
+test_native_receipt_bridge_refuses_unowned_root_without_compiler_or_file_changes (__main__.LiveHttpGateTest.test_native_receipt_bridge_refuses_unowned_root_without_compiler_or_file_changes) ... ok
+test_native_receipt_verifier_compile_failure_precedes_live_database_mutation (__main__.LiveHttpGateTest.test_native_receipt_verifier_compile_failure_precedes_live_database_mutation) ... ok
+test_race_barrier_failure_cannot_release_or_leave_a_live_worker (__main__.LiveHttpGateTest.test_race_barrier_failure_cannot_release_or_leave_a_live_worker) ... ok
+test_race_helper_refuses_an_unowned_temporary_root_before_process_or_file_changes (__main__.LiveHttpGateTest.test_race_helper_refuses_an_unowned_temporary_root_before_process_or_file_changes) ... ok
+test_readiness_failure_never_prepares_database_fixture_even_after_server_launch (__main__.LiveHttpGateTest.test_readiness_failure_never_prepares_database_fixture_even_after_server_launch) ... ok
+test_real_php_race_fixture_requires_execute_before_bootstrap_or_environment (__main__.LiveHttpGateTest.test_real_php_race_fixture_requires_execute_before_bootstrap_or_environment) ... ok
+test_rejected_preflight_never_builds_launches_or_prepares_fixtures (__main__.LiveHttpGateTest.test_rejected_preflight_never_builds_launches_or_prepares_fixtures) ... ok
+test_response_leak_guard_also_covers_per_request_unknown_bearer (__main__.LiveHttpGateTest.test_response_leak_guard_also_covers_per_request_unknown_bearer) ... ok
+test_retirement_driver_compile_failure_precedes_server_and_database_fixtures (__main__.LiveHttpGateTest.test_retirement_driver_compile_failure_precedes_server_and_database_fixtures) ... ok
+test_second_race_process_spawn_failure_stops_and_closes_the_first (__main__.LiveHttpGateTest.test_second_race_process_spawn_failure_stops_and_closes_the_first) ... ok
+test_source_change_cannot_be_certified_by_successful_requests_and_cleanup (__main__.LiveHttpGateTest.test_source_change_cannot_be_certified_by_successful_requests_and_cleanup) ... ok
+test_startup_admission_can_wait_past_fifteen_seconds_without_relaxing_readiness_success (__main__.LiveHttpGateTest.test_startup_admission_can_wait_past_fifteen_seconds_without_relaxing_readiness_success) ... ok
+test_unavailable_tls_prerequisite_blocks_before_server_or_database_fixtures (__main__.LiveHttpGateTest.test_unavailable_tls_prerequisite_blocks_before_server_or_database_fixtures) ... ok
+
+----------------------------------------------------------------------
+Ran 24 tests in 0.864s
+
+OK
+
+EXIT=0
+COMMAND=C:/tools/php-8.2.35/php.exe -l backend/laravel/tests/Support/TestSchema.php
+No syntax errors detected in backend/laravel/tests/Support/TestSchema.php
+
+EXIT=0
+COMMAND=C:/tools/php-8.2.35/php.exe -l backend/laravel/tests/Support/LiveHttpSafety.php
+No syntax errors detected in backend/laravel/tests/Support/LiveHttpSafety.php
+
+EXIT=0
+COMMAND=C:/tools/php-8.2.35/php.exe -l backend/laravel/tests/Feature/LiveHttpSafetyTest.php
+No syntax errors detected in backend/laravel/tests/Feature/LiveHttpSafetyTest.php
+
+EXIT=0
+COMMAND=C:/tools/php-8.2.35/php.exe -l scripts/live_http_fixture.php
+No syntax errors detected in scripts/live_http_fixture.php
+
+EXIT=0
+COMMAND=C:/tools/php-8.2.35/php.exe -l scripts/live_http_router.php
+No syntax errors detected in scripts/live_http_router.php
+
+EXIT=0
+COMMAND=C:/tools/php-8.2.35/php.exe -l scripts/live_http_tls.php
+No syntax errors detected in scripts/live_http_tls.php
+
+EXIT=0
+COMMAND=python -B scripts/test_esp32_network_port.py
+test_frame_preserves_zero_null_source_and_failure_outputs (__main__.Esp32NetworkPortTest.test_frame_preserves_zero_null_source_and_failure_outputs) ... ok
+test_https_authority_admission (__main__.Esp32NetworkPortTest.test_https_authority_admission) ... ok
+test_profile_policy_and_string_bounds (__main__.Esp32NetworkPortTest.test_profile_policy_and_string_bounds) ... ok
+test_queue_body_reply_and_retry_limits (__main__.Esp32NetworkPortTest.test_queue_body_reply_and_retry_limits) ... ok
+test_real_sdk_security_and_nonblocking_boundaries_are_present (__main__.Esp32NetworkPortTest.test_real_sdk_security_and_nonblocking_boundaries_are_present) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 1.150s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_esp32_build_gate.py
+.usage: build [-h] [--pio-cli PIO_CLI] --evidence-name EVIDENCE_NAME
+             [--environment {esp32dev_espidf,esp32dev_continuous}]
+build: error: evidence already exists; select a new run name
+...usage: build [-h] [--pio-cli PIO_CLI] --evidence-name EVIDENCE_NAME
+             [--environment {esp32dev_espidf,esp32dev_continuous}]
+build: error: argument --environment: invalid choice: '../foreign' (choose from esp32dev_espidf, esp32dev_continuous)
+.
+----------------------------------------------------------------------
+Ran 5 tests in 0.046s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_offline_state.py
+test_all_truncations_and_every_corrupted_byte_preserve_output (__main__.OfflineStateTest.test_all_truncations_and_every_corrupted_byte_preserve_output) ... ok
+test_conflicts_regressions_aliasing_and_generation_exhaustion_are_atomic (__main__.OfflineStateTest.test_conflicts_regressions_aliasing_and_generation_exhaustion_are_atomic) ... ok
+test_independent_python_crc_and_binary_field_oracle (__main__.OfflineStateTest.test_independent_python_crc_and_binary_field_oracle) ... ok
+test_maximum_names_and_saturated_rejection_counter_have_exact_bounds (__main__.OfflineStateTest.test_maximum_names_and_saturated_rejection_counter_have_exact_bounds) ... ok
+test_maximum_packet_and_eight_cross_boot_events_without_eviction (__main__.OfflineStateTest.test_maximum_packet_and_eight_cross_boot_events_without_eviction) ... ok
+test_output_capacity_and_bad_source_fail_without_erasing_previous_bytes (__main__.OfflineStateTest.test_output_capacity_and_bad_source_fail_without_erasing_previous_bytes) ... ok
+test_queue_replacement_requires_a_valid_cumulative_critical_prefix (__main__.OfflineStateTest.test_queue_replacement_requires_a_valid_cumulative_critical_prefix) ... ok
+test_recalculated_checksum_cannot_hide_invalid_schema_or_metadata (__main__.OfflineStateTest.test_recalculated_checksum_cannot_hide_invalid_schema_or_metadata) ... ok
+test_roundtrip_preserves_64bit_identity_and_event_fields (__main__.OfflineStateTest.test_roundtrip_preserves_64bit_identity_and_event_fields) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 3.212s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_offline_transaction.py
+test_blank_bootstrap_alternates_slots_and_recovers_latest_generation (__main__.OfflineTransactionTest.test_blank_bootstrap_alternates_slots_and_recovers_latest_generation) ... ok
+test_commit_failure_can_be_uncertain_and_requires_explicit_recovery (__main__.OfflineTransactionTest.test_commit_failure_can_be_uncertain_and_requires_explicit_recovery) ... ok
+test_equal_generation_conflict_is_rejected_but_identical_slots_are_admitted (__main__.OfflineTransactionTest.test_equal_generation_conflict_is_rejected_but_identical_slots_are_admitted) ... ok
+test_every_partial_write_preserves_selected_slot_and_published_memory (__main__.OfflineTransactionTest.test_every_partial_write_preserves_selected_slot_and_published_memory) ... ok
+test_readback_corruption_and_io_errors_do_not_publish_or_initialize_empty (__main__.OfflineTransactionTest.test_readback_corruption_and_io_errors_do_not_publish_or_initialize_empty) ... ok
+test_sdk_binding_has_no_erase_network_wait_or_unconditional_queue_eviction (__main__.OfflineTransactionTest.test_sdk_binding_has_no_erase_network_wait_or_unconditional_queue_eviction) ... ok
+test_transaction_boundary_rejects_critical_deletion_even_if_merge_is_bypassed (__main__.OfflineTransactionTest.test_transaction_boundary_rejects_critical_deletion_even_if_merge_is_bypassed) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 2.948s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_continuous_simulation.py
+test_ack_remains_active_monotonic_and_new_reason_realerts (__main__.ContinuousSimulationTest.test_ack_remains_active_monotonic_and_new_reason_realerts) ... ok
+test_actual_24_frames_all_domains_and_checkpoint_recovery (__main__.ContinuousSimulationTest.test_actual_24_frames_all_domains_and_checkpoint_recovery) ... ok
+test_alarm_id_exhaustion_is_explicit_and_does_not_silence_condition (__main__.ContinuousSimulationTest.test_alarm_id_exhaustion_is_explicit_and_does_not_silence_condition) ... ok
+test_config_rejects_missing_thresholds_physical_monitor_block_and_unterminated_identity (__main__.ContinuousSimulationTest.test_config_rejects_missing_thresholds_physical_monitor_block_and_unterminated_identity) ... ok
+test_domain_rejects_foreign_source_invalid_values_and_future_metadata (__main__.ContinuousSimulationTest.test_domain_rejects_foreign_source_invalid_values_and_future_metadata) ... ok
+test_eight_engines_map_68_fields_without_silent_truncation (__main__.ContinuousSimulationTest.test_eight_engines_map_68_fields_without_silent_truncation) ... ok
+test_engine_lost_null_stopped_zero_and_uint64_not_rounded (__main__.ContinuousSimulationTest.test_engine_lost_null_stopped_zero_and_uint64_not_rounded) ... ok
+test_full_journal_does_not_freeze_local_sampling_or_replace_old_events (__main__.ContinuousSimulationTest.test_full_journal_does_not_freeze_local_sampling_or_replace_old_events) ... ok
+test_legacy_wire_is_byte_identical (__main__.ContinuousSimulationTest.test_legacy_wire_is_byte_identical) ... ok
+test_navigation_no_fix_unknown_checksum_age_boundaries (__main__.ContinuousSimulationTest.test_navigation_no_fix_unknown_checksum_age_boundaries) ... ok
+test_sdk_entry_has_no_physical_output_or_erase_and_separate_target (__main__.ContinuousSimulationTest.test_sdk_entry_has_no_physical_output_or_erase_and_separate_target) ... ok
+test_v11_72_channels_and_4096_bytes_limits_are_independent (__main__.ContinuousSimulationTest.test_v11_72_channels_and_4096_bytes_limits_are_independent) ... ok
+test_wait_regression_skipped_periods_and_sequence_exhaustion (__main__.ContinuousSimulationTest.test_wait_regression_skipped_periods_and_sequence_exhaustion) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 6.749s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_net002_offline_host.py
+test_bad_event_does_not_evict (__main__.Net002HostTest.test_bad_event_does_not_evict) ... ok
+test_bounded_event_eviction_visible (__main__.Net002HostTest.test_bounded_event_eviction_visible) ... ok
+test_latest_retains_good_after_invalid (__main__.Net002HostTest.test_latest_retains_good_after_invalid) ... ok
+test_missing_and_zero_rejected (__main__.Net002HostTest.test_missing_and_zero_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.868s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_sys002_source_provenance.py
+test_three_sources_unknown_rejection_and_no_mutation (__main__.SourceProvenance.test_three_sources_unknown_rejection_and_no_mutation) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.225s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_sec001_patterns.py
+test_aws_key (__main__.SecretPatterns.test_aws_key) ... ok
+test_github_token (__main__.SecretPatterns.test_github_token) ... ok
+test_no_raw_secret_in_report (__main__.SecretPatterns.test_no_raw_secret_in_report) ... ok
+test_private_key (__main__.SecretPatterns.test_private_key) ... ok
+test_public_example_not_secret (__main__.SecretPatterns.test_public_example_not_secret) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.000s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_tst001_scoped_evidence.py
+test_five_mapped_scopes (__main__.TraceMapping.test_five_mapped_scopes) ... ok
+test_no_formal_pass_claim (__main__.TraceMapping.test_no_formal_pass_claim) ... ok
+test_unique_and_sha256 (__main__.TraceMapping.test_unique_and_sha256) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.005s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b3_net001_uplink.py
+test_no_send_until_ready_and_preserve_snapshot (__main__.TestNet001Uplink.test_no_send_until_ready_and_preserve_snapshot) ... ok
+test_rejected_driver_retains_state (__main__.TestNet001Uplink.test_rejected_driver_retains_state) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.493s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b3_net002_replay.py
+test_ack_order_and_wrong_ack (__main__.TestNet002Replay.test_ack_order_and_wrong_ack) ... ok
+test_mutation_fail_closed (__main__.TestNet002Replay.test_mutation_fail_closed) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.443s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b3_sys002_provenance.py
+test_source_mode_validation (__main__.TestSys002Provenance.test_source_mode_validation) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.233s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b3_sys003_outage.py
+test_local_always_first_even_if_network_null (__main__.TestSys003Outage.test_local_always_first_even_if_network_null) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.246s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b3_tel003_dedup.py
+test_new_replay_conflict_full (__main__.TestTel003Dedup.test_new_replay_conflict_full) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.273s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b3_integrated_host.py
+test_outage_recovery_replay_provenance_and_dedup (__main__.TestBatch3HostIntegration.test_outage_recovery_replay_provenance_and_dedup) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.266s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b4_tel001.py
+test_required_fields_source_and_buffer (__main__.Tel001.test_required_fields_source_and_buffer) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.245s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b4_tel002.py
+test_null_quality_and_explicit_zero (__main__.Tel002.test_null_quality_and_explicit_zero) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.252s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b4_sec002.py
+test_fail_closed_transport_claims (__main__.Sec002.test_fail_closed_transport_claims) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.218s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b4_tst001.py
+test_trace_inventory (__main__.Tst001.test_trace_inventory) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.046s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b5_api001_strict.py
+test_bad_structure (__main__.StrictApi.test_bad_structure) ... ok
+test_duplicate_nested (__main__.StrictApi.test_duplicate_nested) ... ok
+test_escaped_duplicate (__main__.StrictApi.test_escaped_duplicate) ... ok
+test_normal (__main__.StrictApi.test_normal) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.665s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b5_tel003_dedup.py
+test_duplicate_conflict_and_capacity (__main__.Dedup.test_duplicate_conflict_and_capacity) ... ok
+test_identity_boot_boundary (__main__.Dedup.test_identity_boot_boundary) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.078s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b5_net002_ack.py
+test_mutation_reject (__main__.Ack.test_mutation_reject) ... ok
+test_verified_order (__main__.Ack.test_verified_order) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.385s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b5_sec002_claims.py
+test_claims (__main__.Sec.test_claims) ... ok
+test_payload_duplicate_still_rejected (__main__.Sec.test_payload_duplicate_still_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.211s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b5_tst001.py
+test_mapping_5_contexts (__main__.Trace.test_mapping_5_contexts) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b6_tel001.py
+test_wire_schema_and_source (__main__.Wire.test_wire_schema_and_source) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.240s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b6_tel002.py
+test_null_zero_stale (__main__.Quality.test_null_zero_stale) ... ok
+test_reject_false_zero (__main__.Quality.test_reject_false_zero) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.079s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b6_api001.py
+test_forged_claim_or_duplicate_key_blocked (__main__.Decision.test_forged_claim_or_duplicate_key_blocked) ... ok
+test_ingress_duplicate_conflict (__main__.Decision.test_ingress_duplicate_conflict) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.077s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b6_net002.py
+test_mutated_queue_refused (__main__.Receipt.test_mutated_queue_refused) ... ok
+test_receipt_correlation_and_ack (__main__.Receipt.test_receipt_correlation_and_ack) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.461s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b6_tst001.py
+test_exact_scoped_map (__main__.Trace.test_exact_scoped_map) ... ok
+test_existing_boundary_protected (__main__.Trace.test_existing_boundary_protected) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.001s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b7_sys002.py
+test_refuse_physical_and_mismatched_labels (__main__.Source.test_refuse_physical_and_mismatched_labels) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.212s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b7_sys003.py
+test_always_local_first_even_outage_or_missing_callback (__main__.Safety.test_always_local_first_even_outage_or_missing_callback) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.260s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b7_sys004.py
+test_only_whitelisted_empty_queries (__main__.ReadOnly.test_only_whitelisted_empty_queries) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.271s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b7_net002.py
+test_ack_requires_all_gates_and_correlation (__main__.Receipt.test_ack_requires_all_gates_and_correlation) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.279s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b7_tst001.py
+test_ci_wires_all_cases (__main__.Trace.test_ci_wires_all_cases) ... ok
+test_exact_trace_and_limits (__main__.Trace.test_exact_trace_and_limits) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.002s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b7_integrated.py
+test_outage_safety_readonly_provenance_then_ack (__main__.Gateway.test_outage_safety_readonly_provenance_then_ack) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.334s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b8_sys003.py
+test_fail_closed_on_missing_state (__main__.Alarm.test_fail_closed_on_missing_state) ... ok
+test_latch_recovery_requires_three_clean_samples_and_ack (__main__.Alarm.test_latch_recovery_requires_three_clean_samples_and_ack) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.418s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b8_net002.py
+test_verified_exactly_once_monotonic (__main__.Ack.test_verified_exactly_once_monotonic) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.219s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b8_tel003.py
+test_monotonic_duplicate_gap_and_conflict (__main__.Ordered.test_monotonic_duplicate_gap_and_conflict) ... ok
+test_repeated_identity_modified_body_is_rejected (__main__.Ordered.test_repeated_identity_modified_body_is_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.081s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b8_sec002.py
+test_reject_invalid_claims_and_time_boundary (__main__.Claims.test_reject_invalid_claims_and_time_boundary) ... ok
+test_reject_payload_duplicate_keys (__main__.Claims.test_reject_payload_duplicate_keys) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.088s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b8_tst001.py
+test_existing_anchors_unchanged (__main__.Evidence.test_existing_anchors_unchanged) ... ok
+test_trace_and_ci_are_scoped (__main__.Evidence.test_trace_and_ci_are_scoped) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.001s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_ui002_views.py
+....
+----------------------------------------------------------------------
+Ran 4 tests in 0.003s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b22_guarded_restore.py
+B22_HOST_GUARD=PASS_TRUSTED_FLOOR_SPLIT_BRAIN_AND_ACK_NO_DB
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b22_contract.py
+B22_CONTRACT=PASS_NO_SOURCE_PRODUCTION_CHANGE_NO_WITNESS_CLAIM
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b22_negative.py
+B22_NEGATIVE=PASS_TAMPER_ROLLBACK_IDENTITY_AMBIGUITY
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b23_witness.py
+B23_HOST_WITNESS=PASS_STAGE_CANDIDATE_OLD_WITNESS_RESTORE_READBACK_NO_DB
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b23_contract.py
+B23_CONTRACT=PASS_EXACT_WITNESS_NO_FALSE_DURABILITY_CLAIM
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b23_negative.py
+B23_NEGATIVE=PASS_FAIL_CLOSED_ON_UNWITNESSED_CORRUPT_STALE_AND_SPLIT_BRAIN
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b25_observation_epoch.py
+B25_HOST_OBSERVATION=PASS_18_CROSS_PROCESS_CASES_2_ACCEPT_16_DENY_NO_DB
+B25_EXTERNAL_EPOCH_AUTH_DURABILITY_NVS=NOT_VERIFIED
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b25_contract.py
+B25_CONTRACT=PASS_EPOCH_BOUNDARY_OUTPUT_ATOMICITY_AND_TRUST_QUALIFICATION
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b25_negative.py
+B25_NEGATIVE=PASS_REPLAY_WRONG_SOURCE_EPOCH_AND_OUTPUT_ATOMICITY
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b24_witness_receipt.py
+B24_HOST_RECEIPT=PASS_14_CROSS_PROCESS_SCENARIOS_OLD_NEW_AND_12_FAIL_CLOSED_NO_DB
+B24_EXTERNAL_PERSISTENCE_AUTH_AND_NVS=NOT_VERIFIED
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b24_contract.py
+B24_CONTRACT=PASS_HOST_RECEIPT_POLICY_AND_EXPLICIT_TRUST_BOUNDARY
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b24_negative.py
+B24_NEGATIVE=PASS_12_REJECTED_OR_MISMATCHED_OBSERVATIONS
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b26_dual_witness.py
+B26_HOST_QUORUM=PASS_29_SCENARIOS_2_ACCEPT_27_DENY_CROSS_PROCESS_NO_DB
+B26_INDEPENDENT_AUTHENTICATION_DURABILITY_ESP_NVS=NOT_VERIFIED
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b26_contract.py
+B26_CONTRACT=PASS_TWO_SOURCE_EPOCH_CONSENSUS_AND_OUTPUT_ATOMICITY
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b26_negative.py
+B26_NEGATIVE=PASS_DISAGREEMENT_REPLAY_TAMPER_AND_ATOMIC_DENY
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b27_quorum_sequence.py
+B27_HOST_SEQUENCE=PASS_30_CROSS_PROCESS_CASES_1_ACCEPT_29_DENY_NO_DB
+B27_EXTERNAL_SOURCE_AUTH_DURABILITY_ESP_NVS=NOT_VERIFIED
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b27_contract.py
+B27_CONTRACT=PASS_TWO_ROUND_QUORUM_CHAIN_AND_OUTPUT_ATOMICITY
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b27_negative.py
+B27_NEGATIVE=PASS_NO_PARTIAL_COMMIT_ON_SECOND_ROUND_DENIAL
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b28_revision_fence.py
+B28_HOST_REVISION_FENCE=PASS_31_CROSS_PROCESS_CASES_1_ACCEPT_30_DENY_NO_DB
+B28_EXTERNAL_CAS_AUTH_PERSISTENCE_ESP_NVS=NOT_VERIFIED
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b28_contract.py
+B28_CONTRACT=PASS_EXTERNAL_CAS_FENCE_ATOMIC_OUTPUT_NO_DEVICE_TRUST_CLAIM
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b28_negative.py
+B28_NEGATIVE=PASS_30_DENIALS_STALE_CAS_SPLIT_REPLAY_CORRUPT_ATOMICITY
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b29_publish_barrier.py
+B29_HOST_PUBLISH_BARRIER=PASS_31_CROSS_PROCESS_CASES_1_COMMIT_30_DENY_NO_DB
+B29_EXTERNAL_RECEIPT_AUTH_CAS_DURABILITY_ESP_NVS=NOT_VERIFIED
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b29_contract.py
+B29_CONTRACT=PASS_PREPARE_UNPUBLISHED_EXTERNAL_CAS_RECEIPT_BOUND_FINALIZE
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b29_negative.py
+B29_NEGATIVE=PASS_STALE_CAS_REPLAY_SPLIT_IDENTITY_NO_PARTIAL_PUBLICATION
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b30_exact_readback.py
+B30_HOST_EXACT_READBACK=PASS_42_CROSS_PROCESS_CASES_1_ACCEPT_41_DENY_NO_DB
+B30_READBACK_AUTH_DURABILITY_ESP_NVS=NOT_VERIFIED
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b30_contract.py
+B30_CONTRACT=PASS_EXACT_CANONICAL_IMAGE_READBACK_NO_PARTIAL_PUBLISH
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b30_negative.py
+B30_NEGATIVE=PASS_STALE_READBACK_ALIAS_MUTATION_NO_PARTIAL_ACK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b31_publish_isolation.py
+B31_HOST_PUBLISH_ISOLATION=PASS_31_CROSS_PROCESS_CASES_1_ACCEPT_30_DENY_NO_DB
+B31_ADDRESS_SPACE_ISOLATION_NOT_AUTHENTICATION_ESP_NVS=NOT_VERIFIED
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b31_contract.py
+B31_CONTRACT=PASS_HOST_PUBLICATION_NONALIAS_AND_ZERO_MUTATION_ON_DENIAL
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b31_negative.py
+B31_NEGATIVE=PASS_OVERLAP_DENIAL_MATRIX_READBACK_INDEPENDENCE
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b32_input_provenance.py
+B32_HOST_INPUT_SEPARATION=PASS_24_CROSS_PROCESS_CASES_1_ACCEPT_23_DENY_NO_DB
+B32_INPUT_ADDRESS_INDEPENDENCE_NOT_SOURCE_AUTH_OR_ESP_NVS=NOT_VERIFIED
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b32_contract.py
+B32_CONTRACT=PASS_PAIRWISE_INPUT_ADDRESS_SEPARATION_NO_MUTATION_ON_DENIAL
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b32_negative.py
+B32_NEGATIVE=PASS_INPUT_ALIAS_DENIAL_AND_B31_CHAIN_PRESERVED
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b33_stable_revision.py
+B33_HOST_REVISION_STABILITY=PASS_30_CROSS_PROCESS_CASES_1_ACCEPT_29_DENY_NO_DB
+B33_EXTERNAL_CAS_ATOMICITY_AUTH_ESP_NVS=NOT_VERIFIED
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b33_contract.py
+B33_CONTRACT=PASS_TWO_PROBES_STAGED_OUTPUT_ZERO_PREMATURE_WRITES
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b33_negative.py
+B33_NEGATIVE=PASS_REVISION_AND_MUTATION_GUARDS_PRESENT
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b34_publish_envelope.py
+B34_HOST_ENVELOPE=PASS_35_CROSS_PROCESS_CASES_1_ACCEPT_34_DENY_NO_DB
+B34_ATOMIC_VISIBILITY_AUTHENTICATION_NVS=NOT_VERIFIED
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b34_contract.py
+B34_CONTRACT=PASS_PRIVATE_OUTPUT_ENVELOPE_AND_COHERENCE
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b34_negative.py
+B34_NEGATIVE=PASS_OVERLAP_AND_FAILURE_NO_OUTPUT_WRITE
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b35_wire_receipt.py
+B35_WIRE_RECEIPT=PASS_41_CROSS_PROCESS_CASES_1_ACCEPT_40_DENY_NO_DB
+B35_CRYPTOGRAPHIC_AUTH_DURABLE_CAS_ESP_NVS=NOT_VERIFIED
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b35_contract.py
+B35_CONTRACT=PASS_CANONICAL_LE72_FIELD_FORMAT_AND_OUTPUT_GUARD
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b35_negative.py
+B35_NEGATIVE=PASS_CORRUPTION_REPLAY_ALIAS_NO_OUTPUT_WRITE
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b36_wire_interop.py
+B36_INTEROP=PASS_26_CROSS_PROCESS_1_ACCEPT_25_DENY_INDEPENDENT_PYTHON_ZLIB_NO_DB
+B36_CRC_AUTHENTICATION_ESP_NVS=NOT_VERIFIED
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b36_contract.py
+B36_CONTRACT=PASS_INDEPENDENT_C99_INDEXED_VS_PYTHON_STRUCT_WIRE_ORACLE
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b36_negative.py
+B36_NEGATIVE=PASS_REPAIRED_CRC_MISMATCH_NOREWRITE_REFERENCE
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b37_hmac_receipt.py
+B37_HMAC=PASS_36_HOST_CASES_1_ACCEPT_35_DENY_EPHEMERAL_KEY
+B37_KEY_PROVISIONING_COUNTER_PERSISTENCE_ESP32=NOT_VERIFIED
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b37_contract.py
+B37_CONTRACT=PASS_STRUCTURAL_C99_ONLY_PYTHON_HMAC_AUTHORIZATION
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b37_negative.py
+B37_NEGATIVE=PASS_UNSIGNED_REBUILT_CRC_REPLAY_WRONG_KEY_AND_ID
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b38_key_rotation.py
+B38_ROTATION=PASS_47_CASES_2_ACCEPT_45_DENY_NO_RETIRED_KEY_FALLBACK
+B38_EXTERNAL_TRUSTED_KEYRING_COUNTER_ESP32=NOT_VERIFIED
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b38_contract.py
+B38_CONTRACT=PASS_STRUCTURAL_C99_NO_AUTH_PYTHON_EPHEMERAL_ROTATION_POLICY
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b38_negative.py
+B38_NEGATIVE=PASS_RETIRED_KEY_REPLAY_FLOOR_KEY_ID_AND_SECRET_CHECKS
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b39_domain_scope.py
+B39_DOMAIN_SCOPE=PASS_45_CASES_2_ACCEPT_43_DENY_EPHEMERAL_KEYS
+B39_C99_STRUCTURAL_PASS_NEVER_AUTHORIZES_ACK=VERIFIED
+B39_ESP32_KEY_PROVISIONING_DOMAIN_POLICY_ATOMIC_CAS=NOT_VERIFIED
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b39_contract.py
+B39_CONTRACT=PASS_HOST_SCOPE_DERIVATION_C99_STRUCTURAL_ONLY_NO_AUTH
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b39_negative.py
+B39_NEGATIVE=PASS_CROSS_PURPOSE_DEVICE_KEY_REPLAY_AND_CONTEXT_FORGERY_CASES
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b40_hmac_verify.py
+B40_C99_HMAC_VERIFY=PASS_46_CASES_3_ACCEPT_43_DENY_RFC4231_3_VECTORS
+B40_B39_STRUCTURAL_BYPASS_DETECTED_BY_C99_HMAC=VERIFIED
+B40_PRODUCTION_CRYPTO_KEY_STORAGE_ESP32_ATOMIC_ACK=NOT_VERIFIED
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b40_contract.py
+B40_CONTRACT=PASS_SHA256_HMAC_C99_HOST_ONLY_CONSTANT_TIME_MAC_AND_EPOCH_FAIL_CLOSED
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b40_negative.py
+B40_NEGATIVE=PASS_KEY_DOMAIN_EPOCH_MAC_CRC_LENGTH_DEVICE_AND_WIRE_TAMPER_CASES
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b41_rotation_fence.py
+B41_ROTATION_FENCE=PASS_52_CASES_3_ACCEPT_49_DENY_NO_DB
+B41_EXTERNAL_TRUSTED_REVISION_ATOMIC_CAS_ESP32=NOT_VERIFIED
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b41_contract.py
+B41_CONTRACT=PASS_ROTATION_OBSERVATION_REVISION_SOURCE_AND_DENY_UNCHANGED
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b41_negative.py
+B41_NEGATIVE=PASS_STALE_REVISION_REVOKED_KEY_SOURCE_POLICY_AND_MAC_TAMPER
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b42_challenge_bound.py
+B42_CHALLENGE=PASS_68_CASES_3_ACCEPT_65_DENY_NO_DB
+B42_TRUSTED_NONCE_ISSUANCE_SINGLE_USE_ATOMIC_CAS_ESP32=NOT_VERIFIED
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b42_contract.py
+B42_CONTRACT=PASS_SESSION_CHALLENGE_HMAC_SCOPE_REVISION_AND_FAIL_CLOSED
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b42_negative.py
+B42_NEGATIVE=PASS_CHALLENGE_REPLAY_TAG_CONTEXT_ROTATION_AND_UNCHANGED_OUTPUT
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b43_nonce_ledger.py
+B43_NONCE_LEDGER=PASS_41_CROSS_PROCESS_7_VALID_34_DENY_NO_DB
+B43_REPLAY_SAME_PROCESS_BOUNDED_FAIL_CLOSED=VERIFIED
+B43_DURABLE_NONCE_REPLAY_CAS_THREAD_SAFETY_ESP32=NOT_VERIFIED
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b43_contract.py
+B43_CONTRACT=PASS_BOUNDED_LEDGER_INPUT_ISOLATION_AND_NO_EVICTION
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b43_negative.py
+B43_NEGATIVE=PASS_REPLAY_CORRUPT_CAPACITY_ALIAS_AND_FAILURE_IMMUTABILITY
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b45_slot_recovery.py
+B45_TWO_SLOT_ORACLE=PASS_53_CROSS_PROCESS_CASES_NO_DB
+B45_CRASH_ATOMIC_DISK_NVS_TRUSTED_FLOOR_CONCURRENT_CAS=NOT_VERIFIED
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b45_contract.py
+B45_CONTRACT=PASS_HOST_ONLY_TWO_SLOT_READBACK_SELECTION_NO_DB
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b45_negative.py
+B45_NEGATIVE=PASS_SPLIT_BRAIN_INVALID_LENGTH_WRONG_MAC_STALE_GENERATION
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b44_nonce_snapshot.py
+B44_NONCE_SNAPSHOT=PASS_57_CROSS_PROCESS_AUTHENTICATED_AND_DENIAL_NO_DB
+B44_PYTHON_INDEPENDENT_STRUCT_HMAC_ORACLE=VERIFIED_HOST_ONLY
+B44_TRUSTED_GENERATION_FLOOR_CRASH_ATOMIC_STORE_THREAD_CAS_ESP32=NOT_VERIFIED
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b44_contract.py
+B44_CONTRACT=PASS_CANONICAL_192_HMAC_FLOOR_AND_NO_DB
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b44_negative.py
+B44_NEGATIVE=PASS_TAMPER_STALE_SOURCE_ALIAS_AND_FAILURE_IMMUTABILITY
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b46_stage_readback.py
+B46_STAGE_READBACK=PASS_83_CROSS_PROCESS_CASES_4_ACCEPT_REST_DENY_NO_DB
+B46_TORN_WRITE_DISK_FSYNC_NVS_CONCURRENT_CAS_TRUSTED_FLOOR=NOT_VERIFIED
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b46_contract.py
+B46_CONTRACT=PASS_HOST_ONLY_INACTIVE_SLOT_ADMISSION_NO_DB
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b46_negative.py
+B46_NEGATIVE=PASS_NO_STALE_NONCE_REPLAY_ON_DENIAL_HOST_ONLY
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b10_contract.py
+test_backend_fault_not_caught_as_cursor_error (__main__.Contract.test_backend_fault_not_caught_as_cursor_error) ... ok
+test_laravel_test_contains_all_contexts (__main__.Contract.test_laravel_test_contains_all_contexts) ... ok
+test_runtime_production_file_is_concrete (__main__.Contract.test_runtime_production_file_is_concrete) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.001s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b11_contract.py
+B11_HTTP_DEPENDENCY_CONTRACT=PASS_6_RUNTIME_BOUNDARIES_9_CASES
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b14_contract.py
+test_c99_real_serializer_and_no_fake_payload (__main__.Contract.test_c99_real_serializer_and_no_fake_payload) ... ok
+test_laravel_real_routes_with_in_memory_services (__main__.Contract.test_laravel_real_routes_with_in_memory_services) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.001s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b15_contract.py
+B15_CONTRACT=PASS_C99_REAL_JOURNAL_4_EVENTS_NO_DB
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b16_contract.py
+B16_CONTRACT=PASS_RECEIPT_AND_REAL_ROUTES_NO_DB
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b16_receipt_gate.py
+B16_RECEIPT_GATE=PASS_21_HOST_CASES
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b17_contract.py
+B17_CONTRACT=PASS_HTTP_RECEIPT_SOURCE_HOST_BOUNDARY
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_b17_negative.py
+B17_NEGATIVE=PASS_9_REJECTED
+
+EXIT=0
+COMMAND=python -B scripts/test_firmware_core_host.py --repeat 2
+HOST_CORE_PARSER_REGRESSION: PASS (5/5)
+HOST_C_COMPILER: C:/msys64/ucrt64/bin\gcc.EXE
+HOST_FIRMWARE_CORE_SELFTEST: PASS (226/226)
+HOST_BOOT_ENTRY_REPETITIONS: PASS (2; same 226 cases per entry)
+NOTE: Native behavior only. Wokwi/ESP-IDF/SIM/SUP/bench verification not implied.
+
+EXIT=0
+COMMAND=C:/tools/php-8.2.35/php.exe -l backend/laravel/app/Http/Controllers/MonitoringController.php
+No syntax errors detected in backend/laravel/app/Http/Controllers/MonitoringController.php
+
+EXIT=0
+COMMAND=C:/tools/php-8.2.35/php.exe -l backend/laravel/app/Http/Requests/TelemetryIngestRequest.php
+No syntax errors detected in backend/laravel/app/Http/Requests/TelemetryIngestRequest.php
+
+EXIT=0
+COMMAND=C:/tools/php-8.2.35/php.exe -l backend/laravel/app/Services/TelemetryIngestService.php
+No syntax errors detected in backend/laravel/app/Services/TelemetryIngestService.php
+
+EXIT=0
+COMMAND=C:/tools/php-8.2.35/php.exe -l backend/laravel/app/Support/SimulationChannelPresentation.php
+No syntax errors detected in backend/laravel/app/Support/SimulationChannelPresentation.php
+
+EXIT=0
+COMMAND=C:/tools/php-8.2.35/php.exe -l backend/laravel/config/monitoring.php
+No syntax errors detected in backend/laravel/config/monitoring.php
+
+EXIT=0
+COMMAND=C:/tools/php-8.2.35/php.exe -l backend/laravel/tests/Feature/ContinuousSimulationIntegrationTest.php
+No syntax errors detected in backend/laravel/tests/Feature/ContinuousSimulationIntegrationTest.php
+
+EXIT=0
+COMMAND=C:/tools/php-8.2.35/php.exe -l backend/laravel/tests/Unit/SimulationChannelPresentationTest.php
+No syntax errors detected in backend/laravel/tests/Unit/SimulationChannelPresentationTest.php
+
+EXIT=0
+COMMAND=python -B scripts/test_alarm_transition.py
+test_aliases_and_corrupt_prefix_are_rejected (__main__.AlarmTransitionTest.test_aliases_and_corrupt_prefix_are_rejected) ... ok
+test_full_journal_keeps_snapshots_and_refusal_counter_saturates (__main__.AlarmTransitionTest.test_full_journal_keeps_snapshots_and_refusal_counter_saturates) ... ok
+test_full_lifecycle_is_immutable_and_zero_times_are_not_null (__main__.AlarmTransitionTest.test_full_lifecycle_is_immutable_and_zero_times_are_not_null) ... ok
+test_identity_source_state_and_action_time_are_bound (__main__.AlarmTransitionTest.test_identity_source_state_and_action_time_are_bound) ... ok
+test_mismatched_transition_never_partially_appends (__main__.AlarmTransitionTest.test_mismatched_transition_never_partially_appends) ... ok
+test_uint64_and_u32_boundaries_stay_exact_on_wire (__main__.AlarmTransitionTest.test_uint64_and_u32_boundaries_stay_exact_on_wire) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 1.757s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_alarm_offline_metadata.py
+test_all_truncations_corrupt_bytes_and_forged_flags_preserve_output (__main__.AlarmOfflineMetadataTest.test_all_truncations_corrupt_bytes_and_forged_flags_preserve_output) ... ok
+test_every_vgs2_partial_write_preserves_selected_metadata_and_state (__main__.AlarmOfflineMetadataTest.test_every_vgs2_partial_write_preserves_selected_metadata_and_state) ... ok
+test_full_metadata_identity_conflict_and_aliases_fail_before_output_mutation (__main__.AlarmOfflineMetadataTest.test_full_metadata_identity_conflict_and_aliases_fail_before_output_mutation) ... ok
+test_independent_vgs2_layout_crc_and_zero_vs_null_flags (__main__.AlarmOfflineMetadataTest.test_independent_vgs2_layout_crc_and_zero_vs_null_flags) ... ok
+test_legacy_bytes_remain_vgs1_and_unknown_history_is_not_reconstructed (__main__.AlarmOfflineMetadataTest.test_legacy_bytes_remain_vgs1_and_unknown_history_is_not_reconstructed) ... ok
+test_metadata_queue_prefix_and_sdk_contract_refuse_downgrade (__main__.AlarmOfflineMetadataTest.test_metadata_queue_prefix_and_sdk_contract_refuse_downgrade) ... ok
+test_transaction_cannot_delete_or_mutate_retained_metadata (__main__.AlarmOfflineMetadataTest.test_transaction_cannot_delete_or_mutate_retained_metadata) ... ok
+test_uncertain_vgs2_commit_exposes_new_ack_only_after_explicit_recovery (__main__.AlarmOfflineMetadataTest.test_uncertain_vgs2_commit_exposes_new_ack_only_after_explicit_recovery) ... ok
+test_worst_case_exact_5142_bound_and_legacy_4862_bound (__main__.AlarmOfflineMetadataTest.test_worst_case_exact_5142_bound_and_legacy_4862_bound) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 4.127s
+
+OK
+
+EXIT=0
+COMMAND=C:/tools/php-8.2.35/php.exe -l backend/laravel/app/Http/Requests/EventIngestRequest.php
+No syntax errors detected in backend/laravel/app/Http/Requests/EventIngestRequest.php
+
+EXIT=0
+COMMAND=C:/tools/php-8.2.35/php.exe -l backend/laravel/app/Support/AlarmTransitionMetadata.php
+No syntax errors detected in backend/laravel/app/Support/AlarmTransitionMetadata.php
+
+EXIT=0
+COMMAND=C:/tools/php-8.2.35/php.exe -l backend/laravel/app/Support/InspectsRawJsonObjects.php
+No syntax errors detected in backend/laravel/app/Support/InspectsRawJsonObjects.php
+
+EXIT=0
+COMMAND=C:/tools/php-8.2.35/php.exe -l backend/laravel/app/Models/MonitoringEvent.php
+No syntax errors detected in backend/laravel/app/Models/MonitoringEvent.php
+
+EXIT=0
+COMMAND=C:/tools/php-8.2.35/php.exe -l backend/laravel/app/Services/EventIngestService.php
+No syntax errors detected in backend/laravel/app/Services/EventIngestService.php
+
+EXIT=0
+COMMAND=C:/tools/php-8.2.35/php.exe -l backend/laravel/app/Services/DeviceEventReadService.php
+No syntax errors detected in backend/laravel/app/Services/DeviceEventReadService.php
+
+EXIT=0
+COMMAND=C:/tools/php-8.2.35/php.exe -l backend/laravel/tests/Feature/AlarmMetadataIntegrationTest.php
+No syntax errors detected in backend/laravel/tests/Feature/AlarmMetadataIntegrationTest.php
+
+EXIT=0
+COMMAND=C:/tools/php-8.2.35/php.exe -l backend/laravel/tests/Unit/AlarmTransitionMetadataTest.php
+No syntax errors detected in backend/laravel/tests/Unit/AlarmTransitionMetadataTest.php
+
+EXIT=0
+COMMAND=C:/tools/php-8.2.35/php.exe -l backend/laravel/database/migrations/2026_10_25_100006_add_alarm_metadata_to_monitoring_events.php
+No syntax errors detected in backend/laravel/database/migrations/2026_10_25_100006_add_alarm_metadata_to_monitoring_events.php
+
+EXIT=0
+COMMAND=C:/tools/php-8.2.35/php.exe -l scripts/mysql_test_gate.php
+No syntax errors detected in scripts/mysql_test_gate.php
+
+EXIT=0
+COMMAND=python -B scripts/test_offline_replay.py
+test_actual_worker_and_sdk_use_zero_wait_shared_replay_and_authenticated_owner (__main__.OfflineReplayTest.test_actual_worker_and_sdk_use_zero_wait_shared_replay_and_authenticated_owner) ... ok
+test_bounded_fields_source_metadata_and_generation_corruption_refused (__main__.OfflineReplayTest.test_bounded_fields_source_metadata_and_generation_corruption_refused) ... ok
+test_buffer_boundary_and_alias_cannot_damage_retained_view (__main__.OfflineReplayTest.test_buffer_boundary_and_alias_cannot_damage_retained_view) ... ok
+test_capture_invalid_or_alias_does_not_publish_or_mutate (__main__.OfflineReplayTest.test_capture_invalid_or_alias_does_not_publish_or_mutate) ... ok
+test_current_progress_survives_new_recovery_and_unsupported_does_not_block (__main__.OfflineReplayTest.test_current_progress_survives_new_recovery_and_unsupported_does_not_block) ... ok
+test_duplicate_identity_rejects_same_boot_but_allows_different_boot (__main__.OfflineReplayTest.test_duplicate_identity_rejects_same_boot_but_allows_different_boot) ... ok
+test_full_eight_boot_view_encodes_all_records_and_ninth_is_refused (__main__.OfflineReplayTest.test_full_eight_boot_view_encodes_all_records_and_ninth_is_refused) ... ok
+test_full_metadata_is_an_immutable_zero_time_snapshot (__main__.OfflineReplayTest.test_full_metadata_is_an_immutable_zero_time_snapshot) ... ok
+test_full_sources_alternate_and_backpressure_does_not_advance (__main__.OfflineReplayTest.test_full_sources_alternate_and_backpressure_does_not_advance) ... ok
+test_invalid_progress_wrong_source_and_fake_unsupported_do_not_advance (__main__.OfflineReplayTest.test_invalid_progress_wrong_source_and_fake_unsupported_do_not_advance) ... ok
+test_legacy_is_exact_nine_fields_without_fabricated_metadata (__main__.OfflineReplayTest.test_legacy_is_exact_nine_fields_without_fabricated_metadata) ... ok
+test_maximum_unsigned_values_and_bench_source_preserve_identity (__main__.OfflineReplayTest.test_maximum_unsigned_values_and_bench_source_preserve_identity) ... ok
+test_unsupported_legacy_is_explicit_and_retained_while_next_can_encode (__main__.OfflineReplayTest.test_unsupported_legacy_is_explicit_and_retained_while_next_can_encode) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 4.472s
+
+OK
+
+EXIT=0
+COMMAND=C:/tools/php-8.2.35/php.exe -l backend/laravel/tests/Feature/RecoveredReplayIntegrationTest.php
+No syntax errors detected in backend/laravel/tests/Feature/RecoveredReplayIntegrationTest.php
+
+EXIT=0
+COMMAND=python -B scripts/test_event_commit_receipt.py
+test_alias_and_null_output_cannot_mutate_key_body_or_envelope (__main__.EventCommitReceiptTest.test_alias_and_null_output_cannot_mutate_key_body_or_envelope) ... ok
+test_crypto_provider_failures_never_publish_verified_digest (__main__.EventCommitReceiptTest.test_crypto_provider_failures_never_publish_verified_digest) ... ok
+test_every_receipt_byte_tamper_refuses_without_output_mutation (__main__.EventCommitReceiptTest.test_every_receipt_byte_tamper_refuses_without_output_mutation) ... ok
+test_independent_hmac_oracle_including_long_bearers_and_body_boundaries (__main__.EventCommitReceiptTest.test_independent_hmac_oracle_including_long_bearers_and_body_boundaries) ... ok
+test_receipt_media_type_is_exact_bounded_and_case_insensitive (__main__.EventCommitReceiptTest.test_receipt_media_type_is_exact_bounded_and_case_insensitive) ... ok
+test_sdk_uses_volatile_standard_crypto_and_checks_key_destruction (__main__.EventCommitReceiptTest.test_sdk_uses_volatile_standard_crypto_and_checks_key_destruction) ... ok
+test_truncation_extra_bytes_bad_status_key_size_and_hex_fail_closed (__main__.EventCommitReceiptTest.test_truncation_extra_bytes_bad_status_key_size_and_hex_fail_closed) ... ok
+test_wrong_key_body_or_success_status_cannot_authorize (__main__.EventCommitReceiptTest.test_wrong_key_body_or_success_status_cannot_authorize) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 5.488s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_offline_confirmed_floor.py
+test_confirmed_prefix_cannot_resurrect_from_cumulative_same_boot_submissions (__main__.OfflineConfirmedFloorTest.test_confirmed_prefix_cannot_resurrect_from_cumulative_same_boot_submissions) ... ok
+test_every_truncation_corruption_and_rechecksummed_invalid_floor_preserves_output (__main__.OfflineConfirmedFloorTest.test_every_truncation_corruption_and_rechecksummed_invalid_floor_preserves_output) ... ok
+test_independent_vgs3_bytes_crc_metadata_zero_null_and_floor (__main__.OfflineConfirmedFloorTest.test_independent_vgs3_bytes_crc_metadata_zero_null_and_floor) ... ok
+test_maximum_vgs3_5150_bytes_fits_unchanged_5184_allocation (__main__.OfflineConfirmedFloorTest.test_maximum_vgs3_5150_bytes_fits_unchanged_5184_allocation) ... ok
+test_new_boot_resets_only_scoped_floor_and_preserves_other_retained_facts (__main__.OfflineConfirmedFloorTest.test_new_boot_resets_only_scoped_floor_and_preserves_other_retained_facts) ... ok
+test_ordinary_publication_cannot_invent_or_advance_floor (__main__.OfflineConfirmedFloorTest.test_ordinary_publication_cannot_invent_or_advance_floor) ... ok
+test_vgs3_supports_unknown_or_no_retained_metadata_without_inventing_it (__main__.OfflineConfirmedFloorTest.test_vgs3_supports_unknown_or_no_retained_metadata_without_inventing_it) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 2.840s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_offline_authenticated_retirement.py
+test_actual_server_confirmed_current_fact_can_advance_floor_when_old_storage_is_full (__main__.AuthenticatedRetirementTest.test_actual_server_confirmed_current_fact_can_advance_floor_when_old_storage_is_full) ... ok
+test_admission_normalization_strips_only_confirmed_prefix_and_keeps_clock_ids (__main__.AuthenticatedRetirementTest.test_admission_normalization_strips_only_confirmed_prefix_and_keeps_clock_ids) ... ok
+test_complete_metadata_receipt_retires_exact_fact_and_retains_legacy_other_boot (__main__.AuthenticatedRetirementTest.test_complete_metadata_receipt_retires_exact_fact_and_retains_legacy_other_boot) ... ok
+test_confirmed_ram_prefix_release_preserves_ids_clocks_and_refusal_counters (__main__.AuthenticatedRetirementTest.test_confirmed_ram_prefix_release_preserves_ids_clocks_and_refusal_counters) ... ok
+test_every_partial_retirement_write_preserves_selected_slot_and_halts_until_recovery (__main__.AuthenticatedRetirementTest.test_every_partial_retirement_write_preserves_selected_slot_and_halts_until_recovery) ... ok
+test_every_receipt_byte_forgery_leaves_published_state_and_io_unchanged (__main__.AuthenticatedRetirementTest.test_every_receipt_byte_forgery_leaves_published_state_and_io_unchanged) ... ok
+test_fresh_start_cannot_reuse_stored_boot_but_running_owner_can_recover (__main__.AuthenticatedRetirementTest.test_fresh_start_cannot_reuse_stored_boot_but_running_owner_can_recover) ... ok
+test_genuine_current_receipt_commits_floor_and_prevents_cumulative_resurrection_after_reboot (__main__.AuthenticatedRetirementTest.test_genuine_current_receipt_commits_floor_and_prevents_cumulative_resurrection_after_reboot) ... ok
+test_matching_identity_with_missing_or_changed_full_metadata_cannot_retire (__main__.AuthenticatedRetirementTest.test_matching_identity_with_missing_or_changed_full_metadata_cannot_retire) ... ok
+test_old_boot_receipt_preserves_unsupported_other_fact_and_is_idempotent (__main__.AuthenticatedRetirementTest.test_old_boot_receipt_preserves_unsupported_other_fact_and_is_idempotent) ... ok
+test_older_recovered_confirmed_fact_can_be_reconfirmed_after_ram_prefix_release (__main__.AuthenticatedRetirementTest.test_older_recovered_confirmed_fact_can_be_reconfirmed_after_ram_prefix_release) ... ok
+test_prefix_release_refuses_wrong_fact_metadata_and_alias_without_mutation (__main__.AuthenticatedRetirementTest.test_prefix_release_refuses_wrong_fact_metadata_and_alias_without_mutation) ... ok
+test_queue_admission_waits_for_current_prefix_and_never_authenticates_itself (__main__.AuthenticatedRetirementTest.test_queue_admission_waits_for_current_prefix_and_never_authenticates_itself) ... ok
+test_structural_true_without_verified_digest_is_not_retirement_authority (__main__.AuthenticatedRetirementTest.test_structural_true_without_verified_digest_is_not_retirement_authority) ... ok
+test_uncertain_commit_and_readback_require_recovery_without_false_rollback_claim (__main__.AuthenticatedRetirementTest.test_uncertain_commit_and_readback_require_recovery_without_false_rollback_claim) ... ok
+test_valid_later_receipt_cannot_skip_oldest_unconfirmed_prefix_or_stored_fact (__main__.AuthenticatedRetirementTest.test_valid_later_receipt_cannot_skip_oldest_unconfirmed_prefix_or_stored_fact) ... ok
+test_wrong_key_status_owner_record_and_aliases_do_not_authorize_retirement (__main__.AuthenticatedRetirementTest.test_wrong_key_status_owner_record_and_aliases_do_not_authorize_retirement) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 9.349s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_event_delivery.py
+test_bad_completion_floor_or_generation_retains_exact_ram_fact (__main__.EventDeliveryTest.test_bad_completion_floor_or_generation_retains_exact_ram_fact) ... ok
+test_failed_current_reply_requires_exact_identity_metadata_and_valid_context (__main__.EventDeliveryTest.test_failed_current_reply_requires_exact_identity_metadata_and_valid_context) ... ok
+test_failed_http_retries_original_prefix_then_genuine_receipt_unblocks_next_event (__main__.EventDeliveryTest.test_failed_http_retries_original_prefix_then_genuine_receipt_unblocks_next_event) ... ok
+test_failed_recovered_event_rewinds_matching_epoch_but_never_a_new_view (__main__.EventDeliveryTest.test_failed_recovered_event_rewinds_matching_epoch_but_never_a_new_view) ... ok
+test_genuine_crypto_rejection_is_not_an_ack (__main__.EventDeliveryTest.test_genuine_crypto_rejection_is_not_an_ack) ... ok
+test_missing_truncated_or_wrong_media_receipt_retains_facts_and_halts_only_events (__main__.EventDeliveryTest.test_missing_truncated_or_wrong_media_receipt_retains_facts_and_halts_only_events) ... ok
+test_only_genuine_durable_receipt_releases_exact_prefix_and_preserves_active_alarm (__main__.EventDeliveryTest.test_only_genuine_durable_receipt_releases_exact_prefix_and_preserves_active_alarm) ... ok
+test_overlapping_failure_context_is_rejected_without_overwriting_owner_or_facts (__main__.EventDeliveryTest.test_overlapping_failure_context_is_rejected_without_overwriting_owner_or_facts) ... ok
+test_recovered_current_predecessor_overrides_alternation_without_skipping_other_boot (__main__.EventDeliveryTest.test_recovered_current_predecessor_overrides_alternation_without_skipping_other_boot) ... ok
+test_recovery_prerequisites_reschedule_and_epoch_prevents_wrong_view_rewind (__main__.EventDeliveryTest.test_recovery_prerequisites_reschedule_and_epoch_prevents_wrong_view_rewind) ... ok
+test_stale_failed_tag_cannot_rewind_and_already_reset_cursor_never_advances (__main__.EventDeliveryTest.test_stale_failed_tag_cannot_rewind_and_already_reset_cursor_never_advances) ... ok
+test_tags_single_inflight_and_unrelated_completions_cannot_release (__main__.EventDeliveryTest.test_tags_single_inflight_and_unrelated_completions_cannot_release) ... ok
+test_uncertain_io_never_frees_ram_and_allows_bounded_unretired_publication (__main__.EventDeliveryTest.test_uncertain_io_never_frees_ram_and_allows_bounded_unretired_publication) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 7.502s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_event_retirement_file.py
+test_actual_file_reopen_old_current_forgery_capacity_and_monotonic_new_fact (__main__.RetirementFileTest.test_actual_file_reopen_old_current_forgery_capacity_and_monotonic_new_fact) ... ok
+test_actual_loss_retry_and_duplicate_status200_retire_with_same_owner_next_tag (__main__.RetirementFileTest.test_actual_loss_retry_and_duplicate_status200_retire_with_same_owner_next_tag) ... ok
+test_existing_binary_cannot_be_overwritten (__main__.RetirementFileTest.test_existing_binary_cannot_be_overwritten) ... ok
+test_existing_slot_bad_identity_phase_and_bounds_refuse_without_child_process (__main__.RetirementFileTest.test_existing_slot_bad_identity_phase_and_bounds_refuse_without_child_process) ... ok
+test_negative_retry_phase_requires_status_zero_original_body_and_no_receipt (__main__.RetirementFileTest.test_negative_retry_phase_requires_status_zero_original_body_and_no_receipt) ... ok
+test_unowned_root_cannot_compile_or_change_files (__main__.RetirementFileTest.test_unowned_root_cannot_compile_or_change_files) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 2.344s
+
+OK
+
+EXIT=0
+COMMAND=C:/tools/php-8.2.35/php.exe -l backend/laravel/app/Http/Controllers/Api/EventIngestController.php
+No syntax errors detected in backend/laravel/app/Http/Controllers/Api/EventIngestController.php
+
+EXIT=0
+COMMAND=C:/tools/php-8.2.35/php.exe -l backend/laravel/app/Support/EventCommitReceipt.php
+No syntax errors detected in backend/laravel/app/Support/EventCommitReceipt.php
+
+EXIT=0
+COMMAND=C:/tools/php-8.2.35/php.exe -l backend/laravel/tests/Unit/EventCommitReceiptTest.php
+No syntax errors detected in backend/laravel/tests/Unit/EventCommitReceiptTest.php
+
+EXIT=0
+COMMAND=C:/tools/php-8.2.35/php.exe -l backend/laravel/tests/Feature/EventCommitReceiptIntegrationTest.php
+No syntax errors detected in backend/laravel/tests/Feature/EventCommitReceiptIntegrationTest.php
+
+EXIT=0
+COMMAND=python -B scripts/test_formal_provider_verification.py
+test_duplicate_nonfinite_and_unknown_native_output_cannot_be_accepted (__main__.FormalProviderTest.test_duplicate_nonfinite_and_unknown_native_output_cannot_be_accepted) ... ok
+test_missing_or_undecodable_protocol_blocks_without_path_or_subprocess_output (__main__.FormalProviderTest.test_missing_or_undecodable_protocol_blocks_without_path_or_subprocess_output) ... ok
+test_missing_protocol_review_blocks_before_execution (__main__.FormalProviderTest.test_missing_protocol_review_blocks_before_execution) ... ok
+test_monotonic_navigation_rejects_every_older_observation_and_preserves_uint64_boundaries (__main__.FormalProviderTest.test_monotonic_navigation_rejects_every_older_observation_and_preserves_uint64_boundaries) ... ok
+test_oracle_rejects_ack_condition_clear_zero_null_and_faked_native_count (__main__.FormalProviderTest.test_oracle_rejects_ack_condition_clear_zero_null_and_faked_native_count) ... ok
+test_oracle_rejects_missing_engine_fields_identity_source_and_float_errors (__main__.FormalProviderTest.test_oracle_rejects_missing_engine_fields_identity_source_and_float_errors) ... ok
+test_oracle_rejects_navigation_refresh_rewind_no_fix_and_missing_properties (__main__.FormalProviderTest.test_oracle_rejects_navigation_refresh_rewind_no_fix_and_missing_properties) ... ok
+test_provider_oracle_rejects_missing_as_zero_stale_current_and_certification_label (__main__.FormalProviderTest.test_provider_oracle_rejects_missing_as_zero_stale_current_and_certification_label) ... ok
+test_read_only_default_never_launches_compiler_or_subprocess (__main__.FormalProviderTest.test_read_only_default_never_launches_compiler_or_subprocess) ... ok
+test_real_six_case_execution_source_stability_and_no_registry_write (__main__.FormalProviderTest.test_real_six_case_execution_source_stability_and_no_registry_write) ... ok
+test_source_drift_cannot_be_certified_by_six_passing_observations (__main__.FormalProviderTest.test_source_drift_cannot_be_certified_by_six_passing_observations) ... ok
+test_unavailable_prerequisite_never_becomes_pass (__main__.FormalProviderTest.test_unavailable_prerequisite_never_becomes_pass) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 2.333s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_data_ui_contracts.py
+.........
+----------------------------------------------------------------------
+Ran 9 tests in 0.003s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_formal_data_native.py
+...
+----------------------------------------------------------------------
+Ran 3 tests in 0.015s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_review_formal_data_ui.py
+......
+----------------------------------------------------------------------
+Ran 6 tests in 0.004s
+
+OK
+
+EXIT=0
+COMMAND=C:/tools/php-8.2.35/php.exe -l backend/laravel/routes/web.php
+No syntax errors detected in backend/laravel/routes/web.php
+
+EXIT=0
+COMMAND=C:/tools/php-8.2.35/php.exe -l backend/laravel/bootstrap/app.php
+No syntax errors detected in backend/laravel/bootstrap/app.php
+
+EXIT=0
+COMMAND=C:/tools/php-8.2.35/php.exe -l backend/laravel/app/Support/MonitoringResponse.php
+No syntax errors detected in backend/laravel/app/Support/MonitoringResponse.php
+
+EXIT=0
+COMMAND=C:/tools/php-8.2.35/php.exe -l backend/laravel/tests/Feature/ExampleTest.php
+No syntax errors detected in backend/laravel/tests/Feature/ExampleTest.php
+
+EXIT=0
+COMMAND=C:/tools/php-8.2.35/php.exe -l scripts/live_http_fixture.php
+No syntax errors detected in scripts/live_http_fixture.php
+
+EXIT=0
+COMMAND=python -B scripts/test_formal_fault_storage.py
+...........
+----------------------------------------------------------------------
+Ran 11 tests in 2.428s
+
+OK
+
+EXIT=0
+COMMAND=C:/tools/php-8.2.35/php.exe -l backend/laravel/tests/Feature/SingleChannelFaultIntegrationTest.php
+No syntax errors detected in backend/laravel/tests/Feature/SingleChannelFaultIntegrationTest.php
+
+EXIT=0
+COMMAND=python -B scripts/test_public_reference_audit.py
+............
+----------------------------------------------------------------------
+Ran 12 tests in 0.234s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_browser_monitoring_bridge.py
+........
+----------------------------------------------------------------------
+Ran 8 tests in 0.065s
+
+OK
+
+EXIT=0
+COMMAND=node --test scripts/test_monitoring_freshness.js scripts/test_browser_monitoring_probe.js
+TAP version 13
+# Subtest: only same-origin owned form null tuple or exact origin admitted
+ok 1 - only same-origin owned form null tuple or exact origin admitted
+  ---
+  duration_ms: 1.3031
+  type: 'test'
+  ...
+# Subtest: foreign host, agent and absolute request targets refused
+ok 2 - foreign host, agent and absolute request targets refused
+  ---
+  duration_ms: 0.3031
+  type: 'test'
+  ...
+# Subtest: no telemetry API, arbitrary asset, path, method or state changing device UI
+ok 3 - no telemetry API, arbitrary asset, path, method or state changing device UI
+  ---
+  duration_ms: 0.3134
+  type: 'test'
+  ...
+# Subtest: fixed UI paths admit read only with owned host and agent
+ok 4 - fixed UI paths admit read only with owned host and agent
+  ---
+  duration_ms: 0.3092
+  type: 'test'
+  ...
+# Subtest: zero and exact conservative expiry boundaries
+ok 5 - zero and exact conservative expiry boundaries
+  ---
+  duration_ms: 1.0196
+  type: 'test'
+  ...
+# Subtest: malformed and unsafe integers never become live
+ok 6 - malformed and unsafe integers never become live
+  ---
+  duration_ms: 0.2233
+  type: 'test'
+  ...
+# Subtest: invalid policy, elapsed and integer overflow fail closed
+ok 7 - invalid policy, elapsed and integer overflow fail closed
+  ---
+  duration_ms: 0.132
+  type: 'test'
+  ...
+# Subtest: server expired label is a lower bound, missing receipt never live
+ok 8 - server expired label is a lower bound, missing receipt never live
+  ---
+  duration_ms: 0.1047
+  type: 'test'
+  ...
+# Subtest: request timing admits zero, rejects cached or inconsistent navigation
+ok 9 - request timing admits zero, rejects cached or inconsistent navigation
+  ---
+  duration_ms: 0.2157
+  type: 'test'
+  ...
+# Subtest: all duplicate DOM labels age together without touching values or fetching
+ok 10 - all duplicate DOM labels age together without touching values or fetching
+  ---
+  duration_ms: 1.43
+  type: 'test'
+  ...
+# Subtest: rewound time remains unknown even when timing later recovers
+ok 11 - rewound time remains unknown even when timing later recovers
+  ---
+  duration_ms: 0.7473
+  type: 'test'
+  ...
+# Subtest: missing timing, cached restore, freeze, hide and pagehide fail closed
+ok 12 - missing timing, cached restore, freeze, hide and pagehide fail closed
+  ---
+  duration_ms: 3.6651
+  type: 'test'
+  ...
+# Subtest: mutable DOM attributes cannot revive expired captured descriptors
+ok 13 - mutable DOM attributes cannot revive expired captured descriptors
+  ---
+  duration_ms: 1.1243
+  type: 'test'
+  ...
+1..13
+# tests 13
+# suites 0
+# pass 13
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 82.4339
+
+EXIT=0
+COMMAND=C:/tools/php-8.2.35/php.exe -l backend/laravel/app/Support/MonitoringFreshness.php
+No syntax errors detected in backend/laravel/app/Support/MonitoringFreshness.php
+
+EXIT=0
+COMMAND=C:/tools/php-8.2.35/php.exe -l backend/laravel/tests/Feature/MonitoringExpiryTest.php
+No syntax errors detected in backend/laravel/tests/Feature/MonitoringExpiryTest.php
+
+EXIT=0
+COMMAND=C:/tools/php-8.2.35/php.exe -l backend/laravel/tests/Unit/MonitoringFreshnessTest.php
+No syntax errors detected in backend/laravel/tests/Unit/MonitoringFreshnessTest.php
+
+EXIT=0
+COMMAND=python -B scripts/test_event_delivery_retry.py
+test_drop_requires_exact_owned_request_and_committed_status_then_consumes_once (__main__.DeliveryRetryTest.test_drop_requires_exact_owned_request_and_committed_status_then_consumes_once) ... ok
+test_foreign_path_agent_empty_oversized_or_nonbytes_body_cannot_arm_or_replace_fault (__main__.DeliveryRetryTest.test_foreign_path_agent_empty_oversized_or_nonbytes_body_cannot_arm_or_replace_fault) ... ok
+test_identical_current_composition_retries_unconfirmed_head_with_new_context_argument (__main__.DeliveryRetryTest.test_identical_current_composition_retries_unconfirmed_head_with_new_context_argument) ... ok
+test_pinned_parent_reproduces_skipped_prefix_without_mutating_working_header (__main__.DeliveryRetryTest.test_pinned_parent_reproduces_skipped_prefix_without_mutating_working_header) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.600s
+
+OK
+
+EXIT=0
+REGRESSION_COMMANDS=247 FAILED=0

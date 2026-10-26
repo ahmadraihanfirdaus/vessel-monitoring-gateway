@@ -1,0 +1,57 @@
+COMMAND=python -B scripts/test_event_delivery_retry.py
+test_drop_requires_exact_owned_request_and_committed_status_then_consumes_once (__main__.DeliveryRetryTest.test_drop_requires_exact_owned_request_and_committed_status_then_consumes_once) ... ok
+test_foreign_path_agent_empty_oversized_or_nonbytes_body_cannot_arm_or_replace_fault (__main__.DeliveryRetryTest.test_foreign_path_agent_empty_oversized_or_nonbytes_body_cannot_arm_or_replace_fault) ... ok
+test_identical_current_composition_retries_unconfirmed_head_with_new_context_argument (__main__.DeliveryRetryTest.test_identical_current_composition_retries_unconfirmed_head_with_new_context_argument) ... ok
+test_pinned_parent_reproduces_skipped_prefix_without_mutating_working_header (__main__.DeliveryRetryTest.test_pinned_parent_reproduces_skipped_prefix_without_mutating_working_header) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.605s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_event_retirement_file.py
+test_actual_file_reopen_old_current_forgery_capacity_and_monotonic_new_fact (__main__.RetirementFileTest.test_actual_file_reopen_old_current_forgery_capacity_and_monotonic_new_fact) ... ok
+test_existing_binary_cannot_be_overwritten (__main__.RetirementFileTest.test_existing_binary_cannot_be_overwritten) ... ok
+test_existing_slot_bad_identity_phase_and_bounds_refuse_without_child_process (__main__.RetirementFileTest.test_existing_slot_bad_identity_phase_and_bounds_refuse_without_child_process) ... ok
+test_negative_retry_phase_requires_status_zero_original_body_and_no_receipt (__main__.RetirementFileTest.test_negative_retry_phase_requires_status_zero_original_body_and_no_receipt) ... ok
+test_unowned_root_cannot_compile_or_change_files (__main__.RetirementFileTest.test_unowned_root_cannot_compile_or_change_files) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 1.226s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_live_http_integration_gate.py
+test_arbitrary_temporary_directory_is_never_removed (__main__.LiveHttpGateTest.test_arbitrary_temporary_directory_is_never_removed) ... ok
+test_blocked_cleanup_cannot_be_a_pass_and_retains_lease_without_private_key (__main__.LiveHttpGateTest.test_blocked_cleanup_cannot_be_a_pass_and_retains_lease_without_private_key) ... ok
+test_default_is_read_only_and_conflicting_connection_overrides_are_preserved (__main__.LiveHttpGateTest.test_default_is_read_only_and_conflicting_connection_overrides_are_preserved) ... ok
+test_failed_alarm_c99_build_precedes_live_fixture_mutation (__main__.LiveHttpGateTest.test_failed_alarm_c99_build_precedes_live_fixture_mutation) ... ok
+test_failed_c99_assertion_is_fail_and_precedes_any_fixture_mutation (__main__.LiveHttpGateTest.test_failed_c99_assertion_is_fail_and_precedes_any_fixture_mutation) ... ok
+test_failed_domain_c99_build_precedes_any_live_fixture (__main__.LiveHttpGateTest.test_failed_domain_c99_build_precedes_any_live_fixture) ... ok
+test_failed_network_case_stops_owned_process_and_cleans_only_through_guard (__main__.LiveHttpGateTest.test_failed_network_case_stops_owned_process_and_cleans_only_through_guard) ... ok
+test_failed_recovered_replay_build_never_prepares_live_database_fixture (__main__.LiveHttpGateTest.test_failed_recovered_replay_build_never_prepares_live_database_fixture) ... ok
+test_fixture_write_requires_execute_before_any_environment_or_database_boot (__main__.LiveHttpGateTest.test_fixture_write_requires_execute_before_any_environment_or_database_boot) ... ok
+test_formal_read_only_audit_never_accepts_arbitrary_action_or_missing_lease (__main__.LiveHttpGateTest.test_formal_read_only_audit_never_accepts_arbitrary_action_or_missing_lease) ... ok
+test_native_receipt_bridge_never_overwrites_existing_binary (__main__.LiveHttpGateTest.test_native_receipt_bridge_never_overwrites_existing_binary) ... ok
+test_native_receipt_bridge_refuses_unowned_root_without_compiler_or_file_changes (__main__.LiveHttpGateTest.test_native_receipt_bridge_refuses_unowned_root_without_compiler_or_file_changes) ... ok
+test_native_receipt_verifier_compile_failure_precedes_live_database_mutation (__main__.LiveHttpGateTest.test_native_receipt_verifier_compile_failure_precedes_live_database_mutation) ... ok
+test_race_barrier_failure_cannot_release_or_leave_a_live_worker (__main__.LiveHttpGateTest.test_race_barrier_failure_cannot_release_or_leave_a_live_worker) ... ok
+test_race_helper_refuses_an_unowned_temporary_root_before_process_or_file_changes (__main__.LiveHttpGateTest.test_race_helper_refuses_an_unowned_temporary_root_before_process_or_file_changes) ... ok
+test_readiness_failure_never_prepares_database_fixture_even_after_server_launch (__main__.LiveHttpGateTest.test_readiness_failure_never_prepares_database_fixture_even_after_server_launch) ... ok
+test_real_php_race_fixture_requires_execute_before_bootstrap_or_environment (__main__.LiveHttpGateTest.test_real_php_race_fixture_requires_execute_before_bootstrap_or_environment) ... ok
+test_rejected_preflight_never_builds_launches_or_prepares_fixtures (__main__.LiveHttpGateTest.test_rejected_preflight_never_builds_launches_or_prepares_fixtures) ... ok
+test_response_leak_guard_also_covers_per_request_unknown_bearer (__main__.LiveHttpGateTest.test_response_leak_guard_also_covers_per_request_unknown_bearer) ... ok
+test_retirement_driver_compile_failure_precedes_server_and_database_fixtures (__main__.LiveHttpGateTest.test_retirement_driver_compile_failure_precedes_server_and_database_fixtures) ... ok
+test_second_race_process_spawn_failure_stops_and_closes_the_first (__main__.LiveHttpGateTest.test_second_race_process_spawn_failure_stops_and_closes_the_first) ... ok
+test_source_change_cannot_be_certified_by_successful_requests_and_cleanup (__main__.LiveHttpGateTest.test_source_change_cannot_be_certified_by_successful_requests_and_cleanup) ... ok
+test_startup_admission_can_wait_past_fifteen_seconds_without_relaxing_readiness_success (__main__.LiveHttpGateTest.test_startup_admission_can_wait_past_fifteen_seconds_without_relaxing_readiness_success) ... ok
+test_unavailable_tls_prerequisite_blocks_before_server_or_database_fixtures (__main__.LiveHttpGateTest.test_unavailable_tls_prerequisite_blocks_before_server_or_database_fixtures) ... ok
+
+----------------------------------------------------------------------
+Ran 24 tests in 0.739s
+
+OK
+
+EXIT=0

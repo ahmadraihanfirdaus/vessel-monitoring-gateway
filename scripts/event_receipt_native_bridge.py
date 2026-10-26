@@ -70,16 +70,19 @@ def run_retirement(binary, env, phase, identity, body=b'', status=201, receipt=b
     expected = 'receipt-retire.exe' if os.name == 'nt' else 'receipt-retire'
     if not owned_root(binary.parent) or binary.name != expected or not binary.is_file() or binary.is_symlink():
         raise ValueError('RETIREMENT_NATIVE_OWNED_BINARY_REQUIRED')
-    if phase not in ('prepare', 'old', 'current', 'tamper', 'inspect') or not re.fullmatch('[a-f0-9]{32}', identity):
+    if phase not in ('prepare', 'old', 'current', 'tamper', 'inspect', 'retry', 'retry-current') or not re.fullmatch('[a-f0-9]{32}', identity):
         raise ValueError('RETIREMENT_NATIVE_PHASE_ID_REQUIRED')
-    if status not in (200, 201) or len(body) > 4096 or len(receipt) > 512:
+    if (type(status) is not int or status not in ((0,) if phase == 'retry' else (200,) if phase == 'retry-current' else (200, 201))
+            or len(body) > 4096 or len(receipt) > 512):
         raise ValueError('RETIREMENT_NATIVE_BOUNDED_INPUT_REQUIRED')
     for slot in range(2):
         path = binary.parent/('receipt-slot'+str(slot)+'.bin')
         if path.is_symlink() or (path.exists() and (not path.is_file() or path.stat().st_size > 5184 or phase == 'prepare')):
             raise ValueError('RETIREMENT_NATIVE_PRIVATE_SLOT_REQUIRED')
-    if phase in ('old', 'current', 'tamper') and (not body or len(receipt) != 134):
+    if phase in ('old', 'current', 'tamper', 'retry-current') and (not body or len(receipt) != 134):
         raise ValueError('RETIREMENT_NATIVE_EXACT_RECEIPT_REQUIRED')
+    if phase == 'retry' and (not body or receipt):
+        raise ValueError('RETIREMENT_NATIVE_NEGATIVE_COMPLETION_NO_RECEIPT_REQUIRED')
     wire = struct.pack('<II', len(body), len(receipt))+body+receipt
     result = subprocess.run([str(binary), phase, str(binary.parent), 'receipt-'+identity,
                              'receipt-next-'+identity, str(status)], env=env, input=wire,

@@ -1,0 +1,45 @@
+{
+  "parent_head": "bf29a8bbc28a757cdd932f66287b4984530c1ad3",
+  "source_sha256": {
+    "http": "f1396e27191edd9f080bb70851ab4255773226cf9b00765f942ef7d2ddc0de08",
+    "mysql": "516446eb3db89042116ca6ab4a216a06f018e4511af6ebb8a72dbd2b49e08037",
+    "firmware_sdk": "f693b0cb1a77d73b8c8cc97eb65da23703a6da9c1bd7e767dfcc1f6a259631e6"
+  },
+  "actual_gates": {
+    "php_cases": 388,
+    "php_failures": 0,
+    "php_skipped": 0,
+    "tls_checks": 225,
+    "browser": "PASS_COMPONENT_ONLY_DEPLOYED_TLS_NOT_RUN",
+    "regression_commands": 247,
+    "regression_failed": 0,
+    "core_cases": 226,
+    "core_repetitions": 2,
+    "owner_native_methods": 13,
+    "parent_current_fault_admission_methods": 4,
+    "host_file_methods": 6,
+    "http_lifecycle_methods": 24
+  },
+  "sdk": {
+    "candidate": {
+      "actual_build_log": "evidence/test-results/esp32-transport-sdk-build-event-retry-candidate-20261027.txt",
+      "image_bytes": 986544,
+      "own_largest_frame": 1040,
+      "merged_sha256": "2741d4d9498cde22be2bc80d97190849b0ab39c48d5985b441acf73efd028d86",
+      "hardware_upload": "NOT_RUN",
+      "full_stack_heap_powerloss": "NOT_RUN"
+    },
+    "retained": {
+      "actual_build_log": "evidence/test-results/esp32-transport-sdk-build-event-retry-retained-20261027.txt",
+      "image_bytes": 1045472,
+      "own_largest_frame": 1616,
+      "merged_sha256": "c3fe8b253a60165e5df455b7b1d718577bbc4129b7d882b9595586918a510070",
+      "hardware_upload": "NOT_RUN",
+      "full_stack_heap_powerloss": "NOT_RUN"
+    }
+  },
+  "formal_promotion": "NONE",
+  "no_push": true,
+  "repository_deletions": 0,
+  "migration_changes": 0
+}

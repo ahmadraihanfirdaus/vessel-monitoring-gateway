@@ -1,0 +1,39 @@
+COMMAND=python -B scripts/test_phase9_ui002_views.py
+....
+----------------------------------------------------------------------
+Ran 4 tests in 0.003s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_phase9_tst001_scoped_evidence.py
+test_five_mapped_scopes (__main__.TraceMapping.test_five_mapped_scopes) ... ok
+test_no_formal_pass_claim (__main__.TraceMapping.test_no_formal_pass_claim) ... ok
+test_unique_and_sha256 (__main__.TraceMapping.test_unique_and_sha256) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.007s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_public_reference_audit.py
+............
+----------------------------------------------------------------------
+Ran 12 tests in 0.223s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/check_living_traceability.py
+BASELINE_SHA256: PASS (2/2)
+LIVING_TRACEABILITY: PASS (38/38 mapped, 34 unique planned cases)
+ASSESSMENTS: {'IMPLEMENTED_UNVERIFIED': 22, 'PARTIAL': 16}
+FORMAL_REQUIREMENT_STATUS: {'NOT_RUN': 4, 'PARTIAL': 2, 'PASS': 32}
+FORMAL_SIM_SCENARIOS: PASS=12, NOT_RUN=3
+SUPPLEMENTAL_TESTS: PLANNED=1, PASS=18
+FINAL_REQUIREMENT_APPROVAL: NOT_APPROVED
+TOTAL_SYSTEM_STATUS: PARTIAL
+PUBLIC_REFERENCE_AUDIT: PASS (38 requirements, 167 file references; protected template metadata only; no DB/network)
+
+EXIT=0

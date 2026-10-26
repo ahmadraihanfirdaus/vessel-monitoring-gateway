@@ -1,0 +1,11 @@
+test_actual_file_reopen_old_current_forgery_capacity_and_monotonic_new_fact (__main__.RetirementFileTest.test_actual_file_reopen_old_current_forgery_capacity_and_monotonic_new_fact) ... ok
+test_actual_loss_retry_and_duplicate_status200_retire_with_same_owner_next_tag (__main__.RetirementFileTest.test_actual_loss_retry_and_duplicate_status200_retire_with_same_owner_next_tag) ... ok
+test_existing_binary_cannot_be_overwritten (__main__.RetirementFileTest.test_existing_binary_cannot_be_overwritten) ... ok
+test_existing_slot_bad_identity_phase_and_bounds_refuse_without_child_process (__main__.RetirementFileTest.test_existing_slot_bad_identity_phase_and_bounds_refuse_without_child_process) ... ok
+test_negative_retry_phase_requires_status_zero_original_body_and_no_receipt (__main__.RetirementFileTest.test_negative_retry_phase_requires_status_zero_original_body_and_no_receipt) ... ok
+test_unowned_root_cannot_compile_or_change_files (__main__.RetirementFileTest.test_unowned_root_cannot_compile_or_change_files) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 2.445s
+
+OK

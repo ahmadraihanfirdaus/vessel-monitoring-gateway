@@ -102,3 +102,21 @@ Equal-time fresh valid data and uint64 boundary behavior have dedicated property
 regression. Local source-bound SDK/PHP/TLS and broader software checks PASS;
 physical clock/timing, NMEA acquisition and residual-risk acceptance remain
 NOT_RUN. No FMEA item is formally closed by this bug fix or host SUP evidence.
+
+## Failed publication ordering observations, 2026-10-27
+
+FMEA07/08/11 have an additional concrete software observation: a failed HTTP
+completion closed its owner after queue acceptance advanced the replay cursor.
+Native reproduction selected event2 while unconfirmed event1 remained retained.
+This can stall prefix retirement/capacity recovery; no data deletion, alarm clear
+or physical incident is asserted. Context-bound rewind now binds original fact,
+source/index/epoch and never advances a reset/new view. Actual real TLS response
+loss after backend commit, direct MariaDB count1/duplicate200, genuine native
+receipt and same-owner tag2 host-file retirement pass. Alarm records remain
+unchanged. See [the dated summary](../../evidence/test-results/event-delivery-retry-summary-20261027.md).
+
+The explicit transport-reset/IO/crypto halt contracts are retained. Host-file
+readback and both SDK builds are not ESP32/RTOS/PSA/NVS/powerloss/fullstack/heap/
+physical timing proof. No FMEA row is closed, likelihood/severity score assigned,
+or residual risk accepted by this source-level fix. Initial table dispositions
+remain preliminary hazard-analysis statuses, not new formal execution records.

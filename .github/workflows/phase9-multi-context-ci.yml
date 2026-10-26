@@ -21,6 +21,10 @@ jobs:
       VG_PHP_CLI: php
     steps:
       - uses: actions/checkout@v4
+        with:
+          # The negative replay oracle reads a pinned local parent header.
+          # No test skip or ad hoc fetch when history is shallow.
+          fetch-depth: 0
       - name: Install host build tools
         run: sudo apt-get update && sudo apt-get install -y gcc python3
       - uses: shivammathur/setup-php@v2
@@ -45,6 +49,7 @@ jobs:
           python3 -B scripts/test_offline_confirmed_floor.py
           python3 -B scripts/test_offline_authenticated_retirement.py
           python3 -B scripts/test_event_delivery.py
+          python3 -B scripts/test_event_delivery_retry.py
           python3 -B scripts/test_event_retirement_file.py
       - name: Dedicated alarm and provider host verification
         run: |

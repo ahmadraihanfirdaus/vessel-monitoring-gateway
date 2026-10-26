@@ -4,7 +4,7 @@
 
 **Engineering Baseline:** Internal Engineering Blueprint v1.0
 
-**Review Date:** 2026-10-26 (actual develop2b00013 and receipt-expiry worktree; locked matrix unchanged)
+**Review Date:** 2026-10-27 (actual developbf29a8b and failed-delivery ordering worktree; locked matrix unchanged)
 
 **Matrix Version:** Working v2 — Public Editorial Edition
 
@@ -224,3 +224,14 @@ Living UI001 now links the display asset, safe bindings, real browser driver and
 new tests. Formal32PASS/2PARTIAL/4NOT_RUN and22IMPLEMENTED_UNVERIFIED/16PARTIAL
 are unchanged; browser expiry is not formal SIM010 or deployedTLS verification.
 Both handoffs retain full38matrix and actual Git/WIP/checkpoint/gate state.
+
+## Failed event retry continuation20261027
+
+The [current ordering repair](../../evidence/test-results/event-delivery-retry-summary-20261027.md)
+adds exact failed-event context/cursor rewind with actual native reproduction,
+real committed TLS response loss, direct MariaDB count1/duplicate200 and genuine
+same-owner host-file retirement. PHP388/TLS225/Chrome/regression247/bothSDK gates
+PASS within their stated local scope. Four related living rows/full38matrices
+now point to the dated source/tests/evidence, with planned mappings and formal
+32PASS/2PARTIAL/4NOT_RUN unchanged. Physical/remaining formal/hostedCI/deployedTLS
+still NOT_RUN; no requirement VERIFIED or final approval is inferred.

@@ -1,0 +1,18 @@
+test_bad_completion_floor_or_generation_retains_exact_ram_fact (__main__.EventDeliveryTest.test_bad_completion_floor_or_generation_retains_exact_ram_fact) ... ok
+test_failed_current_reply_requires_exact_identity_metadata_and_valid_context (__main__.EventDeliveryTest.test_failed_current_reply_requires_exact_identity_metadata_and_valid_context) ... ok
+test_failed_http_retries_original_prefix_then_genuine_receipt_unblocks_next_event (__main__.EventDeliveryTest.test_failed_http_retries_original_prefix_then_genuine_receipt_unblocks_next_event) ... ok
+test_failed_recovered_event_rewinds_matching_epoch_but_never_a_new_view (__main__.EventDeliveryTest.test_failed_recovered_event_rewinds_matching_epoch_but_never_a_new_view) ... ok
+test_genuine_crypto_rejection_is_not_an_ack (__main__.EventDeliveryTest.test_genuine_crypto_rejection_is_not_an_ack) ... ok
+test_missing_truncated_or_wrong_media_receipt_retains_facts_and_halts_only_events (__main__.EventDeliveryTest.test_missing_truncated_or_wrong_media_receipt_retains_facts_and_halts_only_events) ... ok
+test_only_genuine_durable_receipt_releases_exact_prefix_and_preserves_active_alarm (__main__.EventDeliveryTest.test_only_genuine_durable_receipt_releases_exact_prefix_and_preserves_active_alarm) ... ok
+test_overlapping_failure_context_is_rejected_without_overwriting_owner_or_facts (__main__.EventDeliveryTest.test_overlapping_failure_context_is_rejected_without_overwriting_owner_or_facts) ... ok
+test_recovered_current_predecessor_overrides_alternation_without_skipping_other_boot (__main__.EventDeliveryTest.test_recovered_current_predecessor_overrides_alternation_without_skipping_other_boot) ... ok
+test_recovery_prerequisites_reschedule_and_epoch_prevents_wrong_view_rewind (__main__.EventDeliveryTest.test_recovery_prerequisites_reschedule_and_epoch_prevents_wrong_view_rewind) ... ok
+test_stale_failed_tag_cannot_rewind_and_already_reset_cursor_never_advances (__main__.EventDeliveryTest.test_stale_failed_tag_cannot_rewind_and_already_reset_cursor_never_advances) ... ok
+test_tags_single_inflight_and_unrelated_completions_cannot_release (__main__.EventDeliveryTest.test_tags_single_inflight_and_unrelated_completions_cannot_release) ... ok
+test_uncertain_io_never_frees_ram_and_allows_bounded_unretired_publication (__main__.EventDeliveryTest.test_uncertain_io_never_frees_ram_and_allows_bounded_unretired_publication) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 7.645s
+
+OK

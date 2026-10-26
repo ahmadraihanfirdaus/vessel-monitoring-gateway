@@ -1,0 +1,16 @@
+gate,scope,status,actual,evidence
+NATIVE_PARENT_CURRENT,MANDATORY,PASS,parent failure reproduced; current head retried; owner13/retry4/file6,event-delivery-retry-integrated-regression-run1-20261027.txt
+MYSQL_PHP,MANDATORY,PASS,388/0FAIL/0SKIP;mysql-driver MariaDB10.4.32;10tables6migrations0appRows;receipt crosscheck,event-delivery-retry-mysql-run1-20261027.txt
+REAL_TLS,MANDATORY,PASS,225checks;actual committed-response loss;count1 before/after;duplicate200;same-owner tag2;cleanup,event-delivery-retry-normal-final-run2-20261027.txt
+CHROME_COMPONENT,MANDATORY,PASS,expiry/noPolling/scriptDisabled/blockedAsset/missingTiming/secureCookie/profileCleanup,event-delivery-retry-browser-final-run2-20261027.txt
+SDK_CANDIDATE,MANDATORY,PASS,image986544/RAM57532/ownframe1040;TLS_assertions_partition_sourceStable,esp32-transport-sdk-build-event-retry-candidate-20261027.txt
+SDK_RETAINED,MANDATORY,PASS,image1045472/RAM66436/ownframe1616;TLS_assertions_partition_sourceStable,esp32-transport-sdk-build-event-retry-retained-20261027.txt
+BROAD_REGRESSION,MANDATORY,PASS,247commands0failed;core226repeat2;HTTP24;MySQL32;Node13;native current scopes,event-delivery-retry-integrated-regression-run1-20261027.txt
+WORKING_SCANNER_AND_SEMANTIC_SCOPE,MANDATORY,PASS,fresh working0findings0privacy;manualscopePASS;exactnonsecretpins;detectorunchanged,event-delivery-retry-security-working-20261027.txt
+LIVING38_REFERENCE_DOCS,MANDATORY,PASS,38requirements34cases167refs;formal32/2/4 unchanged;4finaldocs guards PASS,event-delivery-retry-reference-audit-20261027.json
+EXACT_INDEX_STAGED_FINAL_READONLY,MANDATORY,PASS,48exactpaths_blobs_manifest_branch_parent_diffcheck;staged0findings0privacy;finalreadonlyrequired,event-delivery-retry-checkpoint-audit-20261027.txt
+MIGRATION_ROUNDTRIP,UNCHANGED_SCHEMA_NOT_RERUN,NOT_RUN,all6migrations unchanged;prior actual SUP014 roundtrip committed;current exact schema admission/postflight PASS,
+HARDWARE_NVS_POWERLOSS_RTOS_PSA,EXTERNAL_NOT_SCOPED,NOT_RUN,host/file/SDK compile not physical runtime proof,
+HOSTED_CI_SUP018,EXTERNAL_NOT_SCOPED,NOT_RUN,source registration/history-only no local remote operation,
+SIM010_012_013,EXTERNAL_NOT_SCOPED,NOT_RUN,no formal promotion from one host lost exchange,
+DEPLOYED_TLS_DIRECT_MYSQL8_POSIX_GRAPHICAL,EXTERNAL_NOT_SCOPED,NOT_RUN,local loopback/MariaDB/Chrome component only,

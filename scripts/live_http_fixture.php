@@ -15,7 +15,7 @@ try {
     }
     $mode = $argv[1] ?? '--check';
     $mutations = ['--prepare', '--revoke', '--grant', '--disable', '--enable', '--clear-cache', '--cleanup'];
-    if (! in_array($mode, array_merge(['--check', '--inspect-owned', '--session-audit', '--formal-audit'], $mutations), true) ||
+    if (! in_array($mode, array_merge(['--check', '--inspect-owned', '--session-audit', '--formal-audit', '--retry-audit'], $mutations), true) ||
         (in_array($mode, $mutations, true) && ($argv[2] ?? '') !== '--execute')) {
         throw new RuntimeException('LIVE_HTTP_BLOCKED: explicit supported fixture action required.');
     }
@@ -71,6 +71,24 @@ try {
         }
         echo json_encode(['database' => config('database.connections.mysql.database'),
             'username' => config('database.connections.mysql.username'), 'facts' => $result], JSON_THROW_ON_ERROR)."\n";
+        exit(0);
+    }
+    if ($mode === '--retry-audit') {
+        // Read-only exact lease/fixed identity. No arbitrary row/SQL/credential output.
+        $query = DB::table('monitoring_events')->where('device_id', $profile['device'])
+            ->where('boot_id', 'receipt-next-'.$profile['id'])->where('event_id', '1');
+        $rows = (clone $query)->limit(2)->get(['schema_version', 'event_id', 'linked_alarm_id', 'source_id',
+            'source_mode', 'event_type', 'occurred_at_ms', 'alarm_metadata']);
+        $facts = $rows->map(static fn ($row) => [
+            'schema_version' => $row->schema_version, 'event_id' => (string) $row->event_id,
+            'linked_alarm_id' => (string) $row->linked_alarm_id, 'source_id' => (int) $row->source_id,
+            'source_mode' => $row->source_mode, 'event_type' => $row->event_type,
+            'occurred_at_ms' => (string) $row->occurred_at_ms,
+            'alarm' => json_decode($row->alarm_metadata, true, flags: JSON_THROW_ON_ERROR),
+        ])->all();
+        echo json_encode(['database' => config('database.connections.mysql.database'),
+            'username' => config('database.connections.mysql.username'),
+            'event_count' => (clone $query)->count(), 'facts' => $facts], JSON_THROW_ON_ERROR)."\n";
         exit(0);
     }
     if ($mode === '--prepare') {

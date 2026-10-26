@@ -168,7 +168,7 @@ void app_main(void)
             &continuous.alarm_journal, &continuous_replay, &continuous_recovered, recovered_ready, recovery_epoch};
         vg_net_completion completion;
         if (network && vg_net_take_completion(&completion)) {
-            vg_delivery_result received = vg_delivery_receive_http(&continuous_delivery, &completion);
+            vg_delivery_result received = vg_delivery_receive_http(&continuous_delivery, &completion, &delivery_context);
             if (received == VG_DELIVERY_RECEIPT_READY) puts("CONTINUOUS_HTTP: RECEIPT_UNVERIFIED_AWAITING_STORAGE");
             else if (received == VG_DELIVERY_TELEMETRY_DONE) puts("CONTINUOUS_HTTP: TELEMETRY_COMPLETED_NOT_DURABLE_ACK");
             else if (received == VG_DELIVERY_NETWORK_FAILED) puts("CONTINUOUS_HTTP: FAILED_FACT_RETAINED_EXPLICIT_TRANSPORT_RESET_REQUIRED");

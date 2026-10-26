@@ -1,0 +1,20 @@
+{
+  "parent_head": "bf29a8bbc28a757cdd932f66287b4984530c1ad3",
+  "source_sha256": "b57a1399329e600ca6dd0048a990d0d6ee55d99a1ec5ee267bc0a9a91ac77557",
+  "unchanged_parent_header_sha256": "f4d59dce4c8a7931a8df3da543d79abd4f4fbe8a8af30c8c4c094d839f7fdf45",
+  "command": "strict C99 -Wall -Wextra -Werror -pedantic via existing compile_c",
+  "stimulus": "injected negative completion, not real HTTP or crypto success",
+  "observed": {
+    "retained": 2,
+    "metadata_retained": 2,
+    "cursor": 1,
+    "head_event_id": "1",
+    "next_event_id": "2",
+    "active_alarm": true,
+    "next_tag": "2"
+  },
+  "oracle": "next pending event must remain the first unconfirmed retained event",
+  "desired_gate": "FAIL",
+  "reproduction": "CONFIRMED_CURSOR_SKIPS_UNCONFIRMED_PREFIX",
+  "hardware_formal_network": "NOT_RUN"
+}

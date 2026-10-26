@@ -86,11 +86,61 @@ static inline bool vg_delivery_begin(vg_event_delivery *owner, vg_net_kind kind,
     return true;
 }
 
-static inline vg_delivery_result vg_delivery_receive_http(vg_event_delivery *owner, const vg_net_completion *completion)
+/* Queue acceptance is not delivery. Rewind only the failed immutable fact's
+ * source cursor; never move a reset/new recovery view forward or infer an ACK.
+ * Caller consumes the matching completion before attempting a transport reset. */
+static inline bool vg_delivery_retry_failed_event(const vg_event_delivery *owner, vg_delivery_context *context)
+{
+    if (!owner || owner->stage != VG_DELIVERY_HTTP || owner->kind != VG_NET_EVENT ||
+        !vg_delivery_context_valid(context) || !vg_offline_record_valid(&owner->record) ||
+        owner->source_index >= VG_OFFLINE_EVENT_CAP || owner->recovery_epoch > context->recovery_epoch ||
+        !vg_offline_disjoint(context->progress, sizeof(*context->progress), owner, sizeof(*owner)) ||
+        !vg_offline_disjoint(context->progress, sizeof(*context->progress), context, sizeof(*context)) ||
+        !vg_offline_disjoint(context->progress, sizeof(*context->progress), context->journal, sizeof(*context->journal)) ||
+        !vg_offline_disjoint(context->progress, sizeof(*context->progress), context->metadata, sizeof(*context->metadata)) ||
+        (context->recovered_ready && !vg_offline_disjoint(context->progress, sizeof(*context->progress),
+            context->recovered, sizeof(*context->recovered))))
+        return false;
+    if (owner->source == VG_REPLAY_CURRENT) {
+        size_t index = owner->source_index;
+        if (strcmp(owner->record.boot, context->boot) || index >= context->journal->count ||
+            !owner->record.has_alarm || !vg_offline_event_equal(&owner->record.event, &context->journal->events[index]) ||
+            !vg_alarm_metadata_equal(&owner->record.alarm, &context->metadata->entries[index].alarm)) return false;
+        if (context->progress->current_queued > index) context->progress->current_queued = index;
+    } else if (owner->source == VG_REPLAY_RECOVERED) {
+        if (owner->recovery_epoch == context->recovery_epoch) {
+            size_t index = owner->source_index;
+            if (!context->recovered_ready || index >= context->recovered->event_count ||
+                !vg_offline_record_equal(&owner->record, &context->recovered->events[index]) ||
+                context->progress->recovered_unpublishable > index) return false;
+            if (context->progress->recovered_visited > index) context->progress->recovered_visited = index;
+        } /* A newer recovery epoch owns its own cursor; do not touch it. */
+    } else return false;
+    return true;
+}
+
+static inline vg_delivery_result vg_delivery_receive_http(vg_event_delivery *owner, const vg_net_completion *completion,
+    vg_delivery_context *context)
 {
     if (!owner || !completion || owner->stage != VG_DELIVERY_HTTP || completion->tag != owner->tag)
         return VG_DELIVERY_IGNORED;
     if (!completion->completed || (completion->http_status != 200 && completion->http_status != 201)) {
+        if (owner->kind == VG_NET_EVENT) {
+            // Invalid overlapping caller state cannot be made safe by clearing
+            // the owner, which could itself overwrite retained facts/cursors.
+            if (context && ((!vg_offline_disjoint(owner, sizeof(*owner), context, sizeof(*context))) ||
+                (context->progress && !vg_offline_disjoint(owner, sizeof(*owner), context->progress, sizeof(*context->progress))) ||
+                (context->journal && !vg_offline_disjoint(owner, sizeof(*owner), context->journal, sizeof(*context->journal))) ||
+                (context->metadata && !vg_offline_disjoint(owner, sizeof(*owner), context->metadata, sizeof(*context->metadata))) ||
+                (context->recovered_ready && context->recovered && !vg_offline_disjoint(owner, sizeof(*owner),
+                    context->recovered, sizeof(*context->recovered)))))
+                return VG_DELIVERY_REJECTED;
+            if (!vg_delivery_retry_failed_event(owner, context)) {
+                owner->event_halted = true;
+                vg_delivery_close(owner);
+                return VG_DELIVERY_REJECTED;
+            }
+        }
         vg_delivery_close(owner);
         return VG_DELIVERY_NETWORK_FAILED;
     }

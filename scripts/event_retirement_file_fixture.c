@@ -24,6 +24,7 @@ static vg_continuous_simulation_t runtime, old_runtime;
 static vg_offline_event record;
 static vg_event_journal_t cumulative;
 static vg_alarm_journal_t cumulative_metadata;
+static vg_alarm_t saved_alarms[VG_CONTINUOUS_ALARMS];
 static char wire[1024];
 static uint8_t input_body[4096], input_receipt[512];
 
@@ -88,7 +89,8 @@ int main(int argc,char **argv)
             }
         assert(next && transaction.current.latest_length>0u);puts("CHECKED");return 0;
     }
-    assert(!strcmp(argv[1],"old") || !strcmp(argv[1],"current") || !strcmp(argv[1],"tamper"));
+    bool retry=!strcmp(argv[1],"retry"), resumed=!strcmp(argv[1],"retry-current");
+    assert(!strcmp(argv[1],"old") || !strcmp(argv[1],"current") || !strcmp(argv[1],"tamper") || retry || resumed);
     start_runtime(&runtime,argv[4]);
     bool old=!strcmp(argv[1],"old"), tamper=!strcmp(argv[1],"tamper");
     if(old){start_runtime(&old_runtime,argv[3]);first_record(&old_runtime,&record);persist();}
@@ -99,22 +101,44 @@ int main(int argc,char **argv)
 #endif
     uint8_t header[8];assert(fread(header,1u,8u,stdin)==8u);
     size_t bn=little32(header),rn=little32(header+4u);
-    assert(bn>0u && bn<=sizeof(input_body) && rn==VG_EVENT_RECEIPT_LENGTH);
+    assert(bn>0u && bn<=sizeof(input_body) && rn==(retry?0u:VG_EVENT_RECEIPT_LENGTH));
     assert(fread(input_body,1u,bn,stdin)==bn && fread(input_receipt,1u,rn,stdin)==rn && fgetc(stdin)==EOF);
     assert(bn==strlen(wire) && !memcmp(input_body,wire,bn));
-    assert(!strcmp(argv[5],"200") || !strcmp(argv[5],"201"));
     vg_event_delivery owner={0};vg_replay_progress progress={0};
     vg_delivery_context context={runtime.config.boot,&runtime.journal,&runtime.alarm_journal,&progress,NULL,false,1u};
-    assert(vg_delivery_begin(&owner,VG_NET_EVENT,1u,&record,old?VG_REPLAY_RECOVERED:VG_REPLAY_CURRENT,0u,1u));
+    if(retry || resumed) {
+        assert(!strcmp(argv[5],retry?"0":"200") && transaction.current.confirmed_event_id==0u);
+        uint64_t generation=transaction.current.generation;
+        size_t retained=runtime.journal.count;
+        assert(vg_delivery_begin(&owner,VG_NET_EVENT,1u,&record,VG_REPLAY_CURRENT,0u,1u));
+        assert(vg_replay_mark(&progress,0u,runtime.journal.count,VG_REPLAY_CURRENT,false));
+        assert(progress.current_queued==1u);
+        vg_net_completion failed={0};failed.tag=1u;
+        assert(vg_delivery_receive_http(&owner,&failed,&context)==VG_DELIVERY_NETWORK_FAILED);
+        assert(progress.current_queued==0u && owner.stage==VG_DELIVERY_IDLE && !owner.event_halted);
+        assert(vg_delivery_choose(&context)==VG_REPLAY_CURRENT);
+        assert(runtime.journal.count==retained && vg_alarm_journal_matches(&runtime.alarm_journal,&runtime.journal));
+        assert(vg_offline_event_equal(&runtime.journal.events[progress.current_queued],&record.event));
+        assert(vg_alarm_metadata_equal(&runtime.alarm_journal.entries[progress.current_queued].alarm,&record.alarm));
+        assert(transaction.current.generation==generation && transaction.current.confirmed_event_id==0u);
+        if(retry) {emit_record();return 0;}
+        // Reconstruct the same observed failed exchange then consume the real
+        // duplicate receipt on THIS owner instance with the next opaque tag.
+        assert(vg_delivery_next_tag(&owner)==2u);
+    }
+    assert(!strcmp(argv[5],"200") || !strcmp(argv[5],"201"));
+    uint64_t tag=resumed?2u:1u;
+    assert(vg_delivery_begin(&owner,VG_NET_EVENT,tag,&record,old?VG_REPLAY_RECOVERED:VG_REPLAY_CURRENT,0u,1u));
     if(!old)progress.current_queued=1u;
-    vg_net_completion http={0};http.tag=1u;http.completed=true;http.http_status=atoi(argv[5]);
+    vg_net_completion http={0};http.tag=tag;http.completed=true;http.http_status=atoi(argv[5]);
     http.event_receipt_media_valid=true;http.response_length=rn;memcpy(http.response,input_receipt,rn);
-    assert(vg_delivery_receive_http(&owner,&http)==VG_DELIVERY_RECEIPT_READY);
+    assert(vg_delivery_receive_http(&owner,&http,&context)==VG_DELIVERY_RECEIPT_READY);
     size_t retained=runtime.journal.count;uint64_t generation=transaction.current.generation;
     cumulative=runtime.journal;cumulative_metadata=runtime.alarm_journal;
+    memcpy(saved_alarms,runtime.alarms,sizeof(saved_alarms));
     assert(vg_delivery_receipt_submitted(&owner));
     const vg_event_receipt_verifier verifier={NULL,verify};
-    vg_storage_retirement_completion done={0};done.tag=1u;
+    vg_storage_retirement_completion done={0};done.tag=tag;
     done.result=vg_offline_retire(&transaction,runtime.config.boot,&owner.record,&runtime.journal,&runtime.alarm_journal,
         &verifier,owner.status,owner.receipt,sizeof(owner.receipt),wire,sizeof(wire));
     done.generation=transaction.current.generation;done.confirmed_event_id=transaction.current.confirmed_event_id;
@@ -125,6 +149,8 @@ int main(int argc,char **argv)
     }
     assert(done.result==VG_RETIRE_COMMITTED && transaction.current.generation==generation+1u);
     assert(vg_delivery_receive_storage(&owner,&done,&context)==VG_DELIVERY_CONFIRMED);
+    assert(!memcmp(saved_alarms,runtime.alarms,sizeof(saved_alarms)));
+    assert(vg_delivery_next_tag(&owner)==tag+1u);
     assert(runtime.journal.count==retained-(old?0u:1u));
     assert(vg_offline_recover(&transaction,io,"runtime:demo"));
     for(size_t i=0u;i<transaction.current.event_count;i++)

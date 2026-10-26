@@ -234,3 +234,18 @@ not successful execution.
 **Current verification status: NOT_RUN**
 
 **Final verification approval: NOT_APPROVED**
+
+## Dated software continuation20261027 (interface baseline unchanged)
+
+The planning/interface inventory above retains its original design boundary.
+Current continuous SIMULATION composition, immutable1.1event metadata, fair
+cross-boot replay and authenticated durable host-file retirement have dated
+software evidence. The [retry-ordering continuation](../../evidence/test-results/event-delivery-retry-summary-20261027.md)
+fixes an actual failed HTTP cursor skip through explicit source/index/boot/epoch
+context and same-owner retry. Internal C function arguments change; external
+IF IDs/transports/wire/schema/hardware/TBD values and LOCKED38 do not. Current
+PHP388/TLS225/Chrome/regression247/bothSDK local gates pass within their stated
+scope, not physical NVS/RTOS/PSA/powerloss, deployedTLS, hostedCI or remaining
+formal protocols. Explicit exhausted transport reset and no physical control
+remain; source/evidence/test comparisons never authorize retained-fact deletion
+without the existing authenticated receipt and durable matching storage result.

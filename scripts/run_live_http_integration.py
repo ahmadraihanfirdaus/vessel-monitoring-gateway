@@ -67,12 +67,14 @@ def source_snapshot():
         'recovered_replay_wire_fixture.c', 'test_offline_transaction.py',
         'event_receipt_native_bridge.py', 'event_receipt_native_crypto.h',
         'event_receipt_verify_fixture.c', 'event_retirement_file_fixture.c', 'host_offline_file_io.h', 'phase9_b4_testlib.py',
+        'event_delivery_retry_fixture.c', 'test_event_delivery_retry.py', 'test_event_delivery.py', 'test_event_retirement_file.py',
         'browser_monitoring_bridge.py', 'browser_monitoring_probe.js', 'test_browser_monitoring_bridge.py',
         'test_browser_monitoring_probe.js', 'test_monitoring_freshness.js', 'test_live_http_integration_gate.py',
         'data_ui_contracts.py', 'test_data_ui_contracts.py', 'run_formal_data_native.py',
         'review_formal_data_ui.py', 'test_review_formal_data_ui.py', 'test_formal_data_native.py')]
     paths.append(ROOT/'docs/testing/formal-data-ui-cases-20261026.md')
     paths.append(ROOT/'docs/testing/monitoring-receipt-expiry-protocol-20261026.md')
+    paths.append(ROOT/'docs/testing/event-delivery-retry-protocol-20261026.md')
     base = ROOT/'backend/laravel'
     paths += [base/'bootstrap/app.php', base/'composer.lock']
     for directory in ('app', 'config', 'routes', 'resources/views', 'tests/Support', 'database/migrations'):
@@ -99,6 +101,36 @@ def php_run(binary, script, arguments, env):
 
 class LoopbackTLSProxy(http.server.ThreadingHTTPServer):
     daemon_threads = True
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._reply_fault_lock = threading.Lock()
+        self._reply_fault = None
+        self.commit_reply_drops = 0
+
+    def arm_commit_reply_drop(self, path, agent, body):
+        # Private server-object control only, never an HTTP route/header. Bind
+        # one exact owned native request and require a genuine committed reply.
+        if (path != '/api/v1/events' or not isinstance(agent, str) or not re.fullmatch(r'vg-live/[a-f0-9]{32}', agent)
+                or not isinstance(body, bytes) or not 0 < len(body) <= MAX_PROXY_BODY):
+            raise GateFailure('INVALID_PRIVATE_REPLY_FAULT_ADMISSION')
+        with self._reply_fault_lock:
+            if self._reply_fault is not None:
+                raise GateFailure('PRIVATE_REPLY_FAULT_ALREADY_ARMED')
+            self._reply_fault = (path, agent, hashlib.sha256(body).digest())
+
+    def consume_commit_reply_drop(self, method, path, agent, body, status):
+        with self._reply_fault_lock:
+            if (self._reply_fault is None or method != 'POST' or type(status) is not int
+                    or status not in (200, 201) or not isinstance(body, bytes)):
+                return False
+            expected_path, expected_agent, digest = self._reply_fault
+            if (path != expected_path or agent != expected_agent
+                    or not hmac.compare_digest(hashlib.sha256(body).digest(), digest)):
+                return False
+            self._reply_fault = None
+            self.commit_reply_drops += 1
+            return True
 
     def handle_error(self, request, address):
         # Never log request headers, bodies, cookies or exception contents.
@@ -144,6 +176,14 @@ class ProxyHandler(http.server.BaseHTTPRequestHandler):
             if len(output) > MAX_REPLY:
                 self.send_error(502)
                 return
+            if self.server.consume_commit_reply_drop(self.command, self.path,
+                    self.headers.get('User-Agent', ''), body, response.status):
+                self.close_connection = True
+                try:
+                    self.connection.shutdown(socket.SHUT_RDWR)
+                except OSError:
+                    pass
+                return  # Real backend reply drained/committed; client observes EOF.
             self.send_response(response.status)
             for key, value in response.getheaders():
                 if key.lower() not in {'connection', 'transfer-encoding', 'content-length'}:
@@ -368,7 +408,7 @@ def data_ui_extension(client, binary, env, profile, native_packet, functional):
     print('DATA_UI_RECORD='+json.dumps(record, sort_keys=True), flush=True)
 
 
-def suite(client, binary, env, profile, wire, domain_wire, alarm_wire, replay_wire, receipt_verifier, retirement_fixture, context, port):
+def suite(client, binary, env, profile, wire, domain_wire, alarm_wire, replay_wire, receipt_verifier, retirement_fixture, context, port, proxy):
     token = env['VG_LIVE_DEVICE_TOKEN']
 
     def action(mode):
@@ -597,15 +637,48 @@ def suite(client, binary, env, profile, wire, domain_wire, alarm_wire, replay_wi
     current_fact = json.loads(current_packet)
     expect('RETIREMENT_OLD_EXACT_FACT_DURABLY_REMOVED_CURRENT_RAM_UNCHANGED',
            current_fact['boot_id'] == 'receipt-next-'+profile['id'] and current_fact['event_id'] == 1)
-    status, headers, signed_current = api(client, '/api/v1/events', current_packet, token, receipt=True)
-    check_receipt(current_packet, status, headers, signed_current, 201, 'RETIREMENT_CURRENT_BOOT_COMMIT')
     slots = [retirement_fixture.parent/('receipt-slot'+str(i)+'.bin') for i in range(2)]
+    slots_before_loss = [hashlib.sha256(path.read_bytes()).hexdigest() for path in slots]
+    proxy.arm_commit_reply_drop('/api/v1/events', profile['agent'], current_packet)
+    lost = False
+    try:
+        api(client, '/api/v1/events', current_packet, token, receipt=True)
+    except (OSError, http.client.HTTPException, urllib.error.URLError):
+        lost = True
+    expect('RETRY_ACTUAL_COMMITTED_RESPONSE_LOST_ONCE', lost and proxy.commit_reply_drops == 1)
+    def retry_audit(stage):
+        result = php_run(binary, Path('scripts/live_http_fixture.php'), ['--retry-audit'], env)
+        expect('RETRY_'+stage+'_READ_ONLY_APPROVED_DATABASE_AUDIT', result.returncode == 0)
+        observation = json.loads(result.stdout)
+        expect('RETRY_'+stage+'_EXACT_TARGET_DEVICE_IDENTITY_BOUND', observation['database'] == 'vessel_gateway_codex_test'
+               and observation['username'] == 'vgw_codex' and observation['event_count'] == 1
+               and len(observation['facts']) == 1)
+        fact = observation['facts'][0]
+        expected_alarm = {key: (str(value) if key.endswith('_at_ms') and value is not None else value)
+                          for key, value in current_fact['alarm'].items()}
+        expect('RETRY_'+stage+'_ORIGINAL_METADATA_RETAINED_DIRECT_DB', fact['schema_version'] == '1.1'
+               and fact['event_id'] == str(current_fact['event_id'])
+               and fact['linked_alarm_id'] == str(current_fact['linked_alarm_id'])
+               and fact['source_mode'] == current_fact['source_mode']
+               and fact['source_id'] == current_fact['source_id'] and fact['event_type'] == current_fact['event_type']
+               and fact['occurred_at_ms'] == str(current_fact['occurred_at_ms'])
+               and fact['alarm'] == expected_alarm)
+        return observation
+    committed_before_retry = retry_audit('BEFORE')
+    retried_packet = run_retirement(retirement_fixture, env, 'retry', profile['id'], current_packet, 0)
+    expect('RETRY_NATIVE_OWNER_SELECTS_BYTE_IDENTICAL_UNCONFIRMED_PREFIX', retried_packet == current_packet)
+    expect('RETRY_FAILURE_NO_FILE_WRITE_FLOOR_ADVANCE_OR_FACT_RELEASE',
+           slots_before_loss == [hashlib.sha256(path.read_bytes()).hexdigest() for path in slots])
+    status, headers, signed_current = api(client, '/api/v1/events', retried_packet, token, receipt=True)
+    check_receipt(current_packet, status, headers, signed_current, 200, 'RETIREMENT_CURRENT_BOOT_COMMIT')
+    expect('RETRY_DUPLICATE_KEEPS_ONE_EXACT_COMMITTED_FACT', retry_audit('AFTER') == committed_before_retry
+           and proxy.commit_reply_drops == 1)
     before = [hashlib.sha256(path.read_bytes()).hexdigest() for path in slots]
     forged = signed_current[:-1]+(b'0' if signed_current[-1:] != b'0' else b'1')
     refused = run_retirement(retirement_fixture, env, 'tamper', profile['id'], current_packet, status, forged)
     expect('RETIREMENT_FORGED_MAC_NO_FILE_WRITES_OR_RAM_RELEASE', refused == b'REFUSED'
            and before == [hashlib.sha256(path.read_bytes()).hexdigest() for path in slots])
-    next_packet = run_retirement(retirement_fixture, env, 'current', profile['id'], current_packet, status, signed_current)
+    next_packet = run_retirement(retirement_fixture, env, 'retry-current', profile['id'], current_packet, status, signed_current)
     next_fact = json.loads(next_packet)
     expect('RETIREMENT_CURRENT_FLOOR_RAM_RELEASE_NO_ID_REWIND_AND_NEW_FACT',
            next_fact['boot_id'] == current_fact['boot_id'] and next_fact['event_id'] > current_fact['event_id'])
@@ -816,7 +889,7 @@ def main():
                 code = browser_monitoring_bridge.execute(args.node_binary, args.browser_binary, env,
                     folder, profile, wire, base)
             else:
-                suite(client, args.php_binary, env, profile, wire, domain_wire, alarm_wire, replay_wire, receipt_verifier, retirement_fixture, context, port)
+                suite(client, args.php_binary, env, profile, wire, domain_wire, alarm_wire, replay_wire, receipt_verifier, retirement_fixture, context, port, proxy)
     except GateBlocked as exception:
         print('LIVE_HTTP_GATE=BLOCKED_'+str(exception), flush=True)
         code = 3
