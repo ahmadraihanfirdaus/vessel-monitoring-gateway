@@ -1,4 +1,4 @@
-# Preliminary FMEA â€” Software Prototype / Simulation Boundary
+# Preliminary FMEA — Software Prototype / Simulation Boundary
 
 **Document class:** Development-stage qualitative failure-mode register; **NOT APPROVED** for operational vessel safety, installation, or certification.
 
@@ -92,3 +92,13 @@ at-rest authentication or physical anti-rollback; host file commit/readback and
 SDK builds do not prove physical durability, wear, RTOS/PSA execution, timing or
 full resource margins. No FMEA item, formal case or residual risk is approved
 by these development tests. Hardware/deployed TLS/formal external gates NOT_RUN.
+
+## Navigation observation-time regression, 2026-10-26
+
+Dedicated SUP007 host execution reproduced older ingest/age calls reviving
+freshness after a later offline observation. Before-mutation monotonic guards
+now reject time behind last valid or observed age, using safe subtraction.
+Equal-time fresh valid data and uint64 boundary behavior have dedicated property
+regression. Local source-bound SDK/PHP/TLS and broader software checks PASS;
+physical clock/timing, NMEA acquisition and residual-risk acceptance remain
+NOT_RUN. No FMEA item is formally closed by this bug fix or host SUP evidence.

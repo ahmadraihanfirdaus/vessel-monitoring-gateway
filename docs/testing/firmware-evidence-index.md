@@ -9,7 +9,7 @@
 | Core Measurement | 16/16 PASS | `evidence/test-results/firmware-core-range-wokwi-20261010.md` | No |
 | Core Range | 21/21 PASS | `evidence/test-results/firmware-core-range-wokwi-20261010.md` | No |
 
-The historical baseline **49/49 PASS** was one self-test run containing the first four suites. The latest C4 run includes those and later suites (**226/226 total**); **do not add counts across historical runs**. Current firmware entrypoint `firmware/src/main.c` is a development-only test runner, not a continuously operating monitoring loop.
+The historical baseline **49/49 PASS** was one self-test run containing the first four suites. The latest C4 run includes those and later suites (**226/226 total**); **do not add counts across historical runs**. The retained firmware entrypoint is a development-only test runner; the separate `esp32dev_continuous` candidate now runs `esp32_continuous_main.h` with explicit external demo configuration. Both remain hardware-unverified.
 
 **Locked traceability snapshot:** `requirements/traceability-matrix.csv` intentionally remains unchanged and has `NOT_IMPLEMENTED/NOT_RUN` placeholders for 38 requirement rows. No requirement is declared verified by this index.
 
@@ -39,4 +39,15 @@ Recorded counts are cumulative software self-tests on a single build, **not addi
 - Phase 8 telemetry contract: `evidence/test-results/phase8-h1-summary-20261017.md` and `evidence/test-results/phase8-closure-summary-20261017.md`; versioned schema/fixtures/contract self-tests PASS at the scoped development gate. SUP-011, SUP-012, TEL-003 backend deduplication and SIM-014 remain NOT_RUN.
 - Pre-Phase-9 R1 hardening: `evidence/test-results/pre-phase9-r1-summary-20261017.md`; firmware edge-case fixes and later-verifier boot isolation regression PASS.
 
-Formal test execution is now recorded in `docs/testing/formal-scenario-status.csv`. Current formal SIM result is SIM-001..SIM-009 PASS and SIM-010..SIM-015 NOT_RUN. Supplemental SUP-001..SUP-019 remain planned/not run. These records do not imply complete requirement verification, physical readiness, or production readiness.
+Formal test execution is now recorded in `docs/testing/formal-scenario-status.csv`. Current formal SIM result is SIM-001..SIM-009 PASS and SIM-010..SIM-015 NOT_RUN. Current canonical SUP registry records11PASS, including six new dedicated host provider/alarm cases, and8PLANNED; historical C4 evidence alone closes none of them. These records do not imply complete requirement verification, physical readiness, or production readiness.
+
+## Dedicated host provider/ACK evidence 2026-10-26
+
+SUP004/005/007/008/009/010 have actual dedicated host execution and reviewed
+case evidence: [summary](../../evidence/test-results/formal-provider-summary-20261026.md).
+Native121assertions and303 independent comparisons cover required fields,
+quality/provenance/absence/zero boundaries and labels. Reproduced navigation
+clock rewind was fixed; focused/new/broad regression and both SDK targets PASS.
+These six existing protocols permit host execution; no current Wokwi/physical
+bench, NMEA conformity, diagnosis, safety certification or full requirement
+VERIFIED is claimed. Other SIM/SUP and external gates retain their own status.

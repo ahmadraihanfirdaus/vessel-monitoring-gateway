@@ -35,6 +35,10 @@ jobs:
           python3 -B scripts/test_offline_authenticated_retirement.py
           python3 -B scripts/test_event_delivery.py
           python3 -B scripts/test_event_retirement_file.py
+      - name: Dedicated alarm and provider host verification
+        run: |
+          python3 -B scripts/run_formal_provider_verification.py --execute
+          python3 -B scripts/test_formal_provider_verification.py
       - name: NET-001 host-only checks
         run: python3 -B scripts/test_phase9_net001_host_adapter.py
       - name: SYS-003 host-only checks

@@ -1,0 +1,76 @@
+COMMAND=python -B scripts/test_formal_provider_verification.py
+test_duplicate_nonfinite_and_unknown_native_output_cannot_be_accepted (__main__.FormalProviderTest.test_duplicate_nonfinite_and_unknown_native_output_cannot_be_accepted) ... ok
+test_missing_protocol_review_blocks_before_execution (__main__.FormalProviderTest.test_missing_protocol_review_blocks_before_execution) ... ok
+test_monotonic_navigation_rejects_every_older_observation_and_preserves_uint64_boundaries (__main__.FormalProviderTest.test_monotonic_navigation_rejects_every_older_observation_and_preserves_uint64_boundaries) ... ok
+test_oracle_rejects_ack_condition_clear_zero_null_and_faked_native_count (__main__.FormalProviderTest.test_oracle_rejects_ack_condition_clear_zero_null_and_faked_native_count) ... ok
+test_oracle_rejects_missing_engine_fields_identity_source_and_float_errors (__main__.FormalProviderTest.test_oracle_rejects_missing_engine_fields_identity_source_and_float_errors) ... ok
+test_oracle_rejects_navigation_refresh_rewind_no_fix_and_missing_properties (__main__.FormalProviderTest.test_oracle_rejects_navigation_refresh_rewind_no_fix_and_missing_properties) ... ok
+test_provider_oracle_rejects_missing_as_zero_stale_current_and_certification_label (__main__.FormalProviderTest.test_provider_oracle_rejects_missing_as_zero_stale_current_and_certification_label) ... ok
+test_read_only_default_never_launches_compiler_or_subprocess (__main__.FormalProviderTest.test_read_only_default_never_launches_compiler_or_subprocess) ... ok
+test_real_six_case_execution_source_stability_and_no_registry_write (__main__.FormalProviderTest.test_real_six_case_execution_source_stability_and_no_registry_write) ... ok
+test_source_drift_cannot_be_certified_by_six_passing_observations (__main__.FormalProviderTest.test_source_drift_cannot_be_certified_by_six_passing_observations) ... ok
+test_unavailable_prerequisite_never_becomes_pass (__main__.FormalProviderTest.test_unavailable_prerequisite_never_becomes_pass) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 2.405s
+
+OK
+EXIT=0
+COMMAND=python -B scripts/test_phase7_g1_host.py
+G1_HOST_C_COMPILER: C:/msys64/ucrt64/bin\gcc.EXE
+G1_PHASE6_REGRESSION: PASS
+PHASE7_G1_HOST_SELFTEST: PASS (64/64)
+NOTE: Development host evidence only. Formal SIM-008/SIM-009, SUP-007, physical GNSS/NMEA bench verification and production readiness are not implied.
+EXIT=0
+COMMAND=python -B scripts/test_phase7_g2_formal_host.py
+G2_HOST_C_COMPILER: C:/msys64/ucrt64/bin\gcc.EXE
+G2_G1_REGRESSION: PASS
+PHASE7_G2_HOST_FORMAL_SCENARIOS: PASS (2/2)
+NOTE: Host execution is preparation only. Formal roadmap evidence requires fresh target/Wokwi execution and persisted evidence.
+EXIT=0
+COMMAND=python -B scripts/test_continuous_simulation.py
+test_ack_remains_active_monotonic_and_new_reason_realerts (__main__.ContinuousSimulationTest.test_ack_remains_active_monotonic_and_new_reason_realerts) ... ok
+test_actual_24_frames_all_domains_and_checkpoint_recovery (__main__.ContinuousSimulationTest.test_actual_24_frames_all_domains_and_checkpoint_recovery) ... ok
+test_alarm_id_exhaustion_is_explicit_and_does_not_silence_condition (__main__.ContinuousSimulationTest.test_alarm_id_exhaustion_is_explicit_and_does_not_silence_condition) ... ok
+test_config_rejects_missing_thresholds_physical_monitor_block_and_unterminated_identity (__main__.ContinuousSimulationTest.test_config_rejects_missing_thresholds_physical_monitor_block_and_unterminated_identity) ... ok
+test_domain_rejects_foreign_source_invalid_values_and_future_metadata (__main__.ContinuousSimulationTest.test_domain_rejects_foreign_source_invalid_values_and_future_metadata) ... ok
+test_eight_engines_map_68_fields_without_silent_truncation (__main__.ContinuousSimulationTest.test_eight_engines_map_68_fields_without_silent_truncation) ... ok
+test_engine_lost_null_stopped_zero_and_uint64_not_rounded (__main__.ContinuousSimulationTest.test_engine_lost_null_stopped_zero_and_uint64_not_rounded) ... ok
+test_full_journal_does_not_freeze_local_sampling_or_replace_old_events (__main__.ContinuousSimulationTest.test_full_journal_does_not_freeze_local_sampling_or_replace_old_events) ... ok
+test_legacy_wire_is_byte_identical (__main__.ContinuousSimulationTest.test_legacy_wire_is_byte_identical) ... ok
+test_navigation_no_fix_unknown_checksum_age_boundaries (__main__.ContinuousSimulationTest.test_navigation_no_fix_unknown_checksum_age_boundaries) ... ok
+test_sdk_entry_has_no_physical_output_or_erase_and_separate_target (__main__.ContinuousSimulationTest.test_sdk_entry_has_no_physical_output_or_erase_and_separate_target) ... ok
+test_v11_72_channels_and_4096_bytes_limits_are_independent (__main__.ContinuousSimulationTest.test_v11_72_channels_and_4096_bytes_limits_are_independent) ... ok
+test_wait_regression_skipped_periods_and_sequence_exhaustion (__main__.ContinuousSimulationTest.test_wait_regression_skipped_periods_and_sequence_exhaustion) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 7.413s
+
+OK
+EXIT=0
+COMMAND=python -B scripts/test_event_delivery.py
+test_bad_completion_floor_or_generation_retains_exact_ram_fact (__main__.EventDeliveryTest.test_bad_completion_floor_or_generation_retains_exact_ram_fact) ... ok
+test_genuine_crypto_rejection_is_not_an_ack (__main__.EventDeliveryTest.test_genuine_crypto_rejection_is_not_an_ack) ... ok
+test_missing_truncated_or_wrong_media_receipt_retains_facts_and_halts_only_events (__main__.EventDeliveryTest.test_missing_truncated_or_wrong_media_receipt_retains_facts_and_halts_only_events) ... ok
+test_only_genuine_durable_receipt_releases_exact_prefix_and_preserves_active_alarm (__main__.EventDeliveryTest.test_only_genuine_durable_receipt_releases_exact_prefix_and_preserves_active_alarm) ... ok
+test_recovered_current_predecessor_overrides_alternation_without_skipping_other_boot (__main__.EventDeliveryTest.test_recovered_current_predecessor_overrides_alternation_without_skipping_other_boot) ... ok
+test_recovery_prerequisites_reschedule_and_epoch_prevents_wrong_view_rewind (__main__.EventDeliveryTest.test_recovery_prerequisites_reschedule_and_epoch_prevents_wrong_view_rewind) ... ok
+test_tags_single_inflight_and_unrelated_completions_cannot_release (__main__.EventDeliveryTest.test_tags_single_inflight_and_unrelated_completions_cannot_release) ... ok
+test_uncertain_io_never_frees_ram_and_allows_bounded_unretired_publication (__main__.EventDeliveryTest.test_uncertain_io_never_frees_ram_and_allows_bounded_unretired_publication) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 4.855s
+
+OK
+EXIT=0
+COMMAND=python -B scripts/test_event_retirement_file.py
+test_actual_file_reopen_old_current_forgery_capacity_and_monotonic_new_fact (__main__.RetirementFileTest.test_actual_file_reopen_old_current_forgery_capacity_and_monotonic_new_fact) ... ok
+test_existing_binary_cannot_be_overwritten (__main__.RetirementFileTest.test_existing_binary_cannot_be_overwritten) ... ok
+test_existing_slot_bad_identity_phase_and_bounds_refuse_without_child_process (__main__.RetirementFileTest.test_existing_slot_bad_identity_phase_and_bounds_refuse_without_child_process) ... ok
+test_unowned_root_cannot_compile_or_change_files (__main__.RetirementFileTest.test_unowned_root_cannot_compile_or_change_files) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 1.157s
+
+OK
+EXIT=0

@@ -1,0 +1,12 @@
+BASELINE_DEVELOP=5727969e1f04f49cd26def184e0ab594a6acba6e
+DEDICATED_RUN1=FAIL_SUP007_SIX_FIELDS_INGEST_AND_AGE_REWIND; other five host cases PASS, no canonical registry promotion.
+REAL_DEFECT=vg_nav_ingest_sentence accepted arrival earlier than last valid/last observed; vg_nav_update_age accepted earlier observation newer than last valid, potentially reviving OFFLINE to STALE or VALID.
+FIX=Guard now<last_valid or now-last_valid<data_age before any mutation, overflow-safe unsigned subtraction; equal-time valid fresh data remains accepted.
+RUN2_AND_FINAL=PASS_SIX_HOST_CASES; actual malformed/no-fix/domain and uint64 boundaries included.
+FOCUSED_REGRESSION=PASS_11_HARNESS_ORACLE_AND_CLOCK_METHODS_PLUS_EXISTING_PHASE7_64_AND_2_CONTINUOUS13_OWNER8_FILE4
+CANONICAL_SUP_STATUS=UNCHANGED_PLANNED_PENDING_ALL_BATCH_GATES_AND_CASE_EVIDENCE_REVIEW
+HARDWARE_NEW_FORMAL_OTHER_CASES=NOT_RUN
+FINAL_BROAD_REGRESSION=PASS_230_OF_230
+CANONICAL_CASE_REVIEW=PASS_SIX_PRESCRIBED_HOST_CLASSES; SUP total11PASS8PLANNED; living formal21PASS3PARTIAL14NOTRUN; no requirement VERIFIED.
+DOC_ENCODING_REVIEW=Detected default Windows decoding corrupted UTF8 punctuation in four changed docs; restored original nonASCII codepoints exactly versus bb4f462, retained intended new ASCII status text. UTF8 explicit from now on. SHA inventory in formal-provider-encoding-review CSV.
+RUNNER_ROBUSTNESS=Explicit UTF8 protocol reader and safe BLOCKED on missing/undecodable protocol, no path/exception output. Latest 12method delta PASS; actual6case rerun source7c75cb16e5e5728c6f9f3011826607a3510352ad01f5f122e1afe680cbfcdd16 PASS, unchanged native121/field303. Earlier source-bound logs retained as history.

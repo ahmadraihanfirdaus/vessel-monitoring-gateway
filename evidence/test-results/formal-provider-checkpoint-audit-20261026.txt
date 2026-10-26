@@ -1,0 +1,27 @@
+IMMUTABLE_HASH=PASS requirements/system-requirements.md a60167d9f2a1f852a091048447f6f4acf8d2cbfd6d11f04c2a6e2f6896f5b92b
+IMMUTABLE_HASH=PASS requirements/traceability-matrix.csv bc1fc7ce697fc6180cab760320de2a1bd814f9bc78731d4a22fdae838c303fe3
+IMMUTABLE_HASH=PASS AGENTS.md 421e2b5d5748cf5e4bdac3c189223915850c8894688a7e3ffd090975aa87864b
+IMMUTABLE_HASH=PASS firmware/.gitignore d952abf002d5e1ec80c8ab1bfc9f38eb5b62fc310667d501cb2ce9f21c3effb2
+IMMUTABLE_HASH=PASS firmware/.vscode/extensions.json 31cc8f05084d96b65be8f147533017c7a1b89b055d85886a2e4ab3ce532f34fb
+CURRENT_SOURCE_SDK=PASS_SHA256_a0a0eac0809da2b9be93c67a8347c3f50766b3bed163ec7d42a1e4b86fb8bf95
+CURRENT_SOURCE_HTTP=PASS_SHA256_26a94bfa1c529fb339c7c72702f1cb1d50327eafeb8d6d37b97b4fcbef6fd4c2
+CURRENT_SOURCE_FORMAL=PASS_SHA256_10f55a32a133a603599778f1c00a05d061d3e0dbba9e56d4a1134dcd272c1276
+SIM_REGISTRY_UNCHANGED=PASS
+CANONICAL_FORMAL_SCOPE=PASS_EXACT_SIX_REVIEWED_SUP_STATUS_EVIDENCE_ONLY
+BOTH_HANDOFF_38_MATRIX_COUNTS=PASS CODEX_RESUME.md
+BOTH_HANDOFF_38_MATRIX_COUNTS=PASS CHATGPT_CONTEXT.md
+COMMAND=python -B scripts/check_living_traceability.py
+BASELINE_SHA256: PASS (2/2)
+LIVING_TRACEABILITY: PASS (38/38 mapped, 34 unique planned cases)
+ASSESSMENTS: {'IMPLEMENTED_UNVERIFIED': 22, 'PARTIAL': 16}
+FORMAL_REQUIREMENT_STATUS: {'NOT_RUN': 14, 'PARTIAL': 3, 'PASS': 21}
+FORMAL_SIM_SCENARIOS: PASS=9, NOT_RUN=6
+SUPPLEMENTAL_TESTS: PLANNED=8, PASS=11
+FINAL_REQUIREMENT_APPROVAL: NOT_APPROVED
+TOTAL_SYSTEM_STATUS: PARTIAL
+COMMAND=C:/tools/php-8.2.35/php.exe scripts/mysql_test_gate.php --inspect
+TEST_CONFIG_AUDIT={"local_testing_file":true,"process_override_names":["APP_KEY","VG_PHP_CLI","VG_TEST_EPHEMERAL_KEY","VG_USE_TESTING_ENV"],"phpunit_env":[{"name":"APP_ENV","force":false},{"name":"DB_CONNECTION","force":false},{"name":"APP_MAINTENANCE_DRIVER","force":false},{"name":"BCRYPT_ROUNDS","force":false},{"name":"BROADCAST_CONNECTION","force":false},{"name":"CACHE_STORE","force":false},{"name":"DB_URL","force":false},{"name":"MAIL_MAILER","force":false},{"name":"QUEUE_CONNECTION","force":false},{"name":"SESSION_DRIVER","force":false},{"name":"PULSE_ENABLED","force":false},{"name":"TELESCOPE_ENABLED","force":false},{"name":"NIGHTWATCH_ENABLED","force":false}],"phpunit_server_names":[],"secret_values":"REDACTED_NOT_EMITTED","effective_target":{"host":"127.0.0.1","port":"3307","database":"vessel_gateway_codex_test","username":"vgw_codex","driver":"mysql"},"effective_app_testing":true,"runtime":{"php_version":"8.2.35","php_binary":"C:\\tools\\php-8.2.35\\php.exe"},"app_key_configured":true,"app_key_cipher_compatible":true,"app_key_source":"ephemeral_runner_process","engine":"10.4.32-MariaDB"}
+DATABASE_POSTCHECK=PASS_TEN_TABLES_SIX_MIGRATIONS_ZERO_APPLICATION_ROWS
+FINAL_CONFIG_SCHEMA_KEY_POSTCHECK=PASS_0_APPLICATION_ROWS
+BROAD_REGRESSION=PASS_230_OF_230
+WORKING_SECURITY=PASS_ZERO_UNRESOLVED_ZERO_PRIVACY

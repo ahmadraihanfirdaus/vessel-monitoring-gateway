@@ -904,6 +904,22 @@
       "line_sha256": "994c6aef934a9baf22e0e4e14d0236253e4fca23758d9a81e329990287091561",
       "classification": "RUNTIME_GENERATED_TEST_VALUE",
       "rationale": "Exact unchanged CI label or runtime-generated form-input expression, byte-compared with committed bb4f462. Whole-file pin renewed after authenticated receipt integration; no literal credential, detector weakening or wildcard exemption."
+    },
+    {
+      "id": "FORMALPROVIDER-CI-NONSECRET-001",
+      "path": ".github/workflows/phase9-multi-context-ci.yml",
+      "file_sha256": "df8aed2aa14a6b10e8c93b1e74d6dcfcea98bfdc636ed8a0acb0d4d359e35ae1",
+      "line_sha256": "e52d2a0aee17904e9e0b4a21889e572a42d8b99434d44885e2867934c59dbb4b",
+      "classification": "CI_TEST_CONFIGURATION",
+      "rationale": "Exact unchanged CI label/expression byte-equal to committed 5727969. Whole-file pin renewed after dedicated provider host verification step; no literal key or detector/privacy exemption."
+    },
+    {
+      "id": "FORMALPROVIDER-CI-NONSECRET-002",
+      "path": ".github/workflows/phase9-multi-context-ci.yml",
+      "file_sha256": "df8aed2aa14a6b10e8c93b1e74d6dcfcea98bfdc636ed8a0acb0d4d359e35ae1",
+      "line_sha256": "ca6dcd3e138310f57f7f86f4061f0dd448f949016058e65ba39ff6fb214029d7",
+      "classification": "CI_TEST_CONFIGURATION",
+      "rationale": "Exact unchanged CI label/expression byte-equal to committed 5727969. Whole-file pin renewed after dedicated provider host verification step; no literal key or detector/privacy exemption."
     }
   ]
 }

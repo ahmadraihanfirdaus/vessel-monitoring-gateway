@@ -8,7 +8,7 @@
 
 **Implementation Status:** PHASE9_SCOPED_IMPLEMENTATION_AUDIT_PASS / PHASE9_SCOPED_DOCUMENTARY_CLOSURE_RECORDED / FORMAL_VERIFICATION_OPEN / OVERALL_SYSTEM_PARTIAL
 
-**System Verification Status:** PARTIAL — formal software-simulation SIM-001..SIM-009 PASS; SIM-010..SIM-015 NOT_RUN; SUP-001/003/006/016/019 PASS; other 14 SUP PLANNED
+**System Verification Status:** PARTIAL — formal software-simulation SIM-001..SIM-009 PASS; SIM-010..SIM-015 NOT_RUN; 11 SUP PASS (six dedicated host cases added); 8 SUP PLANNED
 
 Current local dashboard integration (2026-10-25): per-grant user sessions, configurable freshness, eight connected views and C99/MariaDB rendering pass 325 Laravel tests with explicit PHP 8.2.35. See [execution matrix](../evidence/test-results/dashboard-summary-20261025.md). Local software implementation is recorded; deployment policy, hosted CI, physical integration and formal verification remain open.
 
@@ -255,7 +255,7 @@ The repository is under preparation for continued engineering development and pu
 
 **Implementation Status:** PHASE9_SCOPED_IMPLEMENTATION_AUDIT_PASS / PHASE9_SCOPED_DOCUMENTARY_CLOSURE_RECORDED / FORMAL_VERIFICATION_OPEN / OVERALL_SYSTEM_PARTIAL
 
-**Functional Verification Status:** PARTIAL — SIM-001..SIM-009 PASS with formal software-simulation evidence; SIM-010..SIM-015 NOT_RUN; SUP-001/003/006/016/019 PASS; other 14 SUP PLANNED
+**Functional Verification Status:** PARTIAL — SIM-001..SIM-009 PASS with formal software-simulation evidence; SIM-010..SIM-015 NOT_RUN; 11 SUP PASS (six dedicated host cases added); 8 SUP PLANNED
 
 **Final Requirement Verification Approval:** NOT_APPROVED
 
@@ -268,3 +268,10 @@ Current ESP32 transport continuation: actual SDK adapter, guarded local build an
 The [offline storage continuation](../evidence/test-results/offline-nvs-summary-20261025.md) connects a bounded two-slot NVS worker to the finite simulation and recovered C99-wire integration. Physical persistence, confidentiality, power-loss and timing remain unverified; no formal status is promoted.
 
 The [real loopback HTTP/TLS continuation](../evidence/test-results/live-http-summary-20261025.md) records 335 PHP/Laravel methods, 65 actual network assertions and ten orchestration fault methods. Cookie/form, CSRF, session/grant and certificate negatives have local evidence. Graphical browser, deployed/ESP32 TLS, physical NVS and remaining formal gates stay open.
+
+Current continuation2026-10-26: six dedicated host casesSUP004/005/007/008/009/010
+have actual121native assertions/303independent comparisons and a reproduced/fixed
+navigation clock-regression defect. The current formal-provider summary records
+PHP373/TLS187/broad230/bothSDK local PASS, with final staged review mandatory.
+Canonical SUP11PASS/8PLANNED and per-requirement formal21PASS/3PARTIAL/14NOT_RUN
+do not mean requirementVERIFIED, physical provider, hardware or production approval.

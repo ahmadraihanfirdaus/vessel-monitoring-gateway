@@ -335,6 +335,11 @@ static inline bool vg_nav_ingest_sentence(vg_navigation_state_t *state,
     if (state == NULL || sentence == NULL || !vg_nav_source_mode_supported(source_mode)) {
         return false;
     }
+    /* Arrival time is boot-monotonic. Do not let an older call revive a stale
+     * or offline observation, even when it is newer than last_valid_ms. Use
+     * subtraction after the lower-bound check to avoid uint64 overflow. */
+    if (state->initialized && (now_ms < state->last_valid_ms ||
+        now_ms - state->last_valid_ms < state->data_age_ms)) return false;
     vg_nav_rmc_data_t parsed = {0};
     if (!vg_nav_parse_rmc_development(sentence, &parsed)) {
         return false;
@@ -363,7 +368,8 @@ static inline bool vg_nav_update_age(vg_navigation_state_t *state,
     if (state == NULL || !state->initialized ||
         !vg_nav_source_mode_supported(state->source_mode) ||
         !vg_nav_age_thresholds_valid(cfg) ||
-        now_ms < state->last_valid_ms) {
+        now_ms < state->last_valid_ms ||
+        now_ms - state->last_valid_ms < state->data_age_ms) {
         return false;
     }
 

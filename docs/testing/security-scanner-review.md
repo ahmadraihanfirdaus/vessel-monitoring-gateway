@@ -80,3 +80,12 @@ remain mandatory before commit; source and actual gate results are in receipt
 summary. Raw bearer is only ephemeral standard HMAC input and is never written
 into journal, public logs or command argv. Physical NVS confidentiality, key
 provisioning, trusted clock/deployedTLS and anti-rollback remain unverified.
+
+## Dedicated provider continuation 2026-10-26
+
+Two initial INFO occurrences were unchanged CI labels after a new dedicated
+host step invalidated whole-file pins. Exact byte comparisons with5727969 and
+renewed file+line SHA reviews are in formal-provider-security-triage-20261026.csv.
+Corrected working screen0findings/0privacy; no detector or secret rule exemption.
+Final scoped/staged screen remains mandatory. Dedicated test data are explicitly
+synthetic; no real position, hardware, credentials or operational details.

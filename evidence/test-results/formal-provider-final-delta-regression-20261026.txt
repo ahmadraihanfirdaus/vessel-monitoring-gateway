@@ -1,0 +1,29 @@
+COMMAND=python -B scripts/test_formal_provider_verification.py
+test_duplicate_nonfinite_and_unknown_native_output_cannot_be_accepted (__main__.FormalProviderTest.test_duplicate_nonfinite_and_unknown_native_output_cannot_be_accepted) ... ok
+test_missing_or_undecodable_protocol_blocks_without_path_or_subprocess_output (__main__.FormalProviderTest.test_missing_or_undecodable_protocol_blocks_without_path_or_subprocess_output) ... ok
+test_missing_protocol_review_blocks_before_execution (__main__.FormalProviderTest.test_missing_protocol_review_blocks_before_execution) ... ok
+test_monotonic_navigation_rejects_every_older_observation_and_preserves_uint64_boundaries (__main__.FormalProviderTest.test_monotonic_navigation_rejects_every_older_observation_and_preserves_uint64_boundaries) ... ok
+test_oracle_rejects_ack_condition_clear_zero_null_and_faked_native_count (__main__.FormalProviderTest.test_oracle_rejects_ack_condition_clear_zero_null_and_faked_native_count) ... ok
+test_oracle_rejects_missing_engine_fields_identity_source_and_float_errors (__main__.FormalProviderTest.test_oracle_rejects_missing_engine_fields_identity_source_and_float_errors) ... ok
+test_oracle_rejects_navigation_refresh_rewind_no_fix_and_missing_properties (__main__.FormalProviderTest.test_oracle_rejects_navigation_refresh_rewind_no_fix_and_missing_properties) ... ok
+test_provider_oracle_rejects_missing_as_zero_stale_current_and_certification_label (__main__.FormalProviderTest.test_provider_oracle_rejects_missing_as_zero_stale_current_and_certification_label) ... ok
+test_read_only_default_never_launches_compiler_or_subprocess (__main__.FormalProviderTest.test_read_only_default_never_launches_compiler_or_subprocess) ... ok
+test_real_six_case_execution_source_stability_and_no_registry_write (__main__.FormalProviderTest.test_real_six_case_execution_source_stability_and_no_registry_write) ... ok
+test_source_drift_cannot_be_certified_by_six_passing_observations (__main__.FormalProviderTest.test_source_drift_cannot_be_certified_by_six_passing_observations) ... ok
+test_unavailable_prerequisite_never_becomes_pass (__main__.FormalProviderTest.test_unavailable_prerequisite_never_becomes_pass) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 2.445s
+
+OK
+EXIT=0
+COMMAND=python -B scripts/check_living_traceability.py
+BASELINE_SHA256: PASS (2/2)
+LIVING_TRACEABILITY: PASS (38/38 mapped, 34 unique planned cases)
+ASSESSMENTS: {'IMPLEMENTED_UNVERIFIED': 22, 'PARTIAL': 16}
+FORMAL_REQUIREMENT_STATUS: {'NOT_RUN': 14, 'PARTIAL': 3, 'PASS': 21}
+FORMAL_SIM_SCENARIOS: PASS=9, NOT_RUN=6
+SUPPLEMENTAL_TESTS: PLANNED=8, PASS=11
+FINAL_REQUIREMENT_APPROVAL: NOT_APPROVED
+TOTAL_SYSTEM_STATUS: PARTIAL
+EXIT=0

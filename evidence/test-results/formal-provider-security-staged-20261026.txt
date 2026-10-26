@@ -1,0 +1,55 @@
+EXACT44_INDEX_WORKING_BLOBS_MANIFEST=PASS
+=== PHASE 2.7B.5K.5 - PUBLIC SECURITY AUDIT ===
+Git index entries: 1314
+Untracked candidates: 3
+Total candidates: 1317
+
+Potential security findings: 0
+Manual review warnings: 0
+Hash-pinned non-secret reviews: 30
+Reviewed dependency author metadata: 141
+
+REVIEWED NON-SECRET: .github/workflows/phase9-multi-context-ci.yml:307 [index] - FORMALPROVIDER-CI-NONSECRET-001 / CI_TEST_CONFIGURATION
+REVIEWED NON-SECRET: .github/workflows/phase9-multi-context-ci.yml:380 [index] - FORMALPROVIDER-CI-NONSECRET-002 / CI_TEST_CONFIGURATION
+REVIEWED NON-SECRET: backend/laravel/app/Http/Controllers/MonitoringSessionController.php:17 [index] - MONITORING-NONSECRET-001 / SOURCE_CONTRACT_TOKEN
+REVIEWED NON-SECRET: backend/laravel/app/Models/User.php:46 [index] - NONSECRET-005 / FRAMEWORK_CAST
+REVIEWED NON-SECRET: backend/laravel/tests/Feature/FirmwareMySqlIntegrationTest.php:192 [index] - MONITORING-NONSECRET-002 / RUNTIME_GENERATED_TEST_VALUE
+REVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringAccessTest.php:98 [index] - MONITORING-NONSECRET-003 / RUNTIME_GENERATED_TEST_VALUE
+REVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringAccessTest.php:100 [index] - MONITORING-NONSECRET-004 / RUNTIME_GENERATED_TEST_VALUE
+REVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringAccessTest.php:111 [index] - MONITORING-NONSECRET-005 / RUNTIME_GENERATED_TEST_VALUE
+REVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringAccessTest.php:114 [index] - MONITORING-NONSECRET-006 / RUNTIME_GENERATED_TEST_VALUE
+REVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringBoundaryTest.php:35 [index] - MONITORING-NONSECRET-011 / RUNTIME_GENERATED_TEST_VALUE
+REVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringOperatorTest.php:22 [index] - MONITORING-NONSECRET-007 / ENVIRONMENT_VARIABLE_NAME
+REVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringOperatorTest.php:37 [index] - MONITORING-NONSECRET-008 / ENVIRONMENT_VARIABLE_NAME
+REVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringOperatorTest.php:46 [index] - MONITORING-NONSECRET-009 / ENVIRONMENT_VARIABLE_NAME
+REVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringOperatorTest.php:52 [index] - MONITORING-NONSECRET-008 / ENVIRONMENT_VARIABLE_NAME
+REVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringOperatorTest.php:67 [index] - MONITORING-NONSECRET-010 / ENVIRONMENT_VARIABLE_NAME
+REVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringOperatorTest.php:72 [index] - MONITORING-NONSECRET-008 / ENVIRONMENT_VARIABLE_NAME
+REVIEWED NON-SECRET: backend/laravel/tests/Support/MonitoringFixtures.php:13 [index] - MONITORING-NONSECRET-012 / RUNTIME_GENERATED_TEST_VALUE
+REVIEWED NON-SECRET: backend/laravel/tests/Support/MySqlIsolation.php:93 [index] - MONITORING-NONSECRET-013 / ENVIRONMENT_VARIABLE_NAME
+REVIEWED NON-SECRET: backend/laravel/tests/Unit/MySqlIsolationTest.php:120 [index] - NONSECRET-007 / SYNTHETIC_NEGATIVE_FIXTURE
+REVIEWED NON-SECRET: backend/laravel/tests/Unit/TestEnvironmentTest.php:30 [index] - NONSECRET-008 / SYNTHETIC_NEGATIVE_FIXTURE
+REVIEWED NON-SECRET: evidence/test-results/live-http-network-run1-20261025.txt:2 [index] - LIVEHTTP-AUDIT-LABEL-001 / AUDIT_RESULT_LABEL
+REVIEWED NON-SECRET: evidence/test-results/live-http-preflight-run2-20261025.txt:2 [index] - LIVEHTTP-AUDIT-LABEL-002 / AUDIT_RESULT_LABEL
+REVIEWED NON-SECRET: evidence/test-results/phase9-p3-security-review-20261018.txt:12 [index] - NONSECRET-009 / AUDIT_RESULT_LABEL
+REVIEWED NON-SECRET: evidence/test-results/phase9-p3-security-review-20261018.txt:13 [index] - NONSECRET-010 / AUDIT_RESULT_LABEL
+REVIEWED NON-SECRET: evidence/test-results/phase9-p3-security-review-20261018.txt:12 [working] - NONSECRET-011 / AUDIT_RESULT_LABEL
+REVIEWED NON-SECRET: evidence/test-results/phase9-p3-security-review-20261018.txt:13 [working] - NONSECRET-012 / AUDIT_RESULT_LABEL
+REVIEWED NON-SECRET: scripts/run_live_http_integration.py:389 [index] - RECEIPT-RUNTIME-INPUT-001 / RUNTIME_GENERATED_TEST_VALUE
+REVIEWED NON-SECRET: scripts/run_live_http_integration.py:574 [index] - RECEIPT-RUNTIME-INPUT-002 / RUNTIME_GENERATED_TEST_VALUE
+REVIEWED NON-SECRET: scripts/run_live_http_integration.py:579 [index] - RECEIPT-RUNTIME-INPUT-003 / RUNTIME_GENERATED_TEST_VALUE
+REVIEWED NON-SECRET: scripts/test_phase9_b39_contract.py:16 [index] - NONSECRET-013 / SOURCE_CONTRACT_TOKEN
+
+PASS: No prohibited files detected
+PASS: No obvious secrets detected
+PASS: Git index and working content checked
+RESULT: AUTOMATED SECURITY SCREEN PASSED
+
+NOTE: This scan is not a confidentiality guarantee
+NOTE: Unsupported binary files are blocked
+NOTE: Manual semantic review is still mandatory
+NOTE: No files were modified
+NOTE: Passing does not authorize publication
+=== PHASE 2.7B.5K.5 COMPLETE ===
+
+EXIT=0

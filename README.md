@@ -4,7 +4,7 @@
 
 **Portfolio category:** Embedded firmware prototype and traceable engineering development (simulation only).
 
-This repository contains a **partial development-only monitoring prototype**, not a completed or production-ready vessel system. Roadmap Phases 3 through 8 have closed their scoped development/software-simulation exit gates: firmware core, simulator/bench-interface providers, safety policy, four-engine model, NMEA-style navigation, and telemetry contract. Phase 9 Laravel/MySQL source and historical scoped evidence are present. Dedicated formal software-simulation scenarios **SIM-001 through SIM-009 are recorded PASS**; SIM-010 through SIM-015 remain NOT_RUN. SUP-001/003/006/016/019 are recorded PASS; the other 14 supplemental cases remain PLANNED. Complete-system backend/dashboard verification, ESP32 network transport, end-to-end validation, physical bench execution, calibration, vessel integration, certification, and production readiness are not complete.
+This repository contains a **partial development-only monitoring prototype**, not a completed or production-ready vessel system. Roadmap Phases 3 through 8 have closed their scoped development/software-simulation exit gates: firmware core, simulator/bench-interface providers, safety policy, four-engine model, NMEA-style navigation, and telemetry contract. Phase 9 Laravel/MySQL source and historical scoped evidence are present. Dedicated formal software-simulation scenarios **SIM-001 through SIM-009 are recorded PASS**; SIM-010 through SIM-015 remain NOT_RUN. Eleven SUP cases are recorded PASS: the five earlier documentation/static/security cases plus dedicated host SUP-004/005/007/008/009/010; eight remain PLANNED. See the [dedicated provider evidence](evidence/test-results/formal-provider-summary-20261026.md) for the actual execution scope and navigation time-regression fix. Complete-system backend/dashboard verification, ESP32 network transport, end-to-end validation, physical bench execution, calibration, vessel integration, certification, and production readiness are not complete.
 
 
 The design emphasizes modular embedded software, sensor quality, fault handling, data-source separation, and requirement traceability. Public examples are intended to use synthetic or laboratory-generated data; no operational vessel deployment is claimed.
@@ -21,7 +21,7 @@ The design emphasizes modular embedded software, sensor quality, fault handling,
 | Standards research | [Standards applicability matrix](docs/standards/standards-applicability-matrix.md), for conceptual reference only |
 | Executable repository tooling | Python scripts for [security screening](scripts/audit_precommit_security.py), [documentation review](scripts/audit_public_documentation.py), [host firmware self-tests](scripts/test_firmware_core_host.py), and [living traceability checks](scripts/check_living_traceability.py) |
 
-**Available development evidence:** the [firmware evidence index](docs/testing/firmware-evidence-index.md) links the Phase 3 core history and the later Phase 4Ã¢â‚¬â€œ8 development/formal-simulation evidence. Phase 5 records SIM-001..SIM-006 PASS, Phase 6 records SIM-007 PASS, and Phase 7 records SIM-008/SIM-009 PASS. Phase 8 records the telemetry-contract development gate; its backend deduplication obligation and SIM-014 remain open. This evidence does not establish full-system verification, hardware readiness, certification, or production readiness.
+**Available development evidence:** the [firmware evidence index](docs/testing/firmware-evidence-index.md) links the Phase 3 core history and the later Phase 4–8 development/formal-simulation evidence. Phase 5 records SIM-001..SIM-006 PASS, Phase 6 records SIM-007 PASS, and Phase 7 records SIM-008/SIM-009 PASS. Phase 8 records the telemetry-contract development gate; its backend deduplication obligation and SIM-014 remain open. This evidence does not establish full-system verification, hardware readiness, certification, or production readiness.
 
 ## Project Status
 
@@ -38,12 +38,12 @@ Current development status:
 | Engineering requirements | 38 defined; LOCKED baseline unchanged |
 | Planned verification cases | 15 SIM + 19 SUP = 34 |
 | Requirement-to-test mapping | 38/38 planned |
-| Firmware/provider/safety/engine/navigation/telemetry development | Scoped roadmap gates Phases 3Ã¢â‚¬â€œ8 complete; total system still PARTIAL |
+| Firmware/provider/safety/engine/navigation/telemetry development | Scoped roadmap gates Phases 3–8 complete; total system still PARTIAL |
 | Formal SIM execution | SIM-001..SIM-009 PASS; SIM-010..SIM-015 NOT_RUN |
-| Supplemental SUP execution | 5 recorded PASS; 14 PLANNED |
+| Supplemental SUP execution | 11 recorded PASS (six new dedicated host cases); 8 PLANNED |
 | Laravel/MySQL backend | PARTIAL; PHP 8.2.35 / approved MariaDB migration roundtrip and current 373 tests PASS; direct MySQL 8 NOT_RUN |
 | Dashboard / end-to-end integration | Connected per-grant browser views and C99/Laravel/MariaDB rendering PASS locally; formal/deployed browser/network/TLS end-to-end NOT_RUN |
-| Firmware network / offline recovery | Host-only adapters and B3Ã¢â‚¬â€œB46 development fixtures; ESP32 Wi-Fi/TLS, durable storage and physical recovery unverified |
+| Firmware network / offline recovery | Host-only adapters and B3–B46 development fixtures; ESP32 Wi-Fi/TLS, durable storage and physical recovery unverified |
 | CI | PR workflow source exists; hosted execution not verified in this local session |
 | Physical integration | NOT_AUTHORIZED / NOT_RUN |
 

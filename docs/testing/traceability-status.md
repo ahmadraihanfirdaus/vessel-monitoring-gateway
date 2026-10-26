@@ -14,7 +14,7 @@
 
 **Implementation Status:** PHASE3_TO_PHASE8_SCOPED_GATES_COMPLETE / OVERALL_SYSTEM_PARTIAL (locked matrix remains the initial snapshot)
 
-**Verification Status:** PARTIAL — formal SIM-001..SIM-009 PASS; SIM-010..SIM-015 NOT_RUN; 5 SUP PASS and 14 PLANNED
+**Verification Status:** PARTIAL — formal SIM-001..SIM-009 PASS; SIM-010..SIM-015 NOT_RUN; 11 SUP PASS and 8 PLANNED
 
 **Final Verification Approval:** NOT_APPROVED
 
@@ -55,7 +55,7 @@ This establishes structural traceability coverage. It does not demonstrate compl
 | Simulator / provider interfaces | Phase 4 scoped development/simulator provider gate COMPLETE; physical bench execution NOT_RUN |
 | Safety policy | Phase 5 scoped software-simulation gate COMPLETE; SIM-001..SIM-006 PASS |
 | Engine model | Phase 6 scoped gate COMPLETE; SIM-007 PASS; ENG-003 also maps to SIM-012 which remains NOT_RUN |
-| Navigation | Phase 7 scoped gate COMPLETE; SIM-008/SIM-009 PASS; SUP-007 remains NOT_RUN |
+| Navigation | Phase 7 scoped gate COMPLETE; SIM-008/SIM-009 PASS; SUP-007 now has dedicated host PASS; physical GNSS remains NOT_RUN |
 | Telemetry contract | Phase 8 scoped contract gate COMPLETE; SUP-011/SUP-012, TEL-003 backend dedup and SIM-014 remain NOT_RUN |
 | Laravel backend | PARTIAL; ingestion, migrations, authenticated read APIs and historical scoped evidence present |
 | Monitoring dashboard | IMPLEMENTED_UNVERIFIED; grant-scoped connected views, configured freshness, event/health/evidence rendering; SIM-010/SUP-015 not executed |
@@ -173,7 +173,7 @@ The controlled internal engineering baseline is not included in the public repos
 
 **Implementation:** scoped roadmap gates Phases 3–8 COMPLETE; Phase 9 source and historical scoped closure present; complete system PARTIAL
 
-**Formal Verification:** SIM-001..SIM-009 PASS; SIM-010..SIM-015 NOT_RUN; 5 SUP PASS and 14 PLANNED
+**Formal Verification:** SIM-001..SIM-009 PASS; SIM-010..SIM-015 NOT_RUN; 11 SUP PASS and 8 PLANNED
 
 **Final Verification Approval:** NOT_APPROVED
 
@@ -194,3 +194,16 @@ The [continuous all-domain simulation continuation](../../evidence/test-results/
 The [complete alarm transition continuation](../../evidence/test-results/alarm-metadata-summary-20261025.md) carries immutable source/priority/reason/state/lifecycle snapshots through bounded storage, event 1.1, MariaDB and event-fact UI. Local suite: 362 PHPUnit cases and 122 actual local integration assertions PASS (including four real two-process kernel/DB race cohorts); the schema now has six Laravel migrations. ALM-001/002 software assessments are IMPLEMENTED_UNVERIFIED; formal results are unchanged. Recovered-old-boot replay/application-ACK deletion and hardware remain open; system PARTIAL.
 
 Recovered-event continuation: native cross-boot recovery/export/serialization, actual366 PHP cases and142 local integration checks have scoped evidence in [replay summary](../../evidence/test-results/recovered-replay-summary-20261026.md). Living38 statuses remain22 IMPLEMENTED_UNVERIFIED/16 PARTIAL. No new formal or hardware approval. Both handoffs preserve current checkpoint/WIP and requirement evidence.
+
+## Dedicated host alarm/provider verification 2026-10-26
+
+SUP-004/005/007/008/009/010 were reviewed under their prescribed host/unit
+execution classes and executed against actual modules with121native assertions
+and303independent field comparisons. The dedicated run exposed/fixed navigation
+arrival/age rewind; failure evidence is retained. Canonical SUP totals11PASS/
+8PLANNED, per-requirement formal21PASS/3PARTIAL/14NOT_RUN. All38 implementation
+assessments remain22IMPLEMENTED_UNVERIFIED/16PARTIAL; no requirementVERIFIED.
+Source-bound current SDK,PHP373/TLS187 and230-command regression PASS locally.
+See formal-provider-summary-20261026.md under evidence/test-results/ for exact
+scope/hashes/failures and final staged gate. No new SIM/Wokwi/physical/hostedCI/
+deployedTLS acceptance is inferred. Remaining requirement approval NOT_APPROVED.

@@ -1,0 +1,8 @@
+path,category,file_count,bytes,action
+firmware/.pio,generated_build,3867,325404139,READ_ONLY_PRESERVE_NO_DELETION
+backend/laravel/vendor,dependency,8574,66825925,READ_ONLY_PRESERVE_NO_DELETION
+backend/laravel/storage/framework,runtime_cache,62,273653,READ_ONLY_PRESERVE_NO_DELETION
+backend/laravel/bootstrap/cache,framework_cache,3,22734,READ_ONLY_PRESERVE_NO_DELETION
+scripts/__pycache__,python_cache,18,195442,READ_ONLY_PRESERVE_NO_DELETION
+evidence,required_evidence,522,4026748,READ_ONLY_PRESERVE_NO_DELETION
+docs/handoff,continuity,2,169249,READ_ONLY_PRESERVE_NO_DELETION
