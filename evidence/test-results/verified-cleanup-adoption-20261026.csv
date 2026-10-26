@@ -1,0 +1,11 @@
+path,decision,reason,positive_evidence,tracked_count,deleted,parent_head
+backend/laravel/resources/views/welcome.blade.php,DEFERRED,Active root route still renders welcome; no replacement implemented yet,routes/web.php GET / -> view(welcome); current ExampleTest expects200; tracked unchanged,1,NO,0507fc90b63aea8aec3ee32a722a38e25c5d3147
+firmware/.pio,PROTECTED,Preexisting ignored/untracked SDK build tree,User latest policy protects all preexisting untracked files; retain diagnostic artifacts,0,NO,0507fc90b63aea8aec3ee32a722a38e25c5d3147
+backend/laravel/vendor,PROTECTED,Preexisting ignored dependency tree needed at runtime/tests,Composer autoload/runtime and guarded full tests; not a tracked cleanup candidate,0,NO,0507fc90b63aea8aec3ee32a722a38e25c5d3147
+backend/laravel/storage/framework,PROTECTED,Local runtime/session/view/cache artifacts; no app-data cleanup,"Preexisting untracked/local state, no content inspection or deletion",6,NO,0507fc90b63aea8aec3ee32a722a38e25c5d3147
+backend/laravel/bootstrap/cache,PROTECTED,Local framework cache and possible runtime state,Preexisting untracked/local-sensitive configuration boundary; preserve,1,NO,0507fc90b63aea8aec3ee32a722a38e25c5d3147
+scripts/__pycache__,PROTECTED,Preexisting untracked generated cache at policy checkpoint,"Latest policy protects all preexisting untracked, even if regenerable",0,NO,0507fc90b63aea8aec3ee32a722a38e25c5d3147
+evidence,PROTECTED,Historical/current test failures and passing audit trail,User protects evidence/history; never delete to make gates green,533,NO,0507fc90b63aea8aec3ee32a722a38e25c5d3147
+docs/handoff,PROTECTED,Continuity documents and active postcommit WIP,"Both required, tracked and automatically updated; never cleanup-delete",2,NO,0507fc90b63aea8aec3ee32a722a38e25c5d3147
+requirements,PROTECTED,LOCKED requirement/mapping baselines,Immutable SHA guards; no deletion or alteration,2,NO,0507fc90b63aea8aec3ee32a722a38e25c5d3147
+backend/laravel/database/migrations,PROTECTED,Used schema history six migrations,Actual isolated schema profile six records; historical rollback/reapply dependency,6,NO,0507fc90b63aea8aec3ee32a722a38e25c5d3147

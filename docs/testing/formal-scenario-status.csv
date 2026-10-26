@@ -12,5 +12,5 @@ SIM-010,NOT_RUN,,No dedicated accepted formal execution evidence recorded yet.
 SIM-011,NOT_RUN,,No dedicated accepted formal execution evidence recorded yet.
 SIM-012,NOT_RUN,,No dedicated accepted formal execution evidence recorded yet.
 SIM-013,NOT_RUN,,No dedicated accepted formal execution evidence recorded yet.
-SIM-014,NOT_RUN,,No dedicated accepted formal execution evidence recorded yet.
-SIM-015,NOT_RUN,,No dedicated accepted formal execution evidence recorded yet.
+SIM-014,PASS,evidence/test-results/data-ui-case-review-20261026.md,Dedicated actual PHP8.2.35/approved isolated MariaDB/private loopback TLS case PASS; original values and direct scoped DB counts checked. See source-bound data/UI case review. No physical/deployed TLS or production approval.
+SIM-015,PASS,evidence/test-results/data-ui-case-review-20261026.md,Dedicated actual PHP8.2.35/approved isolated MariaDB/private loopback TLS case PASS; original values and direct scoped DB counts checked. See source-bound data/UI case review. No physical/deployed TLS or production approval.

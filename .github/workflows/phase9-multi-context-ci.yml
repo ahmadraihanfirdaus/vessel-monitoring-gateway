@@ -39,6 +39,12 @@ jobs:
         run: |
           python3 -B scripts/run_formal_provider_verification.py --execute
           python3 -B scripts/test_formal_provider_verification.py
+      - name: Native data contracts and read-only functional evidence oracles
+        run: |
+          python3 -B scripts/run_formal_data_native.py --execute
+          python3 -B scripts/test_data_ui_contracts.py
+          python3 -B scripts/test_formal_data_native.py
+          python3 -B scripts/test_review_formal_data_ui.py
       - name: NET-001 host-only checks
         run: python3 -B scripts/test_phase9_net001_host_adapter.py
       - name: SYS-003 host-only checks

@@ -15,7 +15,7 @@ try {
     }
     $mode = $argv[1] ?? '--check';
     $mutations = ['--prepare', '--revoke', '--grant', '--disable', '--enable', '--clear-cache', '--cleanup'];
-    if (! in_array($mode, array_merge(['--check', '--inspect-owned', '--session-audit'], $mutations), true) ||
+    if (! in_array($mode, array_merge(['--check', '--inspect-owned', '--session-audit', '--formal-audit'], $mutations), true) ||
         (in_array($mode, $mutations, true) && ($argv[2] ?? '') !== '--execute')) {
         throw new RuntimeException('LIVE_HTTP_BLOCKED: explicit supported fixture action required.');
     }
@@ -47,6 +47,30 @@ try {
             ->get(['id', 'user_id'])->map(static fn ($row) => [
                 'fingerprint' => hash('sha256', $row->id), 'authenticated' => $row->user_id !== null]);
         echo json_encode(['sessions' => $sessions], JSON_THROW_ON_ERROR)."\n";
+        exit(0);
+    }
+    if ($mode === '--formal-audit') {
+        // Read-only, exact lease identities, after effective target and ownership guards.
+        // Never return arbitrary rows, sessions, credentials, coordinates or SQL.
+        $result = [];
+        foreach (['src-simulation', 'src-bench_test', 'src-physical', 'dedup', 'authbad'] as $label) {
+            $query = DB::table('telemetry_samples')->where('device_id', $profile['device'])
+                ->where('boot_id', $label.'-'.$profile['id'])->where('sequence', '1');
+            $count = (clone $query)->count();
+            $rows = (clone $query)->limit(2)->get(['id', 'source_mode', 'schema_version', 'firmware_version', 'uptime_ms']);
+            $facts = [];
+            foreach ($rows as $row) {
+                $channelQuery = DB::table('telemetry_channels')->where('telemetry_sample_id', $row->id);
+                $channel = (clone $channelQuery)->where('name', 'demo_channel')->first(['quality', 'value']);
+                $facts[] = ['source_mode' => $row->source_mode, 'schema_version' => $row->schema_version,
+                    'firmware_version' => $row->firmware_version, 'uptime_ms' => (string) $row->uptime_ms,
+                    'channel_count' => (clone $channelQuery)->count(),
+                    'quality' => $channel?->quality, 'value' => $channel?->value];
+            }
+            $result[$label] = ['count' => $count, 'rows' => $facts];
+        }
+        echo json_encode(['database' => config('database.connections.mysql.database'),
+            'username' => config('database.connections.mysql.username'), 'facts' => $result], JSON_THROW_ON_ERROR)."\n";
         exit(0);
     }
     if ($mode === '--prepare') {

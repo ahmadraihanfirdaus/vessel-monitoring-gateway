@@ -51,3 +51,7 @@ clock rewind was fixed; focused/new/broad regression and both SDK targets PASS.
 These six existing protocols permit host execution; no current Wokwi/physical
 bench, NMEA conformity, diagnosis, safety certification or full requirement
 VERIFIED is claimed. Other SIM/SUP and external gates retain their own status.
+
+## Project entry and dedicated data/UI contracts (2026-10-26)
+
+[Current data/UI evidence](../../evidence/test-results/data-ui-summary-20261026.md): native30frames/1158channels, PHP377 and actualTLS215 checks PASS. Dedicated SUP002/011/012/015 and SIM014/015 local cases admitted with explicit execution/review boundaries; no requirement VERIFIED. Firmware source unchanged and exactly matches both current committed SDK proofs. Welcome cleanup DEFERRED/removed0; no historical evidence deletion. Both handoffs updated automatically. Hardware, hostedCI and deployedTLS remain NOT_RUN.

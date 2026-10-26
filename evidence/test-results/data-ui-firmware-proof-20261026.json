@@ -1,0 +1,11 @@
+{
+  "parent": "0507fc90b63aea8aec3ee32a722a38e25c5d3147",
+  "firmware_source_sha256": "a0a0eac0809da2b9be93c67a8347c3f50766b3bed163ec7d42a1e4b86fb8bf95",
+  "policy": "REUSE_ONLY_IDENTICAL_CURRENT_SOURCE_COMMITTED_ACTUAL_SDK_PROOF",
+  "hardware": "NOT_RUN",
+  "deletions": 0,
+  "sdk_logs": {
+    "esp32-transport-sdk-build-formal-provider-candidate-20261026.txt": "789963f4746997a6ec846e890abee2ab921daba5c6b2584859cf74cfbbdade00",
+    "esp32-transport-sdk-build-formal-provider-retained-20261026.txt": "701a7edaafa045ba6ddd81e481b0776fc26676fe1aaa6dc6ada3265f93d45538"
+  }
+}

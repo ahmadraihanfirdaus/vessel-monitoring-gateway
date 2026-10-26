@@ -35,6 +35,7 @@ from alarm_metadata_wire_bridge import build_bytes as build_alarm_bytes
 from recovered_replay_wire_bridge import build_bytes as build_replay_bytes
 from event_receipt_native_bridge import build_verifier, verify_receipt, build_retirement_fixture, run_retirement
 from build_esp32_port import source_snapshot as firmware_source_snapshot
+from data_ui_contracts import functional_observation
 
 ROOT = Path(__file__).resolve().parents[1]
 MAX_PROXY_BODY = 8192
@@ -64,7 +65,10 @@ def source_snapshot():
         'alarm_metadata_wire_fixture.c', 'recovered_replay_wire_bridge.py',
         'recovered_replay_wire_fixture.c', 'test_offline_transaction.py',
         'event_receipt_native_bridge.py', 'event_receipt_native_crypto.h',
-        'event_receipt_verify_fixture.c', 'event_retirement_file_fixture.c', 'phase9_b4_testlib.py')]
+        'event_receipt_verify_fixture.c', 'event_retirement_file_fixture.c', 'phase9_b4_testlib.py',
+        'data_ui_contracts.py', 'test_data_ui_contracts.py', 'run_formal_data_native.py',
+        'review_formal_data_ui.py', 'test_review_formal_data_ui.py', 'test_formal_data_native.py')]
+    paths.append(ROOT/'docs/testing/formal-data-ui-cases-20261026.md')
     base = ROOT/'backend/laravel'
     paths += [base/'bootstrap/app.php', base/'composer.lock']
     for directory in ('app', 'config', 'routes', 'resources/views', 'tests/Support', 'database/migrations'):
@@ -280,6 +284,84 @@ def event_races(client, binary, env, profile, alarm_wire):
     expect('EVENT_RACE_CONFLICT_DOES_NOT_OVERWRITE_METADATA', conflict['alarm']['reason_code'] == 1001)
 
 
+def data_ui_extension(client, binary, env, profile, native_packet, functional):
+    """Separate development integration producer; owned DB/session fixtures write.
+
+    The later SUP015 functional review reads this source-bound record only.
+    Physical-labelled variants below are synthetic JSON, never C99 acquisition.
+    """
+    token = env['VG_LIVE_DEVICE_TOKEN']
+    original = json.loads(native_packet)
+
+    def audit():
+        result = php_run(binary, Path('scripts/live_http_fixture.php'), ['--formal-audit'], env)
+        if result.returncode:
+            raise GateFailure('FORMAL_DIRECT_DB_AUDIT_BLOCKED')
+        value = json.loads(result.stdout)
+        expect('FORMAL_AUDIT_APPROVED_DATABASE_AND_ACCOUNT', value.get('database') == 'vessel_gateway_codex_test'
+               and value.get('username') == 'vgw_codex')
+        return value['facts']
+
+    initial = audit()
+    expect('FRESH_FORMAL_IDENTITIES_ABSENT', set(initial) == {
+        'src-simulation', 'src-bench_test', 'src-physical', 'dedup', 'authbad'}
+        and all(value == {'count': 0, 'rows': []} for value in initial.values()))
+    statuses = {}
+    for mode in ('simulation', 'bench_test', 'physical'):
+        packet = json.loads(native_packet)
+        packet.update(boot_id='src-'+mode+'-'+profile['id'], sequence=1, source_mode=mode)
+        status, _, _ = api(client, '/api/v1/telemetry', json.dumps(packet).encode(), token)
+        statuses[mode] = status
+        expect('SYNTHETIC_SOURCE_'+mode.upper()+'_CONTRACT_ACCEPTED', status == 201)
+        status, _, body = api(client, '/api/v1/device/state', token=token)
+        sample = json.loads(body).get('state', {})
+        expect('SYNTHETIC_SOURCE_'+mode.upper()+'_READBACK', status == 200
+               and all(sample.get(key) == value for key, value in packet.items()))
+    rejected = []
+    for mode in ('unknown', None):
+        packet = json.loads(native_packet)
+        packet.update(boot_id='src-invalid-'+profile['id'], sequence=1)
+        if mode is None:
+            del packet['source_mode']
+        else:
+            packet['source_mode'] = mode
+        status, _, _ = api(client, '/api/v1/telemetry', json.dumps(packet).encode(), token)
+        rejected.append(status)
+        expect('SOURCE_'+('MISSING' if mode is None else 'UNKNOWN')+'_REJECTED', status == 422)
+    packet = json.loads(native_packet)
+    packet.update(boot_id='dedup-'+profile['id'], sequence=1)
+    exact = json.dumps(packet).encode()
+    dedup_statuses = []
+    for label, raw, wanted in (('CREATE', exact, 201), ('IDENTICAL', exact, 200)):
+        status, _, _ = api(client, '/api/v1/telemetry', raw, token)
+        dedup_statuses.append(status)
+        expect('FORMAL_DEDUP_'+label, status == wanted)
+    packet['channels']['demo_channel']['value'] = 43
+    status, _, _ = api(client, '/api/v1/telemetry', json.dumps(packet).encode(), token)
+    dedup_statuses.append(status)
+    expect('FORMAL_DEDUP_CONFLICT', status == 409)
+    packet = json.loads(native_packet)
+    packet.update(boot_id='authbad-'+profile['id'], sequence=1)
+    auth_statuses = []
+    for label, bearer in (('ABSENT', None), ('UNKNOWN', secrets.token_hex(32))):
+        status, _, _ = api(client, '/api/v1/telemetry', json.dumps(packet).encode(), bearer)
+        auth_statuses.append(status)
+        expect('FORMAL_FRESH_AUTH_'+label, status == 401)
+    facts = audit()
+    for label, mode in [('src-'+x, x) for x in statuses] + [('dedup', 'simulation')]:
+        expected_row = dict(source_mode=mode, schema_version=original['schema_version'],
+                            firmware_version=original['firmware_version'], uptime_ms=str(original['uptime_ms']),
+                            channel_count=1, quality='valid', value=42)
+        expect('FORMAL_DIRECT_DB_'+label.replace('-', '_').upper(), facts[label] == {'count': 1, 'rows': [expected_row]})
+    expect('FORMAL_AUTH_DIRECT_DB_ZERO_BEFORE_AND_AFTER', initial['authbad'] == facts['authbad'] == {'count': 0, 'rows': []})
+    record = dict(version=1, source_sha256=hashlib.sha256(repr(sorted(source_snapshot().items())).encode()).hexdigest(),
+                  producer='actual_loopback_tls_php_mariadb_owned_fixture_writes',
+                  physical_acquisition=False, functional=functional, source_statuses=statuses,
+                  source_rejected=rejected, dedup_statuses=dedup_statuses, auth_statuses=auth_statuses,
+                  database_before=initial, database_after=facts)
+    print('DATA_UI_RECORD='+json.dumps(record, sort_keys=True), flush=True)
+
+
 def suite(client, binary, env, profile, wire, domain_wire, alarm_wire, replay_wire, receipt_verifier, retirement_fixture, context, port):
     token = env['VG_LIVE_DEVICE_TOKEN']
 
@@ -316,6 +398,15 @@ def suite(client, binary, env, profile, wire, domain_wire, alarm_wire, replay_wi
     expect('TLS_PROXY_HOST_REJECTED', status == 400)
     status, _, _ = client.request('/login', headers={'User-Agent': 'unrelated'})
     expect('PRIVATE_TEST_ROUTER_REJECTS_UNOWNED_CLIENT', status == 403)
+    status, headers, body = client.request('/')
+    expect('PROJECT_ENTRY_GUEST_FIXED_HTTPS_NO_STORE', status == 302
+           and headers.get('Location') == client.base+'/monitoring'
+           and 'no-store' in headers.get('Cache-Control', '') and b'Laravel' not in body)
+    status, headers, body = client.request('/?redirect=https://unrelated.invalid', method='HEAD')
+    expect('PROJECT_ENTRY_HEAD_NO_BODY_OR_OPEN_REDIRECT', status == 302 and body == b''
+           and headers.get('Location') == client.base+'/monitoring')
+    status, headers, _ = client.request('/monitoring')
+    expect('PROJECT_ENTRY_GUEST_REQUIRES_SESSION', status == 302 and headers.get('Location') == client.base+'/login')
 
     lines = wire.splitlines()
     for i, line in enumerate(lines, 1):
@@ -346,6 +437,9 @@ def suite(client, binary, env, profile, wire, domain_wire, alarm_wire, replay_wi
     expect('PERSISTED_SIX_FRAMES_AND_NULL_QUALITY', status == 200 and len(items) == 6 and
            items[0]['sequence'] == 6 and items[-1]['channels']['demo_channel']['value'] == 42 and
            sum(item['channels']['demo_channel']['value'] is None for item in items) == 2)
+    expect('NATIVE_SIX_IDENTITIES_VALUES_AND_QUALITIES_RETAINED', all(
+        all(item.get(key) == value for key, value in json.loads(packet).items())
+        for item, packet in zip(reversed(items), lines)))
     status, _, body = api(client, '/api/v1/device/history?limit=2', token=token)
     page = json.loads(body)
     expect('CURSOR_PAGE_ONE', status == 200 and len(page['items']) == 2 and bool(page['next_cursor']))
@@ -396,6 +490,8 @@ def suite(client, binary, env, profile, wire, domain_wire, alarm_wire, replay_wi
     expect('REAL_LOGIN_REDIRECT_STAYS_HTTPS', status == 302 and headers.get('Location') == client.base+'/monitoring')
     signed = sessions(); authenticated = {x['fingerprint'] for x in signed if x['authenticated']}
     expect('REAL_DATABASE_SESSION_ID_ROTATED', len(authenticated) == 1 and not authenticated.intersection(before))
+    status, headers, _ = client.request('/')
+    expect('PROJECT_ENTRY_AUTHENTICATED_FIXED_ROUTE', status == 302 and headers.get('Location') == client.base+'/monitoring')
     status, _, body = client.request('/monitoring')
     expect('GRANT_FILTERED_DEVICE_LIST', status == 200 and b'runtime:demo' in body and profile['other'].encode() not in body)
     device_path = '/monitoring/'+urllib.parse.quote('runtime:demo', safe='')
@@ -410,6 +506,8 @@ def suite(client, binary, env, profile, wire, domain_wire, alarm_wire, replay_wi
     state = json.loads(body).get('state', {})
     expect('CONTINUOUS_48_CHANNELS_PERSISTED', status == 200 and state.get('schema_version') == '1.1'
            and state.get('sequence') == 24 and len(state.get('channels', {})) == 48)
+    expect('NATIVE_V11_IDENTITY_AND_ALL_48_QUALITIES_RETAINED', all(
+        state.get(key) == value for key, value in json.loads(domain_wire.splitlines()[-1]).items()))
     channels = state['channels']
     expect('CONTINUOUS_FULL_JOURNAL_DIAGNOSTIC', channels['runtime_journal_retained']['value'] == 8
            and channels['runtime_journal_rejected']['value'] == 58)
@@ -447,6 +545,8 @@ def suite(client, binary, env, profile, wire, domain_wire, alarm_wire, replay_wi
     status, _, body = client.request(device_path)
     expect('ALARM_METADATA_CONNECTED_BROWSER_FACTS', status == 200 and b'Alarm snapshot at transition' in body
            and b'active_ack' in body and b'Priority code (demo):' in body and b'NOT_CLEARED' in body)
+    functional = functional_observation(status, body)
+    expect('EIGHT_SECTIONS_ACTUAL_AUTHENTICATED_DATA_REVIEW', len(functional['section_counts']) == 8)
     def check_receipt(packet, status, headers, response, expected_status, label):
         digest = hashlib.sha256(packet).hexdigest()
         signature = hmac.new(token.encode(), ('VG_EVENT_COMMIT_V1\n'+str(expected_status)+'\n'+digest).encode(), hashlib.sha256).hexdigest()
@@ -546,6 +646,7 @@ def suite(client, binary, env, profile, wire, domain_wire, alarm_wire, replay_wi
            and all(boot in body for boot in (b'boot-a', b'replay-boot-b', b'replay-boot-c'))
            and b'tidak direkonstruksi dari event lain' in body and b'ACK bukan CLEAR' in body)
     event_races(client, binary, env, profile, alarm_wire)
+    data_ui_extension(client, binary, env, profile, lines[0], functional)
     logout_token = csrf(body)
     status, _, _ = client.request('/monitoring/'+profile['other'])
     expect('UNGRANTED_DEVICE_404', status == 404)

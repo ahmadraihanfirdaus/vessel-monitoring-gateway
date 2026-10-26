@@ -20,7 +20,7 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->render(static function (\Illuminate\Database\QueryException $exception, \Illuminate\Http\Request $request) {
-            if ($request->is('login', 'logout', 'monitoring', 'monitoring/*')) {
+            if ($request->is('/', 'login', 'logout', 'monitoring', 'monitoring/*')) {
                 return \App\Support\DependencyUnavailableResponse::forConnectionFailure($exception);
             }
             return null;

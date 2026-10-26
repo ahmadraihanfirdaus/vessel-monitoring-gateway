@@ -15,6 +15,15 @@ import run_live_http_integration as gate
 
 
 class LiveHttpGateTest(unittest.TestCase):
+    def test_formal_read_only_audit_never_accepts_arbitrary_action_or_missing_lease(self):
+        env = {key:value for key,value in os.environ.items() if key.upper() in {'PATH','SYSTEMROOT','TEMP','TMP','WINDIR'}}
+        for args in (['--formal-audit-arbitrary'], ['--formal-audit']):
+            result = subprocess.run([os.environ.get('VG_PHP_CLI','php'),str(gate.ROOT/'scripts/live_http_fixture.php'), *args],
+                                    env=env,capture_output=True,text=True,timeout=20)
+            self.assertEqual(result.returncode,3)
+            self.assertEqual(result.stdout,'')
+            self.assertIn('LIVE_HTTP',result.stderr)
+
     @staticmethod
     def result(code=0, output=''):
         return subprocess.CompletedProcess([], code, output, '')
