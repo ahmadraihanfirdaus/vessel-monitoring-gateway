@@ -9,13 +9,19 @@ class DashboardViewsSourceTests(unittest.TestCase):
         p=R/'backend/laravel/resources/views/monitoring/sections'
         self.assertEqual(set(p.glob('*.blade.php')),{p/(k+'.blade.php') for k in EXPECTED})
     def test_all_eight_includes(self):
-        content=(R/'backend/laravel/resources/views/monitoring/index.blade.php').read_text()
+        content=(R/'backend/laravel/resources/views/monitoring/index.blade.php').read_text(encoding='utf-8')
         for k in EXPECTED:self.assertIn("@include('monitoring.sections."+k+"')",content)
     def test_no_false_live_data_or_network_fetch(self):
         entry=(R/'backend/laravel/resources/views/monitoring/index.blade.php').read_text(encoding='utf-8')
         self.assertIn("@if($state === null)",entry)
         self.assertIn('DATA NOT CONNECTED',entry)
-        self.assertIn("$sampleFreshness['label']",entry)
+        self.assertIn("'freshness' => $sampleFreshness",entry)
+        freshness=(R/'backend/laravel/resources/views/monitoring/freshness.blade.php').read_text(encoding='utf-8')
+        self.assertIn("SNAPSHOT: {{ $freshness['label'] }}",freshness)
+        self.assertIn('class="badge SNAPSHOT"',freshness)
+        script=(R/'backend/laravel/public/assets/monitoring-freshness.js').read_text(encoding='utf-8')
+        for forbidden in ('fetch(', 'XMLHttpRequest', 'WebSocket', 'sendBeacon', 'innerHTML', 'eval('):
+            self.assertNotIn(forbidden,script)
         table=(R/'backend/laravel/resources/views/monitoring/channel-table.blade.php').read_text(encoding='utf-8')
         self.assertIn("@if($channels === [])",table)
         self.assertIn("$channel['value'] !== null",table)
@@ -34,5 +40,5 @@ class DashboardViewsSourceTests(unittest.TestCase):
     def test_view_section_labels(self):
         labels=['Overview','Safety','Propulsion','Navigation','Power','Alarms and Events','Device Health','Test Evidence']
         for k,label in zip(EXPECTED,labels):
-            self.assertIn('>'+label+'</h2>',(R/'backend/laravel/resources/views/monitoring/sections'/f'{k}.blade.php').read_text())
+            self.assertIn('>'+label+'</h2>',(R/'backend/laravel/resources/views/monitoring/sections'/f'{k}.blade.php').read_text(encoding='utf-8'))
 if __name__=='__main__':unittest.main()

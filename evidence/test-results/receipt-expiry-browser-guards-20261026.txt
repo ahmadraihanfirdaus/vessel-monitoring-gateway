@@ -1,0 +1,27 @@
+python : test_browser_missing_binary_never_boots_php_or_creates_fixtures (test_browser_monitoring_bridge.BrowserBridgeT
+est.test_browser_missing_binary_never_boots_php_or_creates_fixtures) ... ok
+At line:3 char:1
++ python -B -m unittest discover -s scripts -p test_browser_monitoring_ ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (test_browser_mi...ixtures) ... ok:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+
+test_child_environment_does_not_inherit_application_or_db_secrets (test_browser_monitoring_bridge.BrowserBridgeTest.tes
+t_child_environment_does_not_inherit_application_or_db_secrets) ... ok
+test_environment_refuses_node_certificate_and_code_injection_overrides (test_browser_monitoring_bridge.BrowserBridgeTes
+t.test_environment_refuses_node_certificate_and_code_injection_overrides) ... ok
+test_invalid_upstream_refused_even_for_owned_root (test_browser_monitoring_bridge.BrowserBridgeTest.test_invalid_upstre
+am_refused_even_for_owned_root) ... ok
+test_node_preflight_rejection_precedes_database_check (test_browser_monitoring_bridge.BrowserBridgeTest.test_node_prefl
+ight_rejection_precedes_database_check) ... ok
+test_preexisting_seed_cannot_be_overwritten (test_browser_monitoring_bridge.BrowserBridgeTest.test_preexisting_seed_can
+not_be_overwritten) ... ok
+test_prerequisite_requires_exact_quiet_success_and_never_launches_browser_directly (test_browser_monitoring_bridge.Brow
+serBridgeTest.test_prerequisite_requires_exact_quiet_success_and_never_launches_browser_directly) ... ok
+test_unowned_root_refused_before_seed_or_subprocess (test_browser_monitoring_bridge.BrowserBridgeTest.test_unowned_root
+_refused_before_seed_or_subprocess) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 3.025s
+
+OK

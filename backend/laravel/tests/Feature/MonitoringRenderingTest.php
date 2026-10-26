@@ -123,7 +123,8 @@ class MonitoringRenderingTest extends MySqlTestCase
         foreach (['LIVE', 'STALE', 'OFFLINE'] as $step => $expected) {
             $this->travelTo(\Carbon\CarbonImmutable::parse('2026-10-25 12:00:00', 'UTC')->addSeconds([0, 10, 30][$step]));
             $this->actingAs($user, 'web')->get('/monitoring/'.$device->device_id)->assertOk()
-                ->assertSee('class="badge '.$expected.'"', false)->assertSee('BENCH TEST')->assertSee('zero_demo')
+                ->assertSee('SNAPSHOT: '.$expected)->assertSee('data-vg-label="'.$expected.'"', false)
+                ->assertSee('class="badge SNAPSHOT"', false)->assertSee('BENCH TEST')->assertSee('zero_demo')
                 ->assertViewHas('sampleFreshness', static fn ($f) => $f['label'] === $expected);
         }
         $this->assertDatabaseCount('telemetry_samples', 1);

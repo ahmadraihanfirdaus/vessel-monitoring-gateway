@@ -4,7 +4,7 @@
 
 **Engineering Baseline:** Internal Engineering Blueprint v1.0
 
-**Review Date:** 2026-10-26 (actual develop777d762 and fault/storage/reference worktree; locked matrix unchanged)
+**Review Date:** 2026-10-26 (actual develop2b00013 and receipt-expiry worktree; locked matrix unchanged)
 
 **Matrix Version:** Working v2 — Public Editorial Edition
 
@@ -215,3 +215,12 @@ The [dedicated case review](../../evidence/test-results/data-ui-case-review-2026
 ## Latest fault/storage and reference checkpoint (2026-10-26)
 
 [Dedicated case review](../../evidence/test-results/fault-storage-case-review-20261026.md) and [summary](../../evidence/test-results/fault-storage-summary-20261026.md) govern current counts over historical paragraphs above. SIM011 single-channel44/43host case, SUP013 bounded72-generation host-file integration, SUP014 guarded actual Laravel6migration roundtrip and SUP017 separate public-reference audit PASS. PHP382/0fail/0skip, TLS215, broad241/241 and necessary guards/oracles PASS. Source drift, missing final catalog admission and duplicate execution row shadowing are fixed. Final source-bound postflight verifies10tables/6migration records/0app rows. Formal32PASS/2PARTIAL/4NOT_RUN; implementation22IMPLEMENTED_UNVERIFIED/16PARTIAL, no VERIFIED. SIM010/012/013 and SUP018 remain unperformed. Hardware/hostedCI/deployedTLS and graphically observed browser NOT_RUN; systemPARTIAL/finalNOT_APPROVED. No repository deletion or push. Both handoffs updated automatically.
+
+## Receipt display continuation20261026
+
+Actual388PHP/0fail/0skip, local215TLS and owned Chrome155 expiry/no-script/asset/
+timing fallback evidence are in [the current batch summary](../../evidence/test-results/receipt-expiry-summary-20261026.md).
+Living UI001 now links the display asset, safe bindings, real browser driver and
+new tests. Formal32PASS/2PARTIAL/4NOT_RUN and22IMPLEMENTED_UNVERIFIED/16PARTIAL
+are unchanged; browser expiry is not formal SIM010 or deployedTLS verification.
+Both handoffs retain full38matrix and actual Git/WIP/checkpoint/gate state.

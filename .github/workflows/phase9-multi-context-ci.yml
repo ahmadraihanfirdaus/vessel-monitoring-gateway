@@ -5,6 +5,16 @@ on:
 permissions:
   contents: read
 jobs:
+  dashboard-expiry-units:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.20.0'
+      - name: Receipt display policy and private adapter negative units
+        # Unit checks only; actual Chrome/deployed TLS/physical timing not implied.
+        run: node --test scripts/test_monitoring_freshness.js scripts/test_browser_monitoring_probe.js
   firmware-host:
     runs-on: ubuntu-24.04
     env:
@@ -24,6 +34,7 @@ jobs:
         run: |
           python3 -B scripts/test_esp32_network_port.py
           python3 -B scripts/test_esp32_build_gate.py
+          python3 -B scripts/test_browser_monitoring_bridge.py
           python3 -B scripts/test_offline_state.py
           python3 -B scripts/test_offline_transaction.py
           python3 -B scripts/test_continuous_simulation.py

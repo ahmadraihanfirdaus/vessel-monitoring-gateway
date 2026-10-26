@@ -1,0 +1,12 @@
+gate,scope,status,actual,evidence
+PHP_MYSQL,MANDATORY,PASS,388/0FAIL/0SKIP;10tables6migrations0appRows,receipt-expiry-mysql-final-20261026.txt
+TLS_SESSION_API_UI,MANDATORY,PASS,215checks;sourcefd71a424;exactcleanup,receipt-expiry-normal-exact-scope-final-20261026.txt
+CHROME_COMPONENT,MANDATORY,PASS,LIVE_STALE_OFFLINE;noPolling;secureCookie;fallbacks;profileClosed,receipt-expiry-browser-exact-scope-final-20261026.txt
+REGRESSION,MANDATORY,PASS,246commands;core226repeat2;Node13;bridge8;HTTP24;MySQL32,receipt-expiry-integrated-regression-final-20261026.txt
+WORKING_SECURITY,MANDATORY,PASS,0findings0privacy;semanticreviewedexactpins,receipt-expiry-security-prestage-20261026.txt
+TRACEABILITY,MANDATORY,PASS,38requirements34cases163refs;formalunchanged,receipt-expiry-reference-audit-checkpoint-20261026.json
+EXACT_INDEX_FINAL_SCAN,MANDATORY,PASS,76exactPathsBlobsManifestDiffcheck;stagedScanner0findings0privacy;finalReadonlyScanRequired,receipt-expiry-checkpoint-audit-20261026.txt
+ESP32_NVS_POWERLOSS,EXTERNAL_NOT_SCOPED,NOT_RUN,hostpassnotphysicalproof,
+HOSTED_CI_SUP018,EXTERNAL_NOT_SCOPED,NOT_RUN,sourceonlynoRemoteInteraction,
+SIM010_012_013,EXTERNAL_NOT_SCOPED,NOT_RUN,prescribedruntimeunperformed,
+DEPLOYED_TLS_GRAPHICAL_OPERATOR,EXTERNAL_NOT_SCOPED,NOT_RUN,localhostadapterisnotdeployedHTTPSproof,

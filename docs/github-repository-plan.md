@@ -255,7 +255,7 @@ The repository is under preparation for continued engineering development and pu
 
 **Implementation Status:** PHASE9_SCOPED_IMPLEMENTATION_AUDIT_PASS / PHASE9_SCOPED_DOCUMENTARY_CLOSURE_RECORDED / FORMAL_VERIFICATION_OPEN / OVERALL_SYSTEM_PARTIAL
 
-**Functional Verification Status:** PARTIAL — SIM-001..SIM-009 PASS with formal software-simulation evidence; SIM-010..SIM-015 NOT_RUN; 11 SUP PASS (six dedicated host cases added); 8 SUP PLANNED
+**Functional Verification Status:** PARTIAL — SIM-001..SIM-009, SIM-011 and SIM-014/SIM-015 PASS within recorded scopes; SIM-010/SIM-012/SIM-013 NOT_RUN; 18 SUP PASS and SUP-018 PLANNED
 
 **Final Requirement Verification Approval:** NOT_APPROVED
 
@@ -275,3 +275,15 @@ navigation clock-regression defect. The current formal-provider summary records
 PHP373/TLS187/broad230/bothSDK local PASS, with final staged review mandatory.
 Canonical SUP11PASS/8PLANNED and per-requirement formal21PASS/3PARTIAL/14NOT_RUN
 do not mean requirementVERIFIED, physical provider, hardware or production approval.
+
+Current checkpoint20261026 (later than the historical continuations above):
+[fault/storage/reference evidence](../evidence/test-results/fault-storage-summary-20261026.md)
+added SIM011/SUP013/SUP014/SUP017, canonical18SUP PASS/1PLANNED and derived
+formal32PASS/2PARTIAL/4NOT_RUN. [Receipt display continuation](../evidence/test-results/receipt-expiry-summary-20261026.md)
+now has actual PHP388/0fail/0skip, strict localTLS215 and owned Chrome155 display
+expiry/fallback/no-polling evidence. No new roadmap phase or requirement change.
+Implementation22UNVERIFIED/16PARTIAL; SIM010/012/013/SUP018 remain open. Graphical
+operator/deployedTLS/ESP32/NVS/powerloss/currentWokwi/hostedCI remain NOT_RUN.
+Both [Codex resume](handoff/CODEX_RESUME.md) and [ChatGPT context](handoff/CHATGPT_CONTEXT.md)
+are saved and updated automatically at safe checkpoints. Stage/commit only all
+mandatory local gates PASS, exact approved scope, NO PUSH; systemPARTIAL.

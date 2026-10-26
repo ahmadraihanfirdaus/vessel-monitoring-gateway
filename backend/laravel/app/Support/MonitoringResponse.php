@@ -15,7 +15,9 @@ final class MonitoringResponse
             $response->setVary(implode(', ', array_unique([...$response->getVary(), 'Cookie'])));
             $response->headers->set('Referrer-Policy', 'no-referrer');
             $response->headers->set('X-Content-Type-Options', 'nosniff');
-            $response->headers->set('Content-Security-Policy', "default-src 'self'; script-src 'none'; style-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'");
+            $script = $request->routeIs('monitoring.device') && $response->getStatusCode() === 200
+                && str_starts_with((string) $response->headers->get('Content-Type'), 'text/html') ? "'self'" : "'none'";
+            $response->headers->set('Content-Security-Policy', "default-src 'self'; script-src $script; connect-src 'none'; style-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'");
         }
         return $response;
     }

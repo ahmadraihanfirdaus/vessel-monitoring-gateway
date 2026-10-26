@@ -1,0 +1,64 @@
+TAP version 13
+# Subtest: zero and exact conservative expiry boundaries
+ok 1 - zero and exact conservative expiry boundaries
+  ---
+  duration_ms: 1.3073
+  type: 'test'
+  ...
+# Subtest: malformed and unsafe integers never become live
+ok 2 - malformed and unsafe integers never become live
+  ---
+  duration_ms: 0.2297
+  type: 'test'
+  ...
+# Subtest: invalid policy, elapsed and integer overflow fail closed
+ok 3 - invalid policy, elapsed and integer overflow fail closed
+  ---
+  duration_ms: 0.1349
+  type: 'test'
+  ...
+# Subtest: server expired label is a lower bound, missing receipt never live
+ok 4 - server expired label is a lower bound, missing receipt never live
+  ---
+  duration_ms: 0.0939
+  type: 'test'
+  ...
+# Subtest: request timing admits zero, rejects cached or inconsistent navigation
+ok 5 - request timing admits zero, rejects cached or inconsistent navigation
+  ---
+  duration_ms: 0.2274
+  type: 'test'
+  ...
+# Subtest: all duplicate DOM labels age together without touching values or fetching
+ok 6 - all duplicate DOM labels age together without touching values or fetching
+  ---
+  duration_ms: 1.0768
+  type: 'test'
+  ...
+# Subtest: rewound time remains unknown even when timing later recovers
+ok 7 - rewound time remains unknown even when timing later recovers
+  ---
+  duration_ms: 0.8133
+  type: 'test'
+  ...
+# Subtest: missing timing, cached restore, freeze, hide and pagehide fail closed
+ok 8 - missing timing, cached restore, freeze, hide and pagehide fail closed
+  ---
+  duration_ms: 4.5154
+  type: 'test'
+  ...
+# Subtest: mutable DOM attributes cannot revive expired captured descriptors
+ok 9 - mutable DOM attributes cannot revive expired captured descriptors
+  ---
+  duration_ms: 0.9708
+  type: 'test'
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 9
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 150.857

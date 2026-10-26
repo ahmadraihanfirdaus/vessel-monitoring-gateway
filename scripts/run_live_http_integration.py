@@ -36,6 +36,7 @@ from recovered_replay_wire_bridge import build_bytes as build_replay_bytes
 from event_receipt_native_bridge import build_verifier, verify_receipt, build_retirement_fixture, run_retirement
 from build_esp32_port import source_snapshot as firmware_source_snapshot
 from data_ui_contracts import functional_observation
+import browser_monitoring_bridge
 
 ROOT = Path(__file__).resolve().parents[1]
 MAX_PROXY_BODY = 8192
@@ -66,13 +67,17 @@ def source_snapshot():
         'recovered_replay_wire_fixture.c', 'test_offline_transaction.py',
         'event_receipt_native_bridge.py', 'event_receipt_native_crypto.h',
         'event_receipt_verify_fixture.c', 'event_retirement_file_fixture.c', 'host_offline_file_io.h', 'phase9_b4_testlib.py',
+        'browser_monitoring_bridge.py', 'browser_monitoring_probe.js', 'test_browser_monitoring_bridge.py',
+        'test_browser_monitoring_probe.js', 'test_monitoring_freshness.js', 'test_live_http_integration_gate.py',
         'data_ui_contracts.py', 'test_data_ui_contracts.py', 'run_formal_data_native.py',
         'review_formal_data_ui.py', 'test_review_formal_data_ui.py', 'test_formal_data_native.py')]
     paths.append(ROOT/'docs/testing/formal-data-ui-cases-20261026.md')
+    paths.append(ROOT/'docs/testing/monitoring-receipt-expiry-protocol-20261026.md')
     base = ROOT/'backend/laravel'
     paths += [base/'bootstrap/app.php', base/'composer.lock']
     for directory in ('app', 'config', 'routes', 'resources/views', 'tests/Support', 'database/migrations'):
         paths += list((base/directory).rglob('*.php'))
+    paths += list((base/'public/assets').glob('*.js'))
     records.update({p.relative_to(ROOT).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest()
                     for p in sorted(set(paths)) if p.is_file()})
     return records
@@ -147,7 +152,8 @@ class ProxyHandler(http.server.BaseHTTPRequestHandler):
             self.end_headers()
             if self.command != 'HEAD':
                 self.wfile.write(output)
-        except (OSError, http.client.HTTPException):
+        except (OSError, http.client.HTTPException) as exception:
+            self.server.relay_error_categories.add(type(exception).__name__)
             self.send_error(502)
         finally:
             upstream.close()
@@ -688,6 +694,9 @@ def main():
     parser.add_argument('--php-binary', required=True)
     parser.add_argument('--testing-env', action='store_true')
     parser.add_argument('--execute', action='store_true')
+    parser.add_argument('--browser-only', action='store_true')
+    parser.add_argument('--browser-binary')
+    parser.add_argument('--node-binary', default='node')
     args = parser.parse_args()
     code = 0
     server = proxy = thread = log = None
@@ -711,12 +720,18 @@ def main():
     # Explicit integration-fixture age policy, never an operational default/SLA.
     env.update(MONITORING_STALE_AFTER_SECONDS='60', MONITORING_OFFLINE_AFTER_SECONDS='120',
                MONITORING_PRESENTATION_PROFILE='continuous_simulation_v11')
+    if args.browser_only:
+        env.update(MONITORING_STALE_AFTER_SECONDS='2', MONITORING_OFFLINE_AFTER_SECONDS='4')
     env['APP_KEY'] = 'base64:'+base64.b64encode(secrets.token_bytes(32)).decode()
     env['VG_LIVE_LOGIN_SECRET'] = secrets.token_hex(20)
     env['VG_LIVE_DEVICE_TOKEN'] = secrets.token_hex(32)
     if args.testing_env:
         env['VG_USE_TESTING_ENV'] = '1'
     try:
+        if args.browser_only:
+            if not args.browser_binary:
+                raise GateBlocked('BROWSER_BINARY_REQUIRED_NO_FIXTURES')
+            browser_monitoring_bridge.preflight(args.node_binary, args.browser_binary, env)
         preflight = php_run(args.php_binary, Path('scripts/live_http_fixture.php'), ['--check'], env)
         if preflight.returncode:
             print('LIVE_HTTP_GATE=BLOCKED_PREFLIGHT_NO_FIXTURES', flush=True)
@@ -748,6 +763,7 @@ def main():
             with socket.socket() as reservation:
                 reservation.bind(('127.0.0.1', 0)); backend_port = reservation.getsockname()[1]
             proxy = LoopbackTLSProxy(('127.0.0.1', 0), ProxyHandler)
+            proxy.relay_error_categories = set()
             proxy.backend_port = backend_port
             proxy.socket = server_context.wrap_socket(proxy.socket, server_side=True)
             port = proxy.server_port
@@ -762,12 +778,16 @@ def main():
             thread.start()
             client = Client(base, context, profile['agent'], [env['APP_KEY'], env['VG_LIVE_LOGIN_SECRET'], env['VG_LIVE_DEVICE_TOKEN']])
             ready = False
-            until = time.monotonic()+15
+            readiness_statuses = set()
+            # Process startup admission only, before any fixture mutation; not
+            # an operational vessel/network SLA. Keep per-request/race bounds.
+            until = time.monotonic()+60
             while time.monotonic() < until:
                 if server.poll() is not None:
                     break
                 try:
-                    status, _, _ = client.request('/up')
+                    status, ready_headers, _ = client.request('/up')
+                    readiness_statuses.add((status, ready_headers.get('X-VG-Test-Failure', 'NONE')))
                     if status == 200:
                         ready = True
                         break
@@ -779,11 +799,24 @@ def main():
                 diagnostic = (folder/'php-server.log').read_text(encoding='utf-8', errors='replace')[:65536].lower()
                 print('LIVE_HTTP_SERVER_EXIT='+str(server.returncode)+'_PERMISSION_DENIED_'+str(
                     any(marker in diagnostic for marker in ('permission', 'access permissions', 'forbidden'))).upper(), flush=True)
+            if not ready:
+                print('LIVE_HTTP_READINESS_STATUS_CATEGORIES='+json.dumps(sorted(readiness_statuses)), flush=True)
+                print('LIVE_HTTP_RELAY_ERROR_CATEGORIES='+json.dumps(sorted(proxy.relay_error_categories)), flush=True)
+                log.flush()
+                diagnostic = (folder/'php-server.log').read_text(encoding='utf-8', errors='replace')[:65536].lower()
+                flags = ['development server', 'failed to listen', 'fatal error', 'uncaught', 'no such file', 'permission', 'accepted', 'invalid request', 'closing']
+                print('LIVE_HTTP_SERVER_DIAGNOSTIC_FLAGS='+json.dumps({flag: flag in diagnostic for flag in flags}), flush=True)
+                stages = ['AUTOLOAD_DONE', 'PROFILE_ADMITTED', 'APPLICATION_ADMITTED', 'ROWS_ADMITTED', 'REQUEST_DONE']
+                print('LIVE_HTTP_SERVER_STAGE_FLAGS='+json.dumps({stage: 'vg_live_stage='+stage.lower() in diagnostic for stage in stages}), flush=True)
             expect('REAL_LOOPBACK_TLS_AND_PHP_READY', ready and server.poll() is None)
             attempted_fixture = True
             prepared = php_run(args.php_binary, Path('scripts/live_http_fixture.php'), ['--prepare', '--execute'], env)
             expect('VERIFIED_ISOLATED_FIXTURE_PREPARATION', prepared.returncode == 0)
-            suite(client, args.php_binary, env, profile, wire, domain_wire, alarm_wire, replay_wire, receipt_verifier, retirement_fixture, context, port)
+            if args.browser_only:
+                code = browser_monitoring_bridge.execute(args.node_binary, args.browser_binary, env,
+                    folder, profile, wire, base)
+            else:
+                suite(client, args.php_binary, env, profile, wire, domain_wire, alarm_wire, replay_wire, receipt_verifier, retirement_fixture, context, port)
     except GateBlocked as exception:
         print('LIVE_HTTP_GATE=BLOCKED_'+str(exception), flush=True)
         code = 3
@@ -842,7 +875,8 @@ def main():
         else:
             digest = hashlib.sha256(repr(sorted(inputs.items())).encode()).hexdigest()
             print('LIVE_HTTP_SOURCE_STABILITY=PASS_SHA256_'+digest, flush=True)
-            print('LIVE_HTTP_GATE=PASS_LOCAL_ONLY_HARDWARE_DEPLOYED_TLS_NOT_RUN', flush=True)
+            print('LIVE_HTTP_GATE='+('PASS_BROWSER_ONLY_COMPONENT_FULL_SUITE_NOT_RUN' if args.browser_only
+                  else 'PASS_LOCAL_ONLY_HARDWARE_DEPLOYED_TLS_NOT_RUN'), flush=True)
     return code
 
 

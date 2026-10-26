@@ -1,9 +1,11 @@
 # Connected monitoring development slice
 
 This slice implements the browser data path for UI-001/UI-002. It does not
-modify LOCKED requirements or close SIM-010/SUP-015. Local proof is actual
-Laravel kernel/Blade/auth/session/cache/MySQL execution; a deployed browser,
-TLS listener, hosted CI and physical transport are not inferred from it.
+modify LOCKED requirements. This original slice and its five-migration test
+figures below are historical; the dated20261026 continuation records current
+six-migration admission, actual Chrome and strict local TLS evidence. SIM-010,
+hosted CI, deployed TLS and physical transport remain unperformed. The dedicated
+SUP-015 host HTML case is recorded separately in the current case registry.
 
 ## Authorization and account lifecycle
 
@@ -89,6 +91,34 @@ transport last-seen age have separate badges so a new heartbeat/replay does not
 silently re-label an older sample. These facts do not establish cross-boot
 measurement chronology. Refresh is an explicit authenticated GET; no fabricated
 live feed, autonomous physical action or sample mutation occurs.
+
+Continuation20261026: an open real Chrome page reproduced frozen LIVE even after
+the configured stale/offline boundaries, while a new authenticated GET returned
+OFFLINE. Server HTML now defaults to a neutral, explicit SNAPSHOT label at the
+displayed server capture time. A first-party external script expires all four
+receipt labels against conservative server millisecond budgets and monotonic
+current-navigation elapsed time. It never fetches telemetry or changes data,
+source, quality, alarms, or the server receipt chronology. Rounded-up server
+fractional age avoids extending a receipt budget across a fractional boundary.
+No browser/server wall-clock synchronization or engineering TTL is assumed.
+
+Missing/malformed/unsafe policy or timing gives UNKNOWN; missing script/blocked
+asset leaves the explicit SNAPSHOT fallback. Cached restore, rewind, pagehide,
+hidden visibility or freeze invalidate the client status until a new GET.
+These are browser display checks, not hard real-time guarantees: event-loop
+suspension, timer scheduling and privacy-rounded browser clocks are not physical
+sensor freshness or timing certification. Values and snapshot-age text remain
+as of the server capture. Server receipt can reflect replay; OFFLINE here is a
+receipt-policy classification, not a determination of physical engine state.
+
+Only successful granted device HTML allows script-src self; connect-src none,
+no inline/eval script. Login/list/denials/errors retain script-src none. Other
+no-store/referrer/frame/form/CSRF/grant/cookie protections remain. The static JS
+URL includes its public content hash; it contains no runtime identity or secret.
+Actual headless Chrome uses a fresh owned profile and a fixed UI-only loopback
+origin adapter to verified HTTPS upstream, with unchanged Secure/HttpOnly/Lax
+cookies and real Laravel session/CSRF. Its HTTP localhost browser edge is not
+deployed browser HTTPS proof. See receipt-expiry protocol and evidence summary.
 
 ## Schema and isolated test admission
 

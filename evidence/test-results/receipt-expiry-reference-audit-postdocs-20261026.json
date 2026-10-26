@@ -1,0 +1,1938 @@
+{
+  "requirements": [
+    {
+      "requirement_id": "SYS-001",
+      "implementation_assessment": "PARTIAL",
+      "formal_verification": "PASS",
+      "implementation_paths": [
+        "README.md",
+        "docs/architecture/architecture-and-icd.md"
+      ],
+      "internal_evidence_paths": [
+        "evidence/test-results/phase9-wave1-sup001-documentation-review-20261020.txt"
+      ],
+      "tests": [
+        {
+          "test_id": "SUP-001",
+          "definition_path": "docs/testing/supplemental-verification-plan.csv",
+          "execution_status": "PASS",
+          "evidence_path": "evidence/test-results/phase9-wave1-sup001-documentation-review-20261020.txt"
+        }
+      ]
+    },
+    {
+      "requirement_id": "SYS-002",
+      "implementation_assessment": "PARTIAL",
+      "formal_verification": "PASS",
+      "implementation_paths": [
+        "firmware/src/core_types.h",
+        "firmware/src/core_source_mode.h",
+        "firmware/src/telemetry_contract.h",
+        "firmware/src/domain_snapshot.h",
+        "firmware/src/continuous_simulation.h",
+        "firmware/src/alarm_transition.h",
+        "backend/laravel/tests/Feature/AlarmMetadataIntegrationTest.php",
+        "scripts/data_ui_contracts.py",
+        "scripts/run_formal_data_native.py",
+        "scripts/review_formal_data_ui.py"
+      ],
+      "internal_evidence_paths": [
+        "evidence/test-results/phase8-h1-summary-20261017.md",
+        "evidence/test-results/continuous-simulation-summary-20261025.md",
+        "evidence/test-results/alarm-metadata-summary-20261025.md",
+        "evidence/test-results/data-ui-case-review-20261026.md"
+      ],
+      "tests": [
+        {
+          "test_id": "SUP-002",
+          "definition_path": "docs/testing/supplemental-verification-plan.csv",
+          "execution_status": "PASS",
+          "evidence_path": "evidence/test-results/data-ui-case-review-20261026.md"
+        }
+      ]
+    },
+    {
+      "requirement_id": "SYS-003",
+      "implementation_assessment": "PARTIAL",
+      "formal_verification": "NOT_RUN",
+      "implementation_paths": [
+        "firmware/src/network_outage_local_guard.h",
+        "firmware/src/phase9_sys003_outage_cycle_host.h",
+        "firmware/src/esp32_network_client.c",
+        "firmware/src/main.c",
+        "firmware/src/esp32_offline_store.c",
+        "firmware/src/domain_snapshot.h",
+        "firmware/src/continuous_simulation.h",
+        "firmware/src/esp32_continuous_main.h",
+        "firmware/src/offline_replay.h",
+        "backend/laravel/tests/Feature/RecoveredReplayIntegrationTest.php",
+        "firmware/src/event_delivery.h",
+        "firmware/src/offline_retirement.h",
+        "backend/laravel/app/Support/EventCommitReceipt.php"
+      ],
+      "internal_evidence_paths": [
+        "evidence/test-results/mysql-integration-gate-20261025.md",
+        "evidence/test-results/esp32-transport-summary-20261025.md",
+        "evidence/test-results/offline-nvs-summary-20261025.md",
+        "evidence/test-results/continuous-simulation-summary-20261025.md",
+        "evidence/test-results/recovered-replay-summary-20261026.md",
+        "evidence/test-results/event-receipt-summary-20261026.md"
+      ],
+      "tests": [
+        {
+          "test_id": "SIM-010",
+          "definition_path": "docs/testing/verification-simulation-plan.md",
+          "execution_status": "NOT_RUN",
+          "evidence_path": ""
+        },
+        {
+          "test_id": "SIM-012",
+          "definition_path": "docs/testing/verification-simulation-plan.md",
+          "execution_status": "NOT_RUN",
+          "evidence_path": ""
+        }
+      ]
+    },
+    {
+      "requirement_id": "SYS-004",
+      "implementation_assessment": "PARTIAL",
+      "formal_verification": "PASS",
+      "implementation_paths": [
+        "docs/architecture/architecture-and-icd.md",
+        "firmware/src/safety_policy.h",
+        "firmware/src/engine_model.h"
+      ],
+      "internal_evidence_paths": [
+        "evidence/test-results/phase5-closure-summary-20261016.md",
+        "evidence/test-results/phase9-wave1-sup003-static-review-20261021.txt"
+      ],
+      "tests": [
+        {
+          "test_id": "SUP-003",
+          "definition_path": "docs/testing/supplemental-verification-plan.csv",
+          "execution_status": "PASS",
+          "evidence_path": "evidence/test-results/phase9-wave1-sup003-static-review-20261021.txt"
+        }
+      ]
+    },
+    {
+      "requirement_id": "SAF-001",
+      "implementation_assessment": "IMPLEMENTED_UNVERIFIED",
+      "formal_verification": "PASS",
+      "implementation_paths": [
+        "firmware/src/provider_door.h",
+        "firmware/src/safety_policy.h",
+        "firmware/src/domain_snapshot.h",
+        "firmware/src/continuous_simulation.h"
+      ],
+      "internal_evidence_paths": [
+        "evidence/test-results/phase5-e4-summary-20261016.md",
+        "evidence/test-results/continuous-simulation-summary-20261025.md"
+      ],
+      "tests": [
+        {
+          "test_id": "SIM-001",
+          "definition_path": "docs/testing/verification-simulation-plan.md",
+          "execution_status": "PASS",
+          "evidence_path": "evidence/test-results/phase5-e4-summary-20261016.md"
+        },
+        {
+          "test_id": "SIM-002",
+          "definition_path": "docs/testing/verification-simulation-plan.md",
+          "execution_status": "PASS",
+          "evidence_path": "evidence/test-results/phase5-e4-summary-20261016.md"
+        }
+      ]
+    },
+    {
+      "requirement_id": "SAF-002",
+      "implementation_assessment": "IMPLEMENTED_UNVERIFIED",
+      "formal_verification": "PASS",
+      "implementation_paths": [
+        "firmware/src/safety_policy.h",
+        "firmware/src/safety_policy_runtime.h",
+        "firmware/src/domain_snapshot.h",
+        "firmware/src/continuous_simulation.h"
+      ],
+      "internal_evidence_paths": [
+        "evidence/test-results/phase5-e4-summary-20261016.md",
+        "evidence/test-results/continuous-simulation-summary-20261025.md"
+      ],
+      "tests": [
+        {
+          "test_id": "SIM-001",
+          "definition_path": "docs/testing/verification-simulation-plan.md",
+          "execution_status": "PASS",
+          "evidence_path": "evidence/test-results/phase5-e4-summary-20261016.md"
+        },
+        {
+          "test_id": "SIM-002",
+          "definition_path": "docs/testing/verification-simulation-plan.md",
+          "execution_status": "PASS",
+          "evidence_path": "evidence/test-results/phase5-e4-summary-20261016.md"
+        },
+        {
+          "test_id": "SIM-003",
+          "definition_path": "docs/testing/verification-simulation-plan.md",
+          "execution_status": "PASS",
+          "evidence_path": "evidence/test-results/phase5-e4-summary-20261016.md"
+        },
+        {
+          "test_id": "SIM-004",
+          "definition_path": "docs/testing/verification-simulation-plan.md",
+          "execution_status": "PASS",
+          "evidence_path": "evidence/test-results/phase5-e4-summary-20261016.md"
+        }
+      ]
+    },
+    {
+      "requirement_id": "SAF-003",
+      "implementation_assessment": "PARTIAL",
+      "formal_verification": "PASS",
+      "implementation_paths": [
+        "firmware/src/safety_policy.h",
+        "firmware/src/safety_monitor_policy.h",
+        "firmware/src/domain_snapshot.h",
+        "firmware/src/continuous_simulation.h"
+      ],
+      "internal_evidence_paths": [
+        "evidence/test-results/phase5-e4-summary-20261016.md",
+        "evidence/test-results/continuous-simulation-summary-20261025.md"
+      ],
+      "tests": [
+        {
+          "test_id": "SIM-002",
+          "definition_path": "docs/testing/verification-simulation-plan.md",
+          "execution_status": "PASS",
+          "evidence_path": "evidence/test-results/phase5-e4-summary-20261016.md"
+        },
+        {
+          "test_id": "SIM-005",
+          "definition_path": "docs/testing/verification-simulation-plan.md",
+          "execution_status": "PASS",
+          "evidence_path": "evidence/test-results/phase5-e4-summary-20261016.md"
+        }
+      ]
+    },
+    {
+      "requirement_id": "SAF-004",
+      "implementation_assessment": "IMPLEMENTED_UNVERIFIED",
+      "formal_verification": "PASS",
+      "implementation_paths": [
+        "firmware/src/provider_fuel_vapor.h",
+        "firmware/src/safety_policy.h",
+        "firmware/src/domain_snapshot.h",
+        "firmware/src/continuous_simulation.h"
+      ],
+      "internal_evidence_paths": [
+        "evidence/test-results/phase5-e4-summary-20261016.md",
+        "evidence/test-results/continuous-simulation-summary-20261025.md"
+      ],
+      "tests": [
+        {
+          "test_id": "SIM-003",
+          "definition_path": "docs/testing/verification-simulation-plan.md",
+          "execution_status": "PASS",
+          "evidence_path": "evidence/test-results/phase5-e4-summary-20261016.md"
+        },
+        {
+          "test_id": "SIM-004",
+          "definition_path": "docs/testing/verification-simulation-plan.md",
+          "execution_status": "PASS",
+          "evidence_path": "evidence/test-results/phase5-e4-summary-20261016.md"
+        }
+      ]
+    },
+    {
+      "requirement_id": "SAF-005",
+      "implementation_assessment": "IMPLEMENTED_UNVERIFIED",
+      "formal_verification": "PASS",
+      "implementation_paths": [
+        "firmware/src/provider_bilge.h",
+        "firmware/src/safety_monitor_policy.h",
+        "firmware/src/domain_snapshot.h",
+        "firmware/src/continuous_simulation.h"
+      ],
+      "internal_evidence_paths": [
+        "evidence/test-results/phase5-e4-summary-20261016.md",
+        "evidence/test-results/continuous-simulation-summary-20261025.md"
+      ],
+      "tests": [
+        {
+          "test_id": "SIM-005",
+          "definition_path": "docs/testing/verification-simulation-plan.md",
+          "execution_status": "PASS",
+          "evidence_path": "evidence/test-results/phase5-e4-summary-20261016.md"
+        }
+      ]
+    },
+    {
+      "requirement_id": "SAF-006",
+      "implementation_assessment": "IMPLEMENTED_UNVERIFIED",
+      "formal_verification": "PASS",
+      "implementation_paths": [
+        "firmware/src/provider_temperature.h",
+        "firmware/src/safety_monitor_policy.h",
+        "firmware/src/domain_snapshot.h",
+        "firmware/src/continuous_simulation.h",
+        "scripts/fault_isolation_fixture.c",
+        "scripts/fault_isolation_wire_bridge.py",
+        "backend/laravel/tests/Feature/SingleChannelFaultIntegrationTest.php"
+      ],
+      "internal_evidence_paths": [
+        "evidence/test-results/phase5-e4-summary-20261016.md",
+        "evidence/test-results/continuous-simulation-summary-20261025.md",
+        "evidence/test-results/fault-storage-case-review-20261026.md"
+      ],
+      "tests": [
+        {
+          "test_id": "SIM-006",
+          "definition_path": "docs/testing/verification-simulation-plan.md",
+          "execution_status": "PASS",
+          "evidence_path": "evidence/test-results/phase5-e4-summary-20261016.md"
+        },
+        {
+          "test_id": "SIM-011",
+          "definition_path": "docs/testing/verification-simulation-plan.md",
+          "execution_status": "PASS",
+          "evidence_path": "evidence/test-results/fault-storage-case-review-20261026.md"
+        }
+      ]
+    },
+    {
+      "requirement_id": "ALM-001",
+      "implementation_assessment": "IMPLEMENTED_UNVERIFIED",
+      "formal_verification": "PASS",
+      "implementation_paths": [
+        "firmware/src/core_alarm.h",
+        "firmware/src/core_event_journal.h",
+        "firmware/src/safety_local_alarm.h",
+        "firmware/src/domain_snapshot.h",
+        "firmware/src/continuous_simulation.h",
+        "firmware/src/alarm_transition.h",
+        "backend/laravel/tests/Feature/AlarmMetadataIntegrationTest.php",
+        "firmware/src/offline_replay.h",
+        "backend/laravel/tests/Feature/RecoveredReplayIntegrationTest.php",
+        "firmware/src/event_delivery.h",
+        "firmware/src/offline_retirement.h",
+        "backend/laravel/app/Support/EventCommitReceipt.php"
+      ],
+      "internal_evidence_paths": [
+        "evidence/test-results/phase5-e4-summary-20261016.md",
+        "evidence/test-results/continuous-simulation-summary-20261025.md",
+        "evidence/test-results/alarm-metadata-summary-20261025.md",
+        "evidence/test-results/recovered-replay-summary-20261026.md",
+        "evidence/test-results/event-receipt-summary-20261026.md"
+      ],
+      "tests": [
+        {
+          "test_id": "SIM-003",
+          "definition_path": "docs/testing/verification-simulation-plan.md",
+          "execution_status": "PASS",
+          "evidence_path": "evidence/test-results/phase5-e4-summary-20261016.md"
+        },
+        {
+          "test_id": "SIM-005",
+          "definition_path": "docs/testing/verification-simulation-plan.md",
+          "execution_status": "PASS",
+          "evidence_path": "evidence/test-results/phase5-e4-summary-20261016.md"
+        },
+        {
+          "test_id": "SIM-006",
+          "definition_path": "docs/testing/verification-simulation-plan.md",
+          "execution_status": "PASS",
+          "evidence_path": "evidence/test-results/phase5-e4-summary-20261016.md"
+        }
+      ]
+    },
+    {
+      "requirement_id": "ALM-002",
+      "implementation_assessment": "IMPLEMENTED_UNVERIFIED",
+      "formal_verification": "PASS",
+      "implementation_paths": [
+        "firmware/src/core_alarm.h",
+        "firmware/src/main.c",
+        "firmware/src/domain_snapshot.h",
+        "firmware/src/continuous_simulation.h",
+        "firmware/src/alarm_transition.h",
+        "backend/laravel/tests/Feature/AlarmMetadataIntegrationTest.php",
+        "firmware/src/offline_replay.h",
+        "backend/laravel/tests/Feature/RecoveredReplayIntegrationTest.php",
+        "firmware/src/event_delivery.h",
+        "firmware/src/offline_retirement.h",
+        "backend/laravel/app/Support/EventCommitReceipt.php",
+        "scripts/formal_provider_fixture.c",
+        "scripts/run_formal_provider_verification.py",
+        "scripts/test_formal_provider_verification.py"
+      ],
+      "internal_evidence_paths": [
+        "evidence/test-results/firmware-core-alarm-wokwi-20261013.md",
+        "evidence/test-results/continuous-simulation-summary-20261025.md",
+        "evidence/test-results/alarm-metadata-summary-20261025.md",
+        "evidence/test-results/recovered-replay-summary-20261026.md",
+        "evidence/test-results/event-receipt-summary-20261026.md",
+        "evidence/test-results/formal-provider-summary-20261026.md",
+        "evidence/test-results/formal-provider-case-review-20261026.md"
+      ],
+      "tests": [
+        {
+          "test_id": "SUP-004",
+          "definition_path": "docs/testing/supplemental-verification-plan.csv",
+          "execution_status": "PASS",
+          "evidence_path": "evidence/test-results/formal-provider-case-review-20261026.md"
+        }
+      ]
+    },
+    {
+      "requirement_id": "ALM-003",
+      "implementation_assessment": "PARTIAL",
+      "formal_verification": "PARTIAL",
+      "implementation_paths": [
+        "firmware/src/safety_local_alarm.h",
+        "firmware/src/safety_policy_runtime.h",
+        "firmware/src/domain_snapshot.h",
+        "firmware/src/continuous_simulation.h",
+        "firmware/src/alarm_transition.h",
+        "backend/laravel/tests/Feature/AlarmMetadataIntegrationTest.php",
+        "firmware/src/offline_replay.h",
+        "backend/laravel/tests/Feature/RecoveredReplayIntegrationTest.php"
+      ],
+      "internal_evidence_paths": [
+        "evidence/test-results/phase5-e4-summary-20261016.md",
+        "evidence/test-results/continuous-simulation-summary-20261025.md",
+        "evidence/test-results/alarm-metadata-summary-20261025.md",
+        "evidence/test-results/recovered-replay-summary-20261026.md"
+      ],
+      "tests": [
+        {
+          "test_id": "SIM-003",
+          "definition_path": "docs/testing/verification-simulation-plan.md",
+          "execution_status": "PASS",
+          "evidence_path": "evidence/test-results/phase5-e4-summary-20261016.md"
+        },
+        {
+          "test_id": "SIM-010",
+          "definition_path": "docs/testing/verification-simulation-plan.md",
+          "execution_status": "NOT_RUN",
+          "evidence_path": ""
+        },
+        {
+          "test_id": "SIM-012",
+          "definition_path": "docs/testing/verification-simulation-plan.md",
+          "execution_status": "NOT_RUN",
+          "evidence_path": ""
+        }
+      ]
+    },
+    {
+      "requirement_id": "ENG-001",
+      "implementation_assessment": "IMPLEMENTED_UNVERIFIED",
+      "formal_verification": "PASS",
+      "implementation_paths": [
+        "firmware/src/engine_model.h",
+        "firmware/src/phase6_f2_formal_scenarios.h",
+        "firmware/src/domain_snapshot.h",
+        "firmware/src/continuous_simulation.h"
+      ],
+      "internal_evidence_paths": [
+        "evidence/test-results/phase6-f2-summary-20261016.md",
+        "evidence/test-results/continuous-simulation-summary-20261025.md"
+      ],
+      "tests": [
+        {
+          "test_id": "SIM-007",
+          "definition_path": "docs/testing/verification-simulation-plan.md",
+          "execution_status": "PASS",
+          "evidence_path": "evidence/test-results/phase6-f2-summary-20261016.md"
+        }
+      ]
+    },
+    {
+      "requirement_id": "ENG-002",
+      "implementation_assessment": "IMPLEMENTED_UNVERIFIED",
+      "formal_verification": "PASS",
+      "implementation_paths": [
+        "firmware/src/engine_model.h",
+        "firmware/src/phase6_f1_selftest.h",
+        "firmware/src/domain_snapshot.h",
+        "firmware/src/continuous_simulation.h",
+        "scripts/formal_provider_fixture.c",
+        "scripts/run_formal_provider_verification.py",
+        "scripts/test_formal_provider_verification.py"
+      ],
+      "internal_evidence_paths": [
+        "evidence/test-results/phase6-f1-summary-20261016.md",
+        "evidence/test-results/continuous-simulation-summary-20261025.md",
+        "evidence/test-results/formal-provider-summary-20261026.md",
+        "evidence/test-results/formal-provider-case-review-20261026.md"
+      ],
+      "tests": [
+        {
+          "test_id": "SUP-005",
+          "definition_path": "docs/testing/supplemental-verification-plan.csv",
+          "execution_status": "PASS",
+          "evidence_path": "evidence/test-results/formal-provider-case-review-20261026.md"
+        }
+      ]
+    },
+    {
+      "requirement_id": "ENG-003",
+      "implementation_assessment": "IMPLEMENTED_UNVERIFIED",
+      "formal_verification": "PARTIAL",
+      "implementation_paths": [
+        "firmware/src/engine_model.h",
+        "firmware/src/phase6_f2_formal_scenarios.h",
+        "firmware/src/domain_snapshot.h",
+        "firmware/src/continuous_simulation.h"
+      ],
+      "internal_evidence_paths": [
+        "evidence/test-results/phase6-f2-summary-20261016.md",
+        "evidence/test-results/continuous-simulation-summary-20261025.md"
+      ],
+      "tests": [
+        {
+          "test_id": "SIM-007",
+          "definition_path": "docs/testing/verification-simulation-plan.md",
+          "execution_status": "PASS",
+          "evidence_path": "evidence/test-results/phase6-f2-summary-20261016.md"
+        },
+        {
+          "test_id": "SIM-012",
+          "definition_path": "docs/testing/verification-simulation-plan.md",
+          "execution_status": "NOT_RUN",
+          "evidence_path": ""
+        }
+      ]
+    },
+    {
+      "requirement_id": "ENG-004",
+      "implementation_assessment": "PARTIAL",
+      "formal_verification": "PASS",
+      "implementation_paths": [
+        "docs/architecture/architecture-and-icd.md",
+        "docs/bom-and-tbd.md"
+      ],
+      "internal_evidence_paths": [
+        "evidence/test-results/phase9-wave1-sup006-static-review-20261021.txt"
+      ],
+      "tests": [
+        {
+          "test_id": "SUP-006",
+          "definition_path": "docs/testing/supplemental-verification-plan.csv",
+          "execution_status": "PASS",
+          "evidence_path": "evidence/test-results/phase9-wave1-sup006-static-review-20261021.txt"
+        }
+      ]
+    },
+    {
+      "requirement_id": "NAV-001",
+      "implementation_assessment": "IMPLEMENTED_UNVERIFIED",
+      "formal_verification": "PASS",
+      "implementation_paths": [
+        "firmware/src/navigation_nmea.h",
+        "firmware/src/phase7_g2_formal_scenarios.h",
+        "firmware/src/domain_snapshot.h",
+        "firmware/src/continuous_simulation.h"
+      ],
+      "internal_evidence_paths": [
+        "evidence/test-results/phase7-g2-summary-20261016.md",
+        "evidence/test-results/continuous-simulation-summary-20261025.md"
+      ],
+      "tests": [
+        {
+          "test_id": "SIM-008",
+          "definition_path": "docs/testing/verification-simulation-plan.md",
+          "execution_status": "PASS",
+          "evidence_path": "evidence/test-results/phase7-g2-summary-20261016.md"
+        }
+      ]
+    },
+    {
+      "requirement_id": "NAV-002",
+      "implementation_assessment": "IMPLEMENTED_UNVERIFIED",
+      "formal_verification": "PASS",
+      "implementation_paths": [
+        "firmware/src/navigation_nmea.h",
+        "firmware/src/phase7_g1_selftest.h",
+        "firmware/src/domain_snapshot.h",
+        "firmware/src/continuous_simulation.h",
+        "scripts/formal_provider_fixture.c",
+        "scripts/run_formal_provider_verification.py",
+        "scripts/test_formal_provider_verification.py"
+      ],
+      "internal_evidence_paths": [
+        "evidence/test-results/phase7-g1-summary-20261016.md",
+        "evidence/test-results/continuous-simulation-summary-20261025.md",
+        "evidence/test-results/formal-provider-summary-20261026.md",
+        "evidence/test-results/formal-provider-case-review-20261026.md"
+      ],
+      "tests": [
+        {
+          "test_id": "SUP-007",
+          "definition_path": "docs/testing/supplemental-verification-plan.csv",
+          "execution_status": "PASS",
+          "evidence_path": "evidence/test-results/formal-provider-case-review-20261026.md"
+        }
+      ]
+    },
+    {
+      "requirement_id": "NAV-003",
+      "implementation_assessment": "IMPLEMENTED_UNVERIFIED",
+      "formal_verification": "PASS",
+      "implementation_paths": [
+        "firmware/src/navigation_nmea.h",
+        "firmware/src/phase7_g2_formal_scenarios.h",
+        "firmware/src/domain_snapshot.h",
+        "firmware/src/continuous_simulation.h"
+      ],
+      "internal_evidence_paths": [
+        "evidence/test-results/phase7-g2-summary-20261016.md",
+        "evidence/test-results/continuous-simulation-summary-20261025.md"
+      ],
+      "tests": [
+        {
+          "test_id": "SIM-008",
+          "definition_path": "docs/testing/verification-simulation-plan.md",
+          "execution_status": "PASS",
+          "evidence_path": "evidence/test-results/phase7-g2-summary-20261016.md"
+        }
+      ]
+    },
+    {
+      "requirement_id": "NAV-004",
+      "implementation_assessment": "IMPLEMENTED_UNVERIFIED",
+      "formal_verification": "PASS",
+      "implementation_paths": [
+        "firmware/src/navigation_nmea.h",
+        "firmware/src/phase7_g2_formal_scenarios.h",
+        "firmware/src/domain_snapshot.h",
+        "firmware/src/continuous_simulation.h"
+      ],
+      "internal_evidence_paths": [
+        "evidence/test-results/phase7-g2-summary-20261016.md",
+        "evidence/test-results/continuous-simulation-summary-20261025.md"
+      ],
+      "tests": [
+        {
+          "test_id": "SIM-009",
+          "definition_path": "docs/testing/verification-simulation-plan.md",
+          "execution_status": "PASS",
+          "evidence_path": "evidence/test-results/phase7-g2-summary-20261016.md"
+        }
+      ]
+    },
+    {
+      "requirement_id": "MOT-001",
+      "implementation_assessment": "IMPLEMENTED_UNVERIFIED",
+      "formal_verification": "PASS",
+      "implementation_paths": [
+        "firmware/src/provider_attitude.h",
+        "firmware/src/phase4_d5_selftest.h",
+        "firmware/src/domain_snapshot.h",
+        "firmware/src/continuous_simulation.h",
+        "scripts/formal_provider_fixture.c",
+        "scripts/run_formal_provider_verification.py",
+        "scripts/test_formal_provider_verification.py"
+      ],
+      "internal_evidence_paths": [
+        "evidence/test-results/phase4-d5-summary-20261016.md",
+        "evidence/test-results/continuous-simulation-summary-20261025.md",
+        "evidence/test-results/formal-provider-summary-20261026.md",
+        "evidence/test-results/formal-provider-case-review-20261026.md"
+      ],
+      "tests": [
+        {
+          "test_id": "SUP-008",
+          "definition_path": "docs/testing/supplemental-verification-plan.csv",
+          "execution_status": "PASS",
+          "evidence_path": "evidence/test-results/formal-provider-case-review-20261026.md"
+        }
+      ]
+    },
+    {
+      "requirement_id": "VIB-001",
+      "implementation_assessment": "IMPLEMENTED_UNVERIFIED",
+      "formal_verification": "PASS",
+      "implementation_paths": [
+        "firmware/src/provider_vibration.h",
+        "firmware/src/phase4_d6_selftest.h",
+        "firmware/src/domain_snapshot.h",
+        "firmware/src/continuous_simulation.h",
+        "scripts/formal_provider_fixture.c",
+        "scripts/run_formal_provider_verification.py",
+        "scripts/test_formal_provider_verification.py"
+      ],
+      "internal_evidence_paths": [
+        "evidence/test-results/phase4-d6-summary-20261016.md",
+        "evidence/test-results/continuous-simulation-summary-20261025.md",
+        "evidence/test-results/formal-provider-summary-20261026.md",
+        "evidence/test-results/formal-provider-case-review-20261026.md"
+      ],
+      "tests": [
+        {
+          "test_id": "SUP-009",
+          "definition_path": "docs/testing/supplemental-verification-plan.csv",
+          "execution_status": "PASS",
+          "evidence_path": "evidence/test-results/formal-provider-case-review-20261026.md"
+        }
+      ]
+    },
+    {
+      "requirement_id": "PWR-001",
+      "implementation_assessment": "IMPLEMENTED_UNVERIFIED",
+      "formal_verification": "PASS",
+      "implementation_paths": [
+        "firmware/src/provider_power.h",
+        "firmware/src/phase4_d7_selftest.h",
+        "firmware/src/domain_snapshot.h",
+        "firmware/src/continuous_simulation.h",
+        "scripts/formal_provider_fixture.c",
+        "scripts/run_formal_provider_verification.py",
+        "scripts/test_formal_provider_verification.py"
+      ],
+      "internal_evidence_paths": [
+        "evidence/test-results/phase4-d7-summary-20261016.md",
+        "evidence/test-results/continuous-simulation-summary-20261025.md",
+        "evidence/test-results/formal-provider-summary-20261026.md",
+        "evidence/test-results/formal-provider-case-review-20261026.md"
+      ],
+      "tests": [
+        {
+          "test_id": "SUP-010",
+          "definition_path": "docs/testing/supplemental-verification-plan.csv",
+          "execution_status": "PASS",
+          "evidence_path": "evidence/test-results/formal-provider-case-review-20261026.md"
+        }
+      ]
+    },
+    {
+      "requirement_id": "TEL-001",
+      "implementation_assessment": "IMPLEMENTED_UNVERIFIED",
+      "formal_verification": "PASS",
+      "implementation_paths": [
+        "firmware/src/telemetry_contract.h",
+        "docs/contracts/telemetry-schema-v1.json",
+        "firmware/src/runtime_uplink_frame.h",
+        "backend/laravel/tests/Feature/RuntimeUplinkIntegrationTest.php",
+        "firmware/src/domain_snapshot.h",
+        "firmware/src/continuous_simulation.h",
+        "backend/laravel/tests/Feature/ContinuousSimulationIntegrationTest.php",
+        "scripts/data_ui_contracts.py",
+        "scripts/run_formal_data_native.py",
+        "scripts/review_formal_data_ui.py"
+      ],
+      "internal_evidence_paths": [
+        "evidence/test-results/phase8-h1-summary-20261017.md",
+        "evidence/test-results/esp32-transport-summary-20261025.md",
+        "evidence/test-results/continuous-simulation-summary-20261025.md",
+        "evidence/test-results/data-ui-case-review-20261026.md"
+      ],
+      "tests": [
+        {
+          "test_id": "SUP-011",
+          "definition_path": "docs/testing/supplemental-verification-plan.csv",
+          "execution_status": "PASS",
+          "evidence_path": "evidence/test-results/data-ui-case-review-20261026.md"
+        }
+      ]
+    },
+    {
+      "requirement_id": "TEL-002",
+      "implementation_assessment": "IMPLEMENTED_UNVERIFIED",
+      "formal_verification": "PASS",
+      "implementation_paths": [
+        "firmware/src/telemetry_contract.h",
+        "docs/contracts/telemetry-schema-v1.json",
+        "firmware/src/domain_snapshot.h",
+        "firmware/src/continuous_simulation.h",
+        "backend/laravel/tests/Feature/ContinuousSimulationIntegrationTest.php",
+        "scripts/data_ui_contracts.py",
+        "scripts/run_formal_data_native.py",
+        "scripts/review_formal_data_ui.py"
+      ],
+      "internal_evidence_paths": [
+        "evidence/test-results/phase8-h1-summary-20261017.md",
+        "evidence/test-results/device-read-summary-20261025.md",
+        "evidence/test-results/continuous-simulation-summary-20261025.md",
+        "evidence/test-results/data-ui-case-review-20261026.md"
+      ],
+      "tests": [
+        {
+          "test_id": "SUP-012",
+          "definition_path": "docs/testing/supplemental-verification-plan.csv",
+          "execution_status": "PASS",
+          "evidence_path": "evidence/test-results/data-ui-case-review-20261026.md"
+        }
+      ]
+    },
+    {
+      "requirement_id": "TEL-003",
+      "implementation_assessment": "PARTIAL",
+      "formal_verification": "PASS",
+      "implementation_paths": [
+        "firmware/src/telemetry_contract.h",
+        "docs/contracts/telemetry-contract-v1.md",
+        "backend/laravel/tests/Feature/FirmwareMySqlIntegrationTest.php",
+        "scripts/run_live_http_integration.py",
+        "backend/laravel/tests/Support/LiveHttpSafety.php",
+        "firmware/src/domain_snapshot.h",
+        "firmware/src/continuous_simulation.h",
+        "backend/laravel/tests/Feature/ContinuousSimulationIntegrationTest.php",
+        "scripts/data_ui_contracts.py",
+        "scripts/run_formal_data_native.py",
+        "scripts/review_formal_data_ui.py"
+      ],
+      "internal_evidence_paths": [
+        "evidence/test-results/phase8-h1-summary-20261017.md",
+        "evidence/test-results/mysql-integration-gate-20261025.md",
+        "evidence/test-results/mariadb-integration-summary-20261025.md",
+        "evidence/test-results/security-php8235-summary-20261025.md",
+        "evidence/test-results/live-http-summary-20261025.md",
+        "evidence/test-results/continuous-simulation-summary-20261025.md",
+        "evidence/test-results/data-ui-case-review-20261026.md"
+      ],
+      "tests": [
+        {
+          "test_id": "SIM-014",
+          "definition_path": "docs/testing/verification-simulation-plan.md",
+          "execution_status": "PASS",
+          "evidence_path": "evidence/test-results/data-ui-case-review-20261026.md"
+        }
+      ]
+    },
+    {
+      "requirement_id": "NET-001",
+      "implementation_assessment": "PARTIAL",
+      "formal_verification": "NOT_RUN",
+      "implementation_paths": [
+        "firmware/src/network_transport_host_adapter.h",
+        "firmware/src/phase9_net001_uplink_host_bridge.h",
+        "firmware/src/esp32_network_client.c",
+        "firmware/src/esp32_network_profile.h",
+        "firmware/src/domain_snapshot.h",
+        "firmware/src/continuous_simulation.h",
+        "firmware/src/esp32_continuous_main.h",
+        "firmware/src/offline_replay.h",
+        "backend/laravel/tests/Feature/RecoveredReplayIntegrationTest.php",
+        "firmware/src/event_delivery.h",
+        "firmware/src/offline_retirement.h",
+        "backend/laravel/app/Support/EventCommitReceipt.php"
+      ],
+      "internal_evidence_paths": [
+        "evidence/test-results/mysql-integration-gate-20261025.md",
+        "evidence/test-results/esp32-transport-summary-20261025.md",
+        "evidence/test-results/continuous-simulation-summary-20261025.md",
+        "evidence/test-results/recovered-replay-summary-20261026.md",
+        "evidence/test-results/event-receipt-summary-20261026.md"
+      ],
+      "tests": [
+        {
+          "test_id": "SIM-010",
+          "definition_path": "docs/testing/verification-simulation-plan.md",
+          "execution_status": "NOT_RUN",
+          "evidence_path": ""
+        },
+        {
+          "test_id": "SIM-012",
+          "definition_path": "docs/testing/verification-simulation-plan.md",
+          "execution_status": "NOT_RUN",
+          "evidence_path": ""
+        },
+        {
+          "test_id": "SIM-013",
+          "definition_path": "docs/testing/verification-simulation-plan.md",
+          "execution_status": "NOT_RUN",
+          "evidence_path": ""
+        }
+      ]
+    },
+    {
+      "requirement_id": "NET-002",
+      "implementation_assessment": "PARTIAL",
+      "formal_verification": "PASS",
+      "implementation_paths": [
+        "firmware/src/core_event_journal.h",
+        "firmware/src/core_runtime_guard.h",
+        "firmware/src/main.c",
+        "firmware/src/offline_state.h",
+        "firmware/src/offline_transaction.h",
+        "firmware/src/esp32_offline_store.c",
+        "firmware/src/domain_snapshot.h",
+        "firmware/src/continuous_simulation.h",
+        "firmware/src/esp32_continuous_main.h",
+        "firmware/src/alarm_transition.h",
+        "backend/laravel/tests/Feature/AlarmMetadataIntegrationTest.php",
+        "backend/laravel/database/migrations/2026_10_25_100006_add_alarm_metadata_to_monitoring_events.php",
+        "firmware/src/offline_replay.h",
+        "backend/laravel/tests/Feature/RecoveredReplayIntegrationTest.php",
+        "firmware/src/event_delivery.h",
+        "firmware/src/offline_retirement.h",
+        "backend/laravel/app/Support/EventCommitReceipt.php",
+        "scripts/offline_bounded_file_fixture.c",
+        "scripts/formal_offline_file.py",
+        "scripts/host_offline_file_io.h"
+      ],
+      "internal_evidence_paths": [
+        "evidence/test-results/firmware-core-c4-wokwi-20261013.md",
+        "evidence/test-results/esp32-transport-summary-20261025.md",
+        "evidence/test-results/offline-nvs-summary-20261025.md",
+        "evidence/test-results/continuous-simulation-summary-20261025.md",
+        "evidence/test-results/alarm-metadata-summary-20261025.md",
+        "evidence/test-results/recovered-replay-summary-20261026.md",
+        "evidence/test-results/event-receipt-summary-20261026.md",
+        "evidence/test-results/fault-storage-case-review-20261026.md"
+      ],
+      "tests": [
+        {
+          "test_id": "SUP-013",
+          "definition_path": "docs/testing/supplemental-verification-plan.csv",
+          "execution_status": "PASS",
+          "evidence_path": "evidence/test-results/fault-storage-case-review-20261026.md"
+        }
+      ]
+    },
+    {
+      "requirement_id": "API-001",
+      "implementation_assessment": "PARTIAL",
+      "formal_verification": "PASS",
+      "implementation_paths": [
+        "backend/laravel/routes/api.php",
+        "backend/laravel/app/Http/Controllers/Api/TelemetryIngestController.php",
+        "backend/laravel/app/Http/Middleware/AuthenticateDeviceToken.php",
+        "backend/laravel/app/Http/Middleware/EnsureTelemetryPayloadSize.php",
+        "backend/laravel/app/Http/Requests/TelemetryIngestRequest.php",
+        "backend/laravel/app/Http/Requests/EventIngestRequest.php",
+        "backend/laravel/tests/Feature/FirmwareMySqlIntegrationTest.php",
+        "scripts/run_live_http_integration.py",
+        "backend/laravel/tests/Support/LiveHttpSafety.php",
+        "firmware/src/domain_snapshot.h",
+        "firmware/src/continuous_simulation.h",
+        "backend/laravel/tests/Feature/ContinuousSimulationIntegrationTest.php",
+        "firmware/src/alarm_transition.h",
+        "backend/laravel/tests/Feature/AlarmMetadataIntegrationTest.php",
+        "firmware/src/offline_replay.h",
+        "backend/laravel/tests/Feature/RecoveredReplayIntegrationTest.php",
+        "firmware/src/event_delivery.h",
+        "firmware/src/offline_retirement.h",
+        "backend/laravel/app/Support/EventCommitReceipt.php",
+        "scripts/data_ui_contracts.py",
+        "scripts/run_formal_data_native.py",
+        "scripts/review_formal_data_ui.py"
+      ],
+      "internal_evidence_paths": [
+        "evidence/test-results/phase9-p3-runtime-http-evidence-audit-summary-20261018.md",
+        "evidence/test-results/phase9-p3-securityfix-feature-tests-audit-summary-20261018.md",
+        "evidence/test-results/mysql-integration-gate-20261025.md",
+        "evidence/test-results/mariadb-integration-summary-20261025.md",
+        "evidence/test-results/security-php8235-summary-20261025.md",
+        "evidence/test-results/live-http-summary-20261025.md",
+        "evidence/test-results/continuous-simulation-summary-20261025.md",
+        "evidence/test-results/alarm-metadata-summary-20261025.md",
+        "evidence/test-results/recovered-replay-summary-20261026.md",
+        "evidence/test-results/event-receipt-summary-20261026.md",
+        "evidence/test-results/data-ui-case-review-20261026.md"
+      ],
+      "tests": [
+        {
+          "test_id": "SIM-015",
+          "definition_path": "docs/testing/verification-simulation-plan.md",
+          "execution_status": "PASS",
+          "evidence_path": "evidence/test-results/data-ui-case-review-20261026.md"
+        }
+      ]
+    },
+    {
+      "requirement_id": "DB-001",
+      "implementation_assessment": "PARTIAL",
+      "formal_verification": "PASS",
+      "implementation_paths": [
+        "backend/laravel/database/migrations/2026_10_17_100001_create_devices_table.php",
+        "backend/laravel/database/migrations/2026_10_17_100002_create_telemetry_samples_table.php",
+        "backend/laravel/database/migrations/2026_10_17_100003_create_telemetry_channels_table.php",
+        "backend/laravel/database/migrations/2026_10_18_100004_create_monitoring_events_table.php",
+        "scripts/run_mysql_integration.py",
+        "backend/laravel/tests/Support/TestEnvironment.php",
+        "backend/laravel/database/migrations/2026_10_25_100005_create_monitoring_access_tables.php",
+        "backend/laravel/tests/Support/TestSchema.php",
+        "firmware/src/alarm_transition.h",
+        "backend/laravel/tests/Feature/AlarmMetadataIntegrationTest.php",
+        "backend/laravel/database/migrations/2026_10_25_100006_add_alarm_metadata_to_monitoring_events.php",
+        "firmware/src/offline_state.h",
+        "scripts/test_mysql_integration_gate.py"
+      ],
+      "internal_evidence_paths": [
+        "evidence/test-results/phase9-p3-migration-rollback-support-summary-20261018.md",
+        "evidence/test-results/phase9-p3-migration-rollback-support-evidence-audit-summary-20261018.md",
+        "evidence/test-results/mysql-integration-gate-20261025.md",
+        "evidence/test-results/mariadb-integration-summary-20261025.md",
+        "evidence/test-results/security-php8235-summary-20261025.md",
+        "evidence/test-results/dashboard-summary-20261025.md",
+        "evidence/test-results/alarm-metadata-summary-20261025.md",
+        "evidence/test-results/fault-storage-case-review-20261026.md"
+      ],
+      "tests": [
+        {
+          "test_id": "SUP-014",
+          "definition_path": "docs/testing/supplemental-verification-plan.csv",
+          "execution_status": "PASS",
+          "evidence_path": "evidence/test-results/fault-storage-case-review-20261026.md"
+        }
+      ]
+    },
+    {
+      "requirement_id": "UI-001",
+      "implementation_assessment": "IMPLEMENTED_UNVERIFIED",
+      "formal_verification": "NOT_RUN",
+      "implementation_paths": [
+        "backend/laravel/app/Support/DashboardSignalLabel.php",
+        "backend/laravel/resources/views/monitoring/index.blade.php",
+        "backend/laravel/routes/web.php",
+        "backend/laravel/app/Support/MonitoringFreshness.php",
+        "backend/laravel/app/Http/Controllers/MonitoringController.php",
+        "scripts/run_live_http_integration.py",
+        "backend/laravel/tests/Support/LiveHttpSafety.php",
+        "firmware/src/domain_snapshot.h",
+        "firmware/src/continuous_simulation.h",
+        "backend/laravel/tests/Feature/ContinuousSimulationIntegrationTest.php",
+        "backend/laravel/public/assets/monitoring-freshness.js",
+        "backend/laravel/resources/views/monitoring/freshness.blade.php",
+        "backend/laravel/tests/Feature/MonitoringExpiryTest.php",
+        "scripts/browser_monitoring_probe.js",
+        "scripts/test_monitoring_freshness.js"
+      ],
+      "internal_evidence_paths": [
+        "evidence/test-results/mysql-integration-gate-20261025.md",
+        "evidence/test-results/dashboard-summary-20261025.md",
+        "evidence/test-results/live-http-summary-20261025.md",
+        "evidence/test-results/continuous-simulation-summary-20261025.md",
+        "evidence/test-results/receipt-expiry-summary-20261026.md"
+      ],
+      "tests": [
+        {
+          "test_id": "SIM-010",
+          "definition_path": "docs/testing/verification-simulation-plan.md",
+          "execution_status": "NOT_RUN",
+          "evidence_path": ""
+        }
+      ]
+    },
+    {
+      "requirement_id": "UI-002",
+      "implementation_assessment": "IMPLEMENTED_UNVERIFIED",
+      "formal_verification": "PASS",
+      "implementation_paths": [
+        "backend/laravel/resources/views/monitoring/index.blade.php",
+        "backend/laravel/resources/views/monitoring/sections/overview.blade.php",
+        "backend/laravel/app/Services/DeviceEventReadService.php",
+        "backend/laravel/app/Services/MonitoringAccess.php",
+        "backend/laravel/app/Support/MonitoringEvidence.php",
+        "scripts/run_live_http_integration.py",
+        "backend/laravel/tests/Support/LiveHttpSafety.php",
+        "firmware/src/domain_snapshot.h",
+        "firmware/src/continuous_simulation.h",
+        "backend/laravel/tests/Feature/ContinuousSimulationIntegrationTest.php",
+        "firmware/src/alarm_transition.h",
+        "backend/laravel/tests/Feature/AlarmMetadataIntegrationTest.php",
+        "firmware/src/offline_replay.h",
+        "backend/laravel/tests/Feature/RecoveredReplayIntegrationTest.php",
+        "scripts/data_ui_contracts.py",
+        "scripts/run_formal_data_native.py",
+        "scripts/review_formal_data_ui.py"
+      ],
+      "internal_evidence_paths": [
+        "evidence/test-results/mysql-integration-gate-20261025.md",
+        "evidence/test-results/device-read-summary-20261025.md",
+        "evidence/test-results/dashboard-summary-20261025.md",
+        "evidence/test-results/live-http-summary-20261025.md",
+        "evidence/test-results/continuous-simulation-summary-20261025.md",
+        "evidence/test-results/alarm-metadata-summary-20261025.md",
+        "evidence/test-results/recovered-replay-summary-20261026.md",
+        "evidence/test-results/data-ui-case-review-20261026.md"
+      ],
+      "tests": [
+        {
+          "test_id": "SUP-015",
+          "definition_path": "docs/testing/supplemental-verification-plan.csv",
+          "execution_status": "PASS",
+          "evidence_path": "evidence/test-results/data-ui-case-review-20261026.md"
+        }
+      ]
+    },
+    {
+      "requirement_id": "SEC-001",
+      "implementation_assessment": "PARTIAL",
+      "formal_verification": "PASS",
+      "implementation_paths": [
+        "scripts/audit_precommit_security.py",
+        "docs/github-repository-plan.md",
+        "scripts/security-reviewed-findings.json"
+      ],
+      "internal_evidence_paths": [
+        "evidence/test-results/phase4-closure-summary-20261016.md",
+        "evidence/test-results/phase9-wave1-sup016-security-review-20261020.txt",
+        "evidence/test-results/security-php8235-summary-20261025.md"
+      ],
+      "tests": [
+        {
+          "test_id": "SUP-016",
+          "definition_path": "docs/testing/supplemental-verification-plan.csv",
+          "execution_status": "PASS",
+          "evidence_path": "evidence/test-results/phase9-wave1-sup016-security-review-20261020.txt"
+        }
+      ]
+    },
+    {
+      "requirement_id": "SEC-002",
+      "implementation_assessment": "PARTIAL",
+      "formal_verification": "PASS",
+      "implementation_paths": [
+        "backend/laravel/routes/api.php",
+        "backend/laravel/app/Http/Middleware/AuthenticateDeviceToken.php",
+        "backend/laravel/app/Services/DeviceTokenAuthenticator.php",
+        "backend/laravel/.env.example",
+        "backend/laravel/app/Services/MonitoringAccess.php",
+        "backend/laravel/app/Http/Controllers/MonitoringSessionController.php",
+        "firmware/src/esp32_network_client.c",
+        "firmware/sdkconfig.defaults",
+        "firmware/src/esp32_offline_store.c",
+        "scripts/run_live_http_integration.py",
+        "backend/laravel/tests/Support/LiveHttpSafety.php",
+        "firmware/src/event_delivery.h",
+        "firmware/src/offline_retirement.h",
+        "backend/laravel/app/Support/EventCommitReceipt.php",
+        "scripts/data_ui_contracts.py",
+        "scripts/run_formal_data_native.py",
+        "scripts/review_formal_data_ui.py"
+      ],
+      "internal_evidence_paths": [
+        "evidence/test-results/phase9-p3-security-review-20261018.txt",
+        "evidence/test-results/phase9-p3-securityfix-feature-tests-audit-summary-20261018.md",
+        "evidence/test-results/security-php8235-summary-20261025.md",
+        "evidence/test-results/dashboard-summary-20261025.md",
+        "evidence/test-results/esp32-transport-summary-20261025.md",
+        "evidence/test-results/offline-nvs-summary-20261025.md",
+        "evidence/test-results/live-http-summary-20261025.md",
+        "evidence/test-results/event-receipt-summary-20261026.md",
+        "evidence/test-results/data-ui-case-review-20261026.md"
+      ],
+      "tests": [
+        {
+          "test_id": "SIM-015",
+          "definition_path": "docs/testing/verification-simulation-plan.md",
+          "execution_status": "PASS",
+          "evidence_path": "evidence/test-results/data-ui-case-review-20261026.md"
+        }
+      ]
+    },
+    {
+      "requirement_id": "TST-001",
+      "implementation_assessment": "PARTIAL",
+      "formal_verification": "PASS",
+      "implementation_paths": [
+        "requirements/traceability-matrix.csv",
+        "docs/testing/living-requirement-status.csv",
+        "docs/testing/firmware-evidence-index.md",
+        "scripts/run_mysql_integration.py",
+        "scripts/run_live_http_integration.py",
+        "backend/laravel/tests/Support/LiveHttpSafety.php",
+        "firmware/src/domain_snapshot.h",
+        "firmware/src/continuous_simulation.h",
+        "firmware/src/alarm_transition.h",
+        "backend/laravel/tests/Feature/AlarmMetadataIntegrationTest.php",
+        "firmware/src/offline_replay.h",
+        "backend/laravel/tests/Feature/RecoveredReplayIntegrationTest.php",
+        "firmware/src/event_delivery.h",
+        "firmware/src/offline_retirement.h",
+        "backend/laravel/app/Support/EventCommitReceipt.php",
+        "scripts/test_public_reference_audit.py"
+      ],
+      "internal_evidence_paths": [
+        "evidence/test-results/mysql-integration-gate-20261025.md",
+        "evidence/test-results/mariadb-integration-summary-20261025.md",
+        "evidence/test-results/security-php8235-summary-20261025.md",
+        "evidence/test-results/dashboard-summary-20261025.md",
+        "evidence/test-results/live-http-summary-20261025.md",
+        "evidence/test-results/continuous-simulation-summary-20261025.md",
+        "evidence/test-results/alarm-metadata-summary-20261025.md",
+        "evidence/test-results/recovered-replay-summary-20261026.md",
+        "evidence/test-results/event-receipt-summary-20261026.md",
+        "evidence/test-results/fault-storage-case-review-20261026.md",
+        "evidence/test-results/fault-storage-reference-audit-run1-20261026.json"
+      ],
+      "tests": [
+        {
+          "test_id": "SUP-017",
+          "definition_path": "docs/testing/supplemental-verification-plan.csv",
+          "execution_status": "PASS",
+          "evidence_path": "evidence/test-results/fault-storage-case-review-20261026.md"
+        }
+      ]
+    },
+    {
+      "requirement_id": "TST-002",
+      "implementation_assessment": "PARTIAL",
+      "formal_verification": "NOT_RUN",
+      "implementation_paths": [
+        ".github/workflows/phase9-multi-context-ci.yml",
+        "scripts/run_mysql_integration.py",
+        "scripts/build_esp32_port.py",
+        "scripts/test_esp32_build_gate.py",
+        "scripts/test_offline_state.py",
+        "scripts/test_offline_transaction.py",
+        "scripts/run_live_http_integration.py",
+        "backend/laravel/tests/Support/LiveHttpSafety.php",
+        "firmware/src/domain_snapshot.h",
+        "firmware/src/continuous_simulation.h",
+        "firmware/src/alarm_transition.h",
+        "backend/laravel/tests/Feature/AlarmMetadataIntegrationTest.php",
+        "backend/laravel/database/migrations/2026_10_25_100006_add_alarm_metadata_to_monitoring_events.php",
+        "firmware/src/offline_state.h",
+        "firmware/src/offline_replay.h",
+        "backend/laravel/tests/Feature/RecoveredReplayIntegrationTest.php",
+        "firmware/src/event_delivery.h",
+        "firmware/src/offline_retirement.h",
+        "backend/laravel/app/Support/EventCommitReceipt.php"
+      ],
+      "internal_evidence_paths": [
+        "evidence/test-results/mysql-integration-gate-20261025.md",
+        "evidence/test-results/mariadb-integration-summary-20261025.md",
+        "evidence/test-results/security-php8235-summary-20261025.md",
+        "evidence/test-results/esp32-transport-summary-20261025.md",
+        "evidence/test-results/offline-nvs-summary-20261025.md",
+        "evidence/test-results/live-http-summary-20261025.md",
+        "evidence/test-results/continuous-simulation-summary-20261025.md",
+        "evidence/test-results/alarm-metadata-summary-20261025.md",
+        "evidence/test-results/recovered-replay-summary-20261026.md",
+        "evidence/test-results/event-receipt-summary-20261026.md"
+      ],
+      "tests": [
+        {
+          "test_id": "SUP-018",
+          "definition_path": "docs/testing/supplemental-verification-plan.csv",
+          "execution_status": "PLANNED",
+          "evidence_path": ""
+        }
+      ]
+    },
+    {
+      "requirement_id": "DOC-001",
+      "implementation_assessment": "IMPLEMENTED_UNVERIFIED",
+      "formal_verification": "PASS",
+      "implementation_paths": [
+        "docs/architecture/architecture-and-icd.md",
+        "docs/standards/standards-applicability-matrix.md",
+        "docs/fmea/fmea-prototype.md",
+        "docs/adr/0001-repository-naming.md",
+        "docs/testing/firmware-evidence-index.md",
+        "firmware/src/alarm_transition.h",
+        "backend/laravel/tests/Feature/AlarmMetadataIntegrationTest.php",
+        "firmware/src/offline_replay.h",
+        "backend/laravel/tests/Feature/RecoveredReplayIntegrationTest.php",
+        "firmware/src/event_delivery.h",
+        "firmware/src/offline_retirement.h",
+        "backend/laravel/app/Support/EventCommitReceipt.php"
+      ],
+      "internal_evidence_paths": [
+        "evidence/test-results/phase9-wave1-sup019-documentation-review-20261021.txt",
+        "evidence/test-results/alarm-metadata-summary-20261025.md",
+        "evidence/test-results/recovered-replay-summary-20261026.md",
+        "evidence/test-results/event-receipt-summary-20261026.md"
+      ],
+      "tests": [
+        {
+          "test_id": "SUP-019",
+          "definition_path": "docs/testing/supplemental-verification-plan.csv",
+          "execution_status": "PASS",
+          "evidence_path": "evidence/test-results/phase9-wave1-sup019-documentation-review-20261021.txt"
+        }
+      ]
+    }
+  ],
+  "public_files": {
+    "requirements/system-requirements.md": {
+      "sha256": "a60167d9f2a1f852a091048447f6f4acf8d2cbfd6d11f04c2a6e2f6896f5b92b",
+      "bytes": 4945
+    },
+    "requirements/traceability-matrix.csv": {
+      "sha256": "bc1fc7ce697fc6180cab760320de2a1bd814f9bc78731d4a22fdae838c303fe3",
+      "bytes": 6396
+    },
+    "docs/testing/living-requirement-status.csv": {
+      "sha256": "57cfe779f129c1f1bcc41d74c2a9217444f3a1ffb6b193d2a76eaa34c74913f5",
+      "bytes": 44515
+    },
+    "docs/testing/formal-scenario-status.csv": {
+      "sha256": "9ea0db08f41ea37d46e8e1e20fa3ee9874a819c5d5a3d7ef0700c2ece02a1843",
+      "bytes": 2580
+    },
+    "docs/testing/supplemental-verification-plan.csv": {
+      "sha256": "ddfc40d806efc76fa6a0a9bdfe3ccc6492204509e9dce004f3973aaf911a100b",
+      "bytes": 4481
+    },
+    "README.md": {
+      "sha256": "cadff573f2e09c2880a6393bb20dc4446d5cb60168f68f05f8041d9e437ec366",
+      "bytes": 22438
+    },
+    "docs/architecture/architecture-and-icd.md": {
+      "sha256": "dd29fa9b9cb1ab01d840a55615ef17f66e3578c5e185faedd98b59ae53753c8f",
+      "bytes": 11537
+    },
+    "evidence/test-results/phase9-wave1-sup001-documentation-review-20261020.txt": {
+      "sha256": "688952ebf15bf2cc30cb07b727d9af68de13663a7381a921bab582ec94b1005b",
+      "bytes": 451
+    },
+    "firmware/src/core_types.h": {
+      "sha256": "f2060257f6c18e390ab48cc896070d52d2d03d169cef483390a06a864e35a35d",
+      "bytes": 1226
+    },
+    "firmware/src/core_source_mode.h": {
+      "sha256": "f00bf551afb493b7761901dc4f7a6be77a1d8b9a88c8cd0cf2468e68cda97767",
+      "bytes": 1016
+    },
+    "firmware/src/telemetry_contract.h": {
+      "sha256": "770b7dcdf75c67d25a025f80959556953a19722ef0722b544ec24c22140660e4",
+      "bytes": 11996
+    },
+    "firmware/src/domain_snapshot.h": {
+      "sha256": "b294afa9177d561c09072765abb6fed8e812975c7e3611be3b879e93ea93482f",
+      "bytes": 8204
+    },
+    "firmware/src/continuous_simulation.h": {
+      "sha256": "ccc6b868650128564f777a95331dce8386e8875ff9a1ef7be8e201d20f1a065a",
+      "bytes": 12445
+    },
+    "firmware/src/alarm_transition.h": {
+      "sha256": "4c3a0b3bd7645d4a529717d397b0774942d660a5cad92d957de95405923c7986",
+      "bytes": 8638
+    },
+    "backend/laravel/tests/Feature/AlarmMetadataIntegrationTest.php": {
+      "sha256": "20e0a3b924a636df1e3605307722e1d385dae95aba5a8897fa0fa5cd8e8419ae",
+      "bytes": 11873
+    },
+    "scripts/data_ui_contracts.py": {
+      "sha256": "dbe365c2ef54c497b983e12ee597fef3bcde868ee1d95a6e19a65f414e25547f",
+      "bytes": 7006
+    },
+    "scripts/run_formal_data_native.py": {
+      "sha256": "acb64e235034a4d4f87655159a4c64b42c085eb1ac3e91ced0b7a241409696df",
+      "bytes": 2653
+    },
+    "scripts/review_formal_data_ui.py": {
+      "sha256": "7a8bedcb051d5676613247e2ee4023d6e02f8e9ab6b4aaffa5c0c379f80984b0",
+      "bytes": 9079
+    },
+    "evidence/test-results/phase8-h1-summary-20261017.md": {
+      "sha256": "be267f2108426cb4f991d412337b84a0e620c339a21e7a4f0fab6fed6184c1e5",
+      "bytes": 1700
+    },
+    "evidence/test-results/continuous-simulation-summary-20261025.md": {
+      "sha256": "577177d2d066406a636671df56af6eaf4feda83e6453331f531a39e4ff2facf6",
+      "bytes": 9921
+    },
+    "evidence/test-results/alarm-metadata-summary-20261025.md": {
+      "sha256": "8533e792023f87a2262bf54b0ac30496796b81c8e94f23ff1e8746f396dea54e",
+      "bytes": 9068
+    },
+    "evidence/test-results/data-ui-case-review-20261026.md": {
+      "sha256": "e44307be37f54d12bade323d6917ab153b03cf09f6495a61b083e456ae77d50b",
+      "bytes": 5736
+    },
+    "firmware/src/network_outage_local_guard.h": {
+      "sha256": "d8c40a9c253757ae841e30bb0e009ed5b4496cec476c783b87d54e267f07dd6b",
+      "bytes": 1048
+    },
+    "firmware/src/phase9_sys003_outage_cycle_host.h": {
+      "sha256": "b0181c81087d4aa2e98cba40c0b6b5fa0eba2a9c2877cd2f028b92b1e3567bb4",
+      "bytes": 935
+    },
+    "firmware/src/esp32_network_client.c": {
+      "sha256": "bead57e3454eaf06596a2cade95016a6d0a85fc4288cd42c56321952f3053b2f",
+      "bytes": 17061
+    },
+    "firmware/src/main.c": {
+      "sha256": "795ff50bc89c5ae9de3b39bd302626603f8eda4ca4e9cba2ef0aaa6239f69af7",
+      "bytes": 59594
+    },
+    "firmware/src/esp32_offline_store.c": {
+      "sha256": "5d40aea07fa476af060e4b8d6fcfc492812cf66783d46e59251bbcbfe4882d6a",
+      "bytes": 17267
+    },
+    "firmware/src/esp32_continuous_main.h": {
+      "sha256": "0504c468b6a1f0f3c0930bc052df0c8744d78c04cc2e88721547edbf9973bcc9",
+      "bytes": 16213
+    },
+    "firmware/src/offline_replay.h": {
+      "sha256": "b01cd63d3e53989616ee495db6fe4fa0ba88bfd998191c30885602624d6edc80",
+      "bytes": 6424
+    },
+    "backend/laravel/tests/Feature/RecoveredReplayIntegrationTest.php": {
+      "sha256": "787a861a2a6113c34374da50db2a86549c5ce4c32fe85a35b5a3a0dfc476ebaa",
+      "bytes": 5658
+    },
+    "firmware/src/event_delivery.h": {
+      "sha256": "f4d59dce4c8a7931a8df3da543d79abd4f4fbe8a8af30c8c4c094d839f7fdf45",
+      "bytes": 9407
+    },
+    "firmware/src/offline_retirement.h": {
+      "sha256": "3e6190185382c02d5bea06a50e4644ef569845c1224eb43ce5cd5a0f2005e119",
+      "bytes": 11490
+    },
+    "backend/laravel/app/Support/EventCommitReceipt.php": {
+      "sha256": "71be48b5047af5987fb4d9dc2469a3250d0391fd190baa9be135d7cec5597fa9",
+      "bytes": 854
+    },
+    "evidence/test-results/mysql-integration-gate-20261025.md": {
+      "sha256": "b193ec1532d8200662f678c53b008018d098c3ce9a423dd9c3b51ecdcb411b89",
+      "bytes": 9900
+    },
+    "evidence/test-results/esp32-transport-summary-20261025.md": {
+      "sha256": "10dd8a8eea5ca87dc85b67aa55b0d8066a952925b33db48f81edb57da0a87bed",
+      "bytes": 7536
+    },
+    "evidence/test-results/offline-nvs-summary-20261025.md": {
+      "sha256": "15adae11b5e0f944fdf1aed61e820490fee597f066123882ec8ab8976efc6946",
+      "bytes": 7405
+    },
+    "evidence/test-results/recovered-replay-summary-20261026.md": {
+      "sha256": "249bf12341b223522aba0101e4f84efc819efd35d30540199871b505655f9776",
+      "bytes": 6913
+    },
+    "evidence/test-results/event-receipt-summary-20261026.md": {
+      "sha256": "4c2fd4088e75965a9e0cb707b7e74e23f3f20f7435b20d44ec3e89d339567447",
+      "bytes": 7629
+    },
+    "docs/testing/verification-simulation-plan.md": {
+      "sha256": "8939c127ba59c157df076bd93464a30842ec21f8b3fa6261d18dca71393e40da",
+      "bytes": 7958
+    },
+    "firmware/src/safety_policy.h": {
+      "sha256": "e53dd6c1faa6ba4d9ea7a455a032c19cca37992347785883b7d632c5a240cea6",
+      "bytes": 6883
+    },
+    "firmware/src/engine_model.h": {
+      "sha256": "0f2bde58583f600bfa376f885a579daef969633bce2a2b89594bd02fc12a4273",
+      "bytes": 7844
+    },
+    "evidence/test-results/phase5-closure-summary-20261016.md": {
+      "sha256": "ec65523c8095441a0b60996397dda967d3a75f48217326cabe2c5d630e5fe342",
+      "bytes": 828
+    },
+    "evidence/test-results/phase9-wave1-sup003-static-review-20261021.txt": {
+      "sha256": "f3dbb9567cba244e21eec6b70db863d9944e9cde96cdc125c73f0d769b8f22c1",
+      "bytes": 534
+    },
+    "firmware/src/provider_door.h": {
+      "sha256": "5aef9b29175fc13ed4c344e1338db1df46f239fdb3f9d9a627dbadae88cc25d7",
+      "bytes": 6186
+    },
+    "evidence/test-results/phase5-e4-summary-20261016.md": {
+      "sha256": "c381d82bb8ac7672ebcafe18279ebdc471af88a3ec960d5b7ab92731bffe9fea",
+      "bytes": 1958
+    },
+    "firmware/src/safety_policy_runtime.h": {
+      "sha256": "72920406c736a41b30f7f5b148d32b338e980d8779c24dd91ea444e66652767c",
+      "bytes": 3158
+    },
+    "firmware/src/safety_monitor_policy.h": {
+      "sha256": "3e91edacddb1764ddce2388ea3c4159397fdfede6e71238956ab1fe9c326adcd",
+      "bytes": 7754
+    },
+    "firmware/src/provider_fuel_vapor.h": {
+      "sha256": "48fdf08b062644495465f0cc465e27592b64e062d2f2ee704ff91b71e166c63c",
+      "bytes": 7496
+    },
+    "firmware/src/provider_bilge.h": {
+      "sha256": "877697aa0ff3c3b902521789e427fdfff083ea23324850309591615e681cadcd",
+      "bytes": 5694
+    },
+    "firmware/src/provider_temperature.h": {
+      "sha256": "48a972ce9127ec0e671898cbaaa956b5f5f140d3559f1922600a4b120098073e",
+      "bytes": 7450
+    },
+    "scripts/fault_isolation_fixture.c": {
+      "sha256": "e20e96afabbc6b3b6aa66031d8dccfa7d53499db834d9e538d9765b74aecc4b1",
+      "bytes": 1785
+    },
+    "scripts/fault_isolation_wire_bridge.py": {
+      "sha256": "948ab204c633c475e7881ec40992e35740e135f35d830ab1aed6f079265bc0bf",
+      "bytes": 3107
+    },
+    "backend/laravel/tests/Feature/SingleChannelFaultIntegrationTest.php": {
+      "sha256": "5d1d8e80b295bf66670e09e11fbd80bfdd4fe0bd11682708be10949276b44dbd",
+      "bytes": 6083
+    },
+    "evidence/test-results/fault-storage-case-review-20261026.md": {
+      "sha256": "9b23ceb2d342c6be34b8a9f188e8f21412a2b65d6f82935f83e49743256e65e2",
+      "bytes": 7582
+    },
+    "firmware/src/core_alarm.h": {
+      "sha256": "82d5273fcbb1cfe6b412782c72e45982b228571f8f734e63052b82f56dac030c",
+      "bytes": 5159
+    },
+    "firmware/src/core_event_journal.h": {
+      "sha256": "890f15668341114ab705027ab26c100e3eeba1db0b6092d6a4caa9d2bb8b9633",
+      "bytes": 2962
+    },
+    "firmware/src/safety_local_alarm.h": {
+      "sha256": "39726fb4eaff2acf32f9ac0aa3ec93e6c074ccbb533bf9da7f3b238076a65018",
+      "bytes": 2000
+    },
+    "scripts/formal_provider_fixture.c": {
+      "sha256": "46e8ca5ca79506c0ef1be45123bc78a6d188da8c9f767fd426824f87eff28d39",
+      "bytes": 14297
+    },
+    "scripts/run_formal_provider_verification.py": {
+      "sha256": "a8f1c269996fb5bd5f03c3f55ebecff00a3f052d7a97cea65a1fed506817a1d0",
+      "bytes": 11220
+    },
+    "scripts/test_formal_provider_verification.py": {
+      "sha256": "88662f0777037f98181444bca7871a6c1dec380b6a96c8b44174a37bbcafb605",
+      "bytes": 8171
+    },
+    "evidence/test-results/firmware-core-alarm-wokwi-20261013.md": {
+      "sha256": "5ac5a1651e8062aea75f7ec819065a8840c6ce526e6e6e135a533f0de04629a6",
+      "bytes": 3913
+    },
+    "evidence/test-results/formal-provider-summary-20261026.md": {
+      "sha256": "e9707f034aa523571a63a3391dd5a528f8f70d682393592b54d4a3a2315b1fc3",
+      "bytes": 4738
+    },
+    "evidence/test-results/formal-provider-case-review-20261026.md": {
+      "sha256": "daf17f2e5cfbd750d77913c55fbc7b27c9b1a43bd0ac6dd8ebb29796b673e565",
+      "bytes": 3921
+    },
+    "firmware/src/phase6_f2_formal_scenarios.h": {
+      "sha256": "eeea710b8943ddcb059be20286394febd54ac732cd3c04c5982281c8104b475e",
+      "bytes": 4099
+    },
+    "evidence/test-results/phase6-f2-summary-20261016.md": {
+      "sha256": "0511833d98cbfa330c87e632fc27939546a9591e9312a2ef69a0a3cf8a76e064",
+      "bytes": 1497
+    },
+    "firmware/src/phase6_f1_selftest.h": {
+      "sha256": "7ebc0c44f963282406f1b5fbe13433bf6ff0492aca59554091e3792884fa6270",
+      "bytes": 10726
+    },
+    "evidence/test-results/phase6-f1-summary-20261016.md": {
+      "sha256": "59c86213806b6d242db090dcf512fcd13eb7d4de196fe02d28a7b214c9e755d1",
+      "bytes": 1337
+    },
+    "docs/bom-and-tbd.md": {
+      "sha256": "4d5796848b70150223cdbd14019bd742a8dfd3ee1a4d72452006375a8ebeba73",
+      "bytes": 13359
+    },
+    "evidence/test-results/phase9-wave1-sup006-static-review-20261021.txt": {
+      "sha256": "6be902537248656c7fade3115db4ca3a574a50e96351d22092f28f16694e2543",
+      "bytes": 903
+    },
+    "firmware/src/navigation_nmea.h": {
+      "sha256": "93acc17b7a8b0d99a2112e4e0fda36497aea4c38c2f49379058d195728bee2e9",
+      "bytes": 12474
+    },
+    "firmware/src/phase7_g2_formal_scenarios.h": {
+      "sha256": "ed2a8e5ec3301e2d88c5e46b530f87e97db71ab9c9507edae04265a74ea45e78",
+      "bytes": 7358
+    },
+    "evidence/test-results/phase7-g2-summary-20261016.md": {
+      "sha256": "592345f96a0c0e0284f008ff5e7be3ef1113b8d82c393dd99db11eacce79f37c",
+      "bytes": 1450
+    },
+    "firmware/src/phase7_g1_selftest.h": {
+      "sha256": "89e54812067174cfcb0b9d0fa5493dd86443e02783a1f0e22648ace708009056",
+      "bytes": 10252
+    },
+    "evidence/test-results/phase7-g1-summary-20261016.md": {
+      "sha256": "e4d4dc4842ee1c528d3fc5aff3809ef980456d29913fcd2dcdbf492f02d12644",
+      "bytes": 1228
+    },
+    "firmware/src/provider_attitude.h": {
+      "sha256": "95e282e53dbff833a58c3ae20753c4a86667c365397ae61c26ab7822df5023b7",
+      "bytes": 6244
+    },
+    "firmware/src/phase4_d5_selftest.h": {
+      "sha256": "34830e157daa6aa0920c9b46b71340bf460d8c4c584ebadff645e6191caee9aa",
+      "bytes": 13602
+    },
+    "evidence/test-results/phase4-d5-summary-20261016.md": {
+      "sha256": "54df57696384c2246d4750d57bae5f56551e18cf9d6e609f557884544e5eeb3a",
+      "bytes": 1025
+    },
+    "firmware/src/provider_vibration.h": {
+      "sha256": "b6a1c11ac2d8ae6d6e7e4bbe61f6b2faf6c177da7b523bf2d3ea22409c494ab9",
+      "bytes": 7024
+    },
+    "firmware/src/phase4_d6_selftest.h": {
+      "sha256": "5ca35008550750485f9e532c8fb680ed6f2d7387efdcc2dfa820e189eefacda0",
+      "bytes": 14630
+    },
+    "evidence/test-results/phase4-d6-summary-20261016.md": {
+      "sha256": "dac8bae510095fbbd21147fd6636f93190041f860c2b8912d5e78ba74387cbaa",
+      "bytes": 1083
+    },
+    "firmware/src/provider_power.h": {
+      "sha256": "cad998d04010faf4a62ca823a516fc91bcd8546474e37e2db501fb41b8684d5e",
+      "bytes": 6543
+    },
+    "firmware/src/phase4_d7_selftest.h": {
+      "sha256": "5f60f52c708bc246ade57b167276a4206be34a453bdf38235546f0bbd21c6932",
+      "bytes": 12973
+    },
+    "evidence/test-results/phase4-d7-summary-20261016.md": {
+      "sha256": "d5d01ef7972f083fefc58db42c9fc051c5cbd62adb48747288f62a51e63098da",
+      "bytes": 1088
+    },
+    "docs/contracts/telemetry-schema-v1.json": {
+      "sha256": "8b7a20958cf26307cd3a58a7586c000a3f7281a7234c670aa088915765f42f06",
+      "bytes": 2675
+    },
+    "firmware/src/runtime_uplink_frame.h": {
+      "sha256": "22743b75b52fb3bf85a2654cd0e58730b15a20a33947e39ac2da1995efb880bf",
+      "bytes": 2030
+    },
+    "backend/laravel/tests/Feature/RuntimeUplinkIntegrationTest.php": {
+      "sha256": "b2eadeabf865d216bbfa583757a0a97c769f24d602f4ac912ea957735594a83c",
+      "bytes": 2090
+    },
+    "backend/laravel/tests/Feature/ContinuousSimulationIntegrationTest.php": {
+      "sha256": "d0e5f75e92f43ce2ea7b9dcf40a24af44342bcb527e8d4aab6cbe68e237e2989",
+      "bytes": 10963
+    },
+    "evidence/test-results/device-read-summary-20261025.md": {
+      "sha256": "ef83f88a1d60e7ba916892455adb529f1a0c4fd28462f6484befaa84c443dc64",
+      "bytes": 6539
+    },
+    "docs/contracts/telemetry-contract-v1.md": {
+      "sha256": "c18de4270847c881e7875ddcb56f82a6f054e7380b9547684bc3395dd447af9d",
+      "bytes": 2971
+    },
+    "backend/laravel/tests/Feature/FirmwareMySqlIntegrationTest.php": {
+      "sha256": "a420e56a680c8de320cf695ab021eb2975c67f17fa4f879759ce4633be2f259e",
+      "bytes": 12757
+    },
+    "scripts/run_live_http_integration.py": {
+      "sha256": "f14e1fef7fe39c9b762f98409a1d7bfed619887cc268f8437f0d73f7b20464b8",
+      "bytes": 53352
+    },
+    "backend/laravel/tests/Support/LiveHttpSafety.php": {
+      "sha256": "a792339f6de55e612208cd849b57b622615ef533be9c810143537d707bed1ffa",
+      "bytes": 7792
+    },
+    "evidence/test-results/mariadb-integration-summary-20261025.md": {
+      "sha256": "84f94aecb43d6066c7348403d3871d02656cf7a9aaa4ed645880e472d712c476",
+      "bytes": 8862
+    },
+    "evidence/test-results/security-php8235-summary-20261025.md": {
+      "sha256": "e79c59678528cf42c09505ccb31393e2cd3cd7837714d4ba1cbd331c88369ac0",
+      "bytes": 8403
+    },
+    "evidence/test-results/live-http-summary-20261025.md": {
+      "sha256": "d97c2ece8f8f59688885847ebb75a9da7b34c5377ac8eb5566022d9d79ea55d6",
+      "bytes": 8289
+    },
+    "firmware/src/network_transport_host_adapter.h": {
+      "sha256": "b03f38c3830f5d001fd99006fcab2f779f534b6183aa3640e044d6331ca2464e",
+      "bytes": 5710
+    },
+    "firmware/src/phase9_net001_uplink_host_bridge.h": {
+      "sha256": "15d885b21a753dba7af270052a1c276f59de0a780ae9426898366e0f2dc549e7",
+      "bytes": 1282
+    },
+    "firmware/src/esp32_network_profile.h": {
+      "sha256": "e7343698f62fe595960467731cd89c278e7f5cb8b84d3ef632f14c4f73bc1b8a",
+      "bytes": 5638
+    },
+    "firmware/src/core_runtime_guard.h": {
+      "sha256": "acb90d7827c218100ef4e0c2c11890d114033022a98002dc1a4046b48f2adc78",
+      "bytes": 3188
+    },
+    "firmware/src/offline_state.h": {
+      "sha256": "d948f782ecc0a3a79ad49d2ff60152aa52a6b5d38dfe9ac15a35244e8675b3ce",
+      "bytes": 19867
+    },
+    "firmware/src/offline_transaction.h": {
+      "sha256": "0ac44a46f7e23f44a879735b07f3ef771878f14a7a4b676d170b4aa68b37fa95",
+      "bytes": 6003
+    },
+    "backend/laravel/database/migrations/2026_10_25_100006_add_alarm_metadata_to_monitoring_events.php": {
+      "sha256": "7f586b8b7b2845f8ba513b420adcbc6eefb64b30b99e2fe7274dd156ce9a61e5",
+      "bytes": 707
+    },
+    "scripts/offline_bounded_file_fixture.c": {
+      "sha256": "52fe4cdfefa474779e2a31b3fbc386d1f839a65a7e507b79ffcca6c93cef29ca",
+      "bytes": 5540
+    },
+    "scripts/formal_offline_file.py": {
+      "sha256": "89cb80613d40cc17da24f7dee3101acb07a7ff1827441a1f6b3c59048e75e859",
+      "bytes": 7628
+    },
+    "scripts/host_offline_file_io.h": {
+      "sha256": "c62bb0eb04251a7747bf153ca394ec3a58971da89423c143d06d94e41b522a9f",
+      "bytes": 1525
+    },
+    "evidence/test-results/firmware-core-c4-wokwi-20261013.md": {
+      "sha256": "3db6d8373e334a24ff1b41ee1e5e7bfff5727971f8d791c9f379e9c84cfa71fb",
+      "bytes": 4015
+    },
+    "backend/laravel/routes/api.php": {
+      "sha256": "35dc124215308164a92042e6865958d67045b9984eebc4ec282bf1beb1dde294",
+      "bytes": 1106
+    },
+    "backend/laravel/app/Http/Controllers/Api/TelemetryIngestController.php": {
+      "sha256": "4ef7eb17cc2a43a4517544321e8c15965fa897451009ffa2db715e4933d4a7dd",
+      "bytes": 2103
+    },
+    "backend/laravel/app/Http/Middleware/AuthenticateDeviceToken.php": {
+      "sha256": "35b8d5873d18b0766c31e83d20f2ab0322fdb483c42f9934306f86b3f1f1c6c6",
+      "bytes": 1597
+    },
+    "backend/laravel/app/Http/Middleware/EnsureTelemetryPayloadSize.php": {
+      "sha256": "cac2a2c9ca9ca459876720401eb56bde2dae9ba7480e7c15e88d4be2cfa41104",
+      "bytes": 1529
+    },
+    "backend/laravel/app/Http/Requests/TelemetryIngestRequest.php": {
+      "sha256": "34c18f537fc51b9efb19fc7e3c1375451eab6453a314d7a0e8c9f90ac580fc85",
+      "bytes": 10581
+    },
+    "backend/laravel/app/Http/Requests/EventIngestRequest.php": {
+      "sha256": "94d77b55d475740bd96d34ee6517b930754a1e429e557620fdadd1b6c4b4dfe8",
+      "bytes": 9420
+    },
+    "evidence/test-results/phase9-p3-runtime-http-evidence-audit-summary-20261018.md": {
+      "sha256": "fd6d4ab334eb105aab7a98066db9b8e1080e703ed4cfe80afbb3f838157a6a95",
+      "bytes": 1065
+    },
+    "evidence/test-results/phase9-p3-securityfix-feature-tests-audit-summary-20261018.md": {
+      "sha256": "72e400dd5e6c6168dc28a1e3740dc5f8c3ae342adc8ff6ff8bbc2539b6c56b13",
+      "bytes": 2571
+    },
+    "backend/laravel/database/migrations/2026_10_17_100001_create_devices_table.php": {
+      "sha256": "6b607808d2640147104087c21d2b924f0ba670a5848b3db48cda47522bcd7bac",
+      "bytes": 880
+    },
+    "backend/laravel/database/migrations/2026_10_17_100002_create_telemetry_samples_table.php": {
+      "sha256": "75b7d69d151555bda4c3c42077959294391940b94992a7f1ea5c16a1cead8497",
+      "bytes": 1275
+    },
+    "backend/laravel/database/migrations/2026_10_17_100003_create_telemetry_channels_table.php": {
+      "sha256": "e6c6b9169bb3d712334574b67f1822b88313287d3854a06036cc2fecd7370104",
+      "bytes": 917
+    },
+    "backend/laravel/database/migrations/2026_10_18_100004_create_monitoring_events_table.php": {
+      "sha256": "3d0e1974df0e7a47f5804bea761ed42bced11f67a477cb91f5362060b097bfda",
+      "bytes": 1602
+    },
+    "scripts/run_mysql_integration.py": {
+      "sha256": "e71d8bbfede5fafe9e6e4322fd700ffc044685ebd05190b3af2a5906c9835857",
+      "bytes": 10373
+    },
+    "backend/laravel/tests/Support/TestEnvironment.php": {
+      "sha256": "030ce573cd7a408a602d1be219ffa124aa8d8a27250fc59f9d86224075e5807a",
+      "bytes": 4200
+    },
+    "backend/laravel/database/migrations/2026_10_25_100005_create_monitoring_access_tables.php": {
+      "sha256": "02098e321fba4f93ef382846736630c551a8deeea1453f884b8526200d584abe",
+      "bytes": 2089
+    },
+    "backend/laravel/tests/Support/TestSchema.php": {
+      "sha256": "118bf39e6c57227baaf0563ed2a1acb9dbc7906c6a0f2601ab7ab528414a9dda",
+      "bytes": 4200
+    },
+    "scripts/test_mysql_integration_gate.py": {
+      "sha256": "4822d729df6420d338a0b90e95e81403c41fc55516763709e24d51cc5c22448b",
+      "bytes": 16118
+    },
+    "evidence/test-results/phase9-p3-migration-rollback-support-summary-20261018.md": {
+      "sha256": "b4596fcf8f13923ceee2d645ec7dfe8db06960f94bf085ec44f0efc40f476e18",
+      "bytes": 1384
+    },
+    "evidence/test-results/phase9-p3-migration-rollback-support-evidence-audit-summary-20261018.md": {
+      "sha256": "2004ab86f8c08ddc4f8d78bd50869f035acaf2f14ffe32d6455540288fc32cfa",
+      "bytes": 1099
+    },
+    "evidence/test-results/dashboard-summary-20261025.md": {
+      "sha256": "c89b85c669e31d968c809a0a3db15aecac0ed7744842cd0a683d01ae505e423c",
+      "bytes": 7674
+    },
+    "backend/laravel/app/Support/DashboardSignalLabel.php": {
+      "sha256": "e2e3b1c78ad11c7c86342f5e96f35a78feb6ad74f3e4ac50ca1178c12ba162a3",
+      "bytes": 685
+    },
+    "backend/laravel/resources/views/monitoring/index.blade.php": {
+      "sha256": "fd5c7c749302c4e58649aa8eb7e9fb75d246339ad14609275cce3729fbeb470c",
+      "bytes": 2947
+    },
+    "backend/laravel/routes/web.php": {
+      "sha256": "54cfa40034b550580068b616f74ad0a4c3ea2fe028ff5bd121483e283ecec82b",
+      "bytes": 1075
+    },
+    "backend/laravel/app/Support/MonitoringFreshness.php": {
+      "sha256": "f2ecaf5bde71f4fba323b8b5fbd43ab94d7dd2ed8cb1f9b8ab55d7a12747f56d",
+      "bytes": 2709
+    },
+    "backend/laravel/app/Http/Controllers/MonitoringController.php": {
+      "sha256": "5fa0b27bb795f1d807663cd8ea62de53a6ff7e6b94ec6c112541705bb8346d2b",
+      "bytes": 4173
+    },
+    "backend/laravel/public/assets/monitoring-freshness.js": {
+      "sha256": "a43011bf7a16584b0637e7f64dfadd583b03007db19cfdb780c6f0aba0b1684a",
+      "bytes": 3638
+    },
+    "backend/laravel/resources/views/monitoring/freshness.blade.php": {
+      "sha256": "8be05437747421510282b011a624b0a00128eb808f44afcab195b88d9e29af92",
+      "bytes": 344
+    },
+    "backend/laravel/tests/Feature/MonitoringExpiryTest.php": {
+      "sha256": "177c3edaa1d1f87702bea8711ba52c49b499475719201e56d6e336c46b20ce62",
+      "bytes": 3030
+    },
+    "scripts/browser_monitoring_probe.js": {
+      "sha256": "19b052a129774d351d16cfbaf16964c922728d6a6edd4eae85bfd6896abb52ed",
+      "bytes": 18551
+    },
+    "scripts/test_monitoring_freshness.js": {
+      "sha256": "8fc6d8fbac7cd1a60a5aa2ddf55fcd9c4e99abc669bfcb4a7c2355aedfb3b7b2",
+      "bytes": 4998
+    },
+    "evidence/test-results/receipt-expiry-summary-20261026.md": {
+      "sha256": "605539225efd22db9b7aa044abfd8f6d76db9a0cad20a2ebd0793b9a56420397",
+      "bytes": 6656
+    },
+    "backend/laravel/resources/views/monitoring/sections/overview.blade.php": {
+      "sha256": "5326506b00e88762feafa558c538933f6e496044b7699ce9d47cc1dee12258fd",
+      "bytes": 534
+    },
+    "backend/laravel/app/Services/DeviceEventReadService.php": {
+      "sha256": "3c6101a3a70ed09241c64d1856bd68224ba870d1fb88cb228ee8252bcff9081c",
+      "bytes": 2203
+    },
+    "backend/laravel/app/Services/MonitoringAccess.php": {
+      "sha256": "da3c4d18e4338040104995e16b1b1d9d492873b87d67458ecdfad258274fc514",
+      "bytes": 1038
+    },
+    "backend/laravel/app/Support/MonitoringEvidence.php": {
+      "sha256": "5b659fc6ece751b42d2efcfae06fd70229976de44ee30a0b4f5966914695ff70",
+      "bytes": 2551
+    },
+    "scripts/audit_precommit_security.py": {
+      "sha256": "e94cb569fe5e2ef347dbf383d5d7590639c55c9ad713f8ef1338cb14e24fbf78",
+      "bytes": 22315
+    },
+    "docs/github-repository-plan.md": {
+      "sha256": "c6c467c8f5a8dba8a2db1da8fc7ba70d4bcd8b79da7a2713de346f3c2b80324a",
+      "bytes": 19429
+    },
+    "scripts/security-reviewed-findings.json": {
+      "sha256": "94351ee8888ddb2683badada6f601636b0c8b32f5e9cd0f8bd663db116df4c30",
+      "bytes": 71904
+    },
+    "evidence/test-results/phase4-closure-summary-20261016.md": {
+      "sha256": "467d17be2bbbd5741e3e9d000d7fff89d136c339da4520f1c743166b47e58fb5",
+      "bytes": 1171
+    },
+    "evidence/test-results/phase9-wave1-sup016-security-review-20261020.txt": {
+      "sha256": "e65cc92b42d688a6fb7fe2a4d0935b0055435f82d4cf00ce12c4c0de173069cd",
+      "bytes": 522
+    },
+    "backend/laravel/app/Services/DeviceTokenAuthenticator.php": {
+      "sha256": "178c1148bb9a7602e8889e8df8c091f36d1c273080be1246e7402d92f7c6af7d",
+      "bytes": 309
+    },
+    "backend/laravel/.env.example": {
+      "sha256": null,
+      "bytes": 1064,
+      "mtime_ns": 1792232440644029600,
+      "qualification": "PROTECTED_TEMPLATE_METADATA_ONLY_NO_CONTENT_READ_OR_HASH"
+    },
+    "backend/laravel/app/Http/Controllers/MonitoringSessionController.php": {
+      "sha256": "277478fd6dd8c0448b440c9ffb78903366aa933aac082416e5eb770d88d4c585",
+      "bytes": 1410
+    },
+    "firmware/sdkconfig.defaults": {
+      "sha256": "3eddf58657fc3648255025a6e33077c38bfac6191d58b22e3f9b5ec030dd264e",
+      "bytes": 454
+    },
+    "evidence/test-results/phase9-p3-security-review-20261018.txt": {
+      "sha256": "6f6f82dadcf59dd25c53fc181250e58891709a358d5e791b5777f8a5e79633d3",
+      "bytes": 2556
+    },
+    "docs/testing/firmware-evidence-index.md": {
+      "sha256": "6a9344ba92c3bf1cdc55323e0c7f8d6d356777098c3c2eb26db562583b341d71",
+      "bytes": 7607
+    },
+    "scripts/test_public_reference_audit.py": {
+      "sha256": "9c13a9f7a2185773811758e3d107b31c34af06610ee882e732fcb271dea5b29d",
+      "bytes": 7377
+    },
+    "evidence/test-results/fault-storage-reference-audit-run1-20261026.json": {
+      "sha256": "08de838db3dc76012e28d5d6039a4327f30b13ffe305d1214697842f216cc916",
+      "bytes": 76665
+    },
+    ".github/workflows/phase9-multi-context-ci.yml": {
+      "sha256": "72d2e58a31c7923634588e46a80fac3d3ae3be493b19f000fe52dc01ab59f896",
+      "bytes": 23755
+    },
+    "scripts/build_esp32_port.py": {
+      "sha256": "1d6c56afcc7d98e0a71569ae0b41d348a2bc46e4efe98a768ee0186dfaca7966",
+      "bytes": 7422
+    },
+    "scripts/test_esp32_build_gate.py": {
+      "sha256": "8d16ae82fbc7ebc3a3aa15960ee709bda176ced31d9b0bb7ce1dcdd3b35f2b79",
+      "bytes": 4413
+    },
+    "scripts/test_offline_state.py": {
+      "sha256": "a48c7c8492965660bb9c14ade18ced58953bbf6deabbbc146b3ac855c58ad85c",
+      "bytes": 9200
+    },
+    "scripts/test_offline_transaction.py": {
+      "sha256": "001306e6b13dfdc051d2a5c3a61c9a70cd1ad45dafc263f50305a6887a7a7d21",
+      "bytes": 7012
+    },
+    "docs/standards/standards-applicability-matrix.md": {
+      "sha256": "ace33ad1841411301e5b2ff80f65d1182be0a96da1179b4fc2fb5f2336cd5f92",
+      "bytes": 10953
+    },
+    "docs/fmea/fmea-prototype.md": {
+      "sha256": "e971aa66c7a69ec3c3ba10650aaaec41d00f135e8737fc7ff0ec29ced17d7762",
+      "bytes": 8626
+    },
+    "docs/adr/0001-repository-naming.md": {
+      "sha256": "b54f21b74fd8ba3f82c3fa59b9460d16fa25cfafa911b924f4e1a39599966dc5",
+      "bytes": 5017
+    },
+    "evidence/test-results/phase9-wave1-sup019-documentation-review-20261021.txt": {
+      "sha256": "451b967b96f7c86ba27d6abdb844df865d59d27865614964bc3baf85971219e3",
+      "bytes": 1176
+    }
+  },
+  "registry_hashes": {
+    "requirements/system-requirements.md": {
+      "sha256": "a60167d9f2a1f852a091048447f6f4acf8d2cbfd6d11f04c2a6e2f6896f5b92b",
+      "bytes": 4945
+    },
+    "requirements/traceability-matrix.csv": {
+      "sha256": "bc1fc7ce697fc6180cab760320de2a1bd814f9bc78731d4a22fdae838c303fe3",
+      "bytes": 6396
+    },
+    "docs/testing/living-requirement-status.csv": {
+      "sha256": "57cfe779f129c1f1bcc41d74c2a9217444f3a1ffb6b193d2a76eaa34c74913f5",
+      "bytes": 44515
+    },
+    "docs/testing/formal-scenario-status.csv": {
+      "sha256": "9ea0db08f41ea37d46e8e1e20fa3ee9874a819c5d5a3d7ef0700c2ece02a1843",
+      "bytes": 2580
+    },
+    "docs/testing/supplemental-verification-plan.csv": {
+      "sha256": "ddfc40d806efc76fa6a0a9bdfe3ccc6492204509e9dce004f3973aaf911a100b",
+      "bytes": 4481
+    }
+  },
+  "requirement_count": 38,
+  "planned_case_count": 34,
+  "database_access": false,
+  "hardware_verification": false,
+  "requirement_approval": "NOT_APPROVED",
+  "parent_head": "2b00013b6936083be18bda72d1d0e563d6482f25",
+  "tool_sha256": "c4bafccf67d5a5a77ca9fedb2676afe91b174fa43430d28e449a45ebcb3dead8",
+  "protocol_path": "docs/testing/formal-public-reference-audit-20261026.md",
+  "protocol_sha256": "0e39c2eedcbe46200d13b1ed519afa7db81d7b5a3b1c544a91e508fc41937e7b"
+}

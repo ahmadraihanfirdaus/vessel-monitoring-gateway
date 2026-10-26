@@ -40,6 +40,17 @@ class MonitoringController extends Controller
             $stale = config('monitoring.stale_after_seconds');
             $offline = config('monitoring.offline_after_seconds');
             $now = CarbonImmutable::now('UTC');
+            // A missing/unreadable optional display asset leaves the explicit
+            // neutral snapshot; it must not prevent authenticated data reads.
+            $freshnessAssetHash = '';
+            try {
+                $asset = public_path('assets/monitoring-freshness.js');
+                if (is_file($asset)) {
+                    $freshnessAssetHash = hash_file('sha256', $asset) ?: '';
+                }
+            } catch (\Throwable) {
+                // No runtime identity or asset failure details reach HTML.
+            }
             $simulationPresentation = SimulationChannelPresentation::enabled($state, config('monitoring.presentation_profile'));
             $demoSections = $simulationPresentation ? SimulationChannelPresentation::sections() : [];
             $sectionChannels = [];
@@ -54,8 +65,10 @@ class MonitoringController extends Controller
 
             return view('monitoring.index', [
                 'deviceId' => $selected->device_id, 'state' => $state, 'health' => $health, 'events' => $events,
-                'sampleFreshness' => MonitoringFreshness::classify($state['received_at'] ?? null, $now, $stale, $offline),
-                'transportFreshness' => MonitoringFreshness::classify($health['last_seen_at'], $now, $stale, $offline),
+                'sampleFreshness' => MonitoringFreshness::display($state['received_at'] ?? null, $now, $stale, $offline),
+                'transportFreshness' => MonitoringFreshness::display($health['last_seen_at'], $now, $stale, $offline),
+                'snapshotAt' => $now->format('Y-m-d H:i:s.u').' UTC',
+                'freshnessAssetHash' => $freshnessAssetHash,
                 'sourceLabel' => DashboardSignalLabel::labels('unknown', $state['source_mode'] ?? '')['source_mode'],
                 'sectionChannels' => $sectionChannels, 'simulationPresentation' => $simulationPresentation,
                 'evidence' => (new MonitoringEvidence())->snapshot(),

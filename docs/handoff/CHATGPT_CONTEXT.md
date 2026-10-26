@@ -1,6 +1,100 @@
 # CHATGPT_CONTEXT - konteks proyek untuk percakapan baru
 
-## Active fault/storage/reference checkpoint (2026-10-26)
+## Current receipt-expiry precommit checkpoint (2026-10-26)
+
+Actual develop HEAD `2b00013b6936083be18bda72d1d0e563d6482f25`; index EMPTY at
+this safe checkpoint. Previous fault/storage/reference batch60files COMMITTED.
+New coherent six-scope UI001 batch UNCOMMITTED; all functional/regression gates
+PASS, working scanner0findings/0privacy. Exact final docs/scope/stage/index/security
+review still required before LOCAL commit. NO PUSH; do not duplicate implementation.
+
+Implemented and tested real open-page receipt expiry LIVE->STALE->OFFLINE without
+polling or value/source/quality/alarm mutation; server conservative millisecond
+budgets; four consistent labels; neutral SNAPSHOT fallback if no script/asset,
+UNKNOWN for invalid/unsafe policy/timing, cache/hide/freeze/rewind; optional asset
+absent on server keeps authenticated snapshot200. External first-party JS with
+narrow CSP; login/list/denials/errors still no script; CSRF/grants/cookies retained.
+Browser timing is not hard real-time or physical measurement freshness; replay
+receipt provenance explicit. Chrome155 fresh owned profile, actual session/CSRF/
+Secure/HttpOnly/Lax, fixed UI-only HTTP localhost to verified HTTPS upstream;
+not deployed browser TLS, graphical operator acceptance or hardware evidence.
+
+Actual PHP8.2.35/Laravel12.70.0/approved MariaDB10.4.32 target
+127.0.0.1:3307/vessel_gateway_codex_test/vgw_codex:388PASS/0FAIL/0SKIP, receipt
+crosscheck and independent10tables/6migrations/0app-row final postflight PASS.
+No migration/schema/main dotenv/DB or firmware changes. Actual current TLS215,
+Chrome expiry/fallback,246/246regression commands/core226repeat2, Node13unit groups,
+bridge8guards, HTTP24lifecycle and MySQL32guards PASS. Earlier failures retained:
+form Origin:null admission/selector/module/old CSS/source-guard expectations and
+scanner encoding/pins. Intermittent pre-fixture relay TimeoutError root cause not
+inferred; bounded read-only startup admission60sec still requires healthy200,
+per-request/race15sec bounds retained; exact-context patch mistakes corrected.
+
+Current source proofs: HTTPfd71a424a51b5999385504e4b1dc2af1016d1b477cab3357a1432285f6180ee7;
+MySQL445025acd4df90ada8af97ebfc3ef3a8e4da02287cb10df89f1d5df1f1a6cc12;
+firmware/SDK a0a0eac0809da2b9be93c67a8347c3f50766b3bed163ec7d42a1e4b86fb8bf95
+unchanged/matches two committed actual SDK builds, no hardware or rebuild claim.
+Evidence: evidence/test-results/receipt-expiry-summary-20261026.md,
+normal-exact-scope-final/browser-exact-scope-final/mysql-final/integrated-regression-final,
+source-proof/security-triage/security-working-final/encoding-review/reference-audit
+(all receipt-expiry-20261026family). Detailed complete38matrix below and living CSV.
+Current reference checkpoint38requirements/34cases/163refs PASS; latest inventory
+at final docs checkpoint can differ. Both handoffs physically saved in repository.
+
+All current diff is owned UI/test/tool/CI/evidence/docs WIP; exact inventory will
+be evidence/test-results/receipt-expiry-files-20261026.csv. Preserve protected
+AGENTS.md and two firmware untracked byte-for-byte, old metadata stat-cache evidence
+byte-equal/excluded. Requirements LOCKED/migrations unchanged. Removed0/welcome
+DEFERRED. Latest Verified Safe Cleanup policy supersedes Goal rule11 only; no
+cleanup scope here. Preserve original38 and full previous commits/evidence.
+
+Formal32PASS/2PARTIAL/4NOT_RUN; implementation22UNVERIFIED/16PARTIAL. SIM12PASS/
+3NOT_RUN, SUP18PASS/1PLANNED. SIM010/012/013 and SUP018, physical ESP32/RTOS/NVS/
+powerloss/wear/fullheap/callstack/timing/currentWokwi/hostedCI/deployedTLS,
+directMySQL8/POSIX/graphical operator acceptance NOT_RUN/PLANNED. SystemPARTIAL/
+finalNOT_APPROVED. No requirement VERIFIED. Continue remaining local software Goal:
+final exact local commit only all gates PASS, immediately update BOTH handoffs
+with actual resulting HEAD and uncommitted context, then targeted remaining-scope
+assessment against roadmap/dependencies. Do not stop at this document or one commit.
+
+
+## Historical fault/storage/reference postcommit checkpoint2b00013 (2026-10-26)
+
+Actual branch develop, HEAD `2b00013b6936083be18bda72d1d0e563d6482f25` (2b00013). Seven-scope batch committed60
+exact files after ALL mandatory local gates PASS. Final read-only staged scanner
+0findings/0privacy; exact60blobs/index/worktree/manifest equality PASS. Postcommit
+60/60committed paths/blobs/manifest/worktree equality PASS, index EMPTY. NO PUSH.
+Both handoffs are saved and automatically updated AFTER commit; these context
+edits are explicit next-batch WIP, never unfinished fault/storage implementation.
+Requirements LOCKED, all6used migrations and three protected untracked files
+unchanged; old metadata stat-cache entries byte-identical/excluded. Removed0,
+welcome DEFERRED/present/unchanged. All source and test/evidence files below are
+COMMITTED; earlier pending precommit descriptions are historical.
+
+Actual current382PHP/0fail/0skip,215realTLSchecks,241broad commands,32MySQL guards,
+12reference guards/38requirement34case157reference audit,11native fault/file tests,
+G1 64/G2 2/core226repeat2 and scoped receipt/owner regressions PASS. Exact empty
+approved catalog after suite verified, public source stable. Four case admissions
+SIM011/SUP013/SUP014/SUP017; formal32PASS/2PARTIAL/4NOT_RUN, implementation unchanged
+22UNVERIFIED/16PARTIAL. Hardware/runtime/hostedCI/deployedTLS and SIM010/012/013/
+SUP018 remain unperformed; systemPARTIAL/finalNOT_APPROVED, no VERIFIED claim.
+
+Next targeted residual UI001 audit is authorized and has only read source/tool
+availability so far, NO new runtime edit or browser launch. Current controller
+classifies receipt at authenticated GET; Blade has no script/timer, age/status
+remain static in an already-open document. Primary dashboard contract specifies
+manual authenticated refresh, no fabricated live feed. Assess display expiry/
+clear snapshot provenance while respecting that contract; do not invent physical
+measurement time, automatic data updates or a new locked requirement.
+Node22.20.0 is installed, native WebSocket exists; local Chrome and Edge binaries
+present, Playwright/Puppeteer/jsdom not found. Availability is not browser PASS.
+Actual browser/component verification should use a fresh owned test profile,
+approved isolated backend fixtures and strict upstream TLS; no certificate bypass,
+personal browser profile, main dotenv/DB, global PATH or production change. Review
+new coherent scope/protocol before execution. Continue Goal beyond this checkpoint.
+
+
+## Historical precommit fault/storage/reference checkpoint (now committed2b00013)
 
 Actual/current parent develop777d762be36f9e778b9dd259476a28d42393e39f, index
 60exact files STAGED for final commit checkpoint. Previous data/UI54file batch is COMMITTED/verified.
@@ -159,7 +253,7 @@ integration and SUP014 approved-target schema roundtrip/protocol; actual bugs
 first. SUP017 independent coverage review/SUP018 hostedCI and hardware-dependent
 SIM010/012/013 remain separate. NO PUSH; no repeated full baseline audit.
 
-## Authoritative current checkpoint and cleanup policy (2026-10-26)
+## Historical cleanup-policy checkpoint0507fc9 (2026-10-26)
 
 Actual branch develop, HEAD `0507fc90b63aea8aec3ee32a722a38e25c5d3147`; index EMPTY.
 Provider/navigation batch committed44exact files. Postcommit44/44 committed blob/
@@ -458,7 +552,7 @@ Authoritative LOCKED baseline stays unchanged. Formal status follows actual cano
 | NET-002: Offline mode shall preserve latest state and critical event journal within bounded storage. | PARTIAL | PASS / SUP-013 | firmware/src/core_event_journal.h;firmware/src/core_runtime_guard.h;firmware/src/main.c;firmware/src/offline_state.h;firmware/src/offline_transaction.h;firmware/src/esp32_offline_store.c;firmware/src/domain_snapshot.h;firmware/src/continuous_simulation.h;firmware/src/esp32_continuous_main.h;firmware/src/alarm_transition.h;backend/laravel/tests/Feature/AlarmMetadataIntegrationTest.php;backend/laravel/database/migrations/2026_10_25_100006_add_alarm_metadata_to_monitoring_events.php;firmware/src/offline_replay.h;backend/laravel/tests/Feature/RecoveredReplayIntegrationTest.php;firmware/src/event_delivery.h;firmware/src/offline_retirement.h;backend/laravel/app/Support/EventCommitReceipt.php;scripts/offline_bounded_file_fixture.c;scripts/formal_offline_file.py;scripts/host_offline_file_io.h / evidence/test-results/firmware-core-c4-wokwi-20261013.md;evidence/test-results/esp32-transport-summary-20261025.md;evidence/test-results/offline-nvs-summary-20261025.md;evidence/test-results/continuous-simulation-summary-20261025.md;evidence/test-results/alarm-metadata-summary-20261025.md;evidence/test-results/recovered-replay-summary-20261026.md;evidence/test-results/event-receipt-summary-20261026.md;evidence/test-results/fault-storage-case-review-20261026.md | SUP-013 dedicated actual native/host-file integration PASS:72generations, two bounded slots3332/3344bytes, original8critical bootA facts/metadata retained while latest bootB sequence8 advances. Full refusal diagnostics RAM166/disk51 recorded, no guaranteed total retention. Older-file corruption preserves latest, healthy reopen after restoring only owned test byte. Host commit/reopen is not physical ESP32/NVS/power-loss durability; implementation remains PARTIAL. |
 | API-001: Laravel API shall validate authentication, schema, payload size, device identity and value contracts. | PARTIAL | PASS / SIM-015 | backend/laravel/routes/api.php;backend/laravel/app/Http/Controllers/Api/TelemetryIngestController.php;backend/laravel/app/Http/Middleware/AuthenticateDeviceToken.php;backend/laravel/app/Http/Middleware/EnsureTelemetryPayloadSize.php;backend/laravel/app/Http/Requests/TelemetryIngestRequest.php;backend/laravel/app/Http/Requests/EventIngestRequest.php;backend/laravel/tests/Feature/FirmwareMySqlIntegrationTest.php;scripts/run_live_http_integration.py;backend/laravel/tests/Support/LiveHttpSafety.php;firmware/src/domain_snapshot.h;firmware/src/continuous_simulation.h;backend/laravel/tests/Feature/ContinuousSimulationIntegrationTest.php;firmware/src/alarm_transition.h;backend/laravel/tests/Feature/AlarmMetadataIntegrationTest.php;firmware/src/offline_replay.h;backend/laravel/tests/Feature/RecoveredReplayIntegrationTest.php;firmware/src/event_delivery.h;firmware/src/offline_retirement.h;backend/laravel/app/Support/EventCommitReceipt.php;scripts/data_ui_contracts.py;scripts/run_formal_data_native.py;scripts/review_formal_data_ui.py / evidence/test-results/phase9-p3-runtime-http-evidence-audit-summary-20261018.md;evidence/test-results/phase9-p3-securityfix-feature-tests-audit-summary-20261018.md;evidence/test-results/mysql-integration-gate-20261025.md;evidence/test-results/mariadb-integration-summary-20261025.md;evidence/test-results/security-php8235-summary-20261025.md;evidence/test-results/live-http-summary-20261025.md;evidence/test-results/continuous-simulation-summary-20261025.md;evidence/test-results/alarm-metadata-summary-20261025.md;evidence/test-results/recovered-replay-summary-20261026.md;evidence/test-results/event-receipt-summary-20261026.md;evidence/test-results/data-ui-case-review-20261026.md | SIM-015 actual local backend HTTP case PASS with fresh otherwise-valid401/401 and directDB0before/after; existing schema/size/device/value and negative security regression gates PASS. PHP8.2.35 and approved MariaDB only. No production/main DB or deployed TLS claim. |
 | DB-001: All schema changes shall use Laravel migrations; no manual database shortcut is accepted. | PARTIAL | PASS / SUP-014 | backend/laravel/database/migrations/2026_10_17_100001_create_devices_table.php;backend/laravel/database/migrations/2026_10_17_100002_create_telemetry_samples_table.php;backend/laravel/database/migrations/2026_10_17_100003_create_telemetry_channels_table.php;backend/laravel/database/migrations/2026_10_18_100004_create_monitoring_events_table.php;scripts/run_mysql_integration.py;backend/laravel/tests/Support/TestEnvironment.php;backend/laravel/database/migrations/2026_10_25_100005_create_monitoring_access_tables.php;backend/laravel/tests/Support/TestSchema.php;firmware/src/alarm_transition.h;backend/laravel/tests/Feature/AlarmMetadataIntegrationTest.php;backend/laravel/database/migrations/2026_10_25_100006_add_alarm_metadata_to_monitoring_events.php;firmware/src/offline_state.h;scripts/run_mysql_integration.py;scripts/test_mysql_integration_gate.py / evidence/test-results/phase9-p3-migration-rollback-support-summary-20261018.md;evidence/test-results/phase9-p3-migration-rollback-support-evidence-audit-summary-20261018.md;evidence/test-results/mysql-integration-gate-20261025.md;evidence/test-results/mariadb-integration-summary-20261025.md;evidence/test-results/security-php8235-summary-20261025.md;evidence/test-results/dashboard-summary-20261025.md;evidence/test-results/alarm-metadata-summary-20261025.md;evidence/test-results/fault-storage-case-review-20261026.md | SUP-014 dedicated actual guarded Laravel6migration rollback/apply/reapply PASS on approved127.0.0.1:3307/vessel_gateway_codex_test/vgw_codex/MariaDB10.4.32 with explicit PHP8.2.35 and ephemeral valid process key. Current382tests/0fail/0skip and independent final catalog10tables/6records/0app rows PASS; public source stable. Historical protocol target explicitly revised by dated execution protocol without editing old pinned matrix. No manual DDL/mainDB/directMySQL8 approval. |
-| UI-001: Dashboard shall distinguish live, stale, offline and simulation states visibly. | IMPLEMENTED_UNVERIFIED | NOT_RUN / SIM-010 | backend/laravel/app/Support/DashboardSignalLabel.php;backend/laravel/resources/views/monitoring/index.blade.php;backend/laravel/routes/web.php;backend/laravel/app/Support/MonitoringFreshness.php;backend/laravel/app/Http/Controllers/MonitoringController.php;scripts/run_live_http_integration.py;backend/laravel/tests/Support/LiveHttpSafety.php;firmware/src/domain_snapshot.h;firmware/src/continuous_simulation.h;backend/laravel/tests/Feature/ContinuousSimulationIntegrationTest.php / evidence/test-results/mysql-integration-gate-20261025.md;evidence/test-results/dashboard-summary-20261025.md;evidence/test-results/live-http-summary-20261025.md;evidence/test-results/continuous-simulation-summary-20261025.md | Local software: visible LIVE/STALE/OFFLINE and source badges from granted MariaDB data; independent sample/transport ages, invalid/unconfigured policy UNKNOWN, null/zero preserved. 325-test suite PASS; freshness intervals are explicit configuration, not assumed engineering limits. SIM-010 remains NOT_RUN; no deployed browser/TLS/hardware approval. Real HTTP cookie/form client reads connected SIMULATION/LIVE and valid-zero HTML; graphical browser rendering and SIM-010 remain NOT_RUN. Continuous simulation continuation adds typed full-domain 1.1 snapshots and local/native/isolated backend evidence; v1.0 compatibility and formal statuses remain unchanged. See latest summary for scoped gates and hardware limits. |
+| UI-001: Dashboard shall distinguish live, stale, offline and simulation states visibly. | IMPLEMENTED_UNVERIFIED | NOT_RUN / SIM-010 | backend/laravel/app/Support/DashboardSignalLabel.php;backend/laravel/resources/views/monitoring/index.blade.php;backend/laravel/routes/web.php;backend/laravel/app/Support/MonitoringFreshness.php;backend/laravel/app/Http/Controllers/MonitoringController.php;scripts/run_live_http_integration.py;backend/laravel/tests/Support/LiveHttpSafety.php;firmware/src/domain_snapshot.h;firmware/src/continuous_simulation.h;backend/laravel/tests/Feature/ContinuousSimulationIntegrationTest.php;backend/laravel/public/assets/monitoring-freshness.js;backend/laravel/resources/views/monitoring/freshness.blade.php;backend/laravel/tests/Feature/MonitoringExpiryTest.php;scripts/browser_monitoring_probe.js;scripts/test_monitoring_freshness.js / evidence/test-results/mysql-integration-gate-20261025.md;evidence/test-results/dashboard-summary-20261025.md;evidence/test-results/live-http-summary-20261025.md;evidence/test-results/continuous-simulation-summary-20261025.md;evidence/test-results/receipt-expiry-summary-20261026.md | Local software visibly distinguishes receipt-policy LIVE/STALE/OFFLINE and source modes. Actual Chrome155 reproduced static open-page LIVE then manual-refresh OFFLINE; current display-only expiry progresses LIVE to STALE to OFFLINE without polling. Neutral SNAPSHOT fallback for no script/blocked asset, UNKNOWN for missing/invalid/rewound timing or cached/hidden/frozen document. Four labels agree; values/quality/zero/null/source/alarm and manual GET unchanged. Actual isolated PHP8.2.35/MariaDB388/0fail/0skip and browser component evidence are dated; browser edge HTTP localhost to strictly verified HTTPS upstream is not deployed browser TLS. Browser timers are not physical measurement freshness, hard real-time or formal SIM-010 proof; SIM-010 remains NOT_RUN and implementation remains UNVERIFIED. See batch summary for exact current gate/source state and retained harness failures. |
 | UI-002: Dashboard shall provide overview, safety, propulsion, navigation, power, alarms/events, device health and test evidence views. | IMPLEMENTED_UNVERIFIED | PASS / SUP-015 | backend/laravel/resources/views/monitoring/index.blade.php;backend/laravel/resources/views/monitoring/sections/overview.blade.php;backend/laravel/app/Services/DeviceEventReadService.php;backend/laravel/app/Services/MonitoringAccess.php;backend/laravel/app/Support/MonitoringEvidence.php;scripts/run_live_http_integration.py;backend/laravel/tests/Support/LiveHttpSafety.php;firmware/src/domain_snapshot.h;firmware/src/continuous_simulation.h;backend/laravel/tests/Feature/ContinuousSimulationIntegrationTest.php;firmware/src/alarm_transition.h;backend/laravel/tests/Feature/AlarmMetadataIntegrationTest.php;firmware/src/offline_replay.h;backend/laravel/tests/Feature/RecoveredReplayIntegrationTest.php;scripts/data_ui_contracts.py;scripts/run_formal_data_native.py;scripts/review_formal_data_ui.py / evidence/test-results/mysql-integration-gate-20261025.md;evidence/test-results/device-read-summary-20261025.md;evidence/test-results/dashboard-summary-20261025.md;evidence/test-results/live-http-summary-20261025.md;evidence/test-results/continuous-simulation-summary-20261025.md;evidence/test-results/alarm-metadata-summary-20261025.md;evidence/test-results/recovered-replay-summary-20261026.md;evidence/test-results/data-ui-case-review-20261026.md | SUP-015 read-only FUNCTIONAL_REVIEW/NO_DB_WRITE PASS for actual authenticated/granted eight-section semantic/hash evidence with connected data, quality, provenance and freshness. Producer separately writes approved owned test DB/session fixtures; reviewer performs no DB access. Secure project root entry and5retained regressions PASS. Graphical/deployed browser verification remains NOT_RUN. |
 | SEC-001: No production secret, real operational route or coordinate, radio frequency, credential, or confidential vessel detail shall be committed to public GitHub. | PARTIAL | PASS / SUP-016 | scripts/audit_precommit_security.py;docs/github-repository-plan.md;scripts/security-reviewed-findings.json / evidence/test-results/phase4-closure-summary-20261016.md;evidence/test-results/phase9-wave1-sup016-security-review-20261020.txt;evidence/test-results/security-php8235-summary-20261025.md | Public-repository security review SUP-016 PASS within reviewed scope; no production security or deployment approval claimed. PHP 8.2.35 continuation: 215 tests and verified migration roundtrip PASS; content security scan has zero unresolved findings/privacy warnings with exact reviewed non-secret/author metadata pins. No hosted CI, direct MySQL 8, TLS or new formal verification claimed. |
 | SEC-002: Demo API shall use HTTPS/authentication and secrets shall be external to source code. | PARTIAL | PASS / SIM-015 | backend/laravel/routes/api.php;backend/laravel/app/Http/Middleware/AuthenticateDeviceToken.php;backend/laravel/app/Services/DeviceTokenAuthenticator.php;backend/laravel/.env.example;backend/laravel/app/Services/MonitoringAccess.php;backend/laravel/app/Http/Controllers/MonitoringSessionController.php;firmware/src/esp32_network_client.c;firmware/sdkconfig.defaults;firmware/src/esp32_offline_store.c;scripts/run_live_http_integration.py;backend/laravel/tests/Support/LiveHttpSafety.php;firmware/src/event_delivery.h;firmware/src/offline_retirement.h;backend/laravel/app/Support/EventCommitReceipt.php;scripts/data_ui_contracts.py;scripts/run_formal_data_native.py;scripts/review_formal_data_ui.py / evidence/test-results/phase9-p3-security-review-20261018.txt;evidence/test-results/phase9-p3-securityfix-feature-tests-audit-summary-20261018.md;evidence/test-results/security-php8235-summary-20261025.md;evidence/test-results/dashboard-summary-20261025.md;evidence/test-results/esp32-transport-summary-20261025.md;evidence/test-results/offline-nvs-summary-20261025.md;evidence/test-results/live-http-summary-20261025.md;evidence/test-results/event-receipt-summary-20261026.md;evidence/test-results/data-ui-case-review-20261026.md | SIM-015 actual private loopback TLS/authentication case PASS, including CA/hostname/no-downgrade, fresh unauthorized no-acceptance and no secret echo. Secrets remain external/process-generated, scanner/manual gates required. Physical/deployed TLS, hardware key/storage and production readiness remain NOT_RUN. |
@@ -611,3 +705,8 @@ These source/docs/tests/evidence paths are now committed0507fc9; they are not un
 - `scripts/test_formal_provider_verification.py`
 
 Protected three untracked files and byte-identical old metadata stat-cache entries remain excluded. Current nav source has fresh matching SDK/HTTP proofs. Encoding restoration has exact before/after SHA inventory; no LOCKED/user file changed.
+
+Late exact-scope review removed only an unused diagnostic local from the unchanged
+race helper after the246command PASS. Current TLS215 and Chrome reran PASS on
+sourcefd71a424..., plus4targeted HTTP24/UI002/evidence/reference guard groups PASS
+in receipt-expiry-final-scope-docs-delta-20261026.txt. No production behavior change.

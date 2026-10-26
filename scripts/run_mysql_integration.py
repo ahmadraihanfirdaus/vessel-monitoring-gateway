@@ -43,6 +43,7 @@ def source_snapshot():
     paths += [base/'bootstrap/app.php', base/'composer.json', base/'composer.lock', base/'phpunit.xml']
     for directory in ('app', 'config', 'routes', 'resources/views', 'database/migrations', 'tests'):
         paths += list((base/directory).rglob('*.php'))
+    paths += list((base/'public/assets').glob('*.js'))
     for path in sorted(set(paths)):
         if (path.is_symlink() or not path.resolve().is_relative_to(ROOT) or not path.is_file()
                 or path.name.startswith('.env') or path.stat().st_size > 1024*1024):

@@ -1,0 +1,32 @@
+{
+  "parent_head": "2b00013b6936083be18bda72d1d0e563d6482f25",
+  "source_sha256": {
+    "http": "fd71a424a51b5999385504e4b1dc2af1016d1b477cab3357a1432285f6180ee7",
+    "mysql": "445025acd4df90ada8af97ebfc3ef3a8e4da02287cb10df89f1d5df1f1a6cc12",
+    "firmware_sdk": "a0a0eac0809da2b9be93c67a8347c3f50766b3bed163ec7d42a1e4b86fb8bf95"
+  },
+  "protected_sha256_unchanged": {
+    "AGENTS.md": "421e2b5d5748cf5e4bdac3c189223915850c8894688a7e3ffd090975aa87864b",
+    "firmware/.gitignore": "d952abf002d5e1ec80c8ab1bfc9f38eb5b62fc310667d501cb2ce9f21c3effb2",
+    "firmware/.vscode/extensions.json": "31cc8f05084d96b65be8f147533017c7a1b89b055d85886a2e4ab3ce532f34fb"
+  },
+  "implementation": {
+    "PARTIAL": 16,
+    "IMPLEMENTED_UNVERIFIED": 22
+  },
+  "formal": {
+    "PASS": 32,
+    "NOT_RUN": 4,
+    "PARTIAL": 2
+  },
+  "hardware": "NOT_RUN",
+  "deployed_tls": "NOT_RUN",
+  "repository_deletions": 0,
+  "earlier_point_in_time_sha256": {
+    "http": "03b0a3322d8a148c936455154a8af79b76180ddb836ca1ba36917cde50c72a1d",
+    "mysql": "f302bf3bebe3062d81588d00eb3aa25eee068ba76cd46aafd830cbf691f64772",
+    "firmware_sdk": "a0a0eac0809da2b9be93c67a8347c3f50766b3bed163ec7d42a1e4b86fb8bf95"
+  },
+  "current_gate_binding": "PASS_HTTP215_BROWSER_FALLBACK_MYSQL388_LATE_UNUSED_LOCAL_REMOVAL_AND_DELTA4",
+  "preceding_checked_http_sha256": "96df025be3231514f5bc4b7853aeb713367ad939bee0e319800ed2e0e4cc3010"
+}

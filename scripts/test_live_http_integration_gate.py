@@ -28,7 +28,7 @@ class LiveHttpGateTest(unittest.TestCase):
     def result(code=0, output=''):
         return subprocess.CompletedProcess([], code, output, '')
 
-    def invoke(self, args, results, fixture=None, live=False, suite_error=None, snapshots=None):
+    def invoke(self, args, results, fixture=None, live=False, suite_error=None, snapshots=None, ready_status=200):
         with ExitStack() as stack:
             stack.enter_context(patch.object(sys, 'argv', ['live-test', '--php-binary', 'synthetic-php', *args]))
             command = stack.enter_context(patch.object(gate, 'php_run', side_effect=results))
@@ -52,7 +52,7 @@ class LiveHttpGateTest(unittest.TestCase):
                 proxy.return_value.server_port = 23456
                 stack.enter_context(patch.object(gate.threading, 'Thread'))
                 client = stack.enter_context(patch.object(gate, 'Client'))
-                client.return_value.request.return_value = (200, {}, b'')
+                client.return_value.request.return_value = (ready_status, {}, b'')
                 popen.return_value.poll.return_value = None
             output = io.StringIO()
             with redirect_stdout(output):
@@ -114,6 +114,23 @@ class LiveHttpGateTest(unittest.TestCase):
         self.assertEqual(command.call_count, 1)
         builder.assert_not_called(); popen.assert_not_called(); suite.assert_not_called()
         self.assertIn('BLOCKED_PREFLIGHT_NO_FIXTURES', output)
+
+    def test_readiness_failure_never_prepares_database_fixture_even_after_server_launch(self):
+        with patch.object(gate.time, 'monotonic', side_effect=[0, 0, 61]):
+            code, command, _, _, suite, output = self.invoke(['--execute'], [self.result()] * 2,
+                live=True, ready_status=502)
+        self.assertEqual(code, 1)
+        self.assertEqual(command.call_count, 2)  # readonly preflight and TLS cert, no prepare/cleanup
+        self.assertFalse(any('--prepare' in call.args[2] for call in command.call_args_list))
+        suite.assert_not_called()
+        self.assertIn('FAIL_REAL_LOOPBACK_TLS_AND_PHP_READY', output)
+
+    def test_startup_admission_can_wait_past_fifteen_seconds_without_relaxing_readiness_success(self):
+        with patch.object(gate.time, 'monotonic', side_effect=[0, 20]):
+            code, command, _, _, suite, output = self.invoke(['--execute'], [self.result()] * 4, live=True)
+        self.assertEqual(code, 0)
+        suite.assert_called_once()
+        self.assertIn('PASS_LOCAL_ONLY_HARDWARE_DEPLOYED_TLS_NOT_RUN', output)
 
     def test_failed_c99_assertion_is_fail_and_precedes_any_fixture_mutation(self):
         code, command, _, popen, suite, output = self.invoke(['--execute'], [self.result()], fixture=AssertionError('synthetic'))
