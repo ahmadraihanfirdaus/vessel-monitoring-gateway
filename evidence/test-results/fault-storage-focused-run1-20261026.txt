@@ -1,0 +1,90 @@
+COMMAND=python -B scripts/run_formal_fault_storage.py --execute
+FAULT_STORAGE_RECORD={"cases": ["SIM-011", "SUP-013"], "database_access": false, "fault": {"channels_per_frame": 44, "database_access": false, "frames": 4, "invalid_frames": 2, "last_engine_1_rpm": 2003, "last_temperature": 30, "physical_acquisition": false, "shared_bus_fault": false, "unaffected_current_channels": 43, "wire_sha256": "275d17943d9d808075c7fe7ed933b7c7e0495d01badb8b8694d2f9e13813ed8d"}, "offline": {"current_confirmed_floor": 0, "database_access": false, "disk_rejected": 51, "generation": 72, "latest_boot": "bounded-boot-b", "latest_sequence": 8, "older_corruption_preserved_latest": true, "original_boot": "bounded-boot-a", "original_metadata_unchanged": true, "physical_durability": false, "ram_rejected": 166, "retained": 8, "slot_bytes": [3332, 3344], "slot_sha256": ["73e0a66603434684eeb1578f39c8765c58b1d6596d5f696734ed980bb6f757ef", "686a0962080125b5cf093da831ce44d697783c35187fec2684c15b1a9ffcd554"]}, "physical_durability": false, "source_sha256": "9c3a6f4b767fc6a557ddbdbb3d1be7d6626cce5455d0ae5317dba4b073834397"}
+FAULT_STORAGE=PASS_ACTUAL_C99_HOST_FILE_ONLY
+
+EXIT=0
+COMMAND=python -B scripts/test_formal_fault_storage.py
+...........
+----------------------------------------------------------------------
+Ran 11 tests in 1.869s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_event_retirement_file.py
+test_actual_file_reopen_old_current_forgery_capacity_and_monotonic_new_fact (__main__.RetirementFileTest.test_actual_file_reopen_old_current_forgery_capacity_and_monotonic_new_fact) ... ok
+test_existing_binary_cannot_be_overwritten (__main__.RetirementFileTest.test_existing_binary_cannot_be_overwritten) ... ok
+test_existing_slot_bad_identity_phase_and_bounds_refuse_without_child_process (__main__.RetirementFileTest.test_existing_slot_bad_identity_phase_and_bounds_refuse_without_child_process) ... ok
+test_unowned_root_cannot_compile_or_change_files (__main__.RetirementFileTest.test_unowned_root_cannot_compile_or_change_files) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 1.178s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_event_delivery.py
+test_bad_completion_floor_or_generation_retains_exact_ram_fact (__main__.EventDeliveryTest.test_bad_completion_floor_or_generation_retains_exact_ram_fact) ... ok
+test_genuine_crypto_rejection_is_not_an_ack (__main__.EventDeliveryTest.test_genuine_crypto_rejection_is_not_an_ack) ... ok
+test_missing_truncated_or_wrong_media_receipt_retains_facts_and_halts_only_events (__main__.EventDeliveryTest.test_missing_truncated_or_wrong_media_receipt_retains_facts_and_halts_only_events) ... ok
+test_only_genuine_durable_receipt_releases_exact_prefix_and_preserves_active_alarm (__main__.EventDeliveryTest.test_only_genuine_durable_receipt_releases_exact_prefix_and_preserves_active_alarm) ... ok
+test_recovered_current_predecessor_overrides_alternation_without_skipping_other_boot (__main__.EventDeliveryTest.test_recovered_current_predecessor_overrides_alternation_without_skipping_other_boot) ... ok
+test_recovery_prerequisites_reschedule_and_epoch_prevents_wrong_view_rewind (__main__.EventDeliveryTest.test_recovery_prerequisites_reschedule_and_epoch_prevents_wrong_view_rewind) ... ok
+test_tags_single_inflight_and_unrelated_completions_cannot_release (__main__.EventDeliveryTest.test_tags_single_inflight_and_unrelated_completions_cannot_release) ... ok
+test_uncertain_io_never_frees_ram_and_allows_bounded_unretired_publication (__main__.EventDeliveryTest.test_uncertain_io_never_frees_ram_and_allows_bounded_unretired_publication) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 4.583s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_mysql_integration_gate.py
+................usage: gate [-h] [--execute] [--migration-roundtrip] [--testing-env]
+            [--php-binary PHP_BINARY] [--existing-schema] [--upgrade-previous]
+gate: error: --upgrade-previous requires --execute --existing-schema
+usage: gate [-h] [--execute] [--migration-roundtrip] [--testing-env]
+            [--php-binary PHP_BINARY] [--existing-schema] [--upgrade-previous]
+gate: error: --upgrade-previous requires --execute --existing-schema
+...........
+----------------------------------------------------------------------
+Ran 27 tests in 0.139s
+
+OK
+
+EXIT=0
+COMMAND=python -B scripts/test_live_http_integration_gate.py
+test_arbitrary_temporary_directory_is_never_removed (__main__.LiveHttpGateTest.test_arbitrary_temporary_directory_is_never_removed) ... ok
+test_blocked_cleanup_cannot_be_a_pass_and_retains_lease_without_private_key (__main__.LiveHttpGateTest.test_blocked_cleanup_cannot_be_a_pass_and_retains_lease_without_private_key) ... ok
+test_default_is_read_only_and_conflicting_connection_overrides_are_preserved (__main__.LiveHttpGateTest.test_default_is_read_only_and_conflicting_connection_overrides_are_preserved) ... ok
+test_failed_alarm_c99_build_precedes_live_fixture_mutation (__main__.LiveHttpGateTest.test_failed_alarm_c99_build_precedes_live_fixture_mutation) ... ok
+test_failed_c99_assertion_is_fail_and_precedes_any_fixture_mutation (__main__.LiveHttpGateTest.test_failed_c99_assertion_is_fail_and_precedes_any_fixture_mutation) ... ok
+test_failed_domain_c99_build_precedes_any_live_fixture (__main__.LiveHttpGateTest.test_failed_domain_c99_build_precedes_any_live_fixture) ... ok
+test_failed_network_case_stops_owned_process_and_cleans_only_through_guard (__main__.LiveHttpGateTest.test_failed_network_case_stops_owned_process_and_cleans_only_through_guard) ... ok
+test_failed_recovered_replay_build_never_prepares_live_database_fixture (__main__.LiveHttpGateTest.test_failed_recovered_replay_build_never_prepares_live_database_fixture) ... ok
+test_fixture_write_requires_execute_before_any_environment_or_database_boot (__main__.LiveHttpGateTest.test_fixture_write_requires_execute_before_any_environment_or_database_boot) ... ok
+test_formal_read_only_audit_never_accepts_arbitrary_action_or_missing_lease (__main__.LiveHttpGateTest.test_formal_read_only_audit_never_accepts_arbitrary_action_or_missing_lease) ... ok
+test_native_receipt_bridge_never_overwrites_existing_binary (__main__.LiveHttpGateTest.test_native_receipt_bridge_never_overwrites_existing_binary) ... ok
+test_native_receipt_bridge_refuses_unowned_root_without_compiler_or_file_changes (__main__.LiveHttpGateTest.test_native_receipt_bridge_refuses_unowned_root_without_compiler_or_file_changes) ... ok
+test_native_receipt_verifier_compile_failure_precedes_live_database_mutation (__main__.LiveHttpGateTest.test_native_receipt_verifier_compile_failure_precedes_live_database_mutation) ... ok
+test_race_barrier_failure_cannot_release_or_leave_a_live_worker (__main__.LiveHttpGateTest.test_race_barrier_failure_cannot_release_or_leave_a_live_worker) ... ok
+test_race_helper_refuses_an_unowned_temporary_root_before_process_or_file_changes (__main__.LiveHttpGateTest.test_race_helper_refuses_an_unowned_temporary_root_before_process_or_file_changes) ... ok
+test_real_php_race_fixture_requires_execute_before_bootstrap_or_environment (__main__.LiveHttpGateTest.test_real_php_race_fixture_requires_execute_before_bootstrap_or_environment) ... ok
+test_rejected_preflight_never_builds_launches_or_prepares_fixtures (__main__.LiveHttpGateTest.test_rejected_preflight_never_builds_launches_or_prepares_fixtures) ... ok
+test_response_leak_guard_also_covers_per_request_unknown_bearer (__main__.LiveHttpGateTest.test_response_leak_guard_also_covers_per_request_unknown_bearer) ... ok
+test_retirement_driver_compile_failure_precedes_server_and_database_fixtures (__main__.LiveHttpGateTest.test_retirement_driver_compile_failure_precedes_server_and_database_fixtures) ... ok
+test_second_race_process_spawn_failure_stops_and_closes_the_first (__main__.LiveHttpGateTest.test_second_race_process_spawn_failure_stops_and_closes_the_first) ... ok
+test_source_change_cannot_be_certified_by_successful_requests_and_cleanup (__main__.LiveHttpGateTest.test_source_change_cannot_be_certified_by_successful_requests_and_cleanup) ... ok
+test_unavailable_tls_prerequisite_blocks_before_server_or_database_fixtures (__main__.LiveHttpGateTest.test_unavailable_tls_prerequisite_blocks_before_server_or_database_fixtures) ... ok
+
+----------------------------------------------------------------------
+Ran 22 tests in 0.631s
+
+OK
+
+EXIT=0
+COMMAND=C:/tools/php-8.2.35/php.exe -l backend/laravel/tests/Feature/SingleChannelFaultIntegrationTest.php
+No syntax errors detected in backend/laravel/tests/Feature/SingleChannelFaultIntegrationTest.php
+
+EXIT=0
+TOTAL_COMMANDS=7 PASS=7 FAIL=0

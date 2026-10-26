@@ -1,0 +1,13 @@
+F
+======================================================================
+FAIL: test_source_drift_cannot_be_accepted_after_a_successful_phpunit_report (__main__.RunnerSafetyTest.test_source_drift_cannot_be_accepted_after_a_successful_phpunit_report)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\test_mysql_integration_gate.py", line 221, in test_source_drift_cannot_be_accepted_after_a_successful_phpunit_report
+    self.assertEqual(status, 1)
+AssertionError: 0 != 1
+
+----------------------------------------------------------------------
+Ran 1 test in 0.006s
+
+FAILED (failures=1)

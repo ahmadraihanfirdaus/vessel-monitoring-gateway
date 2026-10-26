@@ -1,0 +1,14 @@
+..........F
+======================================================================
+FAIL: test_unstable_content_metadata_cannot_pass_hash_audit (__main__.PublicReferenceTest.test_unstable_content_metadata_cannot_pass_hash_audit)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\test_public_reference_audit.py", line 56, in test_unstable_content_metadata_cannot_pass_hash_audit
+    with patch.object(Path,'stat',stat),self.assertRaises(ValueError):
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 11 tests in 0.165s
+
+FAILED (failures=1)

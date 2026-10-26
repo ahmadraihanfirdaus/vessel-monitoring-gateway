@@ -85,16 +85,16 @@ class RunnerSafetyTest(unittest.TestCase):
         status,calls,output=self.invoke(['--execute','--existing-schema'],self.report_result(xml))
         self.assertEqual(status,0)
         self.assertEqual(calls[0].args[0][-1],'--inspect')
-        self.assertEqual(len(calls),9)
+        self.assertEqual(len(calls), 11)
         self.assertNotIn('--migrate',[x for call in calls for x in call.args[0]])
         self.assertIn('NOT_RUN_EXISTING_SCHEMA_MODE',output)
 
     def test_existing_schema_roundtrip_requires_verified_mode(self):
         status,calls,_=self.invoke(['--execute','--existing-schema','--migration-roundtrip'],
-                                  [self.result()] * 7 + [self.result(3)])
+                                  [self.result()] * 8 + [self.result(3)])
         self.assertEqual(status,3)
         self.assertEqual(calls[0].args[0][-1],'--inspect')
-        self.assertEqual(calls[7].args[0][-1],'--roundtrip-existing')
+        self.assertEqual(calls[8].args[0][-1],'--roundtrip-existing')
 
     def test_missing_c99_tool_blocks_before_schema_mutation(self):
         status, calls, output = self.invoke(['--execute'], [self.result(), self.result(1)])
@@ -138,11 +138,20 @@ class RunnerSafetyTest(unittest.TestCase):
 
     def test_previous_upgrade_uses_exact_previous_inspection_and_explicit_roundtrip(self):
         status, calls, _ = self.invoke(['--execute', '--existing-schema', '--upgrade-previous', '--migration-roundtrip'],
-                                     [self.result()] * 7 + [self.result(3)])
+                                     [self.result()] * 8 + [self.result(3)])
         self.assertEqual(status, 3)
         self.assertEqual(calls[0].args[0][-1], '--inspect-previous')
-        self.assertEqual(calls[7].args[0][-1], '--upgrade-previous-roundtrip')
+        self.assertEqual(calls[8].args[0][-1], '--upgrade-previous-roundtrip')
+        self.assertEqual(len(calls), 9)
+
+    def test_isolation_fixture_failure_blocks_before_migrations_or_phpunit(self):
+        status, calls, output = self.invoke(['--execute', '--existing-schema', '--migration-roundtrip'],
+                                          [self.result()] * 7 + [self.result(1)])
+        self.assertEqual(status, 3)
         self.assertEqual(len(calls), 8)
+        self.assertEqual(calls[7].args[0][2], 'scripts/fault_isolation_wire_bridge.py')
+        self.assertIn('BLOCKED_C99_FIXTURE_BUILD_NO_MIGRATIONS', output)
+        self.assertFalse(any('vendor/bin/phpunit' in c.args[0] for c in calls))
 
     def test_previous_upgrade_cannot_imply_execution_or_missing_existing_schema(self):
         for args in (['--upgrade-previous'], ['--execute', '--upgrade-previous']):
@@ -152,24 +161,24 @@ class RunnerSafetyTest(unittest.TestCase):
 
     def test_migration_failure_blocks_phpunit(self):
         status, calls, output = self.invoke(['--execute', '--migration-roundtrip'],
-            [self.result()] * 7 + [self.result(3)])
+            [self.result()] * 8 + [self.result(3)])
         self.assertEqual(status, 3)
-        self.assertEqual(len(calls), 8)
+        self.assertEqual(len(calls), 9)
         self.assertEqual(calls[-1].args[0][-1], '--migration-roundtrip')
         self.assertIn('BLOCKED_MIGRATION_GATE', output)
 
     def test_test_failure_blocks_receipt_crosscheck_and_does_not_echo_bindings(self):
         status, calls, output = self.invoke(['--execute'],
-            [self.result()] * 8 + [self.result(1, 'synthetic-sensitive-marker', 'synthetic-sensitive-marker')])
+            [self.result()] * 9 + [self.result(1, 'synthetic-sensitive-marker', 'synthetic-sensitive-marker')])
         self.assertEqual(status, 1)
-        self.assertEqual(len(calls), 9)
-        self.assertEqual(calls[7].args[0][-1], '--migrate')
+        self.assertEqual(len(calls), 10)
+        self.assertEqual(calls[8].args[0][-1], '--migrate')
         self.assertNotIn('synthetic-sensitive-marker', output)
 
     def test_missing_junit_report_cannot_be_pass(self):
-        status, calls, output = self.invoke(['--execute'], [self.result()] * 9)
+        status, calls, output = self.invoke(['--execute'], [self.result()] * 10)
         self.assertEqual(status, 3)
-        self.assertEqual(len(calls), 9)
+        self.assertEqual(len(calls), 10)
         self.assertIn('BLOCKED_MISSING_REPORT', output)
 
     def test_timeout_is_blocked(self):
@@ -181,6 +190,8 @@ class RunnerSafetyTest(unittest.TestCase):
         def execute(command, env, cwd=gate.ROOT):
             if '--log-junit' in command:
                 Path(command[command.index('--log-junit') + 1]).write_text(xml)
+            if 'scripts/mysql_test_gate.php' in command and command[-1] == '--inspect':
+                return self.result(0, 'DATABASE_POSTCHECK=PASS_TEN_TABLES_SIX_MIGRATIONS_ZERO_APPLICATION_ROWS\n')
             return self.result(crosscheck_code if 'scripts/phase9_b17_receipt_crosscheck.py' in command else 0)
         return execute
 
@@ -188,27 +199,73 @@ class RunnerSafetyTest(unittest.TestCase):
         for xml in ('<testsuites/>', '<testsuites><testcase><skipped/></testcase></testsuites>', '<bad'):
             status, calls, _ = self.invoke(['--execute'], self.report_result(xml))
             self.assertEqual(status, 3)
-            self.assertEqual(len(calls), 9)
+            self.assertEqual(len(calls), 10)
 
     def test_junit_failure_blocks_even_if_subprocess_claims_success(self):
         status, calls, output = self.invoke(['--execute'], self.report_result(
             '<testsuites><testcase name="failure_case"><failure>synthetic-sensitive-marker</failure></testcase></testsuites>'))
         self.assertEqual(status, 1)
-        self.assertEqual(len(calls), 9)
+        self.assertEqual(len(calls), 10)
         self.assertNotIn('synthetic-sensitive-marker', output)
 
     def test_success_requires_migrations_phpunit_and_receipt_crosscheck(self):
         status, calls, output = self.invoke(['--execute'], self.report_result(
             '<testsuites><testcase name="executed_case"/></testsuites>'))
         self.assertEqual(status, 0)
-        self.assertEqual(len(calls), 10)
+        self.assertEqual(len(calls), 12)
         self.assertIn('MYSQL_HTTP_ACK_CROSSCHECK=PASS', output)
+
+    def test_source_drift_cannot_be_accepted_after_a_successful_phpunit_report(self):
+        # Reproduce a stale-source acceptance without modifying repository files.
+        with patch.object(gate, 'source_snapshot', side_effect=[{'public':'before'}, {'public':'after'}], create=True):
+            status, calls, output = self.invoke(['--execute', '--existing-schema'], self.report_result(
+                '<testsuites><testcase name="executed_case"/></testsuites>'))
+        self.assertEqual(status, 1)
+        self.assertIn('FAIL_SOURCE_CHANGED_DURING_TEST', output)
+
+    def test_missing_public_source_blocks_before_native_build_or_migration(self):
+        with patch.object(gate, 'source_snapshot', side_effect=OSError('synthetic')):
+            status, calls, output = self.invoke(['--execute'], [self.result()])
+        self.assertEqual(status, 3)
+        self.assertEqual(len(calls), 1)
+        self.assertIn('BLOCKED_TOOL_OR_TIMEOUT', output)
+
+    def test_read_only_default_never_reads_public_or_private_source_snapshots(self):
+        with patch.object(gate, 'source_snapshot') as snapshot:
+            status, calls, output = self.invoke([], [self.result()])
+        self.assertEqual(status, 0)
+        snapshot.assert_not_called()
+
+    def test_postflight_catalog_failure_cannot_accept_successful_test_report(self):
+        execute = self.report_result('<testsuites><testcase name="executed_case"/></testsuites>')
+        inspections = []
+        def result(command, env, cwd=gate.ROOT):
+            if 'scripts/mysql_test_gate.php' in command and command[-1] == '--inspect':
+                inspections.append(command)
+                if len(inspections) == 2:
+                    return self.result(3, 'synthetic-sensitive-postflight', 'synthetic-sensitive-postflight')
+            return execute(command, env, cwd)
+        status, calls, output = self.invoke(['--execute', '--existing-schema'], result)
+        self.assertEqual(status, 3)
+        self.assertEqual(len(inspections), 2)
+        self.assertIn('BLOCKED_POSTFLIGHT', output)
+        self.assertNotIn('synthetic-sensitive-postflight', output)
+
+    def test_empty_postflight_output_cannot_pass_from_exit_code_alone(self):
+        execute = self.report_result('<testsuites><testcase name="executed_case"/></testsuites>')
+        def result(command, env, cwd=gate.ROOT):
+            if 'scripts/mysql_test_gate.php' in command and command[-1] == '--inspect':
+                return self.result()
+            return execute(command, env, cwd)
+        status, calls, output = self.invoke(['--execute'], result)
+        self.assertEqual(status, 3)
+        self.assertIn('BLOCKED_POSTFLIGHT', output)
 
     def test_failed_receipt_crosscheck_fails_batch(self):
         status, calls, output = self.invoke(['--execute'], self.report_result(
             '<testsuites><testcase name="executed_case"/></testsuites>', 1))
         self.assertEqual(status, 1)
-        self.assertEqual(len(calls), 10)
+        self.assertEqual(len(calls), 11)
         self.assertIn('MYSQL_HTTP_ACK_CROSSCHECK=FAIL', output)
 
     def test_real_php_guard_denies_missing_environment_without_dotenv_fallback(self):

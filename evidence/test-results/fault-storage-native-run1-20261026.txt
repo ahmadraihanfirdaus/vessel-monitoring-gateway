@@ -1,0 +1,2 @@
+FAULT_STORAGE_INITIAL_NATIVE=FAIL_BASELINE_PROVIDER_VALUES
+SYNTHETIC_BASELINE_SELECTED={"engine_1_rpm": {"quality": "valid", "value": 2000}, "engine_4_rpm": {"quality": "valid", "value": 1990}, "hatch_state": {"quality": "valid", "value": 1}, "nav_age_ms": {"quality": "valid", "value": 0}, "nav_fix": {"quality": "valid", "value": 1}}

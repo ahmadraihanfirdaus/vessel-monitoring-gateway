@@ -55,3 +55,7 @@ VERIFIED is claimed. Other SIM/SUP and external gates retain their own status.
 ## Project entry and dedicated data/UI contracts (2026-10-26)
 
 [Current data/UI evidence](../../evidence/test-results/data-ui-summary-20261026.md): native30frames/1158channels, PHP377 and actualTLS215 checks PASS. Dedicated SUP002/011/012/015 and SIM014/015 local cases admitted with explicit execution/review boundaries; no requirement VERIFIED. Firmware source unchanged and exactly matches both current committed SDK proofs. Welcome cleanup DEFERRED/removed0; no historical evidence deletion. Both handoffs updated automatically. Hardware, hostedCI and deployedTLS remain NOT_RUN.
+
+## Dedicated fault/storage/schema/reference gates (2026-10-26)
+
+[Current software gate evidence](../../evidence/test-results/fault-storage-summary-20261026.md) records actual single-channel4frame/44channel isolation,72generation bounded host-file retention/reopen/corruption, guarded6migration rollback/reapply with382PHP cases,215actualTLS checks and241regression commands PASS. SIM011/SUP013/SUP014/SUP017 have prescribed dedicated local evidence; derived formal32PASS/2PARTIAL/4NOT_RUN, no requirement VERIFIED. Three verification-integrity gaps are fixed and negative reproductions preserved. Firmware source unchanged and matches both committed SDK proofs. Physical NVS/ESP32/outage/timing, currentWokwi, hostedCI and deployedTLS remain NOT_RUN. Cleanup removal count0, protected files unchanged, NO PUSH.

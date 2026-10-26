@@ -1,0 +1,15 @@
+FAULT_STORAGE_FILE_COMPILE_RUN1=FAIL
+In file included from C:\vessel-monitoring-gateway-public-cleanroom\scripts\offline_bounded_file_fixture.c:3:
+C:\vessel-monitoring-gateway-public-cleanroom\scripts\event_retirement_file_fixture.c:14:9: error: 'main' redefined [-Werror]
+   14 | #define main unused_continuous_fixture_main
+      |         ^~~~
+C:\vessel-monitoring-gateway-public-cleanroom\scripts\offline_bounded_file_fixture.c:2:9: note: this is the location of the previous definition
+    2 | #define main unused_receipt_file_fixture_main
+      |         ^~~~
+C:\vessel-monitoring-gateway-public-cleanroom\scripts\offline_bounded_file_fixture.c:9:5: error: redefinition of 'main'
+    9 | int main(int argc, char **argv)
+      |     ^~~~
+C:\vessel-monitoring-gateway-public-cleanroom\scripts\event_retirement_file_fixture.c:96:5: note: previous definition of 'main' with type 'int(int,  char **)'
+   96 | int main(int argc,char **argv)
+      |     ^~~~
+cc1.exe: all warnings being treated as errors

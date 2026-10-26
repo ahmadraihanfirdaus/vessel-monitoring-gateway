@@ -47,6 +47,13 @@ jobs:
           python3 -B scripts/test_review_formal_data_ui.py
       - name: NET-001 host-only checks
         run: python3 -B scripts/test_phase9_net001_host_adapter.py
+      - name: Dedicated single-channel and bounded host-file verification
+        # Independent host evidence; no ESP32/NVS durability claim.
+        run: |
+          python3 -B scripts/run_formal_fault_storage.py --execute
+          python3 -B scripts/test_formal_fault_storage.py
+          python3 -B scripts/test_public_reference_audit.py
+          python3 -B scripts/check_living_traceability.py --report evidence/test-results/ci-public-reference-audit.json
       - name: SYS-003 host-only checks
         run: python3 -B scripts/test_phase9_sys003_local_guard.py
       - name: Phase 9 Batch 2 host development contracts

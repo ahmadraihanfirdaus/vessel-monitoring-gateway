@@ -1,0 +1,13 @@
+{
+  "parent": "777d762be36f9e778b9dd259476a28d42393e39f",
+  "shared_callback_bodies_byte_equal_parent": true,
+  "callback_bodies_sha256": "887a09d6d3d0082b9ac16e45bbb2b22ec5d8c8e90e7b55cfdc1a8b71d46ace86",
+  "native_source_sha256": "9c3a6f4b767fc6a557ddbdbb3d1be7d6626cce5455d0ae5317dba4b073834397",
+  "http_source_sha256": "d0f38223407a2701fcdc96a810912d3e0b91b101dd271fc58fed0f7d174846f4",
+  "sdk_source_sha256": "a0a0eac0809da2b9be93c67a8347c3f50766b3bed163ec7d42a1e4b86fb8bf95",
+  "sdk_proof": "REUSE_IDENTICAL_COMMITTED_ACTUAL_CANDIDATE_AND_RETAINED_SOURCE",
+  "physical_durability": "NOT_RUN",
+  "removed_files": 0,
+  "mysql_source_sha256": "37beceaec5b9089e36945e863901583fc10099996fe26f11817586becdb9aabe",
+  "reference_tool_sha256": "c4bafccf67d5a5a77ca9fedb2676afe91b174fa43430d28e449a45ebcb3dead8"
+}

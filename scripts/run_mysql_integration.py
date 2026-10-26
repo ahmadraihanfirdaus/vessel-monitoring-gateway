@@ -8,6 +8,7 @@ permits rollback/reapply of those newly applied migrations. Never use real data.
 from pathlib import Path
 import argparse
 import base64
+import hashlib
 import os
 import re
 import secrets
@@ -15,8 +16,39 @@ import subprocess
 import sys
 import tempfile
 import xml.etree.ElementTree as ET
+from build_esp32_port import source_snapshot as firmware_source_snapshot
 
 ROOT = Path(__file__).resolve().parents[1]
+WIRE_FIXTURES = (
+    ('phase9_b14_wire_bridge.py', 'wire.jsonl', 'VG_B14_WIRE_JSONL'),
+    ('phase9_b15_event_bridge.py', 'events.jsonl', 'VG_B15_EVENT_JSONL'),
+    ('runtime_uplink_wire_bridge.py', 'runtime.jsonl', 'VG_RUNTIME_WIRE_JSONL'),
+    ('continuous_simulation_wire_bridge.py', 'continuous.jsonl', 'VG_CONTINUOUS_WIRE_JSONL'),
+    ('alarm_metadata_wire_bridge.py', 'alarms.jsonl', 'VG_ALARM_METADATA_WIRE_JSONL'),
+    ('recovered_replay_wire_bridge.py', 'replayed.jsonl', 'VG_RECOVERED_REPLAY_WIRE_JSONL'),
+    ('fault_isolation_wire_bridge.py', 'isolated.jsonl', 'VG_FAULT_ISOLATION_WIRE_JSONL'),
+)
+
+
+def source_snapshot():
+    """Public execution inputs only. Never read/hash dotenv, generated keys or DB."""
+    records = firmware_source_snapshot()
+    paths = [Path(__file__), ROOT/'scripts/mysql_test_gate.php', ROOT/'scripts/test_mysql_integration_gate.py']
+    paths += [ROOT/'scripts'/script for script, _, _ in WIRE_FIXTURES]
+    paths += [ROOT/'scripts'/name for name in ('phase9_b14_wire_fixture.c', 'phase9_b15_event_wire_fixture.c',
+        'runtime_uplink_wire_fixture.c', 'continuous_simulation_fixture.c', 'alarm_metadata_wire_fixture.c',
+        'recovered_replay_wire_fixture.c', 'fault_isolation_fixture.c', 'data_ui_contracts.py',
+        'phase9_b4_testlib.py', 'test_offline_transaction.py', 'phase9_b17_receipt_crosscheck.py')]
+    base = ROOT/'backend/laravel'
+    paths += [base/'bootstrap/app.php', base/'composer.json', base/'composer.lock', base/'phpunit.xml']
+    for directory in ('app', 'config', 'routes', 'resources/views', 'database/migrations', 'tests'):
+        paths += list((base/directory).rglob('*.php'))
+    for path in sorted(set(paths)):
+        if (path.is_symlink() or not path.resolve().is_relative_to(ROOT) or not path.is_file()
+                or path.name.startswith('.env') or path.stat().st_size > 1024*1024):
+            raise OSError('PUBLIC_SOURCE_SNAPSHOT_UNAVAILABLE')
+        records[path.relative_to(ROOT).as_posix()] = hashlib.sha256(path.read_bytes()).hexdigest()
+    return records
 
 
 def run(command, env, cwd=ROOT):
@@ -70,17 +102,11 @@ def main():
         if not args.execute:
             print('MYSQL_INTEGRATION=NOT_RUN_READ_ONLY_MODE')
             return 0
+        inputs = source_snapshot()
         # Generate all existing fixture dependencies before any schema mutation.
         with tempfile.TemporaryDirectory(prefix='vg-mysql-wire-') as folder:
             temp = Path(folder)
-            for script, name, variable in [
-                ('phase9_b14_wire_bridge.py', 'wire.jsonl', 'VG_B14_WIRE_JSONL'),
-                ('phase9_b15_event_bridge.py', 'events.jsonl', 'VG_B15_EVENT_JSONL'),
-                ('runtime_uplink_wire_bridge.py', 'runtime.jsonl', 'VG_RUNTIME_WIRE_JSONL'),
-                ('continuous_simulation_wire_bridge.py', 'continuous.jsonl', 'VG_CONTINUOUS_WIRE_JSONL'),
-                ('alarm_metadata_wire_bridge.py', 'alarms.jsonl', 'VG_ALARM_METADATA_WIRE_JSONL'),
-                ('recovered_replay_wire_bridge.py', 'replayed.jsonl', 'VG_RECOVERED_REPLAY_WIRE_JSONL'),
-            ]:
+            for script, name, variable in WIRE_FIXTURES:
                 output = temp / name
                 generated = run([sys.executable, '-B', 'scripts/'+script, '--output', str(output)], env)
                 if generated.returncode:
@@ -131,7 +157,23 @@ def main():
             crosscheck = run([sys.executable, '-B', 'scripts/phase9_b17_receipt_crosscheck.py',
                               '--input', env['VG_B17_RECEIPTS_JSONL'], '--evidence-dir', str(temp)], env)
             print('MYSQL_HTTP_ACK_CROSSCHECK='+('PASS' if crosscheck.returncode == 0 else 'FAIL'))
-            return 0 if crosscheck.returncode == 0 else 1
+            if crosscheck.returncode:
+                return 1
+            # Verify final catalog/row cleanup independently of PHPUnit's report.
+            # A failed/foreign catalog is retained for explicit recovery, never erased.
+            postflight = run([args.php_binary, 'scripts/mysql_test_gate.php', '--inspect'], env)
+            if (postflight.returncode or
+                    'DATABASE_POSTCHECK=PASS_TEN_TABLES_SIX_MIGRATIONS_ZERO_APPLICATION_ROWS' not in postflight.stdout):
+                print('MYSQL_INTEGRATION=BLOCKED_POSTFLIGHT_CATALOG_NO_CLEANUP')
+                return 3
+            print(postflight.stdout, end='')
+            print('MYSQL_POSTFLIGHT=PASS_EXACT_EMPTY_APPROVED_CATALOG')
+            if inputs != source_snapshot():
+                print('MYSQL_INTEGRATION=FAIL_SOURCE_CHANGED_DURING_TEST')
+                return 1
+            print('MYSQL_SOURCE_STABILITY=PASS_SHA256_'+hashlib.sha256(repr(sorted(inputs.items())).encode()).hexdigest())
+            print('MYSQL_INTEGRATION=PASS_ISOLATED_LOCAL_ONLY')
+            return 0
     except (OSError, subprocess.TimeoutExpired, ET.ParseError):
         print('MYSQL_INTEGRATION=BLOCKED_TOOL_OR_TIMEOUT')
         return 3

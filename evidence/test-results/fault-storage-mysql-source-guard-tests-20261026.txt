@@ -1,0 +1,11 @@
+.................usage: gate [-h] [--execute] [--migration-roundtrip] [--testing-env]
+            [--php-binary PHP_BINARY] [--existing-schema] [--upgrade-previous]
+gate: error: --upgrade-previous requires --execute --existing-schema
+usage: gate [-h] [--execute] [--migration-roundtrip] [--testing-env]
+            [--php-binary PHP_BINARY] [--existing-schema] [--upgrade-previous]
+gate: error: --upgrade-previous requires --execute --existing-schema
+.............
+----------------------------------------------------------------------
+Ran 30 tests in 1.188s
+
+OK

@@ -1,0 +1,13 @@
+F
+======================================================================
+FAIL: test_postflight_catalog_failure_cannot_accept_successful_test_report (__main__.RunnerSafetyTest.test_postflight_catalog_failure_cannot_accept_successful_test_report)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\vessel-monitoring-gateway-public-cleanroom\scripts\test_mysql_integration_gate.py", line 247, in test_postflight_catalog_failure_cannot_accept_successful_test_report
+    self.assertEqual(status, 3)
+AssertionError: 0 != 3
+
+----------------------------------------------------------------------
+Ran 1 test in 0.109s
+
+FAILED (failures=1)

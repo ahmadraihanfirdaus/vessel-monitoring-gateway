@@ -4,7 +4,7 @@
 
 **Engineering Baseline:** Internal Engineering Blueprint v1.0
 
-**Review Date:** 2026-10-26 (actual develop0507fc9 and data/UI worktree; locked matrix unchanged)
+**Review Date:** 2026-10-26 (actual develop777d762 and fault/storage/reference worktree; locked matrix unchanged)
 
 **Matrix Version:** Working v2 — Public Editorial Edition
 
@@ -14,7 +14,7 @@
 
 **Implementation Status:** PHASE3_TO_PHASE8_SCOPED_GATES_COMPLETE / OVERALL_SYSTEM_PARTIAL (locked matrix remains the initial snapshot)
 
-**Verification Status:** PARTIAL — formal SIM-001..SIM-009 and SIM-014/SIM-015 PASS; SIM-010..SIM-013 NOT_RUN; 15 SUP PASS and 4 PLANNED
+**Verification Status:** PARTIAL — formal SIM-001..SIM-009, SIM-011 and SIM-014/SIM-015 PASS; SIM-010/SIM-012/SIM-013 NOT_RUN; 18 SUP PASS and SUP-018 PLANNED
 
 **Final Verification Approval:** NOT_APPROVED
 
@@ -61,7 +61,7 @@ This establishes structural traceability coverage. It does not demonstrate compl
 | Monitoring dashboard | IMPLEMENTED_UNVERIFIED; grant-scoped connected views, configured freshness, event/health/evidence rendering; SUP-015 dedicated read-only functional review PASS; SIM-010 NOT_RUN |
 | Network / offline transport | PARTIAL; actual ESP-IDF Wi-Fi/HTTPS adapter compiled locally, host oracles retained; NVS worker/transaction code connected; physical TLS/NVS durability unverified |
 | CI | PARTIAL; PR workflow source present; hosted run unverified here |
-| C99 / Laravel / database integration | PHP 8.2.35 / approved MariaDB migration roundtrip and current377 tests PASS; direct MySQL 8 / hosted CI NOT_RUN |
+| C99 / Laravel / database integration | PHP 8.2.35 / approved MariaDB migration roundtrip and current382 tests PASS; direct MySQL 8 / hosted CI NOT_RUN |
 | Hardware bench verification | NOT_RUN |
 
 Roadmap gate completion is scoped evidence, not a declaration that every mapped mandatory requirement is fully verified.
@@ -73,8 +73,8 @@ Roadmap gate completion is scoped evidence, not a declaration that every mapped 
 | Formal simulation SIM-001..SIM-006 | PASS — Phase 5 E4 dedicated host/Wokwi evidence |
 | Formal simulation SIM-007 | PASS — Phase 6 F2 dedicated host/Wokwi evidence |
 | Formal simulation SIM-008..SIM-009 | PASS — Phase 7 G2 dedicated host/Wokwi evidence |
-| Later SIM cases | SIM-014/SIM-015 dedicated backend PASS; SIM-010..SIM-013 NOT_RUN |
-| Supplemental tests SUP-001..SUP-019 | 15 PASS / 4 PLANNED; see canonical supplemental registry for exact IDs |
+| Later SIM cases | SIM-011 dedicated host PASS, SIM-014/SIM-015 backend PASS; SIM-010/SIM-012/SIM-013 NOT_RUN |
+| Supplemental tests SUP-001..SUP-019 | 18 PASS / SUP-018 PLANNED; see canonical supplemental registry for exact IDs |
 | Phase 8 telemetry contract fixtures/self-tests | Historical scoped development PASS, followed by dedicated SUP-011/SUP-012 and SIM-014 PASS; see latest data/UI evidence |
 | Final requirement verification approval | NOT_APPROVED |
 | Total system verification | PARTIAL |
@@ -173,7 +173,7 @@ The controlled internal engineering baseline is not included in the public repos
 
 **Implementation:** scoped roadmap gates Phases 3–8 COMPLETE; Phase 9 source and historical scoped closure present; complete system PARTIAL
 
-**Formal Verification:** SIM-001..SIM-009 and SIM-014/SIM-015 PASS; SIM-010..SIM-013 NOT_RUN; 15 SUP PASS and 4 PLANNED
+**Formal Verification:** SIM-001..SIM-009, SIM-011 and SIM-014/SIM-015 PASS; SIM-010/SIM-012/SIM-013 NOT_RUN; 18 SUP PASS and SUP-018 PLANNED
 
 **Final Verification Approval:** NOT_APPROVED
 
@@ -211,3 +211,7 @@ deployedTLS acceptance is inferred. Remaining requirement approval NOT_APPROVED.
 ## Latest project entry and data/UI checkpoint (2026-10-26)
 
 The [dedicated case review](../../evidence/test-results/data-ui-case-review-20261026.md) and [summary](../../evidence/test-results/data-ui-summary-20261026.md) supersede earlier current-count statements above. PHP377/0fail/0skip, actualTLS215 checks and native30frames1158channels PASS; SUP002/011/012/015 and SIM014/015 have their prescribed local evidence. SUP015 review performs no DB writes; producer separately writes approved owned fixtures. Derived formal28PASS/3PARTIAL/7NOT_RUN, implementation22IMPLEMENTED_UNVERIFIED/16PARTIAL. No VERIFIED. Welcome remains DEFERRED, removed0. Hardware/hostedCI/deployedTLS NOT_RUN; finalNOT_APPROVED. Both handoffs retain current source/Git/WIP and all38 requirements.
+
+## Latest fault/storage and reference checkpoint (2026-10-26)
+
+[Dedicated case review](../../evidence/test-results/fault-storage-case-review-20261026.md) and [summary](../../evidence/test-results/fault-storage-summary-20261026.md) govern current counts over historical paragraphs above. SIM011 single-channel44/43host case, SUP013 bounded72-generation host-file integration, SUP014 guarded actual Laravel6migration roundtrip and SUP017 separate public-reference audit PASS. PHP382/0fail/0skip, TLS215, broad241/241 and necessary guards/oracles PASS. Source drift, missing final catalog admission and duplicate execution row shadowing are fixed. Final source-bound postflight verifies10tables/6migration records/0app rows. Formal32PASS/2PARTIAL/4NOT_RUN; implementation22IMPLEMENTED_UNVERIFIED/16PARTIAL, no VERIFIED. SIM010/012/013 and SUP018 remain unperformed. Hardware/hostedCI/deployedTLS and graphically observed browser NOT_RUN; systemPARTIAL/finalNOT_APPROVED. No repository deletion or push. Both handoffs updated automatically.

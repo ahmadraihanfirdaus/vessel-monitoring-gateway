@@ -65,7 +65,7 @@ def source_snapshot():
         'alarm_metadata_wire_fixture.c', 'recovered_replay_wire_bridge.py',
         'recovered_replay_wire_fixture.c', 'test_offline_transaction.py',
         'event_receipt_native_bridge.py', 'event_receipt_native_crypto.h',
-        'event_receipt_verify_fixture.c', 'event_retirement_file_fixture.c', 'phase9_b4_testlib.py',
+        'event_receipt_verify_fixture.c', 'event_retirement_file_fixture.c', 'host_offline_file_io.h', 'phase9_b4_testlib.py',
         'data_ui_contracts.py', 'test_data_ui_contracts.py', 'run_formal_data_native.py',
         'review_formal_data_ui.py', 'test_review_formal_data_ui.py', 'test_formal_data_native.py')]
     paths.append(ROOT/'docs/testing/formal-data-ui-cases-20261026.md')
