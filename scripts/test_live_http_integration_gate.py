@@ -15,6 +15,60 @@ import run_live_http_integration as gate
 
 
 class LiveHttpGateTest(unittest.TestCase):
+    @staticmethod
+    def presentation_record(output):
+        prefix = 'LIVE_HTTP_PRESENTATION_DIAGNOSTICS='
+        return json.loads(next(line[len(prefix):] for line in output.splitlines() if line.startswith(prefix)))
+
+    def test_presentation_diagnostics_keep_all_five_original_success_conditions(self):
+        body = b'engine_4_rpm RUNNING unitless surrogate; not ppm or %LEL low-power prototype'
+        output = io.StringIO()
+        with redirect_stdout(output):
+            gate.continuous_browser_labels(200, body, {})
+        record = self.presentation_record(output.getvalue())
+        self.assertEqual(len(record['conditions']), 5)
+        self.assertEqual(set(record['conditions'].values()), {'PASS'})
+        self.assertEqual(record['http_status'], 200)
+        self.assertIn('LIVE_HTTP_CASE=CONTINUOUS_BROWSER_DOMAIN_LABELS=PASS', output.getvalue())
+
+    def test_each_missing_presentation_condition_fails_without_hiding_other_predicates(self):
+        parts = {'ENGINE_4_RPM': b'engine_4_rpm', 'RUNNING': b'RUNNING',
+                 'VAPOR_UNIT_DISCLAIMER': b'unitless surrogate; not ppm or %LEL',
+                 'LOW_POWER_PROTOTYPE': b'low-power prototype'}
+        for missing in ['HTTP_200', *parts]:
+            with self.subTest(condition=missing):
+                body = b' '.join(value for name, value in parts.items() if name != missing)
+                output = io.StringIO()
+                with redirect_stdout(output), self.assertRaisesRegex(gate.GateFailure, '^CONTINUOUS_BROWSER_DOMAIN_LABELS$'):
+                    gate.continuous_browser_labels(401 if missing == 'HTTP_200' else 200, body, {})
+                conditions = self.presentation_record(output.getvalue())['conditions']
+                self.assertEqual({name for name, status in conditions.items() if status == 'FAIL'}, {missing})
+                self.assertEqual(len(conditions), 5)
+        output = io.StringIO()
+        with redirect_stdout(output), self.assertRaises(gate.GateFailure):
+            gate.continuous_browser_labels(403, b'', {})
+        self.assertEqual(list(self.presentation_record(output.getvalue())['conditions'].values()), ['FAIL']*5)
+
+    def test_presentation_diagnostics_never_emit_html_or_unapproved_category_values(self):
+        marker = 'synthetic-private-'+str(id(self))
+        output = io.StringIO()
+        headers = {'X-VG-Test-'+name: marker for name in ['Profile', 'Presentation', 'Source', 'Schema', 'Freshness']}
+        with redirect_stdout(output), self.assertRaises(gate.GateFailure):
+            gate.continuous_browser_labels(200, ('<input value="'+marker+'">').encode(), headers)
+        self.assertNotIn(marker, output.getvalue())
+        self.assertNotIn('<input', output.getvalue())
+        record = self.presentation_record(output.getvalue())
+        self.assertEqual(set(record), {'conditions', 'http_status', 'categories', 'response_sha256'})
+        self.assertEqual(set(record['categories'].values()), {'UNKNOWN'})
+        self.assertRegex(record['response_sha256'], r'^[a-f0-9]{64}$')
+
+    def test_presentation_diagnostic_input_bounds_cannot_print_arbitrary_status_values(self):
+        for status, body in [('synthetic-private', b''), (True, b''), (200.0, b''), (99, b''), (600, b''), (200, '<raw>')]:
+            output = io.StringIO()
+            with redirect_stdout(output), self.assertRaisesRegex(gate.GateFailure, '^PRESENTATION_DIAGNOSTIC_INPUT_INVALID$'):
+                gate.continuous_browser_labels(status, body, {})
+            self.assertEqual(output.getvalue(), '')
+
     def test_formal_read_only_audit_never_accepts_arbitrary_action_or_missing_lease(self):
         env = {key:value for key,value in os.environ.items() if key.upper() in {'PATH','SYSTEMROOT','TEMP','TMP','WINDIR'}}
         for args in (['--formal-audit-arbitrary'], ['--formal-audit'], ['--retry-audit-arbitrary'], ['--retry-audit'],

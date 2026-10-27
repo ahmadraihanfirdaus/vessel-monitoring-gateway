@@ -79,6 +79,29 @@ final class LiveHttpSafety
         $app->make('encrypter');
     }
 
+    /** Fixed categories for the private test listener; never arbitrary view/config values. */
+    public static function presentationCategories(mixed $profile, array $data): array
+    {
+        $state = is_array($data['state'] ?? null) ? $data['state'] : [];
+        $freshness = is_array($data['sampleFreshness'] ?? null) ? $data['sampleFreshness'] : [];
+
+        return [
+            'Profile' => match ($profile) {
+                'continuous_simulation_v11' => 'CONTINUOUS_SIMULATION_V11',
+                null, '' => 'UNSET', default => 'OTHER',
+            },
+            'Presentation' => ($data['simulationPresentation'] ?? null) === true ? 'ENABLED' : 'DISABLED',
+            'Source' => match ($state['source_mode'] ?? null) {
+                'simulation' => 'SIMULATION', 'physical' => 'PHYSICAL', 'bench_test' => 'BENCH_TEST', default => 'UNKNOWN',
+            },
+            'Schema' => match ($state['schema_version'] ?? null) {
+                '1.1' => 'V1_1', '1.0' => 'V1_0', default => 'UNKNOWN',
+            },
+            'Freshness' => in_array($freshness['label'] ?? null, ['LIVE', 'STALE', 'OFFLINE'], true)
+                ? $freshness['label'] : 'UNKNOWN',
+        ];
+    }
+
     /** Every non-migration row must belong to this admitted, initially empty lease. */
     public static function tokenProof(array $profile, string $material): array
     {

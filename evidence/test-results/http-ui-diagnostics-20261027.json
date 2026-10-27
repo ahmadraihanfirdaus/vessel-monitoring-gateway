@@ -1,0 +1,102 @@
+{
+  "scope": "SAFE_TARGETED_HTTP_UI_DIAGNOSTICS_ONLY",
+  "parent": "cb12113c9d07670ce33a94bf14f2bb43f8d7542d",
+  "parent_commits": 142,
+  "source_owner": "git log -1 -- evidence/test-results/http-ui-diagnostics-20261027.json",
+  "previous_hosted_run": "https://github.com/ahmadraihanfirdaus/vessel-monitoring-gateway/actions/runs/40497516366",
+  "historical_hosted_result": {
+    "PHP8.2.35_MySQL8.0.46": "391PASS_0FAIL_0SKIP",
+    "no_DB": "229PASS_0FAIL_0SKIP",
+    "failed_gate": "CONTINUOUS_BROWSER_DOMAIN_LABELS",
+    "original_five_individual_results": "NOT_OBSERVED_COMPOSITE_OUTPUT_ONLY",
+    "archive_safety": "NOT_RUN"
+  },
+  "local_actual_diagnostic": {
+    "categories": {
+      "FRESHNESS": "LIVE",
+      "PRESENTATION": "ENABLED",
+      "PROFILE": "CONTINUOUS_SIMULATION_V11",
+      "SCHEMA": "V1_1",
+      "SOURCE": "SIMULATION"
+    },
+    "conditions": {
+      "ENGINE_4_RPM": "PASS",
+      "HTTP_200": "PASS",
+      "LOW_POWER_PROTOTYPE": "PASS",
+      "RUNNING": "PASS",
+      "VAPOR_UNIT_DISCLAIMER": "PASS"
+    },
+    "http_status": 200,
+    "response_sha256": "43379a9490683bff8f0d8d9d7a155041374aafcbfadd48d346350d8098c592d2"
+  },
+  "root_cause": "UNCONFIRMED_HOSTED_FAILURE_NOT_REPRODUCED_LOCALLY",
+  "application_repair": "NONE_NO_PROVEN_ROOT_CAUSE",
+  "comparison": {
+    "source_profile_schema": "Local actual authorized dashboard view reports SIMULATION,V1_1,explicit continuous profile,ENABLED. Hosted old run proves matching API48channel readback but does not expose effective dashboard profile or each label.",
+    "freshness": "Actual local view LIVE. Hosted exact freshness category at failure not recorded. No threshold or age policy change.",
+    "query": "DeviceReadService state and snapshot both use received_at DESC,id DESC; channels order by name. Queries and migrations unchanged.",
+    "collation_types": "Configuration retains utf8mb4/utf8mb4_unicode_ci and strict mode defaults. Prior hosted schema admission and exact48channel readback PASS; no runtime collation difference proven. Simulation enum renderer accepts finite numeric integral representations; no coercion policy changed.",
+    "authentication": "Existing real CSRF/session rotation/grant checks precede this gate. Local actual view is authorized HTTP200. Old hosted status for this combined gate is unknown. Existing auth/ownership/TLS guards unchanged.",
+    "rendering": "SimulationChannelPresentation,controller,Blade,quality and source guards remain byte-identical. Private CLI-server view composer only reports fixed allowlisted categories for actual monitoring.index views. It does not alter view data.",
+    "hosted_diagnostics": "NOT_RUN_NO_PUSH_NO_DISPATCH_AUTHORIZATION",
+    "direct_local_MySQL8": "NOT_RUN_RUNTIME_UNAVAILABLE"
+  },
+  "regression": {
+    "PHP_MariaDB_cases": 393,
+    "PHP_failed": 0,
+    "PHP_skipped": 0,
+    "no_DB_cases": 231,
+    "focused_UI_cases": 55,
+    "actual_loopback_TLS_HTTP_cases": 248,
+    "python_cases": 100,
+    "python_breakdown": {
+      "HTTP_gate": 30,
+      "MySQL_gate": 32,
+      "data_UI_contracts": 9,
+      "formal_UI_review": 6,
+      "security_scanner_units": 23
+    },
+    "negative_cases": "Each of5original conditions independently fails; all5negative results are emitted before aggregate failure; malformed status/body and unknown/sensitive header/category values never enter diagnostic output. PHP tests check categories without mutating source/view values.",
+    "receipt_C99_crosscheck": "PASS",
+    "DB_postflight": "PASS_TEN_TABLES_SIX_MIGRATIONS_ZERO_APPLICATION_ROWS",
+    "migration_roundtrip": "NOT_RERUN_NO_SCHEMA_CHANGE_PRIOR_SAME_PARENT_HOSTED_PASS"
+  },
+  "security": {
+    "initial_scanner": "3REVIEW_REQUIRED_AFTER_SOURCE_HASH_CHANGE",
+    "classification": "Exact3unchanged runtime-generated test-input lines; byte/line-hash proof retained.3new file-hash-pinned reviews appended; all old records and scanner logic preserved.",
+    "final_findings": 0,
+    "final_warnings": 0,
+    "new_diagnostic_output": "Only fixed condition names,PASS/FAIL,integer HTTP status,allowlisted source/profile/schema/freshness categories and responseSHA256. No raw HTML,cookies,tokens,CSRF,keys,credentials or sensor values.",
+    "test_listener": "CLI-server loopback+lease+user-agent+owned-catalog guards remain; categories emitted only for actual authorized dashboard view. Production entrypoints and routes unchanged."
+  },
+  "traceability": "PASS38_OF38_BASELINE_AND_FORMAL_STATUSES_UNCHANGED_SYSTEM_PARTIAL_NOT_APPROVED",
+  "private_evidence_directory": "private/portfolio-http-ui-diagnostics-gates-20261027",
+  "evidence_sha256": {
+    "baseline.json": "2679d0a2ddb1ac522d8cd677859e6c5fdf75d017166b37199b8811988947882a",
+    "live-http-diagnostic-run1-redacted.txt": "96ee52b65176c06e4b12328ea05b0d507b179ac454c0ede3e3f924ccd322ac8f",
+    "mysql-regression-run1.txt": "d6e1648d1b31fc0acc7f3641360e6f0829e8e5d9e1a5cb614e031a5a1a60d06e",
+    "ui-focused-run1.json": "5ce931b7395c0cffe3120cd9367652353c9012d492e58cbfe6703a717d828cc9",
+    "no-db-regression-run1.json": "a1ff02c9161309c0b97f45e0433b2fe5afc0cc92c10ccfc940cf9f47d96662b4",
+    "security-review-renewal.json": "e50e7d44bfca61fd7de42da9bb2112d08c5e25327693e362a5db8bbee9e95ecb",
+    "audit_precommit_security-reviewed.txt": "d0881acba70a457e639c911b72f6856bcfb1f5263a0ab998ba2aa64185910594",
+    "check_living_traceability-reviewed.txt": "728e03d5d1dfe4f1207ea1b5863a06b79768c9f4cfa6396c1df6a7753d7d50f5",
+    "test_live_http_integration_gate.txt": "085d275666b56ad079bd1c85485e1d4f902a31647996132ee0e350919a8dd9ca",
+    "test_mysql_integration_gate.txt": "5d67d31fb94c5544ab6c5660d292440625edf9fbc69f04dd7b90d0e3f04018a7",
+    "test_data_ui_contracts.txt": "55df81c03b1fc09a739803668e8b10b1a1cd87ac7e716666dddb1c968f87bb76",
+    "test_review_formal_data_ui.txt": "065c7d15facfd20f14fb9182747be315f3349fa1d5e1a0e966047509f4bfa9b1",
+    "test_audit_precommit_security-reviewed.txt": "1a6c8c05d2b648287e31f6610ec9a711d176647cd73c2d7006d2772a078ab924"
+  },
+  "source_sha256": {
+    "scripts/run_live_http_integration.py": "f43eb0a9795520402d8fcccaee9cf4bf19d6b366ae92ea46c70c1062a9791feb",
+    "scripts/live_http_router.php": "55b7b4a34dc5cf78b98b7343d0ac11dee7402489b773e1f6b991af75ccaa6827",
+    "scripts/test_live_http_integration_gate.py": "66bfc391fd80ffff5bd6b7066e88d2631767be4195b2bb1041e6ec49cf51e98f",
+    "scripts/security-reviewed-findings.json": "d961bc776566e255ae62d4714d69893c04efb1b5fc0a0e90386d327336df016e",
+    "backend/laravel/tests/Support/LiveHttpSafety.php": "f87ccf9e9eccc740d3d66595ad1b93e550df94efd8bd234e5098c2b1a2bedbe0",
+    "backend/laravel/tests/Unit/LiveHttpPresentationDiagnosticsTest.php": "78689d2a26dd355667004a28c64d05c963ebe39881551392fcfb16b71e20249c"
+  },
+  "hosted_CI_verified": false,
+  "next_action_requires_new_approval": "Publish the safely tested diagnostic candidate and run controlled hosted Phase9 to obtain the actual five outcomes and server-side categories; only then repair a proven root cause. No guessing or application change authorized by evidence so far.",
+  "pushes": 0,
+  "workflow_dispatches": 0,
+  "original_develop": "82ae9f87ee1162bd4b33e101286d0be48418184e"
+}

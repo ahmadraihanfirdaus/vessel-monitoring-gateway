@@ -97,6 +97,36 @@ def expect(name, condition):
         raise GateFailure(name)
 
 
+def continuous_browser_labels(status, body, headers):
+    """Observe every original predicate before failing; never emit response data."""
+    if type(status) is not int or not 100 <= status <= 599 or not isinstance(body, bytes):
+        raise GateFailure('PRESENTATION_DIAGNOSTIC_INPUT_INVALID')
+    checks = {
+        'HTTP_200': status == 200,
+        'ENGINE_4_RPM': b'engine_4_rpm' in body,
+        'RUNNING': b'RUNNING' in body,
+        'VAPOR_UNIT_DISCLAIMER': b'unitless surrogate; not ppm or %LEL' in body,
+        'LOW_POWER_PROTOTYPE': b'low-power prototype' in body,
+    }
+    allowed = {
+        'PROFILE': ('CONTINUOUS_SIMULATION_V11', 'UNSET', 'OTHER'),
+        'PRESENTATION': ('ENABLED', 'DISABLED'),
+        'SOURCE': ('SIMULATION', 'PHYSICAL', 'BENCH_TEST', 'UNKNOWN'),
+        'SCHEMA': ('V1_1', 'V1_0', 'UNKNOWN'),
+        'FRESHNESS': ('LIVE', 'STALE', 'OFFLINE', 'UNKNOWN'),
+    }
+    categories = {}
+    for name, values in allowed.items():
+        value = headers.get('X-VG-Test-'+name.title())
+        categories[name] = value if value in values else 'UNKNOWN'
+    print('LIVE_HTTP_PRESENTATION_DIAGNOSTICS='+json.dumps({
+        'conditions': {name: 'PASS' if value else 'FAIL' for name, value in checks.items()},
+        'http_status': status, 'categories': categories,
+        'response_sha256': hashlib.sha256(body).hexdigest(),
+    }, sort_keys=True), flush=True)
+    expect('CONTINUOUS_BROWSER_DOMAIN_LABELS', all(checks.values()))
+
+
 def php_run(binary, script, arguments, env):
     return subprocess.run([binary, '-d', 'display_errors=0', '-d', 'log_errors=0',
                            str(ROOT/script), *arguments], cwd=ROOT, env=env,
@@ -605,9 +635,8 @@ def suite(client, binary, env, profile, wire, domain_wire, alarm_wire, replay_wi
     channels = state['channels']
     expect('CONTINUOUS_FULL_JOURNAL_DIAGNOSTIC', channels['runtime_journal_retained']['value'] == 8
            and channels['runtime_journal_rejected']['value'] == 58)
-    status, _, body = client.request(device_path)
-    expect('CONTINUOUS_BROWSER_DOMAIN_LABELS', status == 200 and b'engine_4_rpm' in body and b'RUNNING' in body
-           and b'unitless surrogate; not ppm or %LEL' in body and b'low-power prototype' in body)
+    status, headers, body = client.request(device_path)
+    continuous_browser_labels(status, body, headers)
     status, _, _ = api(client, '/api/v1/telemetry', domain_wire.splitlines()[-1], token)
     expect('CONTINUOUS_C99_IDENTICAL_REPLAY', status == 200)
     packet = domain_wire.splitlines()[-1]

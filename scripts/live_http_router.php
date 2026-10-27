@@ -34,6 +34,13 @@ try {
     error_log('VG_LIVE_STAGE=APPLICATION_ADMITTED');
     LiveHttpSafety::assertOwnedRows($profile);
     error_log('VG_LIVE_STAGE=ROWS_ADMITTED');
+    // Only an actual authorized dashboard view supplies these fixed categories.
+    // This private CLI-server router is never part of production routing.
+    $app['view']->composer('monitoring.index', static function ($view) use ($app): void {
+        foreach (LiveHttpSafety::presentationCategories($app['config']->get('monitoring.presentation_profile'), $view->getData()) as $name => $value) {
+            header('X-VG-Test-'.$name.': '.$value);
+        }
+    });
     // Explicit test deployment: one loopback TLS proxy; only its scheme header.
     TrustProxies::at(['127.0.0.1']);
     TrustProxies::withHeaders(Request::HEADER_X_FORWARDED_PROTO);

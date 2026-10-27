@@ -1,5 +1,47 @@
 # CODEX_RESUME - checkpoint operasional
 
+## Targeted hosted HTTP/UI diagnostic checkpoint (2026-10-27)
+
+This checkpoint supersedes earlier publication/CI status below. GitHub main was
+verified read-only at `cb12113c9d07670ce33a94bf14f2bb43f8d7542d`,142 sanitized
+commits. Actual run40497516366 had4jobs PASS and backend-mysql-isolated FAIL at
+CONTINUOUS_BROWSER_DOMAIN_LABELS. Its PHP8.2.35/MySQL8.0.46 suite391PASS/0FAIL/0SKIP
+and no-DB229PASS are actual hosted evidence; archive workflow NOT_RUN.
+
+The current isolated diagnostic checkout is
+`private/portfolio-http-ui-diagnostics-20261027`,branch portfolio,no remotes.
+Resolve the additive diagnostic commit with `git log -1 -- evidence/test-results/http-ui-diagnostics-20261027.json`;
+its exact final HEAD is recorded in the private gate receipt. Parent142commits,
+original develop82ae9f87ee1162bd4b33e101286d0be48418184e,LOCKED requirements,
+protected untracked firmware files and pre-existing user work are preserved.
+
+Root cause remains UNCONFIRMED:the hosted composite gate did not identify which
+of HTTP200,engine_4_rpm,RUNNING,vapor unit disclaimer,low-power label failed.
+Actual local MariaDB10.4.32/PHP8.2.35 HTTP/TLS:all5conditions PASS,status200,
+SIMULATION,V1_1,continuous profile,ENABLED,LIVE. No dashboard/application repair
+has been made. Production controller,queries,views,presenter,freshness,auth,
+source/quality/data contracts,migrations,firmware and workflows are unchanged.
+
+Diagnostic changes report all5original predicates before retaining their exact
+aggregate gate. Only fixed categories,condition PASS/FAIL,HTTP status and response
+SHA256 are emitted. Private CLI-server/lease/owned-row guarded view instrumentation
+reports the actual authorized dashboard context without changing values. Unknown
+category values are suppressed. No raw HTML,cookies,CSRF,keys or credentials.
+
+Local gates:393PHP cases/0failed/0skipped,no-DB231,focused UI55,actual private
+loopback TLS/HTTP248 and100Python cases PASS. Security0findings/0warnings;
+3old runtime-input lines were re-reviewed with exact unchanged line hashes after
+source hash changed; old reviews remain.38requirement traceability/baselines PASS.
+Evidence: `evidence/test-results/http-ui-diagnostics-20261027.json` and its file
+manifest; private details in `private/portfolio-http-ui-diagnostics-gates-20261027`.
+
+Current task authorizes NO PUSH and NO WORKFLOW DISPATCH. After local gated commit,
+stop for explicit publication approval to collect hosted individual conditions.
+Do not guess a MySQL,PHP,collation,profile or timing root cause; change production
+behavior only after proof. Hosted CI remains FAILED on parent; diagnostic candidate
+hosted execution NOT_RUN. System PARTIAL/formal NOT_APPROVED; no ESP32,NVS/RTOS,
+deployedTLS or real-vessel verification. No automatic further development.
+
 ## Hosted backend repair checkpoint (2026-10-27)
 
 This checkpoint supersedes the older 139/140-commit publication notes below.
