@@ -1304,6 +1304,14 @@
       "line_sha256": "994c6aef934a9baf22e0e4e14d0236253e4fca23758d9a81e329990287091561",
       "classification": "RUNTIME_GENERATED_TEST_VALUE",
       "rationale": "Exact unchanged runtime-generated input line from published1cdf4c3. Byte and line hashes verified. Only whole-file pin appended for private native causality diagnostics; all prior reviews and scanner rules retained."
+    },
+    {
+      "id": "MYSQL-SERVICE-DIAGNOSTIC-ENV-NAME",
+      "path": "backend/laravel/tests/Support/MySqlIsolation.php",
+      "file_sha256": "778e80e614122b60c943ae6a6bf715664e79e17c5076cb2ba2f05d5b57d059c5",
+      "line_sha256": "c7ea48f0a77a1ec24edf8224103819e92ba4484526ad615364cdbba731f9bfe8",
+      "classification": "ENVIRONMENT_VARIABLE_NAME",
+      "rationale": "Existing credential-name mapping only; primary effective configuration/server/grant methods byte-identical, secondary overrides and schema checks strengthened. No credential value."
     }
   ]
 }

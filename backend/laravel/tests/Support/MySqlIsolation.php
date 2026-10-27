@@ -144,7 +144,7 @@ final class MySqlIsolation
     public static function assertConnectedService(array $env, string $serviceUuid, mixed $connectedUuid): void
     {
         if (($env['_verified_ci_uuid'] ?? null) !== $serviceUuid || $connectedUuid !== $serviceUuid) {
-            throw new RuntimeException('MYSQL_TEST_BLOCKED: connected server differs from verified service.');
+            throw new RuntimeException('MYSQL_TEST_BLOCKED: SERVICE_IDENTITY_MISMATCH.');
         }
     }
 

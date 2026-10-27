@@ -1,5 +1,61 @@
 # CHATGPT_CONTEXT - konteks proyek untuk percakapan baru
 
+## Hosted MySQL service-proof diagnostics (2026-10-28)
+
+This supersedes older current-status sections below. GitHub main was verified
+read-only at b7a3f06d3820161f052e1bc5a3618ae59dc46c94,147 published sanitized
+commits. Run40547241521:four jobs PASS,backend-mysql-isolated FAIL at preflight
+exit3,archive NOT_RUN. No-DB237 and dashboard13 PASS; actual MySQL PHPUnit and
+HTTP/retry/formal/resilience did not run. No HTTP disconnect or SIGSEGV observation
+exists for that run because its HTTP stage was not reached.
+
+Hosted root subcause remains UNKNOWN. Read-only log review confirms one forwarded
+64-hex service ID matching cleanup,image mysql8,expected loopback port and no explicit
+mount flags. This does not establish inspect/JSON/UUID/property outcomes. The old
+outer catch collapsed these stages to isolated service identity unavailable.
+
+Current local checkpoint adds only test-support diagnostics and regression/evidence.
+Seven static reasons:SERVICE_CONTAINER_ID_MISSING,DOCKER_INSPECT_FAILED,
+DOCKER_INSPECT_JSON_INVALID,SERVICE_PROPERTY_MISMATCH,MYSQL_UUID_QUERY_FAILED,
+MYSQL_UUID_INVALID,SERVICE_IDENTITY_MISMATCH. Property errors add only a fixed
+category,never inspected values. CLI catch boundaries preserve the codes. Runtime
+verify still uses the actual executor; the injected IO seam is private and used
+only by unit reflection. No environment-selected fake mode or authorization bypass.
+PDO/preflight UUID drift also receives the static identity mismatch reason.
+
+Fixed targets,ACK,effective Laravel config,real container/socket/TCP UUID proof,
+lease/device/token ownership,metadata/receipt/replay contracts are retained. Exact
+command/template strings,5s timeout and8192-byte bound stay unchanged. A malformed
+ports scalar warning is locally reproduced/fixed with a type check; it is NOT a
+confirmed cause of the hosted incident.234 old/new predicate comparisons have zero
+acceptance differences and zero new warnings. Existing tests are retained.
+
+Executed local gates:96 focused PHP cases PASS/0warnings;50 new diagnostic cases
+cover all7reason codes,8property categories,command failure/timeout/output bounds,
+redaction and14 child CLI error-boundary executions. Full PHP/MariaDB449PASS/0FAIL/
+0SKIP;no-DB287PASS/0FAIL/0SKIP. Catalog pre/postflight,real receipt crosscheck and
+transactional cleanup PASS. No migrations repeated: schema and migration inputs
+unchanged,prior Laravel rollback/reapply PASS reused. Workflow YAML/actionlint PASS
+reused after both workflow input hashes match the tested parent. No rerun of full
+firmware/dashboard gates. Traceability38requirements/185references PASS; protected
+LOCKED hashes match,formal approval NOT_APPROVED,total system PARTIAL.
+
+Protocol:docs/testing/mysql-service-diagnostics-20261028.md. Public gate summary and
+scope manifest:evidence/test-results/mysql-service-diagnostics-20261028.json and
+mysql-service-diagnostics-files-20261028.csv. Private logs/receipts:
+private/portfolio-mysql-service-diagnostics-gates-20261028. Resolve the additive
+local checkpoint SHA with `git log -1 -- evidence/test-results/mysql-service-diagnostics-20261028.json`;
+private final receipt records it. Candidate remains private/portfolio-php-native-causality-20261027,
+branch portfolio. All147 published ancestors,original develop82ae9f87ee1162bd4b33e101286d0be48418184e,
+its index/project refs/WIP/protected files must remain intact. Exact-scope local
+commit only after final security,manifest,scope and Git gates PASS.
+
+Next:one separately approved publication and controlled hosted diagnostic run.
+Actual Docker/MySQL8 service probing NOT_RUN locally;injected cases are not actual
+hosted proof. No new push/dispatch is authorized. Do not infer a root cause from a
+hypothesis or relax the service proof. Native SIGSEGV causality,physical ESP32,
+NVS/RTOS,deployed TLS and vessel trials remain unverified. Stop at this checkpoint.
+
 ## Environment-specific database identity repair (2026-10-27)
 
 This checkpoint supersedes the older current-status sections below. Published

@@ -1,0 +1,122 @@
+{
+  "decision": "READY_FOR_MYSQL_SERVICE_DIAGNOSTIC_APPROVAL",
+  "hosted_root_cause": "UNKNOWN",
+  "parent": "b7a3f06d3820161f052e1bc5a3618ae59dc46c94",
+  "parent_commits": 147,
+  "failed_run": 40547241521,
+  "verified_hosted_facts": {
+    "parent": "b7a3f06d3820161f052e1bc5a3618ae59dc46c94",
+    "run": 40547241521,
+    "job": 122341027663,
+    "raw_log_sha256": "d9edc20e0c0b52969b3c4954caed6ff415320ea49bd007a2875248a83f841545",
+    "raw_log_retained": false,
+    "service_creation_commands": 1,
+    "container_ID_forwarded_64hex": true,
+    "forwarded_ID_matches_cleanup_ID": true,
+    "service_image_mysql8": true,
+    "loopback_port_published": true,
+    "explicit_mount_flags_in_creation": false,
+    "reason_seen": true,
+    "underlying_command_or_property_outcome": "NOT_LOGGED_UNKNOWN",
+    "external_reference": "https://docs.github.com/en/actions/reference/workflows-and-actions/contexts#job-context"
+  },
+  "reason_codes": [
+    "SERVICE_CONTAINER_ID_MISSING",
+    "DOCKER_INSPECT_FAILED",
+    "DOCKER_INSPECT_JSON_INVALID",
+    "SERVICE_PROPERTY_MISMATCH",
+    "MYSQL_UUID_QUERY_FAILED",
+    "MYSQL_UUID_INVALID",
+    "SERVICE_IDENTITY_MISMATCH"
+  ],
+  "property_categories": [
+    "IMAGE",
+    "RUNNING",
+    "BINDS",
+    "PRIVILEGED",
+    "NETWORK",
+    "MOUNTS",
+    "PORT_BINDING",
+    "EXTRA_PUBLICATION"
+  ],
+  "gates": {
+    "focused_PHP": {
+      "pass": 96,
+      "fail": 0,
+      "skip": 0,
+      "warnings": 0
+    },
+    "new_diagnostic_cases": 50,
+    "real_child_CLI_error_boundaries": 14,
+    "PHP_MariaDB": {
+      "pass": 449,
+      "fail": 0,
+      "skip": 0
+    },
+    "PHP_no_DB": {
+      "pass": 287,
+      "fail": 0,
+      "skip": 0
+    },
+    "admission_equivalence": {
+      "comparisons": 234,
+      "differences": 0,
+      "new_warnings": 0
+    },
+    "fixture_cleanup": "PASS_ZERO_APPLICATION_ROWS",
+    "receipt_crosscheck": "PASS",
+    "YAML_actionlint": "PASS_REUSED_BYTE_IDENTICAL_BOTH_WORKFLOWS",
+    "traceability": "PASS38_REQUIREMENTS185_REFERENCES",
+    "security": "PASS_FINAL0_FINDINGS0_WARNINGS_EXACT_INDEX_RECHECK_BEFORE_COMMIT"
+  },
+  "local_confirmed_fix": "Malformed ports scalar now fails closed without PHP warning; no acceptance change, not proven related to hosted incident.",
+  "unchanged_security": [
+    "local/hosted target allowlists",
+    "ACK",
+    "effective Laravel connection",
+    "container and actual TCP UUID",
+    "lease/device/token ownership",
+    "receipt/idempotency/metadata",
+    "exact command/template",
+    "5 second timeout",
+    "8192-byte output bound",
+    "no fake runtime environment switch"
+  ],
+  "reuse_policy": {
+    "migration_roundtrip": "NOT_RERUN_UNCHANGED_MIGRATIONS_PRIOR_PASS",
+    "workflow_YAML_actionlint": "NOT_RERUN_BYTE_IDENTICAL_INPUTS_PRIOR_PASS",
+    "full_firmware_dashboard": "NOT_RERUN_UNCHANGED_SCOPE",
+    "full_HTTP_TLS": "NOT_RUN_THIS_DIAGNOSTIC_SCOPE_CLI_BOUNDARIES_AND_REAL_MYSQL_REGRESSION_EXECUTED"
+  },
+  "actual_Docker_MySQL8": "NOT_RUN_NO_LOCAL_DOCKER_PODMAN_NEW_HOSTED_APPROVAL_REQUIRED",
+  "hardware_production": "NOT_RUN",
+  "development_failures_resolved": [
+    "17 initial call-counter assertions exposed test arrow-closure capture; executor fixtures corrected without removing assertions",
+    "malformed ports negative test exposed PHP warning; explicit type guard added and warnings enforced as gate failures"
+  ],
+  "runtime": {
+    "PHP": "8.2.35",
+    "Laravel": "12.70.0",
+    "local_engine": "10.4.32-MariaDB"
+  },
+  "source_execution_fingerprint": "a1b36db3310908c77543923a6de7cb48f386128c4f71e214ecf5226f74b0bb20",
+  "evidence_sha256": {
+    "read-only-hosted-audit.json": "f4a4f19e5355602430a41bfe58895cd146a119384e7de89ba607277578c3b8fb",
+    "focused-initial.txt": "9b7c6019a3b86125cbf03b20b961d51194492dbce6a038c17cec0345bec4da9f",
+    "focused-second.txt": "1e131417b67c6ab711f6ac49132df8e4f58c92ab78b8099833f9a3c32850c9cd",
+    "focused-final.txt": "30b716b9260fa320f6d850055c766ff7dd8599d526ace8356eed74e9f9e0291b",
+    "local-isolation-preflight.txt": "3c064cdf83a27e3ddaad458e164c1a78b7c1befca49496f725346ad97ce87265",
+    "mysql-regression.txt": "b360af721d8446bf08a261d5fbb71e7156b9f83412043ffa8e65d76cf9dd3014",
+    "no-db-regression.json": "d0c933c58871dbcd12c090641964cc710c0818bc0932c4109167568b0596215a",
+    "admission-equivalence.json": "b53fbb8051328cfbe54c65653aa4140d2b8cf562fbd6c570905f401250518764",
+    "scope-preservation.json": "52916dd6f8ac58168491cb9ed7a402c3e4e02d366bd2e6440d5087c17b9bcec3",
+    "workflow-gates-reuse.json": "af29bfcf7f7b8eaecd7cc704b5629281ba4c3869505a02c6d1d449c3db36e7da",
+    "security-line-proof.json": "dc0079312251d0c411fe06bcb3a271972974b84714b4e8cfee37baaf2004398e",
+    "traceability.txt": "a724b4b2d6ae58dbab5f9936a19053d8ca12dbff874517adb0800efc973d7adb",
+    "security-before-docs.txt": "2f8c25401b65e5077f439eaec0cb948e29cc799c0ec1ca78f987ebc541961d07",
+    "security-final.txt": "70fe92e65ec007d9c95d2d7ea697c36f2d010724f19588abaaa66aacdab35ca4"
+  },
+  "pushes": 0,
+  "workflow_dispatches": 0,
+  "stop": "AWAIT_NEW_APPROVAL_AFTER_LOCAL_CHECKPOINT"
+}
