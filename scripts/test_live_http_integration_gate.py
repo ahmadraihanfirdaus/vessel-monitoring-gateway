@@ -15,6 +15,7 @@ import run_live_http_integration as gate
 from test_http_proxy_diagnostics import ProxyDiagnosticsTest, LoopbackProxyDiagnosticsTest
 from test_php_lifecycle_diagnostics import PhpLifecycleTest
 from test_php_native_causality import NativeCausalityTest
+from test_live_database_identity import DatabaseIdentityTest
 
 
 class LiveHttpGateTest(unittest.TestCase):
@@ -86,10 +87,14 @@ class LiveHttpGateTest(unittest.TestCase):
     def result(code=0, output=''):
         return subprocess.CompletedProcess([], code, output, '')
 
-    def invoke(self, args, results, fixture=None, live=False, suite_error=None, snapshots=None, ready_status=200):
+    def invoke(self, args, results, fixture=None, live=False, suite_error=None, snapshots=None, ready_status=200, identity_stub=True):
         with ExitStack() as stack:
             stack.enter_context(patch.object(sys, 'argv', ['live-test', '--php-binary', 'synthetic-php', *args]))
             command = stack.enter_context(patch.object(gate, 'php_run', side_effect=results))
+            # This harness isolates lifecycle behavior; identity admission has its
+            # own positive/negative contract suite and real HTTP integration gate.
+            if identity_stub:
+                stack.enter_context(patch.object(gate, 'bind_preflight', return_value={}))
             builder = stack.enter_context(patch.object(gate, 'build_bytes', side_effect=fixture) if fixture else
                                           patch.object(gate, 'build_bytes', return_value=b'synthetic-wire\n'))
             stack.enter_context(patch.object(gate, 'build_domain_bytes', return_value=b'synthetic-domain-wire\n'))
@@ -214,6 +219,14 @@ class LiveHttpGateTest(unittest.TestCase):
         suite.assert_called_once()
         self.assertIn('PASS_LOCAL_ONLY_HARDWARE_DEPLOYED_TLS_NOT_RUN', output)
 
+    def test_unverified_identity_blocks_before_build_server_or_database_fixture(self):
+        code, command, builder, process, suite, output = self.invoke(
+            ['--execute'], [self.result()], identity_stub=False)
+        self.assertEqual(code, 3)
+        self.assertEqual(command.call_count, 1)
+        builder.assert_not_called(); process.assert_not_called(); suite.assert_not_called()
+        self.assertIn('BLOCKED_ValueError', output)
+
     def test_failed_c99_assertion_is_fail_and_precedes_any_fixture_mutation(self):
         code, command, _, popen, suite, output = self.invoke(['--execute'], [self.result()], fixture=AssertionError('synthetic'))
         self.assertEqual(code, 1)
@@ -227,6 +240,7 @@ class LiveHttpGateTest(unittest.TestCase):
             stream = io.StringIO()
             with patch.object(sys, 'argv', ['gate', '--php-binary', 'synthetic-php', '--execute']), \
                  patch.object(gate, 'php_run', return_value=self.result()) as command, \
+             patch.object(gate, 'bind_preflight', return_value={}), \
                  patch.object(gate, 'build_bytes', return_value=b'legacy'), \
                  patch.object(gate.subprocess, 'Popen') as process, redirect_stdout(stream):
                 self.assertEqual(gate.main(), 1)
@@ -238,6 +252,7 @@ class LiveHttpGateTest(unittest.TestCase):
         stream = io.StringIO()
         with patch.object(sys, 'argv', ['gate', '--php-binary', 'synthetic-php', '--execute']), \
              patch.object(gate, 'php_run', return_value=self.result()) as command, \
+             patch.object(gate, 'bind_preflight', return_value={}), \
              patch.object(gate, 'build_bytes', return_value=b'legacy'), \
              patch.object(gate, 'build_domain_bytes', return_value=b'domain'), \
              patch.object(gate, 'build_alarm_bytes', side_effect=AssertionError('synthetic-alarm')), \
@@ -258,6 +273,7 @@ class LiveHttpGateTest(unittest.TestCase):
         stream = io.StringIO()
         with patch.object(sys, 'argv', ['gate', '--php-binary', 'synthetic-php', '--execute']), \
              patch.object(gate, 'php_run', return_value=self.result()) as command, \
+             patch.object(gate, 'bind_preflight', return_value={}), \
              patch.object(gate, 'build_bytes', return_value=b'legacy'), \
              patch.object(gate, 'build_domain_bytes', return_value=b'domain'), \
              patch.object(gate, 'build_alarm_bytes', return_value=b'alarm'), \
@@ -272,6 +288,7 @@ class LiveHttpGateTest(unittest.TestCase):
         stream = io.StringIO()
         with patch.object(sys, 'argv', ['gate', '--php-binary', 'synthetic-php', '--execute']), \
              patch.object(gate, 'php_run', return_value=self.result()) as command, \
+             patch.object(gate, 'bind_preflight', return_value={}), \
              patch.object(gate, 'build_bytes', return_value=b'legacy'), \
              patch.object(gate, 'build_domain_bytes', return_value=b'domain'), \
              patch.object(gate, 'build_alarm_bytes', return_value=b'alarm'), \
@@ -296,6 +313,7 @@ class LiveHttpGateTest(unittest.TestCase):
         stream = io.StringIO()
         with patch.object(sys, 'argv', ['gate', '--php-binary', 'synthetic-php', '--execute']), \
              patch.object(gate, 'php_run', return_value=self.result()) as command, \
+             patch.object(gate, 'bind_preflight', return_value={}), \
              patch.object(gate, 'build_bytes', return_value=b'legacy'), \
              patch.object(gate, 'build_domain_bytes', return_value=b'domain'), \
              patch.object(gate, 'build_alarm_bytes', return_value=b'alarm'), \

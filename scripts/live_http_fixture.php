@@ -30,6 +30,7 @@ try {
         echo 'LIVE_HTTP_CONFIG_AUDIT='.json_encode(['environment' => 'testing', 'php' => PHP_VERSION,
             'target' => ['host' => config('database.connections.mysql.host'), 'port' => config('database.connections.mysql.port'),
                 'database' => config('database.connections.mysql.database'), 'username' => config('database.connections.mysql.username')],
+            'identity' => $app->make('live-http-test-identity'),
             'session_driver' => config('session.driver'), 'cache_driver' => config('cache.default'),
             'secure_cookie' => config('session.secure'), 'app_debug' => config('app.debug'),
             'app_key_configured' => true, 'app_key_cipher_compatible' => true,
@@ -69,7 +70,7 @@ try {
             }
             $result[$label] = ['count' => $count, 'rows' => $facts];
         }
-        echo json_encode(['database' => config('database.connections.mysql.database'),
+        echo json_encode(['identity' => $app->make('live-http-test-identity'), 'database' => config('database.connections.mysql.database'),
             'username' => config('database.connections.mysql.username'), 'facts' => $result], JSON_THROW_ON_ERROR)."\n";
         exit(0);
     }
@@ -86,7 +87,7 @@ try {
             'occurred_at_ms' => (string) $row->occurred_at_ms,
             'alarm' => json_decode($row->alarm_metadata, true, flags: JSON_THROW_ON_ERROR),
         ])->all();
-        echo json_encode(['database' => config('database.connections.mysql.database'),
+        echo json_encode(['identity' => $app->make('live-http-test-identity'), 'database' => config('database.connections.mysql.database'),
             'username' => config('database.connections.mysql.username'),
             'event_count' => (clone $query)->count(), 'facts' => $facts], JSON_THROW_ON_ERROR)."\n";
         exit(0);
@@ -112,7 +113,7 @@ try {
                 'event_type' => $event->event_type, 'occurred_at_ms' => (string) $event->occurred_at_ms,
                 'alarm' => json_decode($event->alarm_metadata, true, flags: JSON_THROW_ON_ERROR),
             ])->all();
-        echo json_encode(['database' => config('database.connections.mysql.database'),
+        echo json_encode(['identity' => $app->make('live-http-test-identity'), 'database' => config('database.connections.mysql.database'),
             'username' => config('database.connections.mysql.username'), 'sample_count' => (clone $samples)->count(),
             'event_count' => (clone $events)->count(), 'samples' => $sampleFacts, 'events' => $eventFacts], JSON_THROW_ON_ERROR)."\n";
         exit(0);

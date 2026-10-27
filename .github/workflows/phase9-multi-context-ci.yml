@@ -369,11 +369,15 @@ jobs:
         run: python3 -B ../../scripts/test_mysql_integration_gate.py
       - name: C99 through Laravel and real isolated MySQL with migration roundtrip
         # Guarded equivalent of php artisan migrate --force; no dotenv loading.
+        env:
+          # Checked against Docker and actual TCP server UUID; not trusted alone.
+          VG_CI_MYSQL_CONTAINER_ID: ${{ job.services.mysql.id }}
         run: python3 -B ../../scripts/run_mysql_integration.py --execute --migration-roundtrip
       - name: Real loopback TLS and persistent browser-session integration
         working-directory: .
         env:
           VG_PHP_CLI: php
+          VG_CI_MYSQL_CONTAINER_ID: ${{ job.services.mysql.id }}
         run: |
           python3 -B scripts/test_live_http_integration_gate.py
           python3 -B scripts/run_live_http_integration.py --php-binary php --execute --resilience-only | tee evidence/test-results/formal-resilience-ci-readonly.txt

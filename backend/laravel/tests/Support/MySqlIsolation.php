@@ -13,29 +13,49 @@ final class MySqlIsolation
         $values = [];
         foreach (['APP_ENV', 'DB_CONNECTION', 'DB_HOST', 'DB_PORT', 'DB_DATABASE',
             'DB_USERNAME', 'DB_PASSWORD', 'DB_URL', 'DATABASE_URL', 'DB_SOCKET',
-            'VG_MYSQL_TEST_ACK', 'GITHUB_ACTIONS', 'SESSION_CONNECTION', 'SESSION_TABLE',
+            'VG_MYSQL_TEST_ACK', 'GITHUB_ACTIONS', 'CI', 'RUNNER_ENVIRONMENT', 'RUNNER_OS',
+            'GITHUB_REPOSITORY', 'GITHUB_JOB', 'GITHUB_WORKFLOW', 'GITHUB_WORKFLOW_REF',
+            'GITHUB_EVENT_NAME', 'GITHUB_EVENT_PATH', 'VG_CI_MYSQL_CONTAINER_ID', 'SESSION_CONNECTION', 'SESSION_TABLE',
+            'DOCKER_HOST', 'DOCKER_CONTEXT', 'DOCKER_TLS_VERIFY', 'DOCKER_CERT_PATH',
             'DB_CACHE_CONNECTION', 'DB_CACHE_LOCK_CONNECTION', 'DB_CACHE_TABLE', 'DB_CACHE_LOCK_TABLE'] as $name) {
             $value = getenv($name);
             $values[$name] = $value === false ? null : $value;
         }
 
+        self::assertEnvironment($values);
+        if (($values['GITHUB_ACTIONS'] ?? null) === 'true') {
+            $values['_verified_ci_uuid'] = HostedMySqlService::verify($values);
+        } elseif (PHP_OS_FAMILY !== 'Windows') {
+            throw new RuntimeException('MYSQL_TEST_BLOCKED: local Windows runtime required.');
+        }
+
         return $values;
+    }
+
+    public static function approvedTarget(array $env): array
+    {
+        if (! in_array($env['GITHUB_ACTIONS'] ?? null, [null, '', 'false', 'true'], true)) {
+            throw new RuntimeException('MYSQL_TEST_BLOCKED: invalid environment profile.');
+        }
+        $ci = ($env['GITHUB_ACTIONS'] ?? null) === 'true';
+
+        return ['profile' => $ci ? 'HOSTED_GITHUB_CI' : 'LOCAL_WINDOWS', 'host' => '127.0.0.1',
+            'port' => $ci ? '3306' : '3307', 'database' => $ci ? 'vessel_gateway_ci' : 'vessel_gateway_codex_test',
+            'username' => $ci ? 'root' : 'vgw_codex'];
     }
 
     public static function assertEnvironment(array $env): void
     {
-        $ci = ($env['GITHUB_ACTIONS'] ?? null) === 'true';
-        $database = $ci ? 'vessel_gateway_ci' : 'vessel_gateway_codex_test';
-        $port = $ci ? '3306' : '3307';
+        $target = self::approvedTarget($env);
+        $database = $target['database'];
+        $port = $target['port'];
         if (($env['APP_ENV'] ?? null) !== 'testing'
             || ($env['DB_CONNECTION'] ?? null) !== 'mysql'
             || ($env['DB_HOST'] ?? null) !== '127.0.0.1'
             || ($env['DB_PORT'] ?? null) !== $port
             || ($env['DB_DATABASE'] ?? null) !== $database
             || ($env['VG_MYSQL_TEST_ACK'] ?? null) !== $database
-            || ! is_string($env['DB_USERNAME'] ?? null)
-            || $env['DB_USERNAME'] === ''
-            || (! $ci && $env['DB_USERNAME'] !== 'vgw_codex')
+            || ($env['DB_USERNAME'] ?? null) !== $target['username']
             || ! is_string($env['DB_PASSWORD'] ?? null)) {
             throw new RuntimeException('MYSQL_TEST_BLOCKED: explicit isolated test configuration required.');
         }
@@ -97,7 +117,7 @@ final class MySqlIsolation
         }
     }
 
-    public static function verify(PDO $pdo, array $env): void
+    public static function verify(PDO $pdo, array $env): array
     {
         self::assertEnvironment($env);
         $row = $pdo->query('SELECT VERSION() AS version, DATABASE() AS db, CURRENT_USER() AS account, @@port AS port')->fetch(PDO::FETCH_ASSOC);
@@ -109,6 +129,22 @@ final class MySqlIsolation
         }
         if (($env['GITHUB_ACTIONS'] ?? null) !== 'true') {
             self::assertLocalGrants($pdo->query('SHOW GRANTS FOR CURRENT_USER')->fetchAll(PDO::FETCH_COLUMN));
+        } else {
+            // A supplied environment UUID is never trusted: processEnvironment obtains
+            // this proof by inspecting/querying the actual owned runner service.
+            $uuid = HostedMySqlService::verify($env);
+            self::assertConnectedService($env, $uuid, $pdo->query('SELECT @@server_uuid')->fetchColumn());
+        }
+
+        return self::approvedTarget($env) + ['server_fingerprint' => hash('sha256', json_encode([
+            $row['version'], $row['db'], $row['account'], (string) $row['port'], $env['_verified_ci_uuid'] ?? null,
+        ], JSON_THROW_ON_ERROR))];
+    }
+
+    public static function assertConnectedService(array $env, string $serviceUuid, mixed $connectedUuid): void
+    {
+        if (($env['_verified_ci_uuid'] ?? null) !== $serviceUuid || $connectedUuid !== $serviceUuid) {
+            throw new RuntimeException('MYSQL_TEST_BLOCKED: connected server differs from verified service.');
         }
     }
 

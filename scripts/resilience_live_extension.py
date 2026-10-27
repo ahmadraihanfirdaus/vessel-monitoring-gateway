@@ -10,6 +10,7 @@ import re
 from pathlib import Path
 
 from resilience_native_bridge import build, fast_packets
+from live_database_identity import audit_identity_matches
 
 
 def mapped(rows, device, boot):
@@ -34,8 +35,7 @@ def execute(client, binary, env, profile, device_path, api, php_run, expect):
         if result.returncode:
             raise RuntimeError('RESILIENCE_DIRECT_DB_AUDIT_BLOCKED')
         value=json.loads(result.stdout)
-        expect('RESILIENCE_AUDIT_APPROVED_TARGET', value.get('database') == 'vessel_gateway_codex_test'
-               and value.get('username') == 'vgw_codex')
+        expect('RESILIENCE_AUDIT_APPROVED_TARGET', audit_identity_matches(value, profile))
         return value
 
     before = audit()

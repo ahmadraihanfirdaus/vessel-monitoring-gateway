@@ -1256,6 +1256,54 @@
       "line_sha256": "994c6aef934a9baf22e0e4e14d0236253e4fca23758d9a81e329990287091561",
       "classification": "RUNTIME_GENERATED_TEST_VALUE",
       "rationale": "Exact unchanged runtime-generated input line from published1cdf4c3. Byte and line hashes verified. Only whole-file pin appended for private native causality diagnostics; all prior reviews and scanner rules retained."
+    },
+    {
+      "id": "MYSQL-IDENTITY-REVIEW-1",
+      "path": ".github/workflows/phase9-multi-context-ci.yml",
+      "file_sha256": "951c286a2ebc02361c6477371950a9c379c0296ba8f1e22862e7320e55f1d8d5",
+      "line_sha256": "e52d2a0aee17904e9e0b4a21889e572a42d8b99434d44885e2867934c59dbb4b",
+      "classification": "CI_TEST_CONFIGURATION",
+      "rationale": "Exact existing reviewed ephemeral CI setting or runtime-generated environment writer, byte-identical to published 10d8a4e2. Whole-file pin appended only for the PHP run literal-block YAML syntax fix. No detector, privacy rule, secret value, or historical record changed."
+    },
+    {
+      "id": "MYSQL-IDENTITY-REVIEW-2",
+      "path": ".github/workflows/phase9-multi-context-ci.yml",
+      "file_sha256": "951c286a2ebc02361c6477371950a9c379c0296ba8f1e22862e7320e55f1d8d5",
+      "line_sha256": "ca6dcd3e138310f57f7f86f4061f0dd448f949016058e65ba39ff6fb214029d7",
+      "classification": "CI_TEST_CONFIGURATION",
+      "rationale": "Exact existing reviewed ephemeral CI setting or runtime-generated environment writer, byte-identical to published 10d8a4e2. Whole-file pin appended only for the PHP run literal-block YAML syntax fix. No detector, privacy rule, secret value, or historical record changed."
+    },
+    {
+      "id": "MYSQL-IDENTITY-REVIEW-3",
+      "path": "backend/laravel/tests/Support/MySqlIsolation.php",
+      "file_sha256": "615dbc185387c1156f94b238af323a71b17f0e4555bf11fd02fed904023618a4",
+      "line_sha256": "c7ea48f0a77a1ec24edf8224103819e92ba4484526ad615364cdbba731f9bfe8",
+      "classification": "ENVIRONMENT_VARIABLE_NAME",
+      "rationale": "Existing credential-name mapping only; primary effective configuration/server/grant methods byte-identical, secondary overrides and schema checks strengthened. No credential value."
+    },
+    {
+      "id": "MYSQL-IDENTITY-REVIEW-4",
+      "path": "scripts/run_live_http_integration.py",
+      "file_sha256": "37b5eb61bd759e80d943cf90ba600ceac7d76008f5a4b338fa7e9b51dfebb45f",
+      "line_sha256": "56db39b92d76c4b6fba5da1f45cec61b93e5be15eecd72484369ddc89313dbf6",
+      "classification": "RUNTIME_GENERATED_TEST_VALUE",
+      "rationale": "Exact unchanged runtime-generated input line from published1cdf4c3. Byte and line hashes verified. Only whole-file pin appended for private native causality diagnostics; all prior reviews and scanner rules retained."
+    },
+    {
+      "id": "MYSQL-IDENTITY-REVIEW-5",
+      "path": "scripts/run_live_http_integration.py",
+      "file_sha256": "37b5eb61bd759e80d943cf90ba600ceac7d76008f5a4b338fa7e9b51dfebb45f",
+      "line_sha256": "2866dff5e418a124d0d4bfa35b2d8811facac27704e1d8345f5b0e92f3299e4f",
+      "classification": "RUNTIME_GENERATED_TEST_VALUE",
+      "rationale": "Exact unchanged runtime-generated input line from published1cdf4c3. Byte and line hashes verified. Only whole-file pin appended for private native causality diagnostics; all prior reviews and scanner rules retained."
+    },
+    {
+      "id": "MYSQL-IDENTITY-REVIEW-6",
+      "path": "scripts/run_live_http_integration.py",
+      "file_sha256": "37b5eb61bd759e80d943cf90ba600ceac7d76008f5a4b338fa7e9b51dfebb45f",
+      "line_sha256": "994c6aef934a9baf22e0e4e14d0236253e4fca23758d9a81e329990287091561",
+      "classification": "RUNTIME_GENERATED_TEST_VALUE",
+      "rationale": "Exact unchanged runtime-generated input line from published1cdf4c3. Byte and line hashes verified. Only whole-file pin appended for private native causality diagnostics; all prior reviews and scanner rules retained."
     }
   ]
 }

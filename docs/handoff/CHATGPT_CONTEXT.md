@@ -1,5 +1,56 @@
 # CHATGPT_CONTEXT - konteks proyek untuk percakapan baru
 
+## Environment-specific database identity repair (2026-10-27)
+
+This checkpoint supersedes the older current-status sections below. Published
+GitHub main was verified read-only at c2287f2549c8c7d657e6c125e813b73fc7ef11de
+(146 commits). Run 40540295756 passed dashboard HTTP 200/all five labels, MySQL
+393 cases and no-DB 231 cases; the HTTP retry target assertion failed. No upstream
+disconnect or SIGSEGV occurred in that run. PHP stayed ALIVE/SLEEPING before cleanup
+and exited -15 after the requested SIGTERM. Historical native crash causality and
+native frames remain unresolved; do not infer a crash fix from non-reproduction.
+
+The three Windows-only identity assertions were retry, formal and resilience audit.
+They now use a fixed allowlist plus PHP-verified lease/device/server identity pinned
+at preflight. LOCAL_WINDOWS permits only 127.0.0.1:3307,
+vessel_gateway_codex_test/vgw_codex. HOSTED_GITHUB_CI permits only 127.0.0.1:3306,
+vessel_gateway_ci/root in the approved ephemeral MySQL 8 service. ACK, effective
+Laravel configuration, actual database/account/port/version/catalogs/local grants,
+fixture/token ownership, metadata, receipt and exact replay/count assertions stay
+strict. The hosted path additionally verifies Linux/GitHub-hosted workflow/job/event
+context, the actual Docker service with fixed local socket and loopback publication,
+then matches its read-only server UUID to the TCP server. Environment flags alone do
+not authorize CI. Hosted root is not an approved laptop/production profile.
+
+Local mandatory gates: PHP 8.2.35 / MariaDB 10.4.32,399 cases PASS/0FAIL/0SKIP;
+rollback/reapply via Laravel migrations and empty-catalog postflight PASS; no-DB
+237 PASS/0FAIL/0SKIP; Python160 unique cases PASS (74 HTTP/identity,32 MySQL runner,
+4 retry oracle,23 security scanner,12 resilience,6 formal review,9 data/UI contract);
+real HTTP/TLS248 checks PASS (246 distinct labels), including retry BEFORE/AFTER,
+formal/resilience audits and cleanup. YAML parser/actionlint both workflows PASS.
+Security scan0findings/0warnings; six exact previously reviewed non-secret lines
+received new file hashes, no scanner weakening. Traceability38requirements/185refs
+PASS; formal approval remains NOT_APPROVED and system PARTIAL.
+
+Policy/proof documentation: docs/testing/mysql-environment-identity-contract-20261027.md.
+Evidence: evidence/test-results/mysql-environment-identity-20261027.json and
+mysql-environment-identity-files-20261027.csv. Private execution logs/final exact SHA
+receipt: private/portfolio-identity-ci-fix-gates-20261027. Resolve this additive
+checkpoint with `git log -1 -- evidence/test-results/mysql-environment-identity-20261027.json`.
+The final SHA is deliberately not self-embedded in its own commit. Candidate remains
+private/portfolio-php-native-causality-20261027,branch portfolio; original develop
+82ae9f87ee1162bd4b33e101286d0be48418184e/index/WIP/project refs/protected files and
+all146 published ancestors must remain unchanged. No app/firmware/dependency/LOCKED
+changes are included. Local exact-scope commit is permitted only after final index,
+manifest,security and Git gates PASS. No push or workflow dispatch is authorized.
+
+Next: review the local candidate and request publication/controlled hosted approval.
+The new Linux/Docker/MySQL8 service-proof path has synthetic positive/negative policy
+coverage only; actual hosted execution is NOT_RUN for this candidate. No Docker,
+Podman,WSL/GDB/symbolic backtrace is available locally; do not claim hosted CI PASS,
+physical ESP32/NVS/RTOS,deployed TLS or real-vessel verification. Do not automatically
+iterate or publish after this checkpoint. Preserve fail-closed behavior and all tests.
+
 ## Native PHP SIGSEGV causality checkpoint (2026-10-27)
 
 This section supersedes earlier publication/CI status below. GitHub main verified

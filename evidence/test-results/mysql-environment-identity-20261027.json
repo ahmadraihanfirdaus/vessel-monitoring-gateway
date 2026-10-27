@@ -1,0 +1,105 @@
+{
+  "decision": "READY_FOR_IDENTITY_CI_FIX_APPROVAL",
+  "parent": "c2287f2549c8c7d657e6c125e813b73fc7ef11de",
+  "parent_commits": 146,
+  "published_failure_run": 40540295756,
+  "root_cause": "Three read-only audit assertions required Windows-only catalog/account despite the separately verified hosted target; CI account admission also accepted any nonempty username and relied on GITHUB_ACTIONS for profile selection.",
+  "original_assertions": [
+    "RETRY_BEFORE_EXACT_TARGET_DEVICE_IDENTITY_BOUND",
+    "RETRY_AFTER_EXACT_TARGET_DEVICE_IDENTITY_BOUND",
+    "FORMAL_AUDIT_APPROVED_DATABASE_AND_ACCOUNT",
+    "RESILIENCE_AUDIT_APPROVED_TARGET"
+  ],
+  "profiles": {
+    "LOCAL_WINDOWS": {
+      "host": "127.0.0.1",
+      "port": "3307",
+      "database": "vessel_gateway_codex_test",
+      "username": "vgw_codex"
+    },
+    "HOSTED_GITHUB_CI": {
+      "host": "127.0.0.1",
+      "port": "3306",
+      "database": "vessel_gateway_ci",
+      "username": "root"
+    }
+  },
+  "gates": {
+    "PHP_MariaDB": {
+      "pass": 399,
+      "fail": 0,
+      "skip": 0
+    },
+    "PHP_no_DB": {
+      "pass": 237,
+      "fail": 0,
+      "skip": 0
+    },
+    "Python_unique": {
+      "pass": 160,
+      "fail": 0,
+      "skip": 0
+    },
+    "actual_HTTP_TLS": {
+      "pass_checks": 248,
+      "distinct_labels": 246,
+      "fail": 0
+    },
+    "migration_rollback_apply_reapply": "PASS_LARAVEL_ONLY_APPROVED_EMPTY_ISOLATED_CATALOG",
+    "receipt_crosscheck": "PASS",
+    "fixture_cleanup": "PASS_ZERO_APPLICATION_ROWS",
+    "YAML_actionlint": "PASS_BOTH_ROOT_WORKFLOWS",
+    "security": "PASS_0_FINDINGS_0_WARNINGS_NO_RULE_WEAKENING",
+    "traceability": "PASS_38_REQUIREMENTS_185_REFERENCES_LOCKED_HASHES_IDENTICAL"
+  },
+  "negative_coverage": [
+    "unknown database",
+    "wrong account",
+    "wrong host/port",
+    "ACK mismatch",
+    "CI flag alone",
+    "Windows/self-hosted/wrong workflow or event",
+    "service image/ID/ports/mounts/endpoint mismatch",
+    "connected UUID/preflight drift",
+    "main database attempt",
+    "cross-device and lease mismatch",
+    "metadata type/value/null-zero and receipt replay preserved"
+  ],
+  "new_hosted_execution": "NOT_RUN_NO_PUSH_NO_DISPATCH_AUTHORIZATION",
+  "Linux_MySQL8_locally": "NOT_RUN_NO_DOCKER_PODMAN_WSL",
+  "native_SIGSEGV_cause": "UNRESOLVED_NO_DISCONNECT_OR_SIGSEGV_IN_PREVIOUS_HOSTED_RUN",
+  "hardware_and_deployed_TLS": "NOT_RUN",
+  "development_failures_resolved": [
+    "five lifecycle harness tests initially stopped earlier at new identity preflight; stubs isolated from dedicated admission tests, all assertions preserved and one explicit preflight-before-build regression added",
+    "actionlint rejected job-level job context; service ID moved to two permitted step environments",
+    "six stale file-hash security reviews refreshed only after exact previously reviewed line hashes matched"
+  ],
+  "evidence_log_sha256": {
+    "isolation-preflight.txt": "3c064cdf83a27e3ddaad458e164c1a78b7c1befca49496f725346ad97ce87265",
+    "mysql-regression-roundtrip.txt": "a33b8764d2b6657bf320499dd75d6dc9258bba64ed3eec6e9e11b81c017d8c03",
+    "no-db-regression.json": "8db177afffb282bcf5124198165cef0695b94665fd1ccdabfb6b85b40ce71f6e",
+    "live-http-identity-final.txt": "d39a8fb091f68b11c66193354c943db7b2bfd359c6c0d52a653ad71e5bcf26eb",
+    "python-http-identity-final.txt": "124ebf09a3e869ab6ef3ee9388fba54d68e4051c8119b7f0a63a41be2b4e7419",
+    "test_mysql_integration_gate.py.txt": "7d45070256ca911efaeb07501e19df9b236cbc2dfcb8677644431ccdd53a45ae",
+    "test_event_delivery_retry.py.txt": "f9b73868674f50dc0e530e5e8d52a97a6aeec509d329b32c11b7eb21853145df",
+    "test_audit_precommit_security.py.txt": "4805276656f8302e7c7f78307fdcd36a0141213683ae81f4dffa8fe8636365a1",
+    "test_formal_resilience.py.txt": "2bdda9fca3a6de431038b7676d82f7ddad8c2d4f30aede5451f1027a62d5851f",
+    "test_review_formal_data_ui.py.txt": "ba9882e9ac323861c4e47fd88f712e12a56b4bd76a6d541faec02026dfe5f209",
+    "test_data_ui_contracts.py.txt": "9f801ca1b4567eec2769b41fb37bad07df075798d2c57596a4f1f5be5967f17b",
+    "check_living_traceability.py.txt": "a724b4b2d6ae58dbab5f9936a19053d8ca12dbff874517adb0800efc973d7adb",
+    "actionlint.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "yaml-validation.json": "8ec36a86b65c9eeb6cfb7420d60e34c10e79856416197f717b50004c34820b25",
+    "security-full.txt": "713455952e85024a1868e1e4b5281d9ac90d1db074d3c945298182c9600ee8bf",
+    "security-line-proof.json": "a6e4c438807848fcdb55b0d725f067c6aaa9cfc98b6dbe00661ecfa6ef463ff3",
+    "assertion-preservation.json": "88ebe74e41f53169aff7086c989ed566c46d041a5d9959c27471b575a96bc263"
+  },
+  "operations": {
+    "pushes": 0,
+    "workflow_dispatches": 0,
+    "production_operations": 0,
+    "hardware_operations": 0
+  },
+  "stop": "AWAIT_NEW_APPROVAL_AFTER_LOCAL_CANDIDATE_READY",
+  "assertion_preservation": "PASS118_EXPECT_CALLS_RETAINED_ONLY3_IDENTITY_PREDICATES_CHANGED_ALL_OTHER_AST_IDENTICAL",
+  "final_commit_gate": "Exact index, manifest, security and integrity enforced in private final receipt before local commit."
+}

@@ -23,6 +23,7 @@ import ssl
 import subprocess
 import sys
 import tempfile
+from live_database_identity import bind_preflight, audit_identity_matches
 import threading
 import time
 import urllib.error
@@ -61,7 +62,7 @@ def owned_temporary_root(folder):
 
 def source_snapshot():
     records = firmware_source_snapshot()
-    paths = [ROOT/'scripts'/name for name in ('run_live_http_integration.py', 'live_http_fixture.php',
+    paths = [ROOT/'scripts'/name for name in ('run_live_http_integration.py', 'live_http_fixture.php', 'live_database_identity.py', 'test_live_database_identity.py',
         'live_http_router.php', 'live_http_tls.php', 'live_http_event_race.php', 'runtime_uplink_wire_bridge.py',
         'runtime_uplink_wire_fixture.c', 'continuous_simulation_wire_bridge.py',
         'continuous_simulation_fixture.c', 'alarm_metadata_wire_bridge.py',
@@ -502,8 +503,7 @@ def data_ui_extension(client, binary, env, profile, native_packet, functional):
         if result.returncode:
             raise GateFailure('FORMAL_DIRECT_DB_AUDIT_BLOCKED')
         value = json.loads(result.stdout)
-        expect('FORMAL_AUDIT_APPROVED_DATABASE_AND_ACCOUNT', value.get('database') == 'vessel_gateway_codex_test'
-               and value.get('username') == 'vgw_codex')
+        expect('FORMAL_AUDIT_APPROVED_DATABASE_AND_ACCOUNT', audit_identity_matches(value, profile))
         return value['facts']
 
     initial = audit()
@@ -807,8 +807,8 @@ def suite(client, binary, env, profile, wire, domain_wire, alarm_wire, replay_wi
         result = php_run(binary, Path('scripts/live_http_fixture.php'), ['--retry-audit'], env)
         expect('RETRY_'+stage+'_READ_ONLY_APPROVED_DATABASE_AUDIT', result.returncode == 0)
         observation = json.loads(result.stdout)
-        expect('RETRY_'+stage+'_EXACT_TARGET_DEVICE_IDENTITY_BOUND', observation['database'] == 'vessel_gateway_codex_test'
-               and observation['username'] == 'vgw_codex' and observation['event_count'] == 1
+        expect('RETRY_'+stage+'_EXACT_TARGET_DEVICE_IDENTITY_BOUND', audit_identity_matches(observation, profile)
+               and observation['event_count'] == 1
                and len(observation['facts']) == 1)
         fact = observation['facts'][0]
         expected_alarm = {key: (str(value) if key.endswith('_at_ms') and value is not None else value)
@@ -976,6 +976,7 @@ def main():
             print('LIVE_HTTP_GATE=NOT_RUN_READ_ONLY', flush=True)
         else:
             print(preflight.stdout, end='')
+            profile['database_identity'] = bind_preflight(preflight.stdout, env, profile)
             wire = build_bytes()
             print('LIVE_HTTP_C99_WIRE_SHA256='+hashlib.sha256(wire).hexdigest(), flush=True)
             domain_wire = build_domain_bytes('runtime:demo')

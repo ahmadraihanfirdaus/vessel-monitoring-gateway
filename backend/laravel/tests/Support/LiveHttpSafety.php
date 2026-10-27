@@ -52,8 +52,9 @@ final class LiveHttpSafety
             $app['config']->get('cache.stores.database'), $app['config']->get('auth'));
         self::assertConfiguration($app, $profile);
         $pdo = DB::connection('mysql')->getPdo();
-        MySqlIsolation::verify($pdo, $env);
+        $identity = MySqlIsolation::verify($pdo, $env);
         $app->instance('live-http-test-audit', $audit);
+        $app->instance('live-http-test-identity', $identity + ['lease_id' => $profile['id'], 'device' => $profile['device']]);
 
         return $app;
     }
