@@ -1,0 +1,65 @@
+{
+  "schema": 1,
+  "source_commit": "cf2044a69a9f7a71410f91236758de19c78c1537",
+  "candidate_tip": "431621325f58277b69681db066ee98d13bbe1ca0",
+  "mode": "BASELINE_CANDIDATE_LOCAL_CLONE_WITH_REVIEWED_CURRENT_REFERENCE_AND_DOCUMENTATION_PROJECTION",
+  "projection_files": [
+    "docs/testing/living-requirement-status.csv",
+    "README.md",
+    "docs/portfolio/local-demo.md"
+  ],
+  "original_failure_preserved": "portfolio-candidate-demo-20261027.json",
+  "native_core_wire_unchanged_prior_commands": [
+    {
+      "command": [
+        "python",
+        "-B",
+        "scripts/test_firmware_core_host.py",
+        "--repeat",
+        "2"
+      ],
+      "exit": 0,
+      "output": "HOST_CORE_PARSER_REGRESSION: PASS (5/5)\nHOST_C_COMPILER: C:/msys64/ucrt64/bin\\gcc.EXE\nHOST_FIRMWARE_CORE_SELFTEST: PASS (226/226)\nHOST_BOOT_ENTRY_REPETITIONS: PASS (2; same 226 cases per entry)\nNOTE: Native behavior only. Wokwi/ESP-IDF/SIM/SUP/bench verification not implied.\n"
+    },
+    {
+      "command": [
+        "python",
+        "-B",
+        "scripts/continuous_simulation_wire_bridge.py",
+        "--output",
+        "demo-frames.jsonl"
+      ],
+      "exit": 0,
+      "output": "CONTINUOUS_C99_WIRE=PASS_24_RECOVERED_FRAMES_SHA256_ceda0c0794257456cdaace3d1fb001c6ae430ead882acc693fa36069c1521920\n"
+    }
+  ],
+  "native_core_wire_not_repeated": true,
+  "frame_contract": "PASS24x48_SIMULATION_ORDERED",
+  "frame_sha256": "ceda0c0794257456cdaace3d1fb001c6ae430ead882acc693fa36069c1521920",
+  "commands": [
+    {
+      "command": [
+        "python",
+        "-B",
+        "scripts/check_living_traceability.py"
+      ],
+      "exit": 0,
+      "output": "BASELINE_SHA256: PASS (2/2)\nLIVING_TRACEABILITY: PASS (38/38 mapped, 34 unique planned cases)\nASSESSMENTS: {'IMPLEMENTED_UNVERIFIED': 22, 'PARTIAL': 16}\nFORMAL_REQUIREMENT_STATUS: {'NOT_RUN': 1, 'PASS': 37}\nFORMAL_SIM_SCENARIOS: PASS=15, NOT_RUN=0\nSUPPLEMENTAL_TESTS: PLANNED=1, PASS=18\nFINAL_REQUIREMENT_APPROVAL: NOT_APPROVED\nTOTAL_SYSTEM_STATUS: PARTIAL\nPUBLIC_REFERENCE_AUDIT: PASS (38 requirements, 185 file references; protected template metadata only; no DB/network)\n"
+    },
+    {
+      "command": [
+        "python",
+        "-B",
+        "historical-scanner-fixture.py"
+      ],
+      "exit": 0,
+      "output": ".....\n----------------------------------------------------------------------\nRan 5 tests in 0.001s\n\nOK\n"
+    }
+  ],
+  "validator_relaxed": false,
+  "LOCKED_modified": false,
+  "source_or_candidate_refs_modified": false,
+  "network_database_hardware_used": false,
+  "startup_issue_resolved": "Git global safe-directory trust is now replaced only by exact command-scoped repository trust while redirection variables/global configuration are disabled; no global config mutation.",
+  "status": "PASS"
+}

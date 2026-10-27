@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "source_parent": "cf2044a69a9f7a71410f91236758de19c78c1537",
+  "branch": "develop",
+  "decision": "SANITIZED_HISTORY_READY_FOR_APPROVAL_CONDITIONAL_ON_FINAL_ACTUAL_RECEIPT",
+  "six_related_scopes": [
+    "complete_history_and_metadata_audit",
+    "exact_nonsecret_dispositions_and_profile_sanitization",
+    "isolated_parent_mapped_candidate_integrity",
+    "conditional_contribution_inventory_and_public_observation",
+    "professional_English_README_and_real_native_demo",
+    "traceability_handoffs_security_evidence_exact_scope"
+  ],
+  "local_preparation_gates": "PASS_WITH_INITIAL_FAILURES_RETAINED_AND_RESOLVED",
+  "focused_final_test_methods": {
+    "history": 12,
+    "security": 23,
+    "archive_safety": 18,
+    "archive_scanner": 6,
+    "public_references": 12
+  },
+  "native_core_cases": 226,
+  "native_core_same_cases_repetitions": 2,
+  "wire_frames": 24,
+  "wire_channels_per_frame": 48,
+  "historical_scanner_methods": 5,
+  "current_public_reference_count": 185,
+  "LOCKED38_mapping_and_statuses": "UNCHANGED",
+  "editable_reference_change": "SEC002 only: excluded template -> actual config/app.php; validator unchanged",
+  "both_handoff38_tables": "ALIGNED",
+  "retained_runtime3_hashes": "UNCHANGED",
+  "old2_statcache_files": "BYTE_EQUAL_HEAD",
+  "protected3": "UNCHANGED_UNTRACKED",
+  "original_source_ZIP": {
+    "location": "<SYSTEM_TEMP>/vg-final-source-snapshot-byudpxgp/vessel-monitoring-gateway-source.zip",
+    "sha256": "48bb8bc88e3d04334bcd18bb1666cdcb09cb398800848c74380e0d54ec4015d2",
+    "retained_unchanged": true
+  },
+  "original_history_publication": "BLOCKED_KNOWN_PRIVACY_AND_ENV_FILENAME_POLICY",
+  "snapshot_alternative": "NOT_SELECTED_OR_PUBLISHED",
+  "final_staged_security_and_manifest_gate": "MANDATORY_BEFORE_COMMIT_RECORDED_IN_COMMIT_MESSAGE",
+  "final_actual_candidate_gate": "MUST_PASS_IN_PRIVATE_RECEIPT_AFTER_SOURCE_COMMIT_OR_PUBLICATION_BLOCKED",
+  "external_and_optional_verification": "NOT_RUN_BLOCKED_UNCHANGED",
+  "push_or_GitHub_mutation": false
+}

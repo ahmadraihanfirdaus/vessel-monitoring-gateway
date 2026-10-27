@@ -1,0 +1,10 @@
+Git index entries: 1599
+Untracked candidates: 20
+Total candidates: 1619
+Potential security findings: 0
+Manual review warnings: 0
+PASS: No prohibited files detected
+PASS: No obvious secrets detected
+PASS: Git index and working content checked
+RESULT: AUTOMATED SECURITY SCREEN PASSED
+EXIT=0

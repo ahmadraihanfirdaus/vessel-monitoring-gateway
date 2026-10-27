@@ -1,0 +1,19 @@
+{
+  "observation_date": "2026-10-27 Asia/Jakarta",
+  "method": "READ_ONLY_OFFICIAL_PUBLIC_WEB_PAGES_NO_GIT_NETWORK_OR_AUTHENTICATION",
+  "profile_url": "https://github.com/ahmadraihanfirdaus",
+  "repository_url": "https://github.com/ahmadraihanfirdaus/vessel-monitoring-gateway",
+  "repository_root_page_labels": {
+    "visibility": "Public",
+    "selected_branch": "main",
+    "commit_count": 2
+  },
+  "profile_graph_result": "ERROR_WHILE_LOADING",
+  "date_filtered_profile_result": "CACHE_MISS_FETCH_FAILED",
+  "green_cells_already_visible": "NOT_VERIFIED",
+  "account_email_association": "NOT_VERIFIED_NO_ACCOUNT_SETTINGS_ACCESS",
+  "repository_fork_and_administrative_default_settings": "NOT_VERIFIED_VIA_API",
+  "github_official_contribution_rules": "https://docs.github.com/en/account-and-profile/reference/profile-contributions-reference",
+  "remote_config_or_GitHub_state_modified": false,
+  "publication_authorized": false
+}

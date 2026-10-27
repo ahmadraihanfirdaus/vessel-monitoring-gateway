@@ -1,0 +1,49 @@
+{
+  "schema": 1,
+  "source_commit": "cf2044a69a9f7a71410f91236758de19c78c1537",
+  "original_commits": 137,
+  "unique_original_author_dates": 14,
+  "commits_by_original_author_date": {
+    "2026-10-10": 11,
+    "2026-10-13": 7,
+    "2026-10-16": 20,
+    "2026-10-17": 13,
+    "2026-10-18": 7,
+    "2026-10-19": 3,
+    "2026-10-20": 4,
+    "2026-10-21": 4,
+    "2026-10-22": 11,
+    "2026-10-23": 19,
+    "2026-10-24": 12,
+    "2026-10-25": 15,
+    "2026-10-26": 6,
+    "2026-10-27": 5
+  },
+  "merge_commits": 0,
+  "empty_relative_first_parent": 0,
+  "author_identities": 1,
+  "author_email_classes": {
+    "GITHUB_NOREPLY": 137
+  },
+  "author_email_sha256": [
+    "56e3e7e1de806c0bb193f41a80294556a25def49f77c0608cfceb794c1cef436"
+  ],
+  "author_committer_timestamp_differences": 1,
+  "cached_main_commits": 2,
+  "github_account_email_association": "NOT_VERIFIED",
+  "github_repository_visibility_default_branch_and_fork_status": "NOT_VERIFIED_NO_REMOTE_CALL",
+  "green_cells_already_visible": "NOT_VERIFIED",
+  "conditional_commit_contributions_upper_bound": 137,
+  "conditional_distinct_contribution_dates_upper_bound": 14,
+  "incremental_new_green_cells": "UNKNOWN_OVERLAP_WITH_EXISTING_PROFILE_NOT_QUERIED",
+  "conditions": [
+    "GitHub account association for historical email",
+    "Standalone non-fork repository",
+    "Commits reachable from default branch or qualifying gh-pages",
+    "GitHub relationship criteria",
+    "GitHub processing and existing contributions/date overlap"
+  ],
+  "date_policy": "Original author and committer timestamps/timezones preserved; no artificial dates/authors; genuine preparation commit is separate and must be added using its actual metadata.",
+  "official_source": "https://docs.github.com/en/account-and-profile/reference/profile-contributions-reference",
+  "publication_authorized": false
+}

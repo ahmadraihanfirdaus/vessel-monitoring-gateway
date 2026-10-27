@@ -1,0 +1,25 @@
+{
+  "source_parent": "cf2044a69a9f7a71410f91236758de19c78c1537",
+  "runtime_source_sha256": {
+    "http": "81fa45d15a8f800e85cbf82048df8086640f26dc88a63275746424282ceab49f",
+    "mysql": "516446eb3db89042116ca6ab4a216a06f018e4511af6ebb8a72dbd2b49e08037",
+    "firmware_sdk": "f693b0cb1a77d73b8c8cc97eb65da23703a6da9c1bd7e767dfcc1f6a259631e6"
+  },
+  "retained_runtime_evidence_binding": "PASS_EXACT_UNCHANGED_HTTP_MYSQL_SDK_INPUTS",
+  "PHP_runtime_test_rerun": false,
+  "dotenv_or_database_read": false,
+  "locked_hashes": {
+    "requirements/system-requirements.md": "a60167d9f2a1f852a091048447f6f4acf8d2cbfd6d11f04c2a6e2f6896f5b92b",
+    "requirements/traceability-matrix.csv": "bc1fc7ce697fc6180cab760320de2a1bd814f9bc78731d4a22fdae838c303fe3"
+  },
+  "protected_file_hashes": {
+    "AGENTS.md": "421e2b5d5748cf5e4bdac3c189223915850c8894688a7e3ffd090975aa87864b",
+    "firmware/.gitignore": "d952abf002d5e1ec80c8ab1bfc9f38eb5b62fc310667d501cb2ce9f21c3effb2",
+    "firmware/.vscode/extensions.json": "31cc8f05084d96b65be8f147533017c7a1b89b055d85886a2e4ab3ce532f34fb"
+  },
+  "old2_statcache_entries": "BYTE_EQUAL_HEAD",
+  "author_config_matches_original_identity": true,
+  "Git_identity_date_repository_redirection_overrides_present": false,
+  "source_main_and_cached_origin_main_unchanged": true,
+  "status": "PASS"
+}

@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "source_commit": "cf2044a69a9f7a71410f91236758de19c78c1537",
+  "candidate_tip": "431621325f58277b69681db066ee98d13bbe1ca0",
+  "materialized_from_candidate_committed_objects": true,
+  "materialized_files": 1598,
+  "new_directory_no_dotenv_no_overwrite": true,
+  "compiler_PATH_prefix": "C:/msys64/ucrt64/bin (child process only)",
+  "network_database_hardware_used": false,
+  "commands": [
+    {
+      "command": [
+        "python",
+        "-B",
+        "scripts/test_firmware_core_host.py",
+        "--repeat",
+        "2"
+      ],
+      "exit": 0,
+      "output": "HOST_CORE_PARSER_REGRESSION: PASS (5/5)\nHOST_C_COMPILER: C:/msys64/ucrt64/bin\\gcc.EXE\nHOST_FIRMWARE_CORE_SELFTEST: PASS (226/226)\nHOST_BOOT_ENTRY_REPETITIONS: PASS (2; same 226 cases per entry)\nNOTE: Native behavior only. Wokwi/ESP-IDF/SIM/SUP/bench verification not implied.\n"
+    },
+    {
+      "command": [
+        "python",
+        "-B",
+        "scripts/continuous_simulation_wire_bridge.py",
+        "--output",
+        "demo-frames.jsonl"
+      ],
+      "exit": 0,
+      "output": "CONTINUOUS_C99_WIRE=PASS_24_RECOVERED_FRAMES_SHA256_ceda0c0794257456cdaace3d1fb001c6ae430ead882acc693fa36069c1521920\n"
+    },
+    {
+      "command": [
+        "python",
+        "-B",
+        "scripts/check_living_traceability.py"
+      ],
+      "exit": 1,
+      "output": "FAIL: Invalid referenced path for SEC-002: backend/laravel/.env.example\n"
+    }
+  ],
+  "frame_contract": "PASS24x48_SIMULATION_ORDERED",
+  "frame_sha256": "ceda0c0794257456cdaace3d1fb001c6ae430ead882acc693fa36069c1521920",
+  "status": "FAIL"
+}

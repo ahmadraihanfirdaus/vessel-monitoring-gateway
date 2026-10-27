@@ -118,7 +118,13 @@ class PublicReferenceTest(unittest.TestCase):
         self.assertEqual(result['requirement_approval'],'NOT_APPROVED')
         self.assertFalse(result['database_access'])
         self.assertFalse(result['hardware_verification'])
-        self.assertEqual(sum(x['sha256'] is None for x in result['public_files'].values()),1)
+        # Current references must all be public source, including the actual
+        # external-key loader. The dedicated template test still proves that
+        # an explicitly inventoried dotenv template is metadata-only.
+        self.assertTrue(all(x['sha256'] is not None for x in result['public_files'].values()))
+        security=next(x for x in result['requirements'] if x['requirement_id']=='SEC-002')
+        self.assertIn('backend/laravel/config/app.php',security['implementation_paths'])
+        self.assertNotIn('backend/laravel/.env.example',security['implementation_paths'])
 
     def test_report_creation_refuses_existing_and_foreign_targets(self):
         folder=self.root/'evidence/test-results';folder.mkdir(parents=True)
