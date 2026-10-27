@@ -37,6 +37,7 @@ from event_receipt_native_bridge import build_verifier, verify_receipt, build_re
 from build_esp32_port import source_snapshot as firmware_source_snapshot
 from data_ui_contracts import functional_observation
 import browser_monitoring_bridge
+from php_lifecycle_diagnostics import ServerLogCapture, PhpLifecycle
 
 ROOT = Path(__file__).resolve().parents[1]
 MAX_PROXY_BODY = 8192
@@ -70,7 +71,8 @@ def source_snapshot():
         'event_delivery_retry_fixture.c', 'test_event_delivery_retry.py', 'test_event_delivery.py', 'test_event_retirement_file.py',
         'browser_monitoring_bridge.py', 'browser_monitoring_probe.js', 'test_browser_monitoring_bridge.py',
         'test_browser_monitoring_probe.js', 'test_monitoring_freshness.js', 'test_live_http_integration_gate.py',
-        'test_http_proxy_diagnostics.py',
+        'test_http_proxy_diagnostics.py', 'php_lifecycle_diagnostics.py',
+        'live_http_lifecycle.php', 'test_php_lifecycle_diagnostics.py',
         'data_ui_contracts.py', 'test_data_ui_contracts.py', 'run_formal_data_native.py',
         'review_formal_data_ui.py', 'test_review_formal_data_ui.py', 'test_formal_data_native.py')]
     paths.append(ROOT/'docs/testing/formal-data-ui-cases-20261026.md')
@@ -253,6 +255,9 @@ class ProxyHandler(http.server.BaseHTTPRequestHandler):
 
     def gateway_error(self, reason, phase, started, status, observed):
         proxy_diagnostic(reason, phase, started, status, observed)
+        lifecycle = getattr(self.server, 'php_lifecycle', None)
+        if lifecycle is not None:
+            lifecycle.observe('PROXY_FAILURE', reason)
         self.close_connection = True
         try:
             self.send_error(502)
@@ -927,7 +932,7 @@ def main():
     if args.browser_only and args.resilience_only:
         parser.error('browser and readonly resilience modes are separate gates')
     code = 0
-    server = proxy = thread = log = None
+    server = proxy = thread = lifecycle = capture = None
     attempted_fixture = False
     folder = Path(tempfile.mkdtemp(prefix='vg-live-http-')).resolve()
     # Validate the owned target before any eventual recursive temporary cleanup.
@@ -1000,11 +1005,19 @@ def main():
             port = proxy.server_port
             base = 'https://127.0.0.1:'+str(port)
             env['APP_URL'] = base
-            log = (folder/'php-server.log').open('wb')
+            capture = ServerLogCapture()
+            lifecycle = PhpLifecycle(capture)
+            lifecycle.observe('SERVER_STARTING')
             server = subprocess.Popen([args.php_binary, '-d', 'display_errors=0', '-d', 'log_errors=0',
                 '-S', '127.0.0.1:'+str(backend_port), '-t', str(ROOT/'backend/laravel/public'),
-                str(ROOT/'scripts/live_http_router.php')], cwd=ROOT, env=env, stdout=log, stderr=log,
+                str(ROOT/'scripts/live_http_router.php')], cwd=ROOT, env=env,
+                stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
                 creationflags=subprocess.CREATE_NO_WINDOW if os.name == 'nt' else 0)
+            lifecycle.process = server
+            capture.start(server.stdout)
+            proxy.php_lifecycle = lifecycle
+            lifecycle.observe('SERVER_STARTED')
+            lifecycle.phase = 'READINESS'
             thread = threading.Thread(target=proxy.serve_forever, kwargs={'poll_interval': 0.1}, daemon=True)
             thread.start()
             client = Client(base, context, profile['agent'], [env['APP_KEY'], env['VG_LIVE_LOGIN_SECRET'], env['VG_LIVE_DEVICE_TOKEN']])
@@ -1025,21 +1038,10 @@ def main():
                 except (OSError, urllib.error.URLError):
                     pass
                 time.sleep(0.05)
-            if not ready and server.poll() is not None:
-                log.flush()
-                diagnostic = (folder/'php-server.log').read_text(encoding='utf-8', errors='replace')[:65536].lower()
-                print('LIVE_HTTP_SERVER_EXIT='+str(server.returncode)+'_PERMISSION_DENIED_'+str(
-                    any(marker in diagnostic for marker in ('permission', 'access permissions', 'forbidden'))).upper(), flush=True)
-            if not ready:
-                print('LIVE_HTTP_READINESS_STATUS_CATEGORIES='+json.dumps(sorted(readiness_statuses)), flush=True)
-                print('LIVE_HTTP_RELAY_ERROR_CATEGORIES='+json.dumps(sorted(proxy.relay_error_categories)), flush=True)
-                log.flush()
-                diagnostic = (folder/'php-server.log').read_text(encoding='utf-8', errors='replace')[:65536].lower()
-                flags = ['development server', 'failed to listen', 'fatal error', 'uncaught', 'no such file', 'permission', 'accepted', 'invalid request', 'closing']
-                print('LIVE_HTTP_SERVER_DIAGNOSTIC_FLAGS='+json.dumps({flag: flag in diagnostic for flag in flags}), flush=True)
-                stages = ['AUTOLOAD_DONE', 'PROFILE_ADMITTED', 'APPLICATION_ADMITTED', 'ROWS_ADMITTED', 'REQUEST_DONE']
-                print('LIVE_HTTP_SERVER_STAGE_FLAGS='+json.dumps({stage: 'vg_live_stage='+stage.lower() in diagnostic for stage in stages}), flush=True)
+            lifecycle.observe('READINESS_PASSED' if ready else 'READINESS_FAILED')
             expect('REAL_LOOPBACK_TLS_AND_PHP_READY', ready and server.poll() is None)
+            lifecycle.phase = 'REQUEST'
+            lifecycle.observe('REQUESTS_BEGIN')
             if args.resilience_only:
                 from formal_resilience import execute as execute_resilience
                 execute_resilience(resilience_exe, client, proxy)
@@ -1071,19 +1073,34 @@ def main():
         print('LIVE_HTTP_GATE=FAIL_UNEXPECTED_'+type(exception).__name__, flush=True)
         code = 1
     finally:
+        if lifecycle is not None:
+            if code:
+                lifecycle.phase = 'FAILURE'
+                lifecycle.observe('GATE_FAILED')
+            lifecycle.observe('BEFORE_CLEANUP')
+            lifecycle.phase = 'CLEANUP'
         if proxy is not None:
             if thread is not None:
                 proxy.shutdown(); thread.join(timeout=5)
             proxy.server_close()
         if server is not None:
             if server.poll() is None:
+                lifecycle.shutdown = 'TERMINATE_REQUESTED'
+                lifecycle.observe('CLEANUP_TERMINATE')
                 server.terminate()
+            else:
+                lifecycle.shutdown = 'ALREADY_EXITED'
             try:
                 server.wait(timeout=10)
             except subprocess.TimeoutExpired:
+                lifecycle.shutdown = 'KILL_REQUESTED'
+                lifecycle.observe('CLEANUP_KILL')
                 server.kill(); server.wait(timeout=5)
-        if log is not None:
-            log.close()
+        if capture is not None:
+            if not capture.finish():
+                print('LIVE_HTTP_GATE=BLOCKED_LOG_CAPTURE_NOT_DRAINED', flush=True)
+                code = 3
+            lifecycle.observe('CLEANUP_COMPLETE')
         cleanup_ok = True
         if attempted_fixture:
             try:

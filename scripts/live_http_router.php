@@ -10,6 +10,8 @@ if (PHP_SAPI !== 'cli-server' || ($_SERVER['REMOTE_ADDR'] ?? null) !== '127.0.0.
     http_response_code(403);
     exit('Test server unavailable.');
 }
+require __DIR__.'/live_http_lifecycle.php';
+vgLiveRegisterShutdownDiagnostics();
 require dirname(__DIR__).'/backend/laravel/vendor/autoload.php';
 error_log('VG_LIVE_STAGE=AUTOLOAD_DONE');
 
@@ -52,6 +54,8 @@ try {
     $app->handleRequest(Request::capture());
     error_log('VG_LIVE_STAGE=REQUEST_DONE');
 } catch (Throwable $exception) {
+    error_log('VG_LIVE_CAUGHT='.(get_class($exception) === RuntimeException::class ? 'RUNTIME'
+        : (get_class($exception) === LogicException::class ? 'LOGIC' : 'OTHER')));
     http_response_code(503);
     // Private owned test listener only: class category, never exception values.
     header('X-VG-Test-Failure: '.(in_array(get_class($exception), [RuntimeException::class, LogicException::class], true)

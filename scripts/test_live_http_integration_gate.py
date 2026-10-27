@@ -13,6 +13,7 @@ from unittest.mock import MagicMock, patch
 
 import run_live_http_integration as gate
 from test_http_proxy_diagnostics import ProxyDiagnosticsTest, LoopbackProxyDiagnosticsTest
+from test_php_lifecycle_diagnostics import PhpLifecycleTest
 
 
 class LiveHttpGateTest(unittest.TestCase):
@@ -96,6 +97,7 @@ class LiveHttpGateTest(unittest.TestCase):
             stack.enter_context(patch.object(gate, 'build_verifier', return_value=Path('synthetic-receipt-verifier')))
             stack.enter_context(patch.object(gate, 'build_retirement_fixture', return_value=Path('synthetic-retirement-fixture')))
             popen = stack.enter_context(patch.object(gate.subprocess, 'Popen'))
+            popen.return_value.stdout = io.BytesIO(b'')
             suite = stack.enter_context(patch.object(gate, 'suite', side_effect=suite_error))
             if snapshots is not None:
                 stack.enter_context(patch.object(gate, 'source_snapshot', side_effect=snapshots))
@@ -323,7 +325,22 @@ class LiveHttpGateTest(unittest.TestCase):
                          [['--prepare', '--execute'], ['--cleanup', '--execute']])
         popen.return_value.terminate.assert_called_once()
         self.assertIn('CLEANUP=PASS_EXACT_OWNERSHIP_ZERO_APPLICATION_ROWS', output)
+        lifecycle = [json.loads(line.split('=',1)[1]) for line in output.splitlines()
+                     if line.startswith('LIVE_HTTP_PHP_LIFECYCLE=')]
+        events = [row['event'] for row in lifecycle]
+        self.assertLess(events.index('GATE_FAILED'), events.index('BEFORE_CLEANUP'))
+        self.assertLess(events.index('BEFORE_CLEANUP'), events.index('CLEANUP_TERMINATE'))
+        self.assertEqual(next(row for row in lifecycle if row['event']=='GATE_FAILED')['shutdown'], 'NONE_REQUESTED')
         self.assertNotIn('GATE=PASS_LOCAL_ONLY', output)
+
+    def test_failed_log_capture_blocks_pass_but_still_cleans_owned_database_fixture(self):
+        with patch.object(gate.ServerLogCapture, 'finish', return_value=False):
+            code, command, _, _, _, output = self.invoke(['--execute'], [self.result()]*4, live=True)
+        self.assertEqual(code, 3)
+        self.assertIn('LIVE_HTTP_GATE=BLOCKED_LOG_CAPTURE_NOT_DRAINED', output)
+        self.assertNotIn('LIVE_HTTP_GATE=PASS_LOCAL_ONLY', output)
+        self.assertIn('LIVE_HTTP_CLEANUP=PASS_EXACT_OWNERSHIP_ZERO_APPLICATION_ROWS', output)
+        self.assertEqual(command.call_args_list[-1].args[2], ['--cleanup', '--execute'])
 
     def test_blocked_cleanup_cannot_be_a_pass_and_retains_lease_without_private_key(self):
         captured = {}

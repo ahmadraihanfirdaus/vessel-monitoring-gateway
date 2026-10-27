@@ -1,5 +1,69 @@
 # CODEX_RESUME - checkpoint operasional
 
+## PHP upstream lifecycle diagnostic checkpoint (2026-10-27)
+
+This section supersedes earlier publication/CI status below. Read-only GitHub main
+is194ecf07250fd194f550203492eb3d64e2a751b7,144sanitized commits. Hosted run40507282917:
+393PHP/MySQL8 PASS,231no-DB PASS,firmware host/SDK/dashboard units PASS. Backend
+HTTP/TLS failed earlier at CONNECTED_BROWSER_DATA_AND_SIMULATION with proxy reason
+UPSTREAM_DISCONNECTED,UPSTREAM_HEADERS,961ms,unknown upstream status/no bytes.
+The continuous five label checks were NOT_RUN. Archive NOT_RUN. Official job logs
+were re-read without retaining raw content; PHP exit/fatal/stage flags unavailable.
+PHP state at disconnect and internal cause remain UNKNOWN. Readiness passed;
+source cleanup follows gate failure,which does not prove PHP was alive at failure.
+
+Current isolated checkout:private/portfolio-php-lifecycle-diagnostics-20261027,
+branch portfolio,no remotes,parent144commits unchanged. Resolve the additive local
+commit with `git log -1 -- evidence/test-results/php-lifecycle-diagnostics-20261027.json`;
+private final receipt records exact SHA. Original develop82ae9f87ee1162bd4b33e101286d0be48418184e,
+project refs,index,WIP and protected firmware/LOCKED bytes are preserved.
+
+New private runner diagnostics capture process poll at proxy/gate failure and
+BEFORE_CLEANUP,startup/readiness/request/cleanup phases,ordered events,bounded time,
+actual available exit code,static shutdown/error categories and connection reason.
+A private CLI-server shutdown hook before autoload emits only fixed error types
+and memory classification; existing error logging/display flags remain disabled.
+No raw error message,trace,path,URL,headers,HTML,body,SQL,environment or credential
+is emitted. Merged server pipe is continuously drained; no raw disk log/unbounded
+queue,max4096-byte pending line/chunk,overlong line discard,16MiB numeric count cap,
+128event cap with32reserved lifecycle slots (proxy failures cap96). A negative
+140-error flood regression preserves failure/cleanup checkpoints. Markers explicitly PROCESS_CUMULATIVE_ASYNCHRONOUS_BEST_EFFORT;
+absence is not proof of no error. Pre-cleanup exit and cleanup termination remain
+separate. Undrained/failed capture blocks PASS while owned DB cleanup still runs.
+
+Deterministic tests use actual local PHP/TCP:exit37 before headers,fatal during
+request with nonzero exit,exit7 before readiness,connection closed while PHP remains
+alive via stdin barrier,and normal requested cleanup termination. A2MiB stderr
+fixture drains without deadlock;12lifecycle methods are included in existing CI
+HTTP-gate command without workflow changes. A new collector read+close failure
+was negatively reproduced and fixed to prevent raw thread exception output; it
+is not a proven historical hosted defect. No production-root-cause repair made.
+
+Local gates:393PHP/0FAIL/0SKIP,248real TLS/HTTP checks,123unique Python cases PASS
+(53HTTP gate including12lifecycle and10proxy,32MySQL gate,9data/UI,6formal UI,
+23scanner). Actual successful local lifecycle:STARTING,STARTED,READINESS_PASSED,
+REQUESTS_BEGIN,BEFORE_CLEANUP ALIVE,requested TERMINATE,cleanup EXITED/code1 on
+Windows,drain EOF. Thus code1 here is cleanup requested,not a spontaneous crash.
+Local dashboard5/5PASS. Approved isolated MariaDB10.4.32 postflight10tables,
+6migrations,0application rows. Linux/MySQL8 NOT_RUN:Docker unavailable,WSL not
+installed. No migrations/schema change;existing-schema regression only.
+
+Scoped security0findings/0warnings,38requirement/185reference traceability PASS.
+Exactly3unchanged runtime-input line pins renewed;all old reviews retained and
+scanner unchanged. Full final security/index/manifest/integrity gates are required
+before local owner commit. Original suite and five dashboard predicates are byte
+identical;TLS/auth/freshness/quality,request/response caps and all original deadlines
+remain unchanged. Production application,firmware,workflow,dependencies and
+requirements are byte-identical to parent.
+
+Evidence:evidence/test-results/php-lifecycle-diagnostics-20261027.json and
+php-lifecycle-diagnostics-files-20261027.csv;private gate directory
+private/portfolio-php-lifecycle-diagnostics-gates-20261027. After local gated commit,
+STOP:READY_FOR_PHP_LIFECYCLE_CI_APPROVAL. NO PUSH/NO WORKFLOW DISPATCH this task.
+A newly approved hosted run is needed to obtain internal lifecycle evidence.
+System PARTIAL/formal NOT_APPROVED;physicalESP32,NVS/RTOS,deployedTLS,vessel NOT_RUN.
+Do not resume development or publish without new user instruction.
+
 ## Private proxy HTTP502 diagnostic checkpoint (2026-10-27)
 
 This section supersedes older publication/CI status below. Read-only GitHub main
