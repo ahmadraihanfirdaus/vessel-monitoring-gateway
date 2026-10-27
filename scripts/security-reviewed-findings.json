@@ -1184,6 +1184,30 @@
       "line_sha256": "994c6aef934a9baf22e0e4e14d0236253e4fca23758d9a81e329990287091561",
       "classification": "RUNTIME_GENERATED_TEST_VALUE",
       "rationale": "Exact unchanged runtime-generated test-input line from approved cb12113; source-bound review renewed after additive presentation diagnostics. No literal credential or secret value."
+    },
+    {
+      "id": "PROXY502-DIAGNOSTIC-RUNTIME-INPUT-1",
+      "path": "scripts/run_live_http_integration.py",
+      "file_sha256": "45b9c7673657e391d9150ebc03a60d12d21eaf815fb1568094b695c3766b3a19",
+      "line_sha256": "56db39b92d76c4b6fba5da1f45cec61b93e5be15eecd72484369ddc89313dbf6",
+      "classification": "RUNTIME_GENERATED_TEST_VALUE",
+      "rationale": "Exact unchanged runtime-generated test-input line from published 2999e669. Whole-file pin renewed after private proxy reason diagnostics and two reproduced harness fixes. No secret literal; prior reviews retained; scanner unchanged."
+    },
+    {
+      "id": "PROXY502-DIAGNOSTIC-RUNTIME-INPUT-2",
+      "path": "scripts/run_live_http_integration.py",
+      "file_sha256": "45b9c7673657e391d9150ebc03a60d12d21eaf815fb1568094b695c3766b3a19",
+      "line_sha256": "2866dff5e418a124d0d4bfa35b2d8811facac27704e1d8345f5b0e92f3299e4f",
+      "classification": "RUNTIME_GENERATED_TEST_VALUE",
+      "rationale": "Exact unchanged runtime-generated test-input line from published 2999e669. Whole-file pin renewed after private proxy reason diagnostics and two reproduced harness fixes. No secret literal; prior reviews retained; scanner unchanged."
+    },
+    {
+      "id": "PROXY502-DIAGNOSTIC-RUNTIME-INPUT-3",
+      "path": "scripts/run_live_http_integration.py",
+      "file_sha256": "45b9c7673657e391d9150ebc03a60d12d21eaf815fb1568094b695c3766b3a19",
+      "line_sha256": "994c6aef934a9baf22e0e4e14d0236253e4fca23758d9a81e329990287091561",
+      "classification": "RUNTIME_GENERATED_TEST_VALUE",
+      "rationale": "Exact unchanged runtime-generated test-input line from published 2999e669. Whole-file pin renewed after private proxy reason diagnostics and two reproduced harness fixes. No secret literal; prior reviews retained; scanner unchanged."
     }
   ]
 }

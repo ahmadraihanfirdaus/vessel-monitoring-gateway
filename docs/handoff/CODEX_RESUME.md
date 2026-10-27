@@ -1,5 +1,64 @@
 # CODEX_RESUME - checkpoint operasional
 
+## Private proxy HTTP502 diagnostic checkpoint (2026-10-27)
+
+This section supersedes older publication/CI status below. Read-only GitHub main
+is `2999e6699219392eb6dd28fe5859f6ed0e09e86b`,143 sanitized commits.
+Run40502887757:393PHP/MySQL8.0.46 PASS,231no-DB PASS; firmware host,SDK and
+dashboard units PASS. HTTP/UI received502 from the standard Python proxy error
+page. All5individual predicates FAIL because the dashboard was not received;
+source/profile/schema/presentation/freshness categories UNKNOWN. Archive NOT_RUN.
+The internal hosted502 cause remains UNKNOWN; do not infer a MySQL or UI bug.
+
+Current isolated checkout:`private/portfolio-proxy-502-diagnostics-20261027`,
+branch portfolio,no remotes. Parent143commits stay identical. Resolve this
+additive local commit with `git log -1 -- evidence/test-results/proxy-502-diagnostics-20261027.json`;
+exact final SHA and final full-scan result live in the private gate receipt.
+Original develop82ae9f87ee1162bd4b33e101286d0be48418184e,index,refs,user work,
+LOCKED requirements and protected untracked firmware files are preserved.
+
+The private HTTP runner emits `LIVE_HTTP_PROXY_DIAGNOSTIC=` followed by static
+reason/phase/status categories, bounded elapsed milliseconds/byte counts and the
+unchanged cap. Reasons distinguish connection,timeout,disconnect,protocol,
+incomplete body,other upstream I/O,oversize,upstream502 passthrough,private policy
+I/O and downstream write errors. No body,URL,header,exception text,credential,
+private address or profile path is emitted. Limits stay10s downstream,15s upstream,
+1MiB response and8192-byte proxy request. TLS verification/auth/ownership/quality/
+freshness and the original five dashboard assertions are unchanged.
+
+Two PRIVATE TEST HARNESS defects have pre-fix negative evidence and repairs:
+(1) real TCP declared30-byte body ending at5 bytes previously returned200 after
+rewriting length; positive remaining declared length now fails closed502;
+(2) downstream BrokenPipe previously attempted a second HTTP502 after beginning
+response emission; now it records a safe reason and closes without another status.
+Neither defect is proven to explain the historical hosted502. No production
+application,firmware,migration,workflow or dependency was changed.
+
+Actual local gates:393PHP cases/0FAIL/0SKIP,55focused UI,248real loopback TLS/HTTP
+checks,110unique Python cases PASS (40HTTP gate including10proxy methods,32MySQL
+gate,9data/UI,6formal UI review,23scanner). Real TCP refusal/malformed status/
+disconnect/incomplete chunk/Content-Length truncation/oversize/upstream502 and
+injected timeout/I/O/downstream/policy paths PASS. Timeout injection is deterministic;
+no real15-second timeout-duration proof is claimed. Resource close and no leaked
+arbitrary diagnostic values are asserted. Local dashboard5/5PASS,HTTP200,SIMULATION,
+V1_1,continuous profile,ENABLED,LIVE. Approved isolated MariaDB10.4.32 only;
+postflight10tables/6migrations/0application rows. No local MySQL8 runtime.
+
+Scoped security0findings/0warnings,23scanner units PASS. Exactly3unchanged
+runtime-generated input lines have renewed whole-file hash pins with byte proof;
+all earlier reviews and scanner rules retained. Traceability38requirements and185
+references PASS; formal statuses remain unchanged. Owner commit is allowed only
+after final full index/worktree scan,manifest,scope and Git integrity PASS.
+Evidence:`evidence/test-results/proxy-502-diagnostics-20261027.json` and
+`evidence/test-results/proxy-502-diagnostics-files-20261027.csv`; private gate
+receipts in `private/portfolio-proxy-502-diagnostics-gates-20261027`.
+
+NO PUSH/NO WORKFLOW DISPATCH authorized for this task. After the local gated
+commit,STOP for publication approval and one controlled hosted diagnostic run.
+New hosted execution NOT_RUN; parent hosted CI FAILED. Do not claim hardware,
+physicalNVS/RTOS,deployedTLS,real-vessel or production verification. System PARTIAL,
+formal NOT_APPROVED. Preserve all older handoff history below as historical context.
+
 ## Targeted hosted HTTP/UI diagnostic checkpoint (2026-10-27)
 
 This checkpoint supersedes earlier publication/CI status below. GitHub main was

@@ -12,6 +12,7 @@ import unittest
 from unittest.mock import MagicMock, patch
 
 import run_live_http_integration as gate
+from test_http_proxy_diagnostics import ProxyDiagnosticsTest, LoopbackProxyDiagnosticsTest
 
 
 class LiveHttpGateTest(unittest.TestCase):

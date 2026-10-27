@@ -70,6 +70,7 @@ def source_snapshot():
         'event_delivery_retry_fixture.c', 'test_event_delivery_retry.py', 'test_event_delivery.py', 'test_event_retirement_file.py',
         'browser_monitoring_bridge.py', 'browser_monitoring_probe.js', 'test_browser_monitoring_bridge.py',
         'test_browser_monitoring_probe.js', 'test_monitoring_freshness.js', 'test_live_http_integration_gate.py',
+        'test_http_proxy_diagnostics.py',
         'data_ui_contracts.py', 'test_data_ui_contracts.py', 'run_formal_data_native.py',
         'review_formal_data_ui.py', 'test_review_formal_data_ui.py', 'test_formal_data_native.py')]
     paths.append(ROOT/'docs/testing/formal-data-ui-cases-20261026.md')
@@ -131,6 +132,45 @@ def php_run(binary, script, arguments, env):
     return subprocess.run([binary, '-d', 'display_errors=0', '-d', 'log_errors=0',
                            str(ROOT/script), *arguments], cwd=ROOT, env=env,
                           capture_output=True, text=True, errors='replace', timeout=40)
+
+
+def proxy_diagnostic(reason, phase, started, status=None, observed=None):
+    """Static categories and bounded counts only; never exception/request values."""
+    if reason not in {'UPSTREAM_CONNECTION_ERROR', 'UPSTREAM_TIMEOUT', 'UPSTREAM_DISCONNECTED',
+                      'UPSTREAM_PROTOCOL_ERROR', 'UPSTREAM_INCOMPLETE_RESPONSE', 'UPSTREAM_IO_ERROR',
+                      'UPSTREAM_RESPONSE_TOO_LARGE', 'UPSTREAM_HTTP_502', 'RELAY_IO_ERROR', 'DOWNSTREAM_IO_ERROR'}:
+        raise ValueError('invalid proxy reason')
+    if phase not in {'UPSTREAM_REQUEST', 'UPSTREAM_HEADERS', 'UPSTREAM_BODY', 'FAULT_POLICY',
+                     'DOWNSTREAM_RESPONSE', 'ERROR_RESPONSE'}:
+        raise ValueError('invalid proxy phase')
+    elapsed = max(0, int((time.monotonic()-started)*1000))
+    category = ('HTTP_'+str(status//100)+'XX' if type(status) is int and 100 <= status <= 599
+                else 'UNAVAILABLE' if status is None else 'OTHER')
+    record = {'reason': reason, 'phase': phase, 'upstream_status_category': category,
+              'duration_ms': min(elapsed, 60000), 'duration_capped': elapsed > 60000,
+              'response_bytes_observed': min(max(0, observed), MAX_REPLY+1) if type(observed) is int else None,
+              'response_limit_bytes': MAX_REPLY}
+    # One bounded write also keeps concurrent relay records on separate lines.
+    sys.stdout.write('LIVE_HTTP_PROXY_DIAGNOSTIC='+json.dumps(record, sort_keys=True)+'\n')
+    sys.stdout.flush()
+
+
+def proxy_exception_reason(exception, phase):
+    if phase == 'DOWNSTREAM_RESPONSE':
+        return 'DOWNSTREAM_IO_ERROR'
+    if phase == 'FAULT_POLICY':
+        return 'RELAY_IO_ERROR'
+    if isinstance(exception, TimeoutError):
+        return 'UPSTREAM_TIMEOUT'
+    if isinstance(exception, http.client.IncompleteRead):
+        return 'UPSTREAM_INCOMPLETE_RESPONSE'
+    if isinstance(exception, http.client.RemoteDisconnected):
+        return 'UPSTREAM_DISCONNECTED'
+    if isinstance(exception, http.client.HTTPException):
+        return 'UPSTREAM_PROTOCOL_ERROR'
+    if isinstance(exception, ConnectionError):
+        return 'UPSTREAM_CONNECTION_ERROR'
+    return 'UPSTREAM_IO_ERROR'
 
 
 class LoopbackTLSProxy(http.server.ThreadingHTTPServer):
@@ -211,6 +251,14 @@ class ProxyHandler(http.server.BaseHTTPRequestHandler):
     def log_message(self, *args):
         pass
 
+    def gateway_error(self, reason, phase, started, status, observed):
+        proxy_diagnostic(reason, phase, started, status, observed)
+        self.close_connection = True
+        try:
+            self.send_error(502)
+        except (OSError, http.client.HTTPException):
+            proxy_diagnostic('DOWNSTREAM_IO_ERROR', 'ERROR_RESPONSE', started, status, observed)
+
     def relay(self):
         self.connection.settimeout(10)
         allowed = {'127.0.0.1:'+str(self.server.server_port), 'localhost:'+str(self.server.server_port)}
@@ -247,13 +295,28 @@ class ProxyHandler(http.server.BaseHTTPRequestHandler):
         headers['Content-Length'] = str(length)
         headers['Connection'] = 'close'
         upstream = http.client.HTTPConnection('127.0.0.1', self.server.backend_port, timeout=15)
+        started = time.monotonic()
+        phase, status, observed = 'UPSTREAM_REQUEST', None, None
         try:
             upstream.request(self.command, self.path, body=body, headers=headers)
+            phase = 'UPSTREAM_HEADERS'
             response = upstream.getresponse()
+            status = response.status
+            phase = 'UPSTREAM_BODY'
             output = response.read(MAX_REPLY+1)
+            observed = len(output)
             if len(output) > MAX_REPLY:
-                self.send_error(502)
+                self.gateway_error('UPSTREAM_RESPONSE_TOO_LARGE', phase, started, status, observed)
                 return
+            # Bounded HTTPResponse.read(amt) can return short data without
+            # raising IncompleteRead. Do not turn a truncated declared body
+            # into a successful reply with a newly shortened Content-Length.
+            if type(response.length) is int and response.length > 0:
+                self.gateway_error('UPSTREAM_INCOMPLETE_RESPONSE', phase, started, status, observed)
+                return
+            if status == 502:
+                proxy_diagnostic('UPSTREAM_HTTP_502', phase, started, status, observed)
+            phase = 'FAULT_POLICY'
             if self.server.consume_commit_reply_drop(self.command, self.path,
                     self.headers.get('User-Agent', ''), body, response.status):
                 self.close_connection = True
@@ -262,6 +325,7 @@ class ProxyHandler(http.server.BaseHTTPRequestHandler):
                 except OSError:
                     pass
                 return  # Real backend reply drained/committed; client observes EOF.
+            phase = 'DOWNSTREAM_RESPONSE'
             self.send_response(response.status)
             for key, value in response.getheaders():
                 if key.lower() not in {'connection', 'transfer-encoding', 'content-length'}:
@@ -272,7 +336,16 @@ class ProxyHandler(http.server.BaseHTTPRequestHandler):
                 self.wfile.write(output)
         except (OSError, http.client.HTTPException) as exception:
             self.server.relay_error_categories.add(type(exception).__name__)
-            self.send_error(502)
+            if isinstance(exception, http.client.IncompleteRead) and isinstance(exception.partial, bytes):
+                observed = len(exception.partial)
+            reason = proxy_exception_reason(exception, phase)
+            if phase == 'DOWNSTREAM_RESPONSE':
+                # Once response emission starts, another status line would corrupt
+                # the response. Close fail-closed and retain only a safe category.
+                proxy_diagnostic(reason, phase, started, status, observed)
+                self.close_connection = True
+            else:
+                self.gateway_error(reason, phase, started, status, observed)
         finally:
             upstream.close()
 

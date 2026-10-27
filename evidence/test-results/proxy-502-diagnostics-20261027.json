@@ -1,0 +1,215 @@
+{
+  "scope": "PRIVATE_HTTP_PROXY_502_DIAGNOSTICS_AND_PROVEN_HARNESS_REPAIRS",
+  "parent": "2999e6699219392eb6dd28fe5859f6ed0e09e86b",
+  "parent_commits": 143,
+  "source_owner": "git log -1 -- evidence/test-results/proxy-502-diagnostics-20261027.json",
+  "historical_hosted_run": "https://github.com/ahmadraihanfirdaus/vessel-monitoring-gateway/actions/runs/40502887757",
+  "historical_hosted": {
+    "PHP_MySQL8_cases": 393,
+    "no_DB_cases": 231,
+    "failed_gate": "CONTINUOUS_BROWSER_DOMAIN_LABELS",
+    "http_status": 502,
+    "conditions": {
+      "ENGINE_4_RPM": "FAIL",
+      "HTTP_200": "FAIL",
+      "LOW_POWER_PROTOTYPE": "FAIL",
+      "RUNNING": "FAIL",
+      "VAPOR_UNIT_DISCLAIMER": "FAIL"
+    },
+    "dashboard_categories": "UNKNOWN_ERROR_PAGE_NOT_DASHBOARD",
+    "response_sha256": "17b8804e4bfbf9b53f090536c66dbd837659d3b546482d58a4f6714c228becbe",
+    "page_classification": "STANDARD_PYTHON_PROXY_502_ERROR_PAGE",
+    "internal_502_reason": "UNKNOWN_NOT_LOGGED_IN_PARENT",
+    "archive": "NOT_RUN"
+  },
+  "reason_paths": [
+    {
+      "reason": "UPSTREAM_CONNECTION_ERROR",
+      "phase": "UPSTREAM_REQUEST/HEADERS/BODY",
+      "reproduction": "PASS",
+      "evidence": "Caught ConnectionError; connection refusal reproduced with a reserved non-listening loopback port and injected request failure."
+    },
+    {
+      "reason": "UPSTREAM_TIMEOUT",
+      "phase": "UPSTREAM_REQUEST/HEADERS/BODY",
+      "reproduction": "PASS",
+      "evidence": "Caught TimeoutError; deterministic injected request/header/body timeout. Original real socket deadlines remain 10s downstream and 15s upstream; no slow wall-clock timeout claim."
+    },
+    {
+      "reason": "UPSTREAM_DISCONNECTED",
+      "phase": "UPSTREAM_HEADERS",
+      "reproduction": "PASS",
+      "evidence": "RemoteDisconnected is classified before its HTTPException/ConnectionError bases; accepted then closed loopback socket reproduced."
+    },
+    {
+      "reason": "UPSTREAM_PROTOCOL_ERROR",
+      "phase": "UPSTREAM_HEADERS/BODY",
+      "reproduction": "PASS",
+      "evidence": "Other HTTPException, including malformed status and oversized header line; raw malformed loopback status and injected BadStatusLine/LineTooLong reproduced."
+    },
+    {
+      "reason": "UPSTREAM_INCOMPLETE_RESPONSE",
+      "phase": "UPSTREAM_BODY",
+      "reproduction": "PASS",
+      "evidence": "IncompleteRead or positive remaining declared Content-Length after bounded read; real truncated chunk and truncated Content-Length reproduced."
+    },
+    {
+      "reason": "UPSTREAM_IO_ERROR",
+      "phase": "UPSTREAM_REQUEST/HEADERS/BODY",
+      "reproduction": "PASS",
+      "evidence": "Other caught OSError, reproduced with injected body I/O failure; no arbitrary exception catch added."
+    },
+    {
+      "reason": "UPSTREAM_RESPONSE_TOO_LARGE",
+      "phase": "UPSTREAM_BODY",
+      "reproduction": "PASS",
+      "evidence": "Bounded read observes MAX_REPLY+1 bytes; real loopback cap+1 rejected, exact cap accepted."
+    },
+    {
+      "reason": "RELAY_IO_ERROR",
+      "phase": "FAULT_POLICY",
+      "reproduction": "PASS",
+      "evidence": "Existing caught OSError from private reply-drop policy; injected deterministic failure, upstream always closed."
+    },
+    {
+      "reason": "UPSTREAM_HTTP_502",
+      "phase": "UPSTREAM_BODY",
+      "reproduction": "PASS",
+      "evidence": "Upstream actually returns HTTP502; reason distinguishes passthrough from a locally generated error; exact upstream body/status preserved."
+    },
+    {
+      "reason": "DOWNSTREAM_IO_ERROR",
+      "phase": "DOWNSTREAM_RESPONSE/ERROR_RESPONSE",
+      "reproduction": "PASS",
+      "evidence": "Caught downstream write failure: close without a second HTTP status; failed error delivery is not retried. Deterministic BrokenPipeError reproductions."
+    }
+  ],
+  "other_paths": "Request admission/body guards retain their existing 4xx/503 behavior. Uncaught non-OSError/non-HTTPException paths are not relabeled as 502. Intentional commit-reply drop retains EOF behavior. No broad exception catch added.",
+  "proven_local_defects": [
+    {
+      "bug": "Bounded HTTPResponse.read(amt) can return fewer bytes than declared without raising IncompleteRead; parent rewrote Content-Length and returned 200.",
+      "before": "Real TCP response declared 30 bytes but sent5: regression expected502, actual200.",
+      "after": "Reject positive remaining declared Content-Length as UPSTREAM_INCOMPLETE_RESPONSE/502; exact cap and actual HTTP/TLS success retained."
+    },
+    {
+      "bug": "Caught downstream write failure previously attempted send_error(502) after response emission began.",
+      "before": "Parent negative regression attempted a second HTTP status after simulated broken pipe.",
+      "after": "Record DOWNSTREAM_IO_ERROR and close; no second status/error-delivery attempt."
+    }
+  ],
+  "hosted_root_cause": "UNKNOWN_NEITHER_LOCAL_DEFECT_PROVEN_TO_CAUSE_PRIOR_HOSTED_502",
+  "production_changes": "NONE_APPLICATION_FIRMWARE_WORKFLOWS_REQUIREMENTS_AND_DEPENDENCIES_IDENTICAL_TO_PARENT",
+  "diagnostic_contract": {
+    "prefix": "LIVE_HTTP_PROXY_DIAGNOSTIC=",
+    "fields": [
+      "reason",
+      "phase",
+      "upstream_status_category",
+      "duration_ms",
+      "duration_capped",
+      "response_bytes_observed",
+      "response_limit_bytes"
+    ],
+    "elapsed_ms_cap": 60000,
+    "byte_count_cap": "MAX_REPLY+1",
+    "limits_unchanged": {
+      "downstream_timeout_seconds": 10,
+      "upstream_timeout_seconds": 15,
+      "response_bytes": 1048576,
+      "request_bytes": 8192
+    },
+    "redaction": "Static allowlisted reasons/phases/status categories and bounded counters only; never exception text, body, URL, request headers, cookie, token, SQL, credentials, private address or profile path."
+  },
+  "local_actual_presentation": {
+    "categories": {
+      "FRESHNESS": "LIVE",
+      "PRESENTATION": "ENABLED",
+      "PROFILE": "CONTINUOUS_SIMULATION_V11",
+      "SCHEMA": "V1_1",
+      "SOURCE": "SIMULATION"
+    },
+    "conditions": {
+      "ENGINE_4_RPM": "PASS",
+      "HTTP_200": "PASS",
+      "LOW_POWER_PROTOTYPE": "PASS",
+      "RUNNING": "PASS",
+      "VAPOR_UNIT_DISCLAIMER": "PASS"
+    },
+    "http_status": 200,
+    "response_sha256": "5d7ad39a8581ab82f26bc0bb4d173366ee86765d53606668ee11cc9f866cd54f"
+  },
+  "local_verification": {
+    "PHP": "8.2.35",
+    "Laravel": "12.70.0",
+    "isolated_engine": "MariaDB10.4.32",
+    "PHP_cases": 393,
+    "PHP_failed": 0,
+    "PHP_skipped": 0,
+    "focused_UI_cases": 55,
+    "real_HTTP_TLS_checks": 248,
+    "real_HTTP_TLS_failed": 0,
+    "python_unique_cases": 110,
+    "python_breakdown": {
+      "HTTP_gate_including_10_proxy_tests": 40,
+      "MySQL_gate": 32,
+      "data_UI_contracts": 9,
+      "formal_UI_review": 6,
+      "security_scanner_units": 23
+    },
+    "proxy_diagnostic_methods": 10,
+    "proxy_subcases": "9 injected upstream exception subcases plus bounded counters, oversize/exact cap, passthrough, downstream/error-response and policy failures; real TCP refusal/malformed/disconnect/chunk truncation/Content-Length truncation/oversize/upstream502.",
+    "database_postflight": "PASS_TEN_TABLES_SIX_MIGRATIONS_ZERO_APPLICATION_ROWS",
+    "native_receipt_crosscheck": "PASS",
+    "source_stability": "PASS_HASH_BOUND_HTTP_AND_PHP_INPUTS",
+    "migration_roundtrip": "NOT_RERUN_EXISTING_SCHEMA_MODE_NO_SCHEMA_CHANGE",
+    "local_MySQL8": "NOT_RUN_RUNTIME_UNAVAILABLE",
+    "hosted_new_candidate": "NOT_RUN_NO_PUSH_NO_DISPATCH"
+  },
+  "security": {
+    "scoped_scanner_findings": 0,
+    "scoped_scanner_warnings": 0,
+    "initial_review_findings": 3,
+    "resolution": "Exactly3 unchanged runtime-generated input lines verified byte-identical to parent; only new file-hash pins appended, prior reviews and detector retained.",
+    "manual_review": "PASS_ALLOWLISTED_BOUNDED_DIAGNOSTICS_EXACT_SCOPE_NO_PRODUCTION_EDITS",
+    "commit_policy": "Full final index/worktree scan and exact-scope check must PASS before owner commit; results stored in private final gate receipt."
+  },
+  "traceability": "PASS38_REQUIREMENTS_185_FILE_REFERENCES_BASELINES_AND_FORMAL_STATUS_UNCHANGED",
+  "git": "143_PARENT_COMMITS_UNCHANGED_REMOTE_MAIN_READONLY_CONFIRMED_PARENT_NO_HISTORY_REWRITE",
+  "protected_original": "PASS_DEVELOP_82ae9f87ee1162bd4b33e101286d0be48418184e_INDEX_REFS_WORKTREE_AND_PROTECTED_BYTES_UNCHANGED",
+  "private_evidence_directory": "private/portfolio-proxy-502-diagnostics-gates-20261027",
+  "evidence_sha256": {
+    "baseline.json": "2525a6900320498b6762cd1a1a78c598170bb1156f85cb0504a1c83b343e9d3f",
+    "candidate-git-fsck.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "live-http-run1.txt": "fd528e1ed4607a64b478e464da7b0bcc0fa7a1b4e8a15d601e156544ff11708e",
+    "mysql-regression.txt": "d6e1648d1b31fc0acc7f3641360e6f0829e8e5d9e1a5cb614e031a5a1a60d06e",
+    "parent-git-fsck.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "php-ui-focused.txt": "74954d58475c2d4078402f6488423da0725371ab17430aa02c111443638060fc",
+    "preflight.txt": "3c064cdf83a27e3ddaad458e164c1a78b7c1befca49496f725346ad97ce87265",
+    "proxy-after-core.txt": "5a33e34c76e885e0e692ac7f6a5dfe47073be489284c296a381df945885e8409",
+    "proxy-after.txt": "3c681b3f34d8a938cdb04ebcc72dd4fcb15fc12bbef5e188dab740091e8f8769",
+    "proxy-before-truncation-fix.txt": "f1fec90416f850989dc0686c11af8f0c27148718bf8380bef06792d6406a2d08",
+    "proxy-before.txt": "539ebb0e6eeaa7f648c66e79fa73e6f9e283c15acfe903cfb2fcc408ba289b5f",
+    "scope-preservation-before-commit.json": "dbe613eb4ce63843d9232c65629c197f5daad5fbe0b68fe2110de620a717e861",
+    "security-before.txt": "a3aac01b247f4b94d48b714c05a43d54c50108b0f04b6ed8a6a83555f8fe3509",
+    "security-review-line-proof.json": "39888e247418d3e6b9e780fe24c648d1f8140a13c7f39c77f9f311df0c6f43b1",
+    "security-scope-reviewed.txt": "911579ea9023ae41028d668dce2137fe87c285f8ba7bfadc37a5454a042f72ee",
+    "test_audit_precommit_security-reviewed.txt": "4b7cced2e11355f251adf761cd9cdcf81127bbdd5954118971c7cc47fd00a06b",
+    "test_audit_precommit_security.txt": "8e053c48d6f357499cb6eee53ceace59f7d2bf487832d42062462240c1ddd26a",
+    "test_data_ui_contracts.txt": "5f0635b83af38a6c5d516fcb60dc3fa63c9c6ca4854e51a6a29ca33c92ccef16",
+    "test_live_http_integration_gate.txt": "88a83b6f0e40d1786fbf33d0681198f010dbf895c8c60b5e7ff6e9a9edc47b0e",
+    "test_mysql_integration_gate.txt": "f649c87279f512114470a6583eb48910bc6aadea32cdb943e369934d46f6b554",
+    "test_review_formal_data_ui.txt": "065c7d15facfd20f14fb9182747be315f3349fa1d5e1a0e966047509f4bfa9b1",
+    "traceability.txt": "a724b4b2d6ae58dbab5f9936a19053d8ca12dbff874517adb0800efc973d7adb"
+  },
+  "source_sha256": {
+    "scripts/run_live_http_integration.py": "45b9c7673657e391d9150ebc03a60d12d21eaf815fb1568094b695c3766b3a19",
+    "scripts/test_http_proxy_diagnostics.py": "381ec6b4a6876d103bedc8988965acfa282f15b3ad779e9f7b63fd05954be0a6",
+    "scripts/test_live_http_integration_gate.py": "8e8c8fef96ee06663d025be0f887234c59c5df218f8c1e84f5de1ff338091838",
+    "scripts/security-reviewed-findings.json": "df3093166795938746cbf291e773cddd50076df5b6a6fbc44272a4a35c586466"
+  },
+  "next_action": "Explicit approval required for publication and one controlled hosted Phase9 diagnostic run to observe the actual 502 reason. No automatic repair or dispatch.",
+  "status_if_owner_commit_gates_pass": "READY_FOR_HOSTED_502_DIAGNOSTIC_APPROVAL",
+  "pushes": 0,
+  "workflow_dispatches": 0,
+  "external_verification": "NOT_RUN_PHYSICAL_ESP32_NVS_RTOS_DEPLOYED_TLS_REAL_VESSEL_SYSTEM_PARTIAL_FORMAL_NOT_APPROVED"
+}
