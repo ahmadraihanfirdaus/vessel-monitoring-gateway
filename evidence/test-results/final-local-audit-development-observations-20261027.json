@@ -1,0 +1,17 @@
+{
+  "scanner_initial_exit": 1,
+  "security_findings": 0,
+  "privacy_warnings": 1,
+  "classification": "INFORMATIONAL_SYNTHETIC_GIT_IDENTITY_NOT_A_PERSON_OR_SECRET",
+  "source": "scripts/test_public_archive_safety.py",
+  "review_rule": "privacy warnings cannot be waived by nonsecret registry",
+  "resolution": "owned test Git identity now uses an opaque synthetic non-address marker;no scanner rule or review registry weakened",
+  "packaging_initial_defects": [
+    "exact tracked set conflicts with forbidden dotenv template and sdk defaults",
+    "forced temporary/output replacement could overwrite preexisting files",
+    "forbidden archive bodies were read before final metadata refusal",
+    "oversize and NUL content skipped inspection"
+  ],
+  "previous_static_analysis": "additional optional verification remains BLOCKED;not a mandatory baseline gate",
+  "no_credentials_read": true
+}

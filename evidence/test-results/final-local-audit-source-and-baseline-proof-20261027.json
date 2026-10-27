@@ -1,0 +1,54 @@
+{
+  "audited_head": "81e9bfbb36d357a55476bb44d985cd8fa095e4c5",
+  "branch": "develop",
+  "source_sha256": {
+    "http": "81fa45d15a8f800e85cbf82048df8086640f26dc88a63275746424282ceab49f",
+    "mysql": "516446eb3db89042116ca6ab4a216a06f018e4511af6ebb8a72dbd2b49e08037",
+    "firmware_sdk": "f693b0cb1a77d73b8c8cc97eb65da23703a6da9c1bd7e767dfcc1f6a259631e6"
+  },
+  "runtime_source_changed": false,
+  "php_version_now": "8.2.35",
+  "php_binary": "C:/tools/php-8.2.35/php.exe",
+  "existing_runtime_evidence": {
+    "php_cases": 388,
+    "php_failed": 0,
+    "php_skipped": 0,
+    "normal_tls_checks": 248,
+    "normal_tls_failed": 0,
+    "host_regression_commands": 248,
+    "host_regression_failed": 0,
+    "native_adversarial_methods": 12,
+    "http_lifecycle_methods": 26,
+    "core_cases": 226,
+    "core_repetitions": 2,
+    "readonly_outage_elapsed_ms": 60047,
+    "readonly_sampling_cycles": 561,
+    "readonly_exhausted_cycles": 538,
+    "readonly_maximum_sampling_gap_ms": 110,
+    "readonly_actual_responses": [
+      503,
+      503,
+      503,
+      200
+    ],
+    "explicit_reset_count": 1,
+    "database_writes_in_formal_host": false,
+    "browser": "PASS_APPROVED_OUTSIDE_SANDBOX_UNCHANGED_SOURCE_FLAGS",
+    "working_security": "PASS_0_FINDINGS_0_PRIVACY"
+  },
+  "runtime_db_sdk_suite_rerun_this_audit": false,
+  "current_new_regression": "19commands0fail plus final18new_6retained_archive_methods_and_shell_syntax_delta_PASS",
+  "all_initial_nonhandoff_wip": "ALL_EXACT_SHA256_AT_INITIAL_PROOF;LATER_SINGLE_EOF_LF_NORMALIZATION_WITH_RAW_RECONSTRUCTION_AUDIT;OTHER8UNCHANGED",
+  "existingSDKproof": "event-delivery-retry-source-proof-20261027.json",
+  "all6migrations": "UNCHANGED",
+  "locked_hashes": {
+    "requirements/system-requirements.md": "a60167d9f2a1f852a091048447f6f4acf8d2cbfd6d11f04c2a6e2f6896f5b92b",
+    "requirements/traceability-matrix.csv": "bc1fc7ce697fc6180cab760320de2a1bd814f9bc78731d4a22fdae838c303fe3"
+  },
+  "no_dotenv_read_by_audit": true,
+  "hardware_db_remote_upload_execution": false,
+  "optional7composition_analysis": "BLOCKED_RETAINED_NOT_A_MANDATORY_BASELINE_GATE",
+  "mandatory_baseline_runtime_reuse": "PASS_EXACT_PUBLIC_INPUT_BINDING",
+  "new_packaging_gates": "SEE_CURRENT_FOCUSED_PAYLOAD_SECURITY_AND_FINAL_MATRIX",
+  "format_normalization_evidence": "final-local-audit-evidence-format-normalization-20261027.json"
+}

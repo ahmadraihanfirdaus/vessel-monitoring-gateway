@@ -1,0 +1,37 @@
+{
+  "head": "81e9bfbb36d357a55476bb44d985cd8fa095e4c5",
+  "source": "scripts/runtime_uplink_wire_fixture.c",
+  "source_sha256": "4048b450ae6a032fce31917d0d9a9b334337864b6fb7f52d7b928de23c37003d",
+  "command": [
+    "C:/msys64/ucrt64/bin/gcc.exe",
+    "-std=c99",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-pedantic",
+    "-Os",
+    "-fanalyzer",
+    "-Wanalyzer-too-complex",
+    "--param=analyzer-max-enodes-per-program-point=32",
+    "--param=analyzer-bb-explosion-factor=16",
+    "-fno-diagnostics-show-caret",
+    "-fmessage-length=0",
+    "-I",
+    "<REPOSITORY>\\firmware\\src",
+    "-I",
+    "<REPOSITORY>\\scripts",
+    "-c",
+    "<REPOSITORY>\\scripts\\runtime_uplink_wire_fixture.c",
+    "-o",
+    "<OWNED_TEMP>\\probe.o"
+  ],
+  "exit": 1,
+  "elapsed_seconds": 6.0,
+  "diagnostics": {
+    "analyzer-too-complex": 49
+  },
+  "status": "BLOCKED_INCOMPLETE_STATIC_ANALYSIS",
+  "runtime_executed": false,
+  "source_changed": false,
+  "diagnostics_suppressed": false
+}

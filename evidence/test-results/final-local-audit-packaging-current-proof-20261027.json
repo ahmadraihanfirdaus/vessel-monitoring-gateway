@@ -1,0 +1,58 @@
+{
+  "source_commit": "81e9bfbb36d357a55476bb44d985cd8fa095e4c5",
+  "mode": "READ_ONLY_COMMITTED_FILTERED_PAYLOAD_AUDIT",
+  "policy_sha256": "a354926842b61f3469e6f20eaf0100d094e6e59217a37d59f77477df7912424d",
+  "exporter_sha256": "ab87ef88afaa2e61f53816712c5d1508df82f8f19938b3d3693ce17be2294acb",
+  "admitted_files": 1542,
+  "admitted_bytes": 10047792,
+  "excluded_details": [
+    {
+      "path": "backend/laravel/.env.example",
+      "reason": "SENSITIVE_OR_CACHE_NAME_METADATA_ONLY"
+    },
+    {
+      "path": "docs/handoff/CHATGPT_CONTEXT.md",
+      "oid": "b4d215c23ef6a53c890bb02ae9eae61fcffdf732",
+      "reason": "EXACT_HISTORICAL_PRIVATE_PROFILE_BLOB"
+    },
+    {
+      "path": "docs/handoff/CODEX_RESUME.md",
+      "oid": "2f098a6f882cb3386b6814778cc15d06444780dd",
+      "reason": "EXACT_HISTORICAL_PRIVATE_PROFILE_BLOB"
+    },
+    {
+      "path": "evidence/test-results/alarm-metadata-early-regression-20261025.txt",
+      "oid": "6bd1d20c98c0a6df1948e89c4400bf46a31569c0",
+      "reason": "EXACT_HISTORICAL_PRIVATE_PROFILE_BLOB"
+    },
+    {
+      "path": "evidence/test-results/alarm-metadata-final-regression-20261025.txt",
+      "oid": "4816c9f25034191768433712ae5b6b407d117b2a",
+      "reason": "EXACT_HISTORICAL_PRIVATE_PROFILE_BLOB"
+    },
+    {
+      "path": "evidence/test-results/continuous-final-security-20261025.txt",
+      "oid": "8c5a6b1f1e73845b1bc56149337f2c7e227cd77a",
+      "reason": "EXACT_HISTORICAL_PRIVATE_PROFILE_BLOB"
+    },
+    {
+      "path": "evidence/test-results/device-read-scoped-gates-run1-20261025.txt",
+      "oid": "8a269746096a0c7435123a35f72e795163f28a93",
+      "reason": "EXACT_HISTORICAL_PRIVATE_PROFILE_BLOB"
+    },
+    {
+      "path": "evidence/test-results/phase9-p3-runtime-http-client-failed-attempt2-20261018.txt",
+      "oid": "e08ea2fb9897a574f972c7d29dcab75e2596a910",
+      "reason": "EXACT_HISTORICAL_PRIVATE_PROFILE_BLOB"
+    }
+  ],
+  "excluded_blob_content_or_size_read": false,
+  "dotenv_values_read": false,
+  "content_findings": 0,
+  "status": "PASS",
+  "zip_created": false,
+  "publication_approval": false,
+  "current_packaging_tests": "18new_6retained_12reference_methods_PASS",
+  "shell_wrapper_sha256": "95e0afe2934c2f4a1eba304155007839a0e8cc4d06c4bfc19348eecde3fe2cd5",
+  "final_code_delta_regression": "PASS_18new_6retained_shell_syntax;process_only_no_bytecode"
+}

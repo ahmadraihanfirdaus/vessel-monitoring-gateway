@@ -1,0 +1,19 @@
+name: Committed source archive safety
+on:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  archive-admission:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Real isolated Git ZIP export and hostile metadata regressions
+        # Local fixture repositories only; no DB, remote trigger or publication.
+        run: |
+          python -B scripts/test_public_archive_safety.py
+          python -B scripts/test_public_archive_scanner.py

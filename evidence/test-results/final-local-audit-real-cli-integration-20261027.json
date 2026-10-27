@@ -1,0 +1,21 @@
+{
+  "source_commit": "81e9bfbb36d357a55476bb44d985cd8fa095e4c5",
+  "records": [
+    {
+      "mode": "READ_ONLY_CURRENT_HEAD_PLAN",
+      "exit": 0,
+      "output_created": false,
+      "stdout": "PUBLIC_ARCHIVE: PLAN_ONLY_NO_BLOB_CONTENT_READ_NO_OUTPUT\nsource_commit=81e9bfbb36d357a55476bb44d985cd8fa095e4c5\nadmitted_files=1549\nexcluded_sensitive_or_cache_paths=1\nNOTE: HEAD only; WIP is excluded. Execute requires clean tracked/index and reviewed untracked state.\n",
+      "stderr": ""
+    },
+    {
+      "mode": "EXECUTE_CURRENT_WIP_REFUSED",
+      "exit": 4,
+      "output_created": false,
+      "stdout": "",
+      "stderr": "PUBLIC_ARCHIVE: BLOCKED; inspect source state/dependencies and use a fresh output path. Any partial own output is retained.\n"
+    }
+  ],
+  "credential_or_dotenv_content_read": false,
+  "source_mutation": false
+}

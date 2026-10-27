@@ -1,5 +1,16 @@
 # Requirement Traceability Status
 
+## Final local implementation decision,2026-10-27
+
+See [the38row final software audit](final-local-software-audit-20261027.md) and
+its decision/evidence CSV. Classifications32LOCAL_IMPLEMENTATION_COMPLETE_BUT_NOT_
+FORMALLY_VERIFIED/6EXTERNAL_PREREQUISITE are a local implementation assessment,
+not new formal PASS or VERIFIED. Existing living statuses remain22IMPLEMENTED_
+UNVERIFIED/16PARTIAL;formal37PASS/1NOT_RUN,15SIM scopedPASS/18SUP PASS/SUP018 PLANNED.
+Mandatory scoped gate results and exact commit are prerequisites of audit closure.
+Additional compiler/sanitizer coverage limits do not replace or waive those gates.
+SystemPARTIAL/finalNOT_APPROVED;external hardware/hostedCI/deployedTLS NOT_RUN.
+
 **Project:** Vessel Monitoring Gateway
 
 **Engineering Baseline:** Internal Engineering Blueprint v1.0

@@ -1,0 +1,45 @@
+{
+  "source_commit": "81e9bfbb36d357a55476bb44d985cd8fa095e4c5",
+  "mode": "READ_ONLY_COMMITTED_ADMITTED_PAYLOAD_REVIEW_NOT_ARCHIVE_CREATION",
+  "admitted_files": 1549,
+  "admitted_bytes": 10353501,
+  "excluded_path_names": [
+    "backend/laravel/.env.example"
+  ],
+  "excluded_blob_size_or_content_requested": false,
+  "actual_dotenv_values_read": false,
+  "payload_findings": [
+    {
+      "path": "docs/handoff/CHATGPT_CONTEXT.md",
+      "classification": "Machine-local path detected; content withheld"
+    },
+    {
+      "path": "docs/handoff/CODEX_RESUME.md",
+      "classification": "Machine-local path detected; content withheld"
+    },
+    {
+      "path": "evidence/test-results/alarm-metadata-early-regression-20261025.txt",
+      "classification": "Machine-local path detected; content withheld"
+    },
+    {
+      "path": "evidence/test-results/alarm-metadata-final-regression-20261025.txt",
+      "classification": "Machine-local path detected; content withheld"
+    },
+    {
+      "path": "evidence/test-results/continuous-final-security-20261025.txt",
+      "classification": "Machine-local path detected; content withheld"
+    },
+    {
+      "path": "evidence/test-results/device-read-scoped-gates-run1-20261025.txt",
+      "classification": "Machine-local path detected; content withheld"
+    },
+    {
+      "path": "evidence/test-results/phase9-p3-runtime-http-client-failed-attempt2-20261018.txt",
+      "classification": "Machine-local path detected; content withheld"
+    }
+  ],
+  "status": "FAIL_REVIEW_REQUIRED",
+  "archive_created": false,
+  "workspace_or_cache_copied": false,
+  "publication_approval": false
+}

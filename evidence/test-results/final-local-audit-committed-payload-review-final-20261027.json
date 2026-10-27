@@ -1,0 +1,54 @@
+{
+  "source_commit": "81e9bfbb36d357a55476bb44d985cd8fa095e4c5",
+  "mode": "READ_ONLY_FILTERED_COMMITTED_PAYLOAD_AUDIT_NOT_ARCHIVE_CREATION",
+  "policy_sha256": "74bbac292393ee8fbdf2cc77b55ebfd2e92f0caf4577777900c390ecc74d5781",
+  "admitted_files": 1542,
+  "admitted_bytes": 10047792,
+  "excluded_details": [
+    {
+      "path": "backend/laravel/.env.example",
+      "reason": "SENSITIVE_OR_CACHE_NAME_METADATA_ONLY"
+    },
+    {
+      "path": "docs/handoff/CHATGPT_CONTEXT.md",
+      "oid": "b4d215c23ef6a53c890bb02ae9eae61fcffdf732",
+      "reason": "EXACT_HISTORICAL_PRIVATE_PROFILE_BLOB"
+    },
+    {
+      "path": "docs/handoff/CODEX_RESUME.md",
+      "oid": "2f098a6f882cb3386b6814778cc15d06444780dd",
+      "reason": "EXACT_HISTORICAL_PRIVATE_PROFILE_BLOB"
+    },
+    {
+      "path": "evidence/test-results/alarm-metadata-early-regression-20261025.txt",
+      "oid": "6bd1d20c98c0a6df1948e89c4400bf46a31569c0",
+      "reason": "EXACT_HISTORICAL_PRIVATE_PROFILE_BLOB"
+    },
+    {
+      "path": "evidence/test-results/alarm-metadata-final-regression-20261025.txt",
+      "oid": "4816c9f25034191768433712ae5b6b407d117b2a",
+      "reason": "EXACT_HISTORICAL_PRIVATE_PROFILE_BLOB"
+    },
+    {
+      "path": "evidence/test-results/continuous-final-security-20261025.txt",
+      "oid": "8c5a6b1f1e73845b1bc56149337f2c7e227cd77a",
+      "reason": "EXACT_HISTORICAL_PRIVATE_PROFILE_BLOB"
+    },
+    {
+      "path": "evidence/test-results/device-read-scoped-gates-run1-20261025.txt",
+      "oid": "8a269746096a0c7435123a35f72e795163f28a93",
+      "reason": "EXACT_HISTORICAL_PRIVATE_PROFILE_BLOB"
+    },
+    {
+      "path": "evidence/test-results/phase9-p3-runtime-http-client-failed-attempt2-20261018.txt",
+      "oid": "e08ea2fb9897a574f972c7d29dcab75e2596a910",
+      "reason": "EXACT_HISTORICAL_PRIVATE_PROFILE_BLOB"
+    }
+  ],
+  "excluded_blob_size_or_content_requested": false,
+  "dotenv_values_read": false,
+  "issues": [],
+  "status": "PASS",
+  "prior7private_blob_findings": "RESOLVED_BY_EXACT_METADATA_PINNED_PUBLIC_OMISSION;ORIGINALS_PRESERVED;NEW_HANDOFF_PREFIX_REDACTION",
+  "publication_approval": false
+}

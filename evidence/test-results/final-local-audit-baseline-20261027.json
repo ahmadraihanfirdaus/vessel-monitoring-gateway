@@ -1,0 +1,78 @@
+{
+  "head": "81e9bfbb36d357a55476bb44d985cd8fa095e4c5",
+  "branch": "develop",
+  "index": "EMPTY",
+  "tracked_count": 1550,
+  "packaging_reproducible_conflict": {
+    "expected_archive_set": "all tracked files",
+    "forbidden_tracked_path_names": [
+      "backend/laravel/.env.example",
+      "firmware/sdkconfig.defaults"
+    ],
+    "result": "IMPOSSIBLE_EXACT_SET_AND_FORBIDDEN_PATH_CONTRACT",
+    "contents_read": false,
+    "existing_output_overwrite": "shell rm-f temp and mv-f output confirmed in source;not executed"
+  },
+  "initial_wip": {
+    "docs/handoff/CHATGPT_CONTEXT.md": {
+      "sha256": "0da085d86adfa35c0101b19e6154dd49531f96060ee5e3aec33d9a20e85c529a",
+      "bytes": 141748
+    },
+    "docs/handoff/CODEX_RESUME.md": {
+      "sha256": "43c36b06893af4b823dcb7b92e6706e65787847ffd85d79a0b8564b8e68781b4",
+      "bytes": 141641
+    },
+    "AGENTS.md": {
+      "sha256": "421e2b5d5748cf5e4bdac3c189223915850c8894688a7e3ffd090975aa87864b",
+      "bytes": 4108
+    },
+    "evidence/test-results/goal-prerequisites-blocked-checkpoint-20261027.json": {
+      "sha256": "dec6613423aa459b69ce59c36766860d3bd6af255a62239474666b35c678a35b",
+      "bytes": 3423
+    },
+    "evidence/test-results/goal-prerequisites-checkpoint-security-20261027.txt": {
+      "sha256": "851e747acdf80f818ef6e7d35f3c753a5bae3302ef7e1ba12edb8ad1b1a23481",
+      "bytes": 5293
+    },
+    "evidence/test-results/native-static-analysis-budget-probe-20261027.json": {
+      "sha256": "3feaaa86bd0d126bd84ca3f93ffd7d666d1ec27c4fb874a93c2a4af2354c6a0d",
+      "bytes": 979
+    },
+    "evidence/test-results/native-static-analysis-budget-probe-20261027.txt": {
+      "sha256": "a3442c123756621714006cf30d83df5645b0cda422f4661e3b6743b779bd39f7",
+      "bytes": 20518
+    },
+    "evidence/test-results/native-static-analysis-review-20261027.json": {
+      "sha256": "f52af49dc9370c8c07bc194746722197483b213c54070969951ad27606875766",
+      "bytes": 4133
+    },
+    "evidence/test-results/native-static-analysis-run1-20261027.json": {
+      "sha256": "a63eb8273115c7f6fb128a8316a54bc81d6c2aae25622bb6061599511e17813b",
+      "bytes": 7328
+    },
+    "evidence/test-results/native-static-analysis-run1-20261027.txt": {
+      "sha256": "50396f447a5a87399e628b348d8b211d5d701f09c57e8ac3515338c319f5515a",
+      "bytes": 301684
+    },
+    "evidence/test-results/native-static-analysis-security-20261027.txt": {
+      "sha256": "f6f027f263922360860377de9064e30416df30f0ffbb5c83d9d68a0e1d212583",
+      "bytes": 5293
+    },
+    "evidence/test-results/survey-readiness-postcommit-81e9bfb-20261027.json": {
+      "sha256": "6373733e9708d45cc7a1b2ab1025479c99b52ccbb10ff8d02602bff0f932578b",
+      "bytes": 729
+    },
+    "firmware/.gitignore": {
+      "sha256": "d952abf002d5e1ec80c8ab1bfc9f38eb5b62fc310667d501cb2ce9f21c3effb2",
+      "bytes": 99
+    },
+    "firmware/.vscode/extensions.json": {
+      "sha256": "31cc8f05084d96b65be8f147533017c7a1b89b055d85886a2e4ab3ce532f34fb",
+      "bytes": 322
+    }
+  },
+  "preserved_old_statcache_byte_equal_head": {
+    "evidence/test-results/alarm-metadata-development-observations-20261025.txt": true,
+    "evidence/test-results/alarm-metadata-log-normalization-20261025.csv": true
+  }
+}

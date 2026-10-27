@@ -1,0 +1,178 @@
+[
+  {
+    "command": [
+      "python",
+      "-B",
+      "scripts/test_public_archive_safety.py"
+    ],
+    "exit": 0,
+    "elapsed_seconds": 6.922
+  },
+  {
+    "command": [
+      "python",
+      "-B",
+      "scripts/test_public_archive_scanner.py"
+    ],
+    "exit": 0,
+    "elapsed_seconds": 0.094
+  },
+  {
+    "command": [
+      "python",
+      "-B",
+      "scripts/test_public_reference_audit.py"
+    ],
+    "exit": 0,
+    "elapsed_seconds": 0.469
+  },
+  {
+    "command": [
+      "python",
+      "-B",
+      "scripts/test_audit_precommit_security.py"
+    ],
+    "exit": 0,
+    "elapsed_seconds": 10.968
+  },
+  {
+    "command": [
+      "python",
+      "-B",
+      "scripts/test_mysql_integration_gate.py"
+    ],
+    "exit": 0,
+    "elapsed_seconds": 5.797
+  },
+  {
+    "command": [
+      "python",
+      "-B",
+      "scripts/test_live_http_integration_gate.py"
+    ],
+    "exit": 0,
+    "elapsed_seconds": 1.453
+  },
+  {
+    "command": [
+      "python",
+      "-B",
+      "scripts/test_phase9_sys004_no_actuator.py"
+    ],
+    "exit": 0,
+    "elapsed_seconds": 0.641
+  },
+  {
+    "command": [
+      "python",
+      "-B",
+      "scripts/test_phase9_sec001_patterns.py"
+    ],
+    "exit": 0,
+    "elapsed_seconds": 0.078
+  },
+  {
+    "command": [
+      "python",
+      "-B",
+      "scripts/phase9_sec001_tracked_scan.py"
+    ],
+    "exit": 0,
+    "elapsed_seconds": 0.641
+  },
+  {
+    "command": [
+      "python",
+      "-B",
+      "scripts/test_continuous_simulation.py"
+    ],
+    "exit": 0,
+    "elapsed_seconds": 7.297
+  },
+  {
+    "command": [
+      "python",
+      "-B",
+      "scripts/test_alarm_transition.py"
+    ],
+    "exit": 0,
+    "elapsed_seconds": 1.859
+  },
+  {
+    "command": [
+      "python",
+      "-B",
+      "scripts/test_formal_provider_verification.py"
+    ],
+    "exit": 0,
+    "elapsed_seconds": 2.578
+  },
+  {
+    "command": [
+      "python",
+      "-B",
+      "scripts/test_data_ui_contracts.py"
+    ],
+    "exit": 0,
+    "elapsed_seconds": 0.094
+  },
+  {
+    "command": [
+      "python",
+      "-B",
+      "scripts/test_offline_authenticated_retirement.py"
+    ],
+    "exit": 0,
+    "elapsed_seconds": 9.406
+  },
+  {
+    "command": [
+      "python",
+      "-B",
+      "scripts/test_event_delivery_retry.py"
+    ],
+    "exit": 0,
+    "elapsed_seconds": 0.813
+  },
+  {
+    "command": [
+      "python",
+      "-B",
+      "scripts/test_firmware_core_host.py",
+      "--repeat",
+      "2"
+    ],
+    "exit": 0,
+    "elapsed_seconds": 1.859
+  },
+  {
+    "command": [
+      "C:/Program Files/nodejs/node.exe",
+      "--test",
+      "scripts/test_monitoring_freshness.js",
+      "scripts/test_browser_monitoring_probe.js"
+    ],
+    "exit": 0,
+    "elapsed_seconds": 0.312
+  },
+  {
+    "command": [
+      "C:/Program Files/Git/bin/bash.exe",
+      "-n",
+      "scripts/create_public_archive.sh"
+    ],
+    "exit": 0,
+    "elapsed_seconds": 0.063
+  },
+  {
+    "command": [
+      "python",
+      "-B",
+      "scripts/check_living_traceability.py",
+      "--report",
+      "evidence/test-results/final-local-audit-reference-report-20261027.json"
+    ],
+    "exit": 0,
+    "elapsed_seconds": 0.25
+  }
+]

@@ -1,6 +1,226 @@
 # CHATGPT_CONTEXT - konteks proyek untuk percakapan baru
 
-## Active survey-readiness precommit checkpoint (2026-10-27, UNCOMMITTED)
+## Final local software audit PRECOMMIT checkpoint (2026-10-27)
+
+Audited source HEAD81e9bfbb36d357a55476bb44d985cd8fa095e4c5 on develop; index
+53EXACT files STAGED at this saved precommit checkpoint. Latest user requested a bounded final
+local software decision and an end to automatic iteration if no safe local gap
+remains. Decision LOCAL_SOFTWARE_SCOPE_COMPLETE_WITH_EXTERNAL_BLOCKERS is effective
+after final mandatory scoped gates/local commit,not system/production approval.
+
+38row final-local-audit-requirements-20261027.csv classifies32LOCAL_IMPLEMENTATION_
+COMPLETE_BUT_NOT_FORMALLY_VERIFIED and6EXTERNAL_PREREQUISITE (SYS003,ALM003,NET001,
+NET002,SEC002,TST002). Actual implementation/test/evidence/roadmap reviewed with
+per-row observations. Original38LOCKED and mappings remain;living22IMPLEMENTED_
+UNVERIFIED/16PARTIAL,formal37PASS/1NOT_RUN,15SIM scopedPASS/18SUP PASS/SUP018 PLANNED.
+No requirement VERIFIED;SYSTEM_PARTIAL/finalNOT_APPROVED remain. Source audit
+found only reproducible archive-tool defects;these are fixed and tested.
+
+Archive fixes:metadata-first dotenv/private/cache filtering,SDK defaults retained,
+exclusive new output outside repo,no rm/mv/overwrite,exact filtered commit blobs,
+strict ZIP metadata/count/size/link/duplicate/encryption/NUL and directory-payload
+admission. Process-only no-bytecode and Bash compatibility delegate;no global
+PATH change. Initial real parent-HEAD privacy review found7historical private
+profile blobs;exact path/blob pins omit and disclose only those versions from a
+public snapshot. Local originals unchanged;active handoff profile prefixes now
+<LOCAL_HOME>. Unknown/changed versions receive ordinary scanning. No dotenv/key/
+credential values read/copied;no ZIP or publication was created by this audit.
+
+Current18new+6retained archive methods/shell syntax PASS;19relevant integrated
+commands PASS plus necessary frozen-code delta18+6. Fresh core226repeat2 and
+provider/alarm/guard/receipt/Node groups included. Independent current-source
+SIM010/012/013 evidence review PASS. Parent admitted-public payload1542files/
+8exclusions/0findings PASS;actual CLI default plan and WIP execute refusal PASS.
+38/34/current185reference guard PASS;source HTTP81fa45d1/MySQL516446eb/SDKf693b0cb
+match retained actual PHP388/TLS248/Chrome155/60047msHOST/bothSDK/broad248command
+proofs. Those runtime/DB/SDK suites are NOT_RERUN in this archive-only repair.
+Actual current PHP8.2.35 checked explicitly. All6migrations unchanged;no DB action.
+
+Full-composition7case GCC coverage remains BLOCKED,ASan/UBSan NOT_RUN;2limited
+modular object analyses PASS without diagnostics suppression. These are optional
+additional coverage,not mandatory baseline gates. HostedSUP018/ESP32/RTOS/WiFi/
+clock/PSA/NVS/powerloss/wear/stack/heap/timing/deployedTLS/MySQL8/POSIX/operator
+verification stays NOT_RUN. Cleanup11tracked candidates:5DEFERRED/6PROTECTED/
+0SAFE_TO_DELETE,0deletions;welcome remainsDEFERRED. Historical evidence preserved.
+
+All earlier9untracked audit/static/postcommit evidence plus approved current
+archive/source/docs/tests/workflow/evidence are included by final exact manifest.
+Initial cached whitespace gate failed on one extra final LF in the earlier native
+analysis log. Only that LF was removed;original SHA/size and byte-exact append-LF
+reconstruction are recorded in final-local-audit-evidence-format-normalization-
+20261027.json. No diagnostic/result lost;all other prior WIP bytes unchanged.
+ProtectedAGENTS/two firmware untracked and old2byte-equal metadata stat-cache
+entries stay excluded. Both full38tables below are current. Functional/reference/
+source/manual gates PASS;fresh complete working security0findings0privacy PASS.
+Initial52index/blob/manifest/worktree/cached diff and staged security0/0 PASS;
+fresh postformat reference report is the53rd exact file. Last metadata-stage equality and final read-only scan REQUIRED before
+actual commit. Final staging authority:final-local-audit-files-20261027.csv. See final-local-audit gate
+matrix/manual-review/summary/files for actual gate states. No stage/commit until
+mandatory gates PASS. After the substantive audit commit update BOTH handoffs with
+its actual hash/postcommit proof and finish a reviewed metadata-only closure;
+retain historical WIP evidence but leave no new uncommitted audit implementation.
+
+Then stop automatic local iteration per latest user instruction. Resume only for
+a new reproducible defect,approved scope change or available external prerequisites.
+No phantom features,mocks,reset-policy changes or administrative batch numbering.
+NO PUSH/remote merge/mainDB/manualDDL/destructiveGit/hardwareupload. Do not label
+source/archive/test success as system VERIFIED,hardware verified or production ready.
+
+## Historical operational BLOCKED prerequisites checkpoint (2026-10-27)
+
+Actual develop HEAD81e9bfbb36d357a55476bb44d985cd8fa095e4c5; index EMPTY.
+Goal completion remains UNPROVEN. The same external prerequisites remained
+unavailable across3consecutive Goal turns: committed resilience/readiness review,
+additional actual native-analysis continuation, and current revalidation. Current
+SUP018 is PLANNED with no execution evidence; current serial-port enumeration
+returns none (not a full hardware inventory); platformio.ini explicitly prohibits
+hardware upload/integration. HTTP/MySQL/SDK public snapshots, LOCKED2/protected3
+and old2metadata bytes are unchanged. Current source review identified no new
+independent local implementation scope. No project completion or VERIFIED claim.
+
+Operational checkpoint is BLOCKED_EXTERNAL_VERIFICATION_PREREQUISITES. Formal
+Goal-service transition to blocked is requested AFTER this checkpoint validation;
+use get_goal on resume for actual service status, not a historical status line.
+Do not spin more administrative batches, mocks or repeated passing tests to
+replace missing prerequisites. Additional analyzer-complexity/sanitizer limitations
+are separate incomplete optional coverage, not confirmed source vulnerabilities
+or the sole reason for the external prerequisite block.
+
+Saved audit:evidence/test-results/goal-prerequisites-blocked-checkpoint-20261027.json.
+Final checkpoint security:evidence/test-results/goal-prerequisites-checkpoint-
+security-20261027.txt (read its actual result; no PASS inferred before execution).
+Prior unchanged runtime388PHP/TLS248/Chrome155/60sHOST/broad248command evidence
+remains scoped/source-bound. Latest extra static analysis is BLOCKED, not PASS;
+no diagnostic suppressed, no source workaround, no stage/commit/push. Both complete
+38row handoff tables remain22IMPLEMENTED_UNVERIFIED/16PARTIAL and formal37PASS/
+1NOT_RUN;15SIM scopedPASS/18SUP PASS/SUP018 PLANNED. SystemPARTIAL/finalNOT_APPROVED.
+
+Preserve all current WIP: both handoffs, survey-readiness postcommit81e9bfb JSON,
+six native-static-analysis run/probe/review/security artifacts, this blocked
+checkpoint JSON and its security log. No production source/tests/CI/schema/
+LOCKED/status changes. Preserve3protected untracked and old2byte-equal metadata
+stat-cache entries; cleanup0/welcomeDEFERRED. This WIP is deliberately UNCOMMITTED
+because no new complete batch gate exists. Last valid local commits98455c3 and
+81e9bfb are preserved; no main DB/secret output/remote/destructive Git/physical
+control/globalPATH/XAMPP changes.
+
+Resume only when actual prerequisites change or a new independent local defect/
+implementation gap is identified. Useful prerequisites: an explicitly authorized
+protected ESP32 bench with external provisioning/trusted-clock plan; actual
+existing hostedCI/SUP018 evidence or separately authorized execution; separately
+authorized isolated deployedTLS verification environment/evidence. Never treat a
+serial port, build, source registration or host-file result as that evidence or
+as hardware/remote authority. NO PUSH remains. Do not send credentials or copy
+.env/APP_KEY/token/private coordinates into artifacts. Future PHP work uses
+explicit8.2.35 and fail-closed approved isolated MariaDB; never main DB. All future
+substantive batches still require scoped tests/integration/regression/security/
+evidence/exact-scope local commit only every mandatory gate PASS, followed by
+BOTH-handoff update. See actual Git/index/WIP before resuming; preserve this context.
+
+## Historical additional native static-analysis checkpoint (2026-10-27, UNCOMMITTED evidence retained)
+
+Actual develop HEAD81e9bfbb36d357a55476bb44d985cd8fa095e4c5; index EMPTY.
+Prior turn made substantive progress: resilience70-file commit98455c3 and
+Phase14/readiness20-file commit81e9bfb, both exact postcommit proofs PASS.
+This continuation checked current Git/WIP and current event metadata/read and
+continuous coordinator contracts, finding no new reproducible implementation
+bug. Additional independent GCC16.2 host static analysis was attempted on7actual
+existing C99 compositions:provider/navigation,telemetry/quality,continuous alarm/
+storage,single-channel isolation,event retry,authenticated retirement,resilience
+parser. Historical retry fixture was copied/adapted ONLY in fresh owned temp as
+the existing current-version test does; repository fixture unchanged.
+
+New compiler gate NOT_PASS/BLOCKED_INCOMPLETE_STATIC_ANALYSIS:7object compiles
+exit1,759diagnostics all analyzer-too-complex. No memory-vulnerability diagnostic
+class appeared, but incomplete analysis is not proof of absence. One smallest
+wire-composition probe with Os and increased per-point32/explosion16 budgets
+retained49complexity diagnostics/exit1. No diagnostic disabled,source workaround,
+skip,object execution,DB/network/hardware action or fake PASS. All raw sanitized
+logs,commands,source hashes,exits and triage are in native-static-analysis-run1,
+-budget-probe and -review dated20261027. No stage/commit/push for this incomplete
+new gate. Existing scoped committed runtime PASS records remain unchanged.
+
+Current WIP: both handoffs, survey-readiness-postcommit-81e9bfb-20261027.json,
+native-static-analysis-run1-20261027.json/.txt,native-static-analysis-budget-probe-
+20261027.json/.txt,native-static-analysis-review-20261027.json,native-static-analysis-security-
+20261027.txt. Fresh security scanner PASS exit0/0findings/0privacy. Compiler
+ASan/UBSan static/import-library resolution found0regular files; sanitizer
+execution NOT_RUN_DEPENDENCY_UNAVAILABLE, not a global installation inventory.
+Protected3untracked and old2metadata byte-equal stat-cache entries remain
+preserved/excluded. No
+LOCKED/production source/test/schema/CI/status change; cleanup0/welcomeDEFERRED.
+Both38matrices remain current22IMPLEMENTED_UNVERIFIED/16PARTIAL,37formalPASS/
+1NOT_RUN;15SIM scopedPASS,18SUP PASS/SUP018 PLANNED. SystemPARTIAL/finalNOT_APPROVED.
+
+Next: no new independent local implementation scope was identified; do not make
+another mock/admin batch or suppress compiler complexity just to get green.
+The additional compiler proof is incomplete; modular analysis may be revisited
+only with a concrete coverage objective, not claimed as full-program/hardware
+verification. Remaining actual ESP32/RTOS/WiFi/clock/PSA/NVS/powerloss/wear/stack/
+heap/timing and hostedCI/SUP018/deployedTLS/directMySQL8/POSIX/operator gates need
+external prerequisites and retain NOT_RUN. Serial-port metadata probe returned
+none; this is not a full hardware inventory or permission to connect equipment.
+Goal ACTIVE; completion unproven. Preserve WIP, enforce fail-closed isolated test
+DB and explicit PHP8.2.35 for future PHP execution; NO PUSH. Only real scoped gate
+PASS and security/diff/exact-index review permit any next local commit.
+
+## Historical survey-readiness postcommit checkpoint (2026-10-27)
+
+Actual develop HEAD `81e9bfbb36d357a55476bb44d985cd8fa095e4c5`, parent `98455c392562d582d34051b2dfd2171f80a27df2`.
+Six-area Phase14 checklist and38-requirement software review COMMITTED:20exact
+files; postcommit20/20 paths/blobs/worktree/manifest verified BEFORE this update.
+Index EMPTY; all scoped mandatory gates PASS, staged and final read-only security
+0findings/0privacy; no mutation between final scan and commit. NO PUSH.
+
+Checklist PREPARED for propulsion,navigation,radar/echo/radio,electrical/low-power,
+compartment sensors/local alarms/virtual start,data/uplink/disclosure. Existing
+IF01..11,TBD01..08 and LOCKED selections unchanged. Survey NOT_RUN/physical
+integration NOT_AUTHORIZED; no invented OEM/model/pins/thresholds/electrical
+limits or resolved TBD answers. Phase12/13 exit gates remain open.
+
+Actual new documentary gates:9commands0fail/45unit methods plus audits; current
+38requirements/34cases/176references, both38row handoff matrices, full HTTP/MySQL/
+SDK public source equality, LOCKED2/protected3/all6migrations/manual scope/diff/
+security PASS. Source runtime/tests/CI/contracts/schema UNCHANGED. Prior matching
+actual executions PHP388/TLS248/Chrome155/60047ms host outage/561cycles/broad248
+commands and both prior SDK proofs are retained, NOT_RERUN by this documentary
+batch. The first document-generation field-count failure was corrected/preserved.
+
+Evidence: survey-readiness-summary/gate-matrix/files/manual-review/regression/
+source-review/reference-audit/security-*-20261027.* and
+`evidence/test-results/survey-readiness-postcommit-81e9bfb-20261027.json`.
+Project review: docs/testing/local-software-review-20261027.md plus38row CSV;
+checklist: docs/testing/vessel-survey-readiness.md. The preceding substantive
+resilience70-file batch is COMMITTED98455c3 with postcommit70/70 proof.
+
+Both handoffs automatically updated AFTER successful commit; these two edits and
+new postcommit JSON are explicitly next-checkpoint UNCOMMITTED context WIP. The
+committed20-file manifest refers to committed versions, not these later edits.
+Preserve protected3untracked and old2metadata stat-cache entries byte-equal HEAD.
+Cleanup0/welcomeDEFERRED; positive root-route replacement does not remove the
+existing missing-tracked-file security-scanner dependency. Latest user selective
+safe-cleanup policy overrides only old Goal rule11; PROTECTED/DEFERRED remain.
+
+Current38:22IMPLEMENTED_UNVERIFIED/16PARTIAL, formal37PASS/1NOT_RUN;15SIM scopedPASS,
+18SUP PASS/SUP018 PLANNED. No VERIFIED, no FMEA closure, systemPARTIAL/final
+NOT_APPROVED. HardwareESP32/RTOS/WiFi/TLS/clock/PSA/NVS/powerloss/wear/fullstack/
+heap/hardwaretiming/currentWokwi/hostedCI/SUP018/deployedTLS/directMySQL8/POSIX/
+graphical operator acceptance NOT_RUN. No main DB/dotenv disclosure/globalPATH/
+XAMPP/physical control/remote/destructive Git operation.
+
+NEXT: the targeted38-requirement/roadmap review identifies no new independent
+local implementation gap; this is not an exhaustive defect-free or project-
+complete claim. Do not manufacture a mock, cleanup or administrative batch to
+replace missing external prerequisites. Prioritize any newly reproduced safe
+local defect; otherwise obtain actual independently authorized hardware/hosted/
+deployment evidence before claiming those gates. Goal remains ACTIVE, not VERIFIED
+or complete. No additional physical/remote/database authority is implied.
+Any future substantive batch still needs scoped tests/integration/regression/
+security/evidence/exact-scope local commit only all mandatory gates PASS, then
+immediate BOTH-handoff update. Use actual Git HEAD at resume, not historical
+checkpoint prose; NO PUSH.
+
+## Historical survey-readiness precommit checkpoint (superseded by actual commit above)
 
 Actual develop HEAD98455c392562d582d34051b2dfd2171f80a27df2; index20EXACT
 files STAGED at this checkpoint. Prior resilience70files COMMITTED and postcommit70/70 proof PASS.
@@ -31,7 +251,7 @@ cleanup0/welcomeDEFERRED, NO PUSH. External ESP32/RTOS/WiFi/NVS/powerloss/wear/
 fullstack/heap/physical timing/hostedCI/SUP018/deployedTLS/directMySQL8/POSIX/
 graphical operator acceptance remain NOT_RUN; finalNOT_APPROVED/systemPARTIAL.
 
-## Current resilience postcommit checkpoint (2026-10-27)
+## Historical resilience postcommit checkpoint (2026-10-27)
 
 Actual develop HEAD `98455c392562d582d34051b2dfd2171f80a27df2`, parent `4892054dc4aed578702e102f17f31dc459668a63`.
 Six related resilience scopes COMMITTED:70 exact files; postcommit70/70 committed
@@ -863,11 +1083,11 @@ Authoritative LOCKED baseline stays unchanged. Formal status follows actual cano
 | DB-001: All schema changes shall use Laravel migrations; no manual database shortcut is accepted. | PARTIAL | PASS / SUP-014 | backend/laravel/database/migrations/2026_10_17_100001_create_devices_table.php;backend/laravel/database/migrations/2026_10_17_100002_create_telemetry_samples_table.php;backend/laravel/database/migrations/2026_10_17_100003_create_telemetry_channels_table.php;backend/laravel/database/migrations/2026_10_18_100004_create_monitoring_events_table.php;scripts/run_mysql_integration.py;backend/laravel/tests/Support/TestEnvironment.php;backend/laravel/database/migrations/2026_10_25_100005_create_monitoring_access_tables.php;backend/laravel/tests/Support/TestSchema.php;firmware/src/alarm_transition.h;backend/laravel/tests/Feature/AlarmMetadataIntegrationTest.php;backend/laravel/database/migrations/2026_10_25_100006_add_alarm_metadata_to_monitoring_events.php;firmware/src/offline_state.h;scripts/run_mysql_integration.py;scripts/test_mysql_integration_gate.py / evidence/test-results/phase9-p3-migration-rollback-support-summary-20261018.md;evidence/test-results/phase9-p3-migration-rollback-support-evidence-audit-summary-20261018.md;evidence/test-results/mysql-integration-gate-20261025.md;evidence/test-results/mariadb-integration-summary-20261025.md;evidence/test-results/security-php8235-summary-20261025.md;evidence/test-results/dashboard-summary-20261025.md;evidence/test-results/alarm-metadata-summary-20261025.md;evidence/test-results/fault-storage-case-review-20261026.md | SUP-014 dedicated actual guarded Laravel6migration rollback/apply/reapply PASS on approved127.0.0.1:3307/vessel_gateway_codex_test/vgw_codex/MariaDB10.4.32 with explicit PHP8.2.35 and ephemeral valid process key. Current382tests/0fail/0skip and independent final catalog10tables/6records/0app rows PASS; public source stable. Historical protocol target explicitly revised by dated execution protocol without editing old pinned matrix. No manual DDL/mainDB/directMySQL8 approval. |
 | UI-001: Dashboard shall distinguish live, stale, offline and simulation states visibly. | IMPLEMENTED_UNVERIFIED | PASS / SIM-010 | backend/laravel/app/Support/DashboardSignalLabel.php;backend/laravel/resources/views/monitoring/index.blade.php;backend/laravel/routes/web.php;backend/laravel/app/Support/MonitoringFreshness.php;backend/laravel/app/Http/Controllers/MonitoringController.php;scripts/run_live_http_integration.py;backend/laravel/tests/Support/LiveHttpSafety.php;firmware/src/domain_snapshot.h;firmware/src/continuous_simulation.h;backend/laravel/tests/Feature/ContinuousSimulationIntegrationTest.php;backend/laravel/public/assets/monitoring-freshness.js;backend/laravel/resources/views/monitoring/freshness.blade.php;backend/laravel/tests/Feature/MonitoringExpiryTest.php;scripts/browser_monitoring_probe.js;scripts/test_monitoring_freshness.js;scripts/resilience_host_fixture.c;scripts/resilience_native_bridge.py;scripts/formal_resilience.py;scripts/review_formal_resilience.py;scripts/test_formal_resilience.py / evidence/test-results/mysql-integration-gate-20261025.md;evidence/test-results/dashboard-summary-20261025.md;evidence/test-results/live-http-summary-20261025.md;evidence/test-results/continuous-simulation-summary-20261025.md;evidence/test-results/receipt-expiry-summary-20261026.md;evidence/test-results/formal-resilience-case-review-20261027.md | Local software visibly distinguishes receipt-policy LIVE/STALE/OFFLINE and simulation. Current actual owned Chrome155 component PASS with2s/4s fixture thresholds, Secure/HttpOnly/Lax session, no polling, neutral SNAPSHOT without script/asset and UNKNOWN with missing timing; four labels agree. Dedicated actual60s host SIM010 PASS includes explicit offline network diagnostics; Chrome component is separate supporting integration, not a60s browser outage or physical freshness proof. Approved outside-sandbox run passes unchanged browser source after in-sandbox Page.enable crash; failures retained. Local HTTP localhost browser edge to strict HTTPS upstream is not deployed TLS; implementation remains UNVERIFIED. |
 | UI-002: Dashboard shall provide overview, safety, propulsion, navigation, power, alarms/events, device health and test evidence views. | IMPLEMENTED_UNVERIFIED | PASS / SUP-015 | backend/laravel/resources/views/monitoring/index.blade.php;backend/laravel/resources/views/monitoring/sections/overview.blade.php;backend/laravel/app/Services/DeviceEventReadService.php;backend/laravel/app/Services/MonitoringAccess.php;backend/laravel/app/Support/MonitoringEvidence.php;scripts/run_live_http_integration.py;backend/laravel/tests/Support/LiveHttpSafety.php;firmware/src/domain_snapshot.h;firmware/src/continuous_simulation.h;backend/laravel/tests/Feature/ContinuousSimulationIntegrationTest.php;firmware/src/alarm_transition.h;backend/laravel/tests/Feature/AlarmMetadataIntegrationTest.php;firmware/src/offline_replay.h;backend/laravel/tests/Feature/RecoveredReplayIntegrationTest.php;scripts/data_ui_contracts.py;scripts/run_formal_data_native.py;scripts/review_formal_data_ui.py / evidence/test-results/mysql-integration-gate-20261025.md;evidence/test-results/device-read-summary-20261025.md;evidence/test-results/dashboard-summary-20261025.md;evidence/test-results/live-http-summary-20261025.md;evidence/test-results/continuous-simulation-summary-20261025.md;evidence/test-results/alarm-metadata-summary-20261025.md;evidence/test-results/recovered-replay-summary-20261026.md;evidence/test-results/data-ui-case-review-20261026.md | SUP-015 read-only FUNCTIONAL_REVIEW/NO_DB_WRITE PASS for actual authenticated/granted eight-section semantic/hash evidence with connected data, quality, provenance and freshness. Producer separately writes approved owned test DB/session fixtures; reviewer performs no DB access. Secure project root entry and5retained regressions PASS. Graphical/deployed browser verification remains NOT_RUN. |
-| SEC-001: No production secret, real operational route or coordinate, radio frequency, credential, or confidential vessel detail shall be committed to public GitHub. | PARTIAL | PASS / SUP-016 | scripts/audit_precommit_security.py;docs/github-repository-plan.md;scripts/security-reviewed-findings.json / evidence/test-results/phase4-closure-summary-20261016.md;evidence/test-results/phase9-wave1-sup016-security-review-20261020.txt;evidence/test-results/security-php8235-summary-20261025.md | Public-repository security review SUP-016 PASS within reviewed scope; no production security or deployment approval claimed. PHP 8.2.35 continuation: 215 tests and verified migration roundtrip PASS; content security scan has zero unresolved findings/privacy warnings with exact reviewed non-secret/author metadata pins. No hosted CI, direct MySQL 8, TLS or new formal verification claimed. |
+| SEC-001: No production secret, real operational route or coordinate, radio frequency, credential, or confidential vessel detail shall be committed to public GitHub. | PARTIAL | PASS / SUP-016 | scripts/audit_precommit_security.py;docs/github-repository-plan.md;scripts/security-reviewed-findings.json;scripts/create_public_archive.py;scripts/test_public_archive.py;scripts/test_public_archive_safety.py;docs/public-release-archive.md / evidence/test-results/phase4-closure-summary-20261016.md;evidence/test-results/phase9-wave1-sup016-security-review-20261020.txt;evidence/test-results/security-php8235-summary-20261025.md;evidence/test-results/final-local-audit-requirements-20261027.csv;evidence/test-results/final-local-audit-final-code-delta-20261027.txt;evidence/test-results/final-local-audit-packaging-current-proof-20261027.json | Public-repository security review SUP-016 PASS within reviewed scope; no production security or deployment approval claimed. PHP 8.2.35 continuation: 215 tests and verified migration roundtrip PASS; content security scan has zero unresolved findings/privacy warnings with exact reviewed non-secret/author metadata pins. No hosted CI, direct MySQL 8, TLS or new formal verification claimed. Final local software audit20261027: archive exact-set/defaults/overwrite/admission defects repaired;dotenv/cache/private historic blob metadata excluded before content;new exclusive output and exact filtered commit validation. Full38decision32local_complete6external is separate from unchanged formal/implementation status. Historical private-profile evidence stays local and unchanged;public omission is exact path/blob pinned,not a scanner waiver. |
 | SEC-002: Demo API shall use HTTPS/authentication and secrets shall be external to source code. | PARTIAL | PASS / SIM-015 | backend/laravel/routes/api.php;backend/laravel/app/Http/Middleware/AuthenticateDeviceToken.php;backend/laravel/app/Services/DeviceTokenAuthenticator.php;backend/laravel/.env.example;backend/laravel/app/Services/MonitoringAccess.php;backend/laravel/app/Http/Controllers/MonitoringSessionController.php;firmware/src/esp32_network_client.c;firmware/sdkconfig.defaults;firmware/src/esp32_offline_store.c;scripts/run_live_http_integration.py;backend/laravel/tests/Support/LiveHttpSafety.php;firmware/src/event_delivery.h;firmware/src/offline_retirement.h;backend/laravel/app/Support/EventCommitReceipt.php;scripts/data_ui_contracts.py;scripts/run_formal_data_native.py;scripts/review_formal_data_ui.py / evidence/test-results/phase9-p3-security-review-20261018.txt;evidence/test-results/phase9-p3-securityfix-feature-tests-audit-summary-20261018.md;evidence/test-results/security-php8235-summary-20261025.md;evidence/test-results/dashboard-summary-20261025.md;evidence/test-results/esp32-transport-summary-20261025.md;evidence/test-results/offline-nvs-summary-20261025.md;evidence/test-results/live-http-summary-20261025.md;evidence/test-results/event-receipt-summary-20261026.md;evidence/test-results/data-ui-case-review-20261026.md | SIM-015 actual private loopback TLS/authentication case PASS, including CA/hostname/no-downgrade, fresh unauthorized no-acceptance and no secret echo. Secrets remain external/process-generated, scanner/manual gates required. Physical/deployed TLS, hardware key/storage and production readiness remain NOT_RUN. |
-| TST-001: Every requirement shall map to code module, automated/manual test and evidence. | PARTIAL | PASS / SUP-017 | requirements/traceability-matrix.csv;docs/testing/living-requirement-status.csv;docs/testing/firmware-evidence-index.md;scripts/run_mysql_integration.py;scripts/run_live_http_integration.py;backend/laravel/tests/Support/LiveHttpSafety.php;firmware/src/domain_snapshot.h;firmware/src/continuous_simulation.h;firmware/src/alarm_transition.h;backend/laravel/tests/Feature/AlarmMetadataIntegrationTest.php;firmware/src/offline_replay.h;backend/laravel/tests/Feature/RecoveredReplayIntegrationTest.php;firmware/src/event_delivery.h;firmware/src/offline_retirement.h;backend/laravel/app/Support/EventCommitReceipt.php;scripts/test_public_reference_audit.py;scripts/test_event_delivery_retry.py;scripts/test_event_delivery.py;scripts/event_retirement_file_fixture.c / evidence/test-results/mysql-integration-gate-20261025.md;evidence/test-results/mariadb-integration-summary-20261025.md;evidence/test-results/security-php8235-summary-20261025.md;evidence/test-results/dashboard-summary-20261025.md;evidence/test-results/live-http-summary-20261025.md;evidence/test-results/continuous-simulation-summary-20261025.md;evidence/test-results/alarm-metadata-summary-20261025.md;evidence/test-results/recovered-replay-summary-20261026.md;evidence/test-results/event-receipt-summary-20261026.md;evidence/test-results/fault-storage-case-review-20261026.md;evidence/test-results/fault-storage-reference-audit-run1-20261026.json;evidence/test-results/event-delivery-retry-summary-20261027.md | SUP-017 dedicated read-only public-reference audit PASS for38original LOCKED requirement mappings and34case definitions/records, real implementation/evidence paths and plan links. Duplicate header/row shadowing, wrong definition/mapping, private/foreign/linked paths and unstable reads rejected. Exact .env.example reference metadata-only/no content hash. Public inventory is point-in-time; NOT_RUN/PLANNED not inferred PASS, no full semantic/hardware or requirement VERIFIED approval. Failed-publication continuation20261027: actual parent C99 skipped an unconfirmed prefix after failed HTTP. Context-bound immutable fact/source/index/epoch rewind now retries the original without ACK/deletion/alarm clear; same-owner retrytag2, real committed-reply loss/MariaDB count1/duplicate200/genuine host-file retirement and both current SDK builds have scoped local evidence. Explicit exhausted transport reset and IO/crypto halt contracts retained; no physical durability/runtime or formal promotion. See event-delivery-retry-summary-20261027.md. |
+| TST-001: Every requirement shall map to code module, automated/manual test and evidence. | PARTIAL | PASS / SUP-017 | requirements/traceability-matrix.csv;docs/testing/living-requirement-status.csv;docs/testing/firmware-evidence-index.md;scripts/run_mysql_integration.py;scripts/run_live_http_integration.py;backend/laravel/tests/Support/LiveHttpSafety.php;firmware/src/domain_snapshot.h;firmware/src/continuous_simulation.h;firmware/src/alarm_transition.h;backend/laravel/tests/Feature/AlarmMetadataIntegrationTest.php;firmware/src/offline_replay.h;backend/laravel/tests/Feature/RecoveredReplayIntegrationTest.php;firmware/src/event_delivery.h;firmware/src/offline_retirement.h;backend/laravel/app/Support/EventCommitReceipt.php;scripts/test_public_reference_audit.py;scripts/test_event_delivery_retry.py;scripts/test_event_delivery.py;scripts/event_retirement_file_fixture.c;docs/testing/final-local-software-audit-20261027.md / evidence/test-results/mysql-integration-gate-20261025.md;evidence/test-results/mariadb-integration-summary-20261025.md;evidence/test-results/security-php8235-summary-20261025.md;evidence/test-results/dashboard-summary-20261025.md;evidence/test-results/live-http-summary-20261025.md;evidence/test-results/continuous-simulation-summary-20261025.md;evidence/test-results/alarm-metadata-summary-20261025.md;evidence/test-results/recovered-replay-summary-20261026.md;evidence/test-results/event-receipt-summary-20261026.md;evidence/test-results/fault-storage-case-review-20261026.md;evidence/test-results/fault-storage-reference-audit-run1-20261026.json;evidence/test-results/event-delivery-retry-summary-20261027.md;evidence/test-results/final-local-audit-requirements-20261027.csv;evidence/test-results/final-local-audit-source-and-baseline-proof-20261027.json | SUP-017 dedicated read-only public-reference audit PASS for38original LOCKED requirement mappings and34case definitions/records, real implementation/evidence paths and plan links. Duplicate header/row shadowing, wrong definition/mapping, private/foreign/linked paths and unstable reads rejected. Exact .env.example reference metadata-only/no content hash. Public inventory is point-in-time; NOT_RUN/PLANNED not inferred PASS, no full semantic/hardware or requirement VERIFIED approval. Failed-publication continuation20261027: actual parent C99 skipped an unconfirmed prefix after failed HTTP. Context-bound immutable fact/source/index/epoch rewind now retries the original without ACK/deletion/alarm clear; same-owner retrytag2, real committed-reply loss/MariaDB count1/duplicate200/genuine host-file retirement and both current SDK builds have scoped local evidence. Explicit exhausted transport reset and IO/crypto halt contracts retained; no physical durability/runtime or formal promotion. See event-delivery-retry-summary-20261027.md. Final local audit20261027 classifies32local implementation complete but unverified and6external prerequisites without changing LOCKED or formal registry statuses. Additional compiler/sanitizer coverage limitations are distinct from mandatory baseline gates;no new simulation/admin iteration after bounded final closure. |
 | TST-002: CI shall build firmware and backend tests on each pull request; Wokwi CI shall be added if available for the project plan. | PARTIAL | NOT_RUN / SUP-018 | .github/workflows/phase9-multi-context-ci.yml;scripts/run_mysql_integration.py;scripts/build_esp32_port.py;scripts/test_esp32_build_gate.py;scripts/test_offline_state.py;scripts/test_offline_transaction.py;scripts/run_live_http_integration.py;backend/laravel/tests/Support/LiveHttpSafety.php;firmware/src/domain_snapshot.h;firmware/src/continuous_simulation.h;firmware/src/alarm_transition.h;backend/laravel/tests/Feature/AlarmMetadataIntegrationTest.php;backend/laravel/database/migrations/2026_10_25_100006_add_alarm_metadata_to_monitoring_events.php;firmware/src/offline_state.h;firmware/src/offline_replay.h;backend/laravel/tests/Feature/RecoveredReplayIntegrationTest.php;firmware/src/event_delivery.h;firmware/src/offline_retirement.h;backend/laravel/app/Support/EventCommitReceipt.php / evidence/test-results/mysql-integration-gate-20261025.md;evidence/test-results/mariadb-integration-summary-20261025.md;evidence/test-results/security-php8235-summary-20261025.md;evidence/test-results/esp32-transport-summary-20261025.md;evidence/test-results/offline-nvs-summary-20261025.md;evidence/test-results/live-http-summary-20261025.md;evidence/test-results/continuous-simulation-summary-20261025.md;evidence/test-results/alarm-metadata-summary-20261025.md;evidence/test-results/recovered-replay-summary-20261026.md;evidence/test-results/event-receipt-summary-20261026.md | PARTIAL: PR source includes native offline codec/transaction tests and pinned SDK build checks. Actual local source, native and PHP 8.2.35/MariaDB gates have dated evidence. Hosted CI, direct MySQL 8 and SUP-018 remain NOT_RUN. CI source now includes the guarded loopback TLS pipeline after full isolated backend migration/tests. Hosted CI, direct MySQL 8 and SUP-018 remain NOT_RUN. Continuous simulation continuation adds typed full-domain 1.1 snapshots and local/native/isolated backend evidence; v1.0 compatibility and formal statuses remain unchanged. See latest summary for scoped gates and hardware limits. CI source includes complete-metadata native codec/transition gates and real schema-six backend/loopback integration. Both SDK targets retain partition/TLS/assertion/stack checks; hosted CI and direct MySQL 8 remain NOT_RUN. Recovered replay continuation preserves original cross-boot identities and known/unknown metadata through a zero-wait recovered NVS-worker view and fair event queueing. Local native/PHP/MariaDB/TLS evidence does not authorize deletion/application ACK or establish physical recovery, delivery guarantees or new formal PASS; see latest replay summary. Authenticated receipt continuation adds exact-body/status HMAC, VGS3 confirmed floor, worker durable retirement and shared single-inflight RAM release. Actual host-file/MariaDB/loopback and both SDK results are in the latest receipt summary; all local functional/build/regression/working-security/manual gates passed; final staged-byte review is required before commit. No alarm condition is cleared; host readback is not physical NVS durability or formal verification. |
-| DOC-001: Repository shall contain architecture, ICD, standards matrix, FMEA, ADRs, traceability matrix, test evidence and limitations. | IMPLEMENTED_UNVERIFIED | PASS / SUP-019 | docs/architecture/architecture-and-icd.md;docs/standards/standards-applicability-matrix.md;docs/fmea/fmea-prototype.md;docs/adr/0001-repository-naming.md;docs/testing/firmware-evidence-index.md;firmware/src/alarm_transition.h;backend/laravel/tests/Feature/AlarmMetadataIntegrationTest.php;firmware/src/offline_replay.h;backend/laravel/tests/Feature/RecoveredReplayIntegrationTest.php;firmware/src/event_delivery.h;firmware/src/offline_retirement.h;backend/laravel/app/Support/EventCommitReceipt.php;docs/testing/vessel-survey-readiness.md;docs/testing/local-software-review-20261027.md / evidence/test-results/phase9-wave1-sup019-documentation-review-20261021.txt;evidence/test-results/alarm-metadata-summary-20261025.md;evidence/test-results/recovered-replay-summary-20261026.md;evidence/test-results/event-receipt-summary-20261026.md;evidence/test-results/local-software-review-20261027.csv | Engineering documentation inventory reviewed under SUP-019 PASS; document presence does not establish system approval. ADR-0008 and the complete event 1.1 schema/design/evidence describe compatibility, exact metadata, migration profiles, capacity and remaining replay/hardware/formal gaps. Recovered replay continuation preserves original cross-boot identities and known/unknown metadata through a zero-wait recovered NVS-worker view and fair event queueing. Local native/PHP/MariaDB/TLS evidence does not authorize deletion/application ACK or establish physical recovery, delivery guarantees or new formal PASS; see latest replay summary. Authenticated receipt continuation adds exact-body/status HMAC, VGS3 confirmed floor, worker durable retirement and shared single-inflight RAM release. Actual host-file/MariaDB/loopback and both SDK results are in the latest receipt summary; all local functional/build/regression/working-security/manual gates passed; final staged-byte review is required before commit. No alarm condition is cleared; host readback is not physical NVS durability or formal verification. Dated roadmap continuation20261027: Phase14 six-area technical survey checklist PREPARED, all38 local software dispositions reviewed; no new requirement approval, physical survey or hardware/deployment evidence. Checklist preparation does not advance past open Phase12/13 gates. |
+| DOC-001: Repository shall contain architecture, ICD, standards matrix, FMEA, ADRs, traceability matrix, test evidence and limitations. | IMPLEMENTED_UNVERIFIED | PASS / SUP-019 | docs/architecture/architecture-and-icd.md;docs/standards/standards-applicability-matrix.md;docs/fmea/fmea-prototype.md;docs/adr/0001-repository-naming.md;docs/testing/firmware-evidence-index.md;firmware/src/alarm_transition.h;backend/laravel/tests/Feature/AlarmMetadataIntegrationTest.php;firmware/src/offline_replay.h;backend/laravel/tests/Feature/RecoveredReplayIntegrationTest.php;firmware/src/event_delivery.h;firmware/src/offline_retirement.h;backend/laravel/app/Support/EventCommitReceipt.php;docs/testing/vessel-survey-readiness.md;docs/testing/local-software-review-20261027.md;docs/testing/final-local-software-audit-20261027.md / evidence/test-results/phase9-wave1-sup019-documentation-review-20261021.txt;evidence/test-results/alarm-metadata-summary-20261025.md;evidence/test-results/recovered-replay-summary-20261026.md;evidence/test-results/event-receipt-summary-20261026.md;evidence/test-results/local-software-review-20261027.csv;evidence/test-results/final-local-audit-requirements-20261027.csv;evidence/test-results/final-local-audit-source-and-baseline-proof-20261027.json | Engineering documentation inventory reviewed under SUP-019 PASS; document presence does not establish system approval. ADR-0008 and the complete event 1.1 schema/design/evidence describe compatibility, exact metadata, migration profiles, capacity and remaining replay/hardware/formal gaps. Recovered replay continuation preserves original cross-boot identities and known/unknown metadata through a zero-wait recovered NVS-worker view and fair event queueing. Local native/PHP/MariaDB/TLS evidence does not authorize deletion/application ACK or establish physical recovery, delivery guarantees or new formal PASS; see latest replay summary. Authenticated receipt continuation adds exact-body/status HMAC, VGS3 confirmed floor, worker durable retirement and shared single-inflight RAM release. Actual host-file/MariaDB/loopback and both SDK results are in the latest receipt summary; all local functional/build/regression/working-security/manual gates passed; final staged-byte review is required before commit. No alarm condition is cleared; host readback is not physical NVS durability or formal verification. Dated roadmap continuation20261027: Phase14 six-area technical survey checklist PREPARED, all38 local software dispositions reviewed; no new requirement approval, physical survey or hardware/deployment evidence. Checklist preparation does not advance past open Phase12/13 gates. Final local audit20261027 classifies32local implementation complete but unverified and6external prerequisites without changing LOCKED or formal registry statuses. Additional compiler/sanitizer coverage limitations are distinct from mandatory baseline gates;no new simulation/admin iteration after bounded final closure. |
 
 ## Resume dan roadmap berdasarkan dependensi
 

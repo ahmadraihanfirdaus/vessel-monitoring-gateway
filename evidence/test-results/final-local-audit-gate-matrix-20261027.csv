@@ -1,0 +1,17 @@
+gate,scope,status,actual,evidence
+REQUIREMENT38_SEMANTIC_DECISION,MANDATORY,PASS,32local_complete6external;no statuses changed;explicit source/test/evidence observations,final-local-audit-requirements-20261027.csv
+CURRENT_ARCHIVE_POSITIVE_NEGATIVE_SECURITY_BOUNDARY,MANDATORY,PASS,18new6retained actual GitZIP cases and Bash syntax;all final code changes covered,final-local-audit-final-code-delta-20261027.txt
+EXISTING_RELEVANT_INTEGRATED_REGRESSION,MANDATORY,PASS,19commands0fail plus current archive delta;core226repeat2 and native/guard/Node groups,final-local-audit-integrated-regression-20261027.txt
+REAL_COMMITTED_PAYLOAD_REVIEW,MANDATORY,PASS,1542admitted8exclusions0findings;old7private profile blobs explicitly omitted by exact identity;NO_ZIP_CREATED,final-local-audit-packaging-current-proof-20261027.json
+REAL_CLI_READONLY_AND_DIRTY_REFUSAL,MANDATORY,PASS,current actual HEAD plan;WIP execute refused;no output or excluded content read,final-local-audit-real-cli-integration-20261027.json
+RUNTIME_BASELINE_SOURCE_BINDING,MANDATORY,PASS,actual HTTP/MySQL/SDK public inputs equal retained current388PHP248TLSChromeSDK60sHOST proofs;not rerun,final-local-audit-source-and-baseline-proof-20261027.json
+INDEPENDENT_CASE_ACCEPTANCE,MANDATORY,PASS,current-source independent original SIM010/012/013 log review;not hardware proof,final-local-audit-independent-resilience-review-20261027.json
+LOCKED_PROTECTED_WIP_SCHEMA_AND_CLEANUP,MANDATORY,PASS,LOCKED2/protected3/prior9evidence/all6migrations preserved;cleanup11candidate0deletions,final-local-audit-cleanup-inventory-20261027.csv
+CURRENT_REFERENCE_AND_BOTH_HANDOFF38,MANDATORY,PASS,fresh postformat38requirements34cases185refs;new immutable report captures normalized proof metadata;both38tables unchanged,final-local-audit-reference-postformat-20261027.json
+MANUAL_SCOPE_SECURITY_DIFF,MANDATORY,PASS,reviewed concrete source fix;no detector weakening;privacy/partial evidence preserved,final-local-audit-manual-review-20261027.txt
+FINAL_WORKING_SECURITY,MANDATORY,PASS,fresh complete working/index scanner exit0/0findings/0privacy;initial1synthetic privacy warning corrected without waiver,final-local-audit-security-final-working-20261027.txt
+EXACT_INDEX_STAGED_SECURITY_AND_FINAL,MANDATORY_AFTER_STAGING,PASS,initial exact52index and staged scanner0/0 PASS;scope53 adds fresh postformat report;final exact53metadata/index and full read-only staged scan required before actual commit,final-local-audit-security-staged-20261027.txt
+TWO_MODULAR_COMPILER_METHODS,ADDITIONAL,PASS,limited measurement validation and network-init object analysis;not7composition proof,final-local-audit-modular-analysis-20261027.json
+SEVEN_COMPOSITION_COMPILER_METHOD,ADDITIONAL_NOT_MANDATORY_BASELINE,BLOCKED,"prior tool complexity,759initial/49probe;not rerun or source vulnerability proof",native-static-analysis-review-20261027.json
+ASAN_UBSAN,ADDITIONAL_NOT_MANDATORY_BASELINE,NOT_RUN,matching compiler/runtime libraries unresolved;no global modifications,native-static-analysis-review-20261027.json
+HARDWARE_HOSTED_SUP018_DEPLOYED_TLS,EXTERNAL,NOT_RUN,actual authorized environment/evidence required;not required to edit/archive local software,

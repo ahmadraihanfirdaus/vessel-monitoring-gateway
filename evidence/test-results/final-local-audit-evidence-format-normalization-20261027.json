@@ -1,0 +1,13 @@
+{
+  "file": "evidence/test-results/native-static-analysis-run1-20261027.txt",
+  "gate_failure": "git diff --cached --check:extra blank line atEOF",
+  "transformation": "REMOVE_EXACTLY_ONE_FINAL_LF;NO_DIAGNOSTIC_OR_RESULT_CHANGE",
+  "original_bytes": 301684,
+  "original_sha256": "50396f447a5a87399e628b348d8b211d5d701f09c57e8ac3515338c319f5515a",
+  "normalized_bytes": 301683,
+  "normalized_sha256": "ec1243714208d9b60a746b758a03407410e544d79d9aeb0f172b468fe1aaf094",
+  "original_reconstruction": "append exactly one LF byte to normalized file;SHA256 matches initial immutable audit baseline",
+  "reconstruction_verified": true,
+  "source_runtime_schema_or_test_changes": false,
+  "evidence_deleted": false
+}

@@ -1,0 +1,110 @@
+{
+  "head": "81e9bfbb36d357a55476bb44d985cd8fa095e4c5",
+  "additional_analysis_gate": "BLOCKED_TOOL_COVERAGE",
+  "first_run": [
+    {
+      "scope": "provider_navigation",
+      "actual_compile_exit": 1,
+      "diagnostics": {
+        "analyzer-too-complex": 131
+      },
+      "triage": "TOOL_COMPLEXITY_LIMIT_NOT_A_CONFIRMED_VULNERABILITY",
+      "coverage": "BLOCKED_INCOMPLETE_STATIC_ANALYSIS",
+      "action": "retain diagnostics; no suppression or source workaround; no PASS"
+    },
+    {
+      "scope": "telemetry_quality",
+      "actual_compile_exit": 1,
+      "diagnostics": {
+        "analyzer-too-complex": 38
+      },
+      "triage": "TOOL_COMPLEXITY_LIMIT_NOT_A_CONFIRMED_VULNERABILITY",
+      "coverage": "BLOCKED_INCOMPLETE_STATIC_ANALYSIS",
+      "action": "retain diagnostics; no suppression or source workaround; no PASS"
+    },
+    {
+      "scope": "continuous_alarm_storage",
+      "actual_compile_exit": 1,
+      "diagnostics": {
+        "analyzer-too-complex": 123
+      },
+      "triage": "TOOL_COMPLEXITY_LIMIT_NOT_A_CONFIRMED_VULNERABILITY",
+      "coverage": "BLOCKED_INCOMPLETE_STATIC_ANALYSIS",
+      "action": "retain diagnostics; no suppression or source workaround; no PASS"
+    },
+    {
+      "scope": "single_channel_isolation",
+      "actual_compile_exit": 1,
+      "diagnostics": {
+        "analyzer-too-complex": 115
+      },
+      "triage": "TOOL_COMPLEXITY_LIMIT_NOT_A_CONFIRMED_VULNERABILITY",
+      "coverage": "BLOCKED_INCOMPLETE_STATIC_ANALYSIS",
+      "action": "retain diagnostics; no suppression or source workaround; no PASS"
+    },
+    {
+      "scope": "event_retry",
+      "actual_compile_exit": 1,
+      "diagnostics": {
+        "analyzer-too-complex": 6
+      },
+      "triage": "TOOL_COMPLEXITY_LIMIT_NOT_A_CONFIRMED_VULNERABILITY",
+      "coverage": "BLOCKED_INCOMPLETE_STATIC_ANALYSIS",
+      "action": "retain diagnostics; no suppression or source workaround; no PASS"
+    },
+    {
+      "scope": "authenticated_retirement",
+      "actual_compile_exit": 1,
+      "diagnostics": {
+        "analyzer-too-complex": 194
+      },
+      "triage": "TOOL_COMPLEXITY_LIMIT_NOT_A_CONFIRMED_VULNERABILITY",
+      "coverage": "BLOCKED_INCOMPLETE_STATIC_ANALYSIS",
+      "action": "retain diagnostics; no suppression or source workaround; no PASS"
+    },
+    {
+      "scope": "resilience_parser",
+      "actual_compile_exit": 1,
+      "diagnostics": {
+        "analyzer-too-complex": 152
+      },
+      "triage": "TOOL_COMPLEXITY_LIMIT_NOT_A_CONFIRMED_VULNERABILITY",
+      "coverage": "BLOCKED_INCOMPLETE_STATIC_ANALYSIS",
+      "action": "retain diagnostics; no suppression or source workaround; no PASS"
+    }
+  ],
+  "diagnostic_totals": {
+    "analyzer-too-complex": 759
+  },
+  "increased_budget_probe": {
+    "source": "scripts/runtime_uplink_wire_fixture.c",
+    "exit": 1,
+    "diagnostics": {
+      "analyzer-too-complex": 49
+    },
+    "status": "BLOCKED_INCOMPLETE_STATIC_ANALYSIS",
+    "elapsed_seconds": 6.0
+  },
+  "confirmed_security_vulnerabilities_from_this_analysis": 0,
+  "absence_of_vulnerabilities_proven": false,
+  "runtime_or_production_source_changes": false,
+  "diagnostic_suppression": false,
+  "staging_commit_push": "NONE;incomplete new gate cannot be committed",
+  "prior_scoped_commits_and_runtime_gates": "UNCHANGED;this optional additional compiler experiment is not a reexecution of those gates",
+  "external_prerequisites": "physicalESP32_authorizedprotectedbench_and_provisioning;hostedSUP018;deployedTLS;not available from local compiler proof",
+  "serial_probe": "System.IO.Ports.SerialPort.GetPortNames returned no ports;not a full hardware inventory",
+  "no_db_or_network_access": true,
+  "fresh_checkpoint_security": "PASS_EXIT0_0_FINDINGS_0_PRIVACY",
+  "sanitizer_library_resolution": {
+    "compiler": "GCC16.2.0_UCRT64",
+    "queried_libraries": [
+      "libasan.a",
+      "libubsan.a",
+      "libasan.dll.a",
+      "libubsan.dll.a"
+    ],
+    "resolved_regular_files": 0,
+    "sanitizer_execution": "NOT_RUN_DEPENDENCY_UNAVAILABLE",
+    "qualification": "compiler file-resolution check only; no global installation inventory or sanitizer pass"
+  }
+}

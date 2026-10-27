@@ -1,0 +1,43 @@
+COMMAND=["python", "-B", "scripts/test_public_archive_safety.py"]
+test_binary_nul_does_not_bypass_high_confidence_secret_scan (__main__.PublicArchiveSafetyTest.test_binary_nul_does_not_bypass_high_confidence_secret_scan) ... ok
+test_default_plan_never_creates_output_or_reads_blob_content_despite_wip (__main__.PublicArchiveSafetyTest.test_default_plan_never_creates_output_or_reads_blob_content_despite_wip) ... ok
+test_directory_payload_comments_extra_and_ambiguous_names_cannot_hide_content (__main__.PublicArchiveSafetyTest.test_directory_payload_comments_extra_and_ambiguous_names_cannot_hide_content) ... ok
+test_dirty_tracked_or_staged_or_foreign_untracked_blocks_before_output (__main__.PublicArchiveSafetyTest.test_dirty_tracked_or_staged_or_foreign_untracked_blocks_before_output) ... ok
+test_exact_private_blob_omission_is_metadata_pinned_not_a_scan_waiver (__main__.PublicArchiveSafetyTest.test_exact_private_blob_omission_is_metadata_pinned_not_a_scan_waiver) ... ok
+test_exclusive_open_refuses_a_raced_existing_output (__main__.PublicArchiveSafetyTest.test_exclusive_open_refuses_a_raced_existing_output) ... ok
+test_existing_output_and_existing_temporary_neighbor_are_never_overwritten (__main__.PublicArchiveSafetyTest.test_existing_output_and_existing_temporary_neighbor_are_never_overwritten) ... ok
+test_forbidden_zip_metadata_is_rejected_before_any_payload_is_opened (__main__.PublicArchiveSafetyTest.test_forbidden_zip_metadata_is_rejected_before_any_payload_is_opened) ... ok
+test_foreign_untracked_blocks_but_three_protected_files_are_not_exported (__main__.PublicArchiveSafetyTest.test_foreign_untracked_blocks_but_three_protected_files_are_not_exported) ... ok
+test_git_timeout_never_echoes_unredacted_diagnostics (__main__.PublicArchiveSafetyTest.test_git_timeout_never_echoes_unredacted_diagnostics) ... ok
+test_linked_zip_entry_is_refused_before_payload_read (__main__.PublicArchiveSafetyTest.test_linked_zip_entry_is_refused_before_payload_read) ... ok
+test_metadata_excludes_dotenv_caches_before_any_excluded_blob_request (__main__.PublicArchiveSafetyTest.test_metadata_excludes_dotenv_caches_before_any_excluded_blob_request) ... ok
+test_missing_extra_and_same_length_mutated_blobs_are_refused (__main__.PublicArchiveSafetyTest.test_missing_extra_and_same_length_mutated_blobs_are_refused) ... ok
+test_output_links_private_targets_missing_parents_and_repo_output_are_refused (__main__.PublicArchiveSafetyTest.test_output_links_private_targets_missing_parents_and_repo_output_are_refused) ... ok
+test_oversize_limits_block_before_content_retrieval_or_output (__main__.PublicArchiveSafetyTest.test_oversize_limits_block_before_content_retrieval_or_output) ... ok
+test_real_filtered_archive_keeps_sdk_defaults_and_original_commit_bytes (__main__.PublicArchiveSafetyTest.test_real_filtered_archive_keeps_sdk_defaults_and_original_commit_bytes) ... ok
+test_root_directory_link_special_mode_and_encryption_are_refused (__main__.PublicArchiveSafetyTest.test_root_directory_link_special_mode_and_encryption_are_refused) ... ok
+test_source_commit_change_cannot_be_reported_as_success (__main__.PublicArchiveSafetyTest.test_source_commit_change_cannot_be_reported_as_success) ... ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 8.012s
+
+OK
+
+EXIT=0
+COMMAND=["python", "-B", "scripts/test_public_archive_scanner.py"]
+......
+----------------------------------------------------------------------
+Ran 6 tests in 0.001s
+
+OK
+
+EXIT=0
+COMMAND=["python", "-B", "scripts/test_public_reference_audit.py"]
+............
+----------------------------------------------------------------------
+Ran 12 tests in 0.266s
+
+OK
+
+EXIT=0
+RESULT=PASS

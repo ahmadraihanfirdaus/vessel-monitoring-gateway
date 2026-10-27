@@ -1,5 +1,13 @@
 # Vessel Monitoring Gateway
 
+**Final local software audit,2026-10-27:** [Decision and38requirement classifications](docs/testing/final-local-software-audit-20261027.md)
+record LOCAL_SOFTWARE_SCOPE_COMPLETE_WITH_EXTERNAL_BLOCKERS after the referenced
+mandatory final gates/local commit. This is local implementation closure only;
+SYSTEM_PARTIAL/NOT_APPROVED and external NOT_RUN remain. [Safe filtered snapshot](docs/public-release-archive.md)
+repairs reproducible archive defects without deleting workspace files or copying
+dotenv/cache data. Full-composition static analysis remains additional BLOCKED
+coverage;no physical/hosted/deployed verification or production claim follows.
+
 **Survey preparation, 2026-10-27:** [Phase14 six-area checklist](docs/testing/vessel-survey-readiness.md)
 and [38-requirement local software review](docs/testing/local-software-review-20261027.md)
 are available. Checklist PREPARED; survey NOT_RUN and physical integration

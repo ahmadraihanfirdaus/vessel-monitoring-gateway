@@ -1,0 +1,68 @@
+{
+  "head": "81e9bfbb36d357a55476bb44d985cd8fa095e4c5",
+  "scope": "ONLY_SCALAR_MEASUREMENT_VALIDATION_AND_NETWORK_INIT_ADMISSION;NOT_SYSTEM_COMPOSITION",
+  "results": [
+    {
+      "module": "measurement_quality",
+      "inputs": {
+        "firmware/src/core_measurement.h": "aa59d0c59b40b1dec445cfcdad66364937fa6cf38e76845ece0b6632a232724e",
+        "firmware/src/core_quality.h": "31ff36bf112cb82e6f631c3cfedee4a3012f557da4c76a9545cd42bc533df6ef",
+        "firmware/src/core_source_mode.h": "f00bf551afb493b7761901dc4f7a6be77a1d8b9a88c8cd0cf2468e68cda97767",
+        "firmware/src/core_types.h": "f2060257f6c18e390ab48cc896070d52d2d03d169cef483390a06a864e35a35d"
+      },
+      "driver_sha256": "8775085f5be3c77d739dc1dd3ca9a66a38a0ddbce987691a6ebf71663a5bd627",
+      "command": [
+        "C:/msys64/ucrt64/bin/gcc.exe",
+        "-std=c99",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-pedantic",
+        "-O0",
+        "-fanalyzer",
+        "-Wanalyzer-too-complex",
+        "-I",
+        "<REPOSITORY>\\firmware\\src",
+        "-c",
+        "<OWNED_TEMP>\\measurement_quality.c",
+        "-o",
+        "<OWNED_TEMP>\\measurement_quality.o"
+      ],
+      "exit": 0,
+      "diagnostic_bytes": 0,
+      "status": "PASS_LIMITED_MODULAR_STATIC_ANALYSIS"
+    },
+    {
+      "module": "network_policy_admission",
+      "inputs": {
+        "firmware/src/network_transport_host_adapter.h": "b03f38c3830f5d001fd99006fcab2f779f534b6183aa3640e044d6331ca2464e"
+      },
+      "driver_sha256": "24db52f8e5d04ec9ba3f17e9b1615ad0f13c28d3e475456e2e76ae78e3b4ac3b",
+      "command": [
+        "C:/msys64/ucrt64/bin/gcc.exe",
+        "-std=c99",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-pedantic",
+        "-O0",
+        "-fanalyzer",
+        "-Wanalyzer-too-complex",
+        "-I",
+        "<REPOSITORY>\\firmware\\src",
+        "-c",
+        "<OWNED_TEMP>\\network_policy_admission.c",
+        "-o",
+        "<OWNED_TEMP>\\network_policy_admission.o"
+      ],
+      "exit": 0,
+      "diagnostic_bytes": 0,
+      "status": "PASS_LIMITED_MODULAR_STATIC_ANALYSIS"
+    }
+  ],
+  "previous7compositions": "NOT_RERUN_STILL_BLOCKED_TOOL_COVERAGE",
+  "mandatory_baseline_impact": "NONE_ADDITIONAL_METHOD_ONLY",
+  "source_changes": false,
+  "hardware_db_remote_execution": false,
+  "ASAN_UBSAN": "NOT_RUN_LIBRARIES_UNAVAILABLE;requires compatible compiler plus matching sanitizer runtime and fresh isolated build;no global changes/downloads performed"
+}
