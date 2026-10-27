@@ -15,7 +15,7 @@ from phase9_b4_testlib import compile_c
 import run_live_http_integration as gate
 
 ROOT = Path(__file__).resolve().parents[1]
-PARENT = 'bf29a8bbc28a757cdd932f66287b4984530c1ad3'
+PARENT = '69c33710a0cf1aa1cd3ecfec4773b06a66bc0029'
 PARENT_HEADER_SHA = 'f4d59dce4c8a7931a8df3da543d79abd4f4fbe8a8af30c8c4c094d839f7fdf45'
 
 

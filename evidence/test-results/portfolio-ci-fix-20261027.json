@@ -1,0 +1,296 @@
+{
+  "candidate_branch": "portfolio",
+  "candidate_repository": "private/portfolio-ci-fix-20261027",
+  "database_access": false,
+  "existing_audit_bundle": "139 commits at b14be1c4; retained unchanged and superseded for publication. A new independent audit package is required.",
+  "expected_append_only_commits": 140,
+  "external_gates": {
+    "actions_admin_permissions": "NOT_VERIFIED_PUBLIC_API_HTTP401",
+    "hardware_ESP32_NVS_powerloss": "NOT_RUN",
+    "hosted_ci": "NOT_RUN",
+    "production_readiness": "NOT_APPROVED"
+  },
+  "final_history_and_integrity": "Verify actual new HEAD after commit in the additive receipt; hosted CI is not implied.",
+  "focused_runs": [
+    {
+      "command": [
+        "python",
+        "-B",
+        "scripts/test_event_delivery_retry.py",
+        "DeliveryRetryTest.test_pinned_parent_reproduces_skipped_prefix_without_mutating_working_header"
+      ],
+      "exit_code": 1,
+      "expected_exit": 1,
+      "log": "test_pinned_parent_reproduces_skipped_prefix_without_mutating_working_header (__main__.DeliveryRetryTest.test_pinned_parent_reproduces_skipped_prefix_without_mutating_working_header) ... fatal: path 'firmware/src/event_delivery.h' exists on disk, but not in 'bf29a8bbc28a757cdd932f66287b4984530c1ad3'\nERROR\n\n======================================================================\nERROR: test_pinned_parent_reproduces_skipped_prefix_without_mutating_working_header (__main__.DeliveryRetryTest.test_pinned_parent_reproduces_skipped_prefix_without_mutating_working_header)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"C:\\vessel-monitoring-gateway-public-cleanroom\\private\\portfolio-ci-fix-20261027\\scripts\\test_event_delivery_retry.py\", line 24, in test_pinned_parent_reproduces_skipped_prefix_without_mutating_working_header\n    header = subprocess.check_output(['git', 'show', PARENT+':firmware/src/event_delivery.h'], cwd=ROOT)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<profile>\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\subprocess.py\", line 466, in check_output\n    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<profile>\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\subprocess.py\", line 571, in run\n    raise CalledProcessError(retcode, process.args,\nsubprocess.CalledProcessError: Command '['git', 'show', 'bf29a8bbc28a757cdd932f66287b4984530c1ad3:firmware/src/event_delivery.h']' returned non-zero exit status 128.\n\n----------------------------------------------------------------------\nRan 1 test in 0.041s\n\nFAILED (errors=1)\n",
+      "log_sha256": "c9f94f5d081bbad208304adeca240c2a2f3d834a8aa1065e2550eb90335ce568",
+      "name": "prechange-reproduced-missing-parent",
+      "outcome": "PASS",
+      "seconds": 0.234,
+      "tests": 1
+    },
+    {
+      "command": [
+        "python",
+        "-B",
+        "scripts/test_event_delivery_retry.py"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "log": "test_drop_requires_exact_owned_request_and_committed_status_then_consumes_once (__main__.DeliveryRetryTest.test_drop_requires_exact_owned_request_and_committed_status_then_consumes_once) ... ok\ntest_foreign_path_agent_empty_oversized_or_nonbytes_body_cannot_arm_or_replace_fault (__main__.DeliveryRetryTest.test_foreign_path_agent_empty_oversized_or_nonbytes_body_cannot_arm_or_replace_fault) ... ok\ntest_identical_current_composition_retries_unconfirmed_head_with_new_context_argument (__main__.DeliveryRetryTest.test_identical_current_composition_retries_unconfirmed_head_with_new_context_argument) ... ok\ntest_pinned_parent_reproduces_skipped_prefix_without_mutating_working_header (__main__.DeliveryRetryTest.test_pinned_parent_reproduces_skipped_prefix_without_mutating_working_header) ... ok\n\n----------------------------------------------------------------------\nRan 4 tests in 2.094s\n\nOK\n",
+      "log_sha256": "73c829811cfc915d332057098f9ca907cfbbf781b0ad2e23db0a1d9f7f417979",
+      "name": "event-delivery-retry",
+      "outcome": "PASS",
+      "seconds": 2.266,
+      "tests": 4
+    },
+    {
+      "command": [
+        "python",
+        "-B",
+        "scripts/test_event_delivery.py"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "log": "test_bad_completion_floor_or_generation_retains_exact_ram_fact (__main__.EventDeliveryTest.test_bad_completion_floor_or_generation_retains_exact_ram_fact) ... ok\ntest_failed_current_reply_requires_exact_identity_metadata_and_valid_context (__main__.EventDeliveryTest.test_failed_current_reply_requires_exact_identity_metadata_and_valid_context) ... ok\ntest_failed_http_retries_original_prefix_then_genuine_receipt_unblocks_next_event (__main__.EventDeliveryTest.test_failed_http_retries_original_prefix_then_genuine_receipt_unblocks_next_event) ... ok\ntest_failed_recovered_event_rewinds_matching_epoch_but_never_a_new_view (__main__.EventDeliveryTest.test_failed_recovered_event_rewinds_matching_epoch_but_never_a_new_view) ... ok\ntest_genuine_crypto_rejection_is_not_an_ack (__main__.EventDeliveryTest.test_genuine_crypto_rejection_is_not_an_ack) ... ok\ntest_missing_truncated_or_wrong_media_receipt_retains_facts_and_halts_only_events (__main__.EventDeliveryTest.test_missing_truncated_or_wrong_media_receipt_retains_facts_and_halts_only_events) ... ok\ntest_only_genuine_durable_receipt_releases_exact_prefix_and_preserves_active_alarm (__main__.EventDeliveryTest.test_only_genuine_durable_receipt_releases_exact_prefix_and_preserves_active_alarm) ... ok\ntest_overlapping_failure_context_is_rejected_without_overwriting_owner_or_facts (__main__.EventDeliveryTest.test_overlapping_failure_context_is_rejected_without_overwriting_owner_or_facts) ... ok\ntest_recovered_current_predecessor_overrides_alternation_without_skipping_other_boot (__main__.EventDeliveryTest.test_recovered_current_predecessor_overrides_alternation_without_skipping_other_boot) ... ok\ntest_recovery_prerequisites_reschedule_and_epoch_prevents_wrong_view_rewind (__main__.EventDeliveryTest.test_recovery_prerequisites_reschedule_and_epoch_prevents_wrong_view_rewind) ... ok\ntest_stale_failed_tag_cannot_rewind_and_already_reset_cursor_never_advances (__main__.EventDeliveryTest.test_stale_failed_tag_cannot_rewind_and_already_reset_cursor_never_advances) ... ok\ntest_tags_single_inflight_and_unrelated_completions_cannot_release (__main__.EventDeliveryTest.test_tags_single_inflight_and_unrelated_completions_cannot_release) ... ok\ntest_uncertain_io_never_frees_ram_and_allows_bounded_unretired_publication (__main__.EventDeliveryTest.test_uncertain_io_never_frees_ram_and_allows_bounded_unretired_publication) ... ok\n\n----------------------------------------------------------------------\nRan 13 tests in 7.548s\n\nOK\n",
+      "log_sha256": "14fe7861bd1b6aade1632ee4bdab95d19ca7ef2450510a7ede0cb4bef34768c5",
+      "name": "event-delivery-regression",
+      "outcome": "PASS",
+      "seconds": 7.656,
+      "tests": 13
+    },
+    {
+      "command": [
+        "python",
+        "-B",
+        "scripts/test_event_retirement_file.py"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "log": "test_actual_file_reopen_old_current_forgery_capacity_and_monotonic_new_fact (__main__.RetirementFileTest.test_actual_file_reopen_old_current_forgery_capacity_and_monotonic_new_fact) ... ok\ntest_actual_loss_retry_and_duplicate_status200_retire_with_same_owner_next_tag (__main__.RetirementFileTest.test_actual_loss_retry_and_duplicate_status200_retire_with_same_owner_next_tag) ... ok\ntest_existing_binary_cannot_be_overwritten (__main__.RetirementFileTest.test_existing_binary_cannot_be_overwritten) ... ok\ntest_existing_slot_bad_identity_phase_and_bounds_refuse_without_child_process (__main__.RetirementFileTest.test_existing_slot_bad_identity_phase_and_bounds_refuse_without_child_process) ... ok\ntest_negative_retry_phase_requires_status_zero_original_body_and_no_receipt (__main__.RetirementFileTest.test_negative_retry_phase_requires_status_zero_original_body_and_no_receipt) ... ok\ntest_unowned_root_cannot_compile_or_change_files (__main__.RetirementFileTest.test_unowned_root_cannot_compile_or_change_files) ... ok\n\n----------------------------------------------------------------------\nRan 6 tests in 2.471s\n\nOK\n",
+      "log_sha256": "1d38df00cb9e125ada38ad0f4420ed53c3a8cc3b0e0daefd4cf4ea865b001bd1",
+      "name": "event-retirement-file",
+      "outcome": "PASS",
+      "seconds": 2.703,
+      "tests": 6
+    },
+    {
+      "command": [
+        "python",
+        "-B",
+        "scripts/test_public_history.py"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "log": "............\n----------------------------------------------------------------------\nRan 12 tests in 6.564s\n\nOK\n",
+      "log_sha256": "edf2268dc21e5468b3be7b35303e59b41593a352944329ffbe2d2c3a28323813",
+      "name": "public-history-units",
+      "outcome": "PASS",
+      "seconds": 6.781,
+      "tests": 12
+    },
+    {
+      "command": [
+        "python",
+        "-B",
+        "scripts/test_phase9_tst002_ci_policy.py"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "log": "....\n----------------------------------------------------------------------\nRan 4 tests in 0.001s\n\nOK\n",
+      "log_sha256": "feabb4add9e2ca3374e538560634d1ec97dc4f4ce89aab12f3d726e36ea9b2f6",
+      "name": "workflow-source-policy",
+      "outcome": "PASS",
+      "seconds": 0.079,
+      "tests": 4
+    },
+    {
+      "command": [
+        "python",
+        "-B",
+        "scripts/test_public_reference_audit.py"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "log": "............\n----------------------------------------------------------------------\nRan 12 tests in 1.272s\n\nOK\n",
+      "log_sha256": "ef3fdf1fa2d1a69cae911bf34572d6263674f98154c464b0ee42717fefe84f18",
+      "name": "public-reference-units",
+      "outcome": "PASS",
+      "seconds": 1.484,
+      "tests": 12
+    },
+    {
+      "command": [
+        "python",
+        "-B",
+        "scripts/check_living_traceability.py"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "log": "BASELINE_SHA256: PASS (2/2)\nLIVING_TRACEABILITY: PASS (38/38 mapped, 34 unique planned cases)\nASSESSMENTS: {'IMPLEMENTED_UNVERIFIED': 22, 'PARTIAL': 16}\nFORMAL_REQUIREMENT_STATUS: {'NOT_RUN': 1, 'PASS': 37}\nFORMAL_SIM_SCENARIOS: PASS=15, NOT_RUN=0\nSUPPLEMENTAL_TESTS: PLANNED=1, PASS=18\nFINAL_REQUIREMENT_APPROVAL: NOT_APPROVED\nTOTAL_SYSTEM_STATUS: PARTIAL\nPUBLIC_REFERENCE_AUDIT: PASS (38 requirements, 185 file references; protected template metadata only; no DB/network)\n",
+      "log_sha256": "728e03d5d1dfe4f1207ea1b5863a06b79768c9f4cfa6396c1df6a7753d7d50f5",
+      "name": "traceability38",
+      "outcome": "PASS",
+      "seconds": 0.219,
+      "tests": null
+    },
+    {
+      "command": [
+        "python",
+        "-B",
+        "scripts/test_audit_precommit_security.py"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "log": ".......................\n----------------------------------------------------------------------\nRan 23 tests in 10.767s\n\nOK\n",
+      "log_sha256": "3faabcb73dd49300cdd4d5d550e6e4ad1fd52818dd8599b705904d5e07ea014c",
+      "name": "security-scanner-units",
+      "outcome": "PASS",
+      "seconds": 10.875,
+      "tests": 23
+    },
+    {
+      "command": [
+        "python",
+        "-B",
+        "scripts/audit_precommit_security.py"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "log": "=== PHASE 2.7B.5K.5 - PUBLIC SECURITY AUDIT ===\nGit index entries: 1623\nUntracked candidates: 0\nTotal candidates: 1623\n\nPotential security findings: 0\nManual review warnings: 0\nHash-pinned non-secret reviews: 30\nReviewed dependency author metadata: 141\n\nREVIEWED NON-SECRET: .github/workflows/phase9-multi-context-ci.yml:337 [index] - RESILIENCE-EVENTRETRY-RECEIPTEXPIRY-FAULTTRACE-CI-NONSECRET-001 / CI_TEST_CONFIGURATION\nREVIEWED NON-SECRET: .github/workflows/phase9-multi-context-ci.yml:412 [index] - RESILIENCE-EVENTRETRY-RECEIPTEXPIRY-FAULTTRACE-CI-NONSECRET-002 / CI_TEST_CONFIGURATION\nREVIEWED NON-SECRET: backend/laravel/app/Http/Controllers/MonitoringSessionController.php:17 [index] - MONITORING-NONSECRET-001 / SOURCE_CONTRACT_TOKEN\nREVIEWED NON-SECRET: backend/laravel/app/Models/User.php:46 [index] - NONSECRET-005 / FRAMEWORK_CAST\nREVIEWED NON-SECRET: backend/laravel/tests/Feature/FirmwareMySqlIntegrationTest.php:192 [index] - MONITORING-NONSECRET-002 / RUNTIME_GENERATED_TEST_VALUE\nREVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringAccessTest.php:98 [index] - MONITORING-NONSECRET-003 / RUNTIME_GENERATED_TEST_VALUE\nREVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringAccessTest.php:100 [index] - MONITORING-NONSECRET-004 / RUNTIME_GENERATED_TEST_VALUE\nREVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringAccessTest.php:111 [index] - MONITORING-NONSECRET-005 / RUNTIME_GENERATED_TEST_VALUE\nREVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringAccessTest.php:114 [index] - MONITORING-NONSECRET-006 / RUNTIME_GENERATED_TEST_VALUE\nREVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringBoundaryTest.php:35 [index] - MONITORING-NONSECRET-011 / RUNTIME_GENERATED_TEST_VALUE\nREVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringOperatorTest.php:22 [index] - MONITORING-NONSECRET-007 / ENVIRONMENT_VARIABLE_NAME\nREVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringOperatorTest.php:37 [index] - MONITORING-NONSECRET-008 / ENVIRONMENT_VARIABLE_NAME\nREVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringOperatorTest.php:46 [index] - MONITORING-NONSECRET-009 / ENVIRONMENT_VARIABLE_NAME\nREVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringOperatorTest.php:52 [index] - MONITORING-NONSECRET-008 / ENVIRONMENT_VARIABLE_NAME\nREVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringOperatorTest.php:67 [index] - MONITORING-NONSECRET-010 / ENVIRONMENT_VARIABLE_NAME\nREVIEWED NON-SECRET: backend/laravel/tests/Feature/MonitoringOperatorTest.php:72 [index] - MONITORING-NONSECRET-008 / ENVIRONMENT_VARIABLE_NAME\nREVIEWED NON-SECRET: backend/laravel/tests/Support/MonitoringFixtures.php:13 [index] - MONITORING-NONSECRET-012 / RUNTIME_GENERATED_TEST_VALUE\nREVIEWED NON-SECRET: backend/laravel/tests/Support/MySqlIsolation.php:93 [index] - MONITORING-NONSECRET-013 / ENVIRONMENT_VARIABLE_NAME\nREVIEWED NON-SECRET: backend/laravel/tests/Unit/MySqlIsolationTest.php:120 [index] - NONSECRET-007 / SYNTHETIC_NEGATIVE_FIXTURE\nREVIEWED NON-SECRET: backend/laravel/tests/Unit/TestEnvironmentTest.php:30 [index] - NONSECRET-008 / SYNTHETIC_NEGATIVE_FIXTURE\nREVIEWED NON-SECRET: evidence/test-results/live-http-network-run1-20261025.txt:2 [index] - LIVEHTTP-AUDIT-LABEL-001 / AUDIT_RESULT_LABEL\nREVIEWED NON-SECRET: evidence/test-results/live-http-preflight-run2-20261025.txt:2 [index] - LIVEHTTP-AUDIT-LABEL-002 / AUDIT_RESULT_LABEL\nREVIEWED NON-SECRET: evidence/test-results/phase9-p3-security-review-20261018.txt:12 [index] - NONSECRET-009 / AUDIT_RESULT_LABEL\nREVIEWED NON-SECRET: evidence/test-results/phase9-p3-security-review-20261018.txt:13 [index] - NONSECRET-010 / AUDIT_RESULT_LABEL\nREVIEWED NON-SECRET: scripts/run_live_http_integration.py:577 [index] - RESILIENCE-EVENTRETRY-RECEIPTEXPIRY-FAULTSTORAGE-DATAUI-RECEIPT-RUNTIME-INPUT-001 / RUNTIME_GENERATED_TEST_VALUE\nREVIEWED NON-SECRET: scripts/run_live_http_integration.py:804 [index] - RESILIENCE-EVENTRETRY-RECEIPTEXPIRY-FAULTSTORAGE-DATAUI-RECEIPT-RUNTIME-INPUT-002 / RUNTIME_GENERATED_TEST_VALUE\nREVIEWED NON-SECRET: scripts/run_live_http_integration.py:809 [index] - RESILIENCE-EVENTRETRY-RECEIPTEXPIRY-FAULTSTORAGE-DATAUI-RECEIPT-RUNTIME-INPUT-003 / RUNTIME_GENERATED_TEST_VALUE\nREVIEWED NON-SECRET: scripts/test_browser_monitoring_bridge.py:23 [index] - RECEIPTEXPIRY-OPAQUE-NEGATIVE-ENV-SENTINEL / SYNTHETIC_NEGATIVE_FIXTURE\nREVIEWED NON-SECRET: scripts/test_browser_monitoring_bridge.py:23 [index] - RECEIPTEXPIRY-OPAQUE-NEGATIVE-ENV-SENTINEL / SYNTHETIC_NEGATIVE_FIXTURE\nREVIEWED NON-SECRET: scripts/test_phase9_b39_contract.py:16 [index] - NONSECRET-013 / SOURCE_CONTRACT_TOKEN\n\nPASS: No prohibited files detected\nPASS: No obvious secrets detected\nPASS: Git index and working content checked\nRESULT: AUTOMATED SECURITY SCREEN PASSED\n\nNOTE: This scan is not a confidentiality guarantee\nNOTE: Unsupported binary files are blocked\nNOTE: Manual semantic review is still mandatory\nNOTE: No files were modified\nNOTE: Passing does not authorize publication\n=== PHASE 2.7B.5K.5 COMPLETE ===\n",
+      "log_sha256": "0b5bed16c8a57a0d5c4b7268e53e5b1d09f60b63ee29c3c2e8d97c50b5f0e34c",
+      "name": "security-working",
+      "outcome": "PASS",
+      "seconds": 50.906,
+      "tests": null
+    }
+  ],
+  "historical_reference_inventory": [
+    {
+      "classification": "HISTORICAL_COMMIT_REPLACED_USING_APPROVED_MAPPING",
+      "commit_present": false,
+      "line": 18,
+      "oid": "bf29a8bbc28a757cdd932f66287b4984530c1ad3",
+      "path": "scripts/test_event_delivery_retry.py",
+      "replacement": "69c33710a0cf1aa1cd3ecfec4773b06a66bc0029",
+      "replacement_present": true
+    },
+    {
+      "classification": "EXACT_EXCLUDED_HISTORICAL_BLOB_OID_NOT_A_COMMIT_ARGUMENT_UNCHANGED",
+      "commit_present": false,
+      "line": 22,
+      "oid": "b4d215c23ef6a53c890bb02ae9eae61fcffdf732",
+      "path": "scripts/test_public_archive.py"
+    },
+    {
+      "classification": "EXACT_EXCLUDED_HISTORICAL_BLOB_OID_NOT_A_COMMIT_ARGUMENT_UNCHANGED",
+      "commit_present": false,
+      "line": 23,
+      "oid": "2f098a6f882cb3386b6814778cc15d06444780dd",
+      "path": "scripts/test_public_archive.py"
+    },
+    {
+      "classification": "EXACT_EXCLUDED_HISTORICAL_BLOB_OID_NOT_A_COMMIT_ARGUMENT_UNCHANGED",
+      "commit_present": false,
+      "line": 24,
+      "oid": "6bd1d20c98c0a6df1948e89c4400bf46a31569c0",
+      "path": "scripts/test_public_archive.py"
+    },
+    {
+      "classification": "EXACT_EXCLUDED_HISTORICAL_BLOB_OID_NOT_A_COMMIT_ARGUMENT_UNCHANGED",
+      "commit_present": false,
+      "line": 25,
+      "oid": "4816c9f25034191768433712ae5b6b407d117b2a",
+      "path": "scripts/test_public_archive.py"
+    },
+    {
+      "classification": "EXACT_EXCLUDED_HISTORICAL_BLOB_OID_NOT_A_COMMIT_ARGUMENT_UNCHANGED",
+      "commit_present": false,
+      "line": 26,
+      "oid": "8c5a6b1f1e73845b1bc56149337f2c7e227cd77a",
+      "path": "scripts/test_public_archive.py"
+    },
+    {
+      "classification": "EXACT_EXCLUDED_HISTORICAL_BLOB_OID_NOT_A_COMMIT_ARGUMENT_UNCHANGED",
+      "commit_present": false,
+      "line": 27,
+      "oid": "8a269746096a0c7435123a35f72e795163f28a93",
+      "path": "scripts/test_public_archive.py"
+    },
+    {
+      "classification": "EXACT_EXCLUDED_HISTORICAL_BLOB_OID_NOT_A_COMMIT_ARGUMENT_UNCHANGED",
+      "commit_present": false,
+      "line": 28,
+      "oid": "e08ea2fb9897a574f972c7d29dcab75e2596a910",
+      "path": "scripts/test_public_archive.py"
+    }
+  ],
+  "network_mutation": false,
+  "new_commit_owner": "Resolve with git log -1; final exact HEAD and full manifest are in the additive private/portfolio-ci-fix-receipt-20261027.json. No recursive self-hash is embedded.",
+  "oracle_same_bytes": true,
+  "oracle_sha256": "f4d59dce4c8a7931a8df3da543d79abd4f4fbe8a8af30c8c4c094d839f7fdf45",
+  "original139_rewrite": false,
+  "original_develop_head": "82ae9f87ee1162bd4b33e101286d0be48418184e",
+  "original_develop_modified": false,
+  "parent_candidate": "b14be1c4adc6c41e70cce7ba2cc66db130cc92f7",
+  "precommit_scope_gates": "PASS",
+  "publication_authorized": false,
+  "python_source_AST_files": 294,
+  "reference_fix": {
+    "after_sha256": "2492f9b4feb04a5282482c16e196cc003c7f81e099e625b3197dd9e20decf5b8",
+    "before_sha256": "91ab5d7c91aba8408472e8d0a33f1a3417b6b432cb697674e014ece799fa5d80",
+    "new_parent": "69c33710a0cf1aa1cd3ecfec4773b06a66bc0029",
+    "old_parent": "bf29a8bbc28a757cdd932f66287b4984530c1ad3",
+    "only_exact_one_line_replaced": true
+  },
+  "remote_observation": {
+    "actions_admin_settings": "NOT_VERIFIED_HTTP401_FROM_PREVIOUS_CHECK",
+    "active_branch_rules": 0,
+    "archived": false,
+    "checked_at_utc": "2026-10-27T09:24:05.301189+00:00",
+    "default_branch": "main",
+    "disabled": false,
+    "fast_forward_parent": "PASS",
+    "fork": false,
+    "method": "READ_ONLY_HTTPS_LS_REMOTE_AND_UNAUTHENTICATED_PUBLIC_API",
+    "protected": false,
+    "public_user_id": 340217763,
+    "public_user_login": "ahmadraihanfirdaus",
+    "remote": "https://github.com/ahmadraihanfirdaus/vessel-monitoring-gateway.git",
+    "remote_main": "56e8c53dc4bd8aa27059f8dece9c290f3e123ed0",
+    "remote_mutation": false
+  },
+  "schema": 1,
+  "scope": "SANITIZED_CANDIDATE_HISTORICAL_ORACLE_REFERENCE_ONLY",
+  "tool_versions": {
+    "gcc": "gcc.exe (Rev5, Built by MSYS2 project) 16.2.0",
+    "git": "git version 2.51.0.windows.2",
+    "php": "PHP 8.2.35 (cli) (built: Oct 20 2026 04:17:59) (ZTS Visual C++ 2019 x64)",
+    "python": "Python 3.12.10"
+  },
+  "workflow_review": [
+    {
+      "contents_permission": "read",
+      "events": [
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "hosted_execution": "NOT_RUN",
+      "path": ".github/workflows/phase9-multi-context-ci.yml",
+      "push_trigger": false,
+      "referenced_scripts_exist": true,
+      "sha256": "4f47ec95bef99293b31ee404fed4cc3a680febb8698f3ef1b2fd73fb2b217105"
+    },
+    {
+      "contents_permission": "read",
+      "events": [
+        "pull_request",
+        "workflow_dispatch"
+      ],
+      "hosted_execution": "NOT_RUN",
+      "path": ".github/workflows/public-archive-checks.yml",
+      "push_trigger": false,
+      "referenced_scripts_exist": true,
+      "sha256": "d8820f0874d1fe10a412bf492c5ab8ab517fd9453059cc1e57f5a889fb9b3522"
+    }
+  ]
+}

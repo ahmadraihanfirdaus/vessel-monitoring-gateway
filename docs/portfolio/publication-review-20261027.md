@@ -1,5 +1,42 @@
 # GitHub portfolio publication review - 2026-10-27
 
+## SANITIZED CANDIDATE CI REFERENCE FIX (2026-10-27)
+
+This additive checkpoint supersedes the earlier 139-commit publication candidate
+b14be1c4adc6c41e70cce7ba2cc66db130cc92f7. The selected isolated checkout is
+private/portfolio-ci-fix-20261027, branch portfolio, with no remote configured.
+The fix is one new genuine commit; resolve its exact owner with git log -1.
+The original 139 commits and their author/date/message/topology are retained
+byte-for-byte. Original develop remains 82ae9f87ee1162bd4b33e101286d0be48418184e.
+The superseding exact candidate HEAD, 140-commit count, unique author dates,
+full extended mapping, manifest, security and Git integrity are recorded in the
+additive private/portfolio-ci-fix-receipt-20261027.json; do not select the old
+139-commit receipt or audit ZIP as the latest publication candidate.
+
+The pinned negative oracle in scripts/test_event_delivery_retry.py referred to
+original commit bf29a8bbc28a757cdd932f66287b4984530c1ad3, absent from the
+sanitized object database. Only this revision is changed to its approved map
+69c33710a0cf1aa1cd3ecfec4773b06a66bc0029. The parent header SHA256 assertion
+is unchanged and its bytes match exactly. The original failing test is retained
+as a reproduced pre-fix observation. Seven other 40-hex source literals are
+historical blob exclusion pins, not commit revision arguments, and stay intact.
+
+Focused retry/C99 negative-and-current oracles, delivery/retirement regression,
+history/security units, workflow source policy and the 38-requirement reference
+checks PASS locally; see evidence/test-results/portfolio-ci-fix-20261027.json
+and portfolio-ci-fix-files-20261027.csv. No runtime, dependency, LOCKED
+requirement, workflow permissions/events or formal verification status changes.
+The workflow events remain pull_request and workflow_dispatch; publishing main
+alone does not run these jobs. Hosted CI is NOT_RUN; Actions administrative
+permissions are not verified through the public API. All hardware/production
+limitations and earlier failed evidence remain.
+
+Publication remains unauthorized. A new independent audit package must include
+the appended commit. Recheck remote main immediately before any future approved
+single-ref fast-forward push from this sanitized repository; never publish
+original develop, force/mirror-push, rewrite history or change the default branch.
+Stop after final local gates and wait for explicit user publication approval.
+
 Decision: **SANITIZED_HISTORY_READY_FOR_APPROVAL**, conditional on the final
 isolated build receipt and independent review described below. This is local
 preparation only. **No publication, push, force push, remote merge, default-branch
