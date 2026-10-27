@@ -1,0 +1,59 @@
+{
+  "head": "be6bad74e0efacebfd81fa8084c5fd2e53af53f1",
+  "parent": "81e9bfbb36d357a55476bb44d985cd8fa095e4c5",
+  "branch": "develop",
+  "exact_committed_files": 53,
+  "manifest_paths_and_blobs": "PASS53_OF53",
+  "index": "EMPTY",
+  "worktree_before_handoff_update": "EMPTY_BYTE_DIFF_OLD_STATCACHE_ONLY",
+  "all_mandatory_scoped_gates": "PASS",
+  "final_readonly_security": "PASS_EXIT0_0FINDINGS_0PRIVACY",
+  "actual_new_commit_source_zip": {
+    "head": "be6bad74e0efacebfd81fa8084c5fd2e53af53f1",
+    "files": 1589,
+    "excluded": 6,
+    "exclusions": [
+      {
+        "path": "backend/laravel/.env.example",
+        "reason": "SENSITIVE_OR_CACHE_NAME_METADATA_ONLY"
+      },
+      {
+        "path": "evidence/test-results/alarm-metadata-early-regression-20261025.txt",
+        "oid": "6bd1d20c98c0a6df1948e89c4400bf46a31569c0",
+        "reason": "EXACT_HISTORICAL_PRIVATE_PROFILE_BLOB"
+      },
+      {
+        "path": "evidence/test-results/alarm-metadata-final-regression-20261025.txt",
+        "oid": "4816c9f25034191768433712ae5b6b407d117b2a",
+        "reason": "EXACT_HISTORICAL_PRIVATE_PROFILE_BLOB"
+      },
+      {
+        "path": "evidence/test-results/continuous-final-security-20261025.txt",
+        "oid": "8c5a6b1f1e73845b1bc56149337f2c7e227cd77a",
+        "reason": "EXACT_HISTORICAL_PRIVATE_PROFILE_BLOB"
+      },
+      {
+        "path": "evidence/test-results/device-read-scoped-gates-run1-20261025.txt",
+        "oid": "8a269746096a0c7435123a35f72e795163f28a93",
+        "reason": "EXACT_HISTORICAL_PRIVATE_PROFILE_BLOB"
+      },
+      {
+        "path": "evidence/test-results/phase9-p3-runtime-http-client-failed-attempt2-20261018.txt",
+        "oid": "e08ea2fb9897a574f972c7d29dcab75e2596a910",
+        "reason": "EXACT_HISTORICAL_PRIVATE_PROFILE_BLOB"
+      }
+    ],
+    "bytes": 3152907,
+    "sha256": "48bb8bc88e3d04334bcd18bb1666cdcb09cb398800848c74380e0d54ec4015d2",
+    "owned_location": "<SYSTEM_TEMP>/vg-final-source-snapshot-byudpxgp/vessel-monitoring-gateway-source.zip",
+    "retained_not_deleted": true,
+    "validation": "PASS_ACTUAL_FILTERED_COMMIT_SET_AND_ALL_BLOBS",
+    "dotenv_cache_git_metadata": "EXCLUDED_BEFORE_BLOB_ACCESS",
+    "publication_approval": false
+  },
+  "decision": "LOCAL_SOFTWARE_SCOPE_COMPLETE_WITH_EXTERNAL_BLOCKERS",
+  "source_hardware_hosted_ci_deployed_tls": "SYSTEM_PARTIAL_NOT_APPROVED_EXTERNAL_NOT_RUN",
+  "cleanup_deletions": 0,
+  "push_or_remote_execution": false,
+  "next_step": "updatebothhandoffs_after_major_commit_then_review_commit_metadata_only_closure;stopautomaticiteration"
+}

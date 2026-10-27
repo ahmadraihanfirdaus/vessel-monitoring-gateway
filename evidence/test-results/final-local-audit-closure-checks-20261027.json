@@ -1,0 +1,27 @@
+{
+  "implementation_audit_commit": "be6bad74e0efacebfd81fa8084c5fd2e53af53f1",
+  "metadata_closure_source_parent": "be6bad74e0efacebfd81fa8084c5fd2e53af53f1",
+  "decision": "LOCAL_SOFTWARE_SCOPE_COMPLETE_WITH_EXTERNAL_BLOCKERS",
+  "source_runtime_or_tests_changed": false,
+  "postcommit53_manifest_blobs": "PASS",
+  "actual_real_source_archive": "PASS1589files6exclusions3152907bytes",
+  "bothhandoffs_after_major_commit": "UPDATED_FULL38",
+  "registry_statuses": "UNCHANGED22UNVERIFIED16PARTIAL_37FORMALPASS1NOTRUN",
+  "optional_GCC7_ASAN_UBSAN": "BLOCKED_NOT_RUN_NOT_MANDATORY_BASELINE",
+  "external_hardware_CI_TLS": "NOT_RUN_SYSTEMPARTIAL_NOTAPPROVED",
+  "cleanup_deletions": 0,
+  "source_publication_approval": false,
+  "exact_metadata_scope": [
+    "docs/handoff/CHATGPT_CONTEXT.md",
+    "docs/handoff/CODEX_RESUME.md",
+    "evidence/test-results/final-local-audit-postcommit-be6bad7-20261027.json",
+    "evidence/test-results/final-local-audit-closure-checks-20261027.json",
+    "evidence/test-results/final-local-audit-closure-files-20261027.csv",
+    "evidence/test-results/final-local-audit-closure-security-20261027.txt"
+  ],
+  "commit_gate": "freshsecurity_exactindex_finalscan_mustPASS_before_metadata_commit",
+  "automatic_iteration": "STOP_AFTER_CLEAN_METADATA_CLOSURE_PER_LATEST_USER",
+  "no_push": true,
+  "fresh_metadata_working_security": "PASS_EXIT0_0FINDINGS_0PRIVACY",
+  "both_full38_profile_redacted_tables": "PASS"
+}

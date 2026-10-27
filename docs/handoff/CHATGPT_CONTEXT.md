@@ -1,6 +1,108 @@
 # CHATGPT_CONTEXT - konteks proyek untuk percakapan baru
 
-## Final local software audit PRECOMMIT checkpoint (2026-10-27)
+## FINAL LOCAL SOFTWARE CLOSURE (2026-10-27)
+
+Decision: LOCAL_SOFTWARE_SCOPE_COMPLETE_WITH_EXTERNAL_BLOCKERS.
+The latest user requested this bounded final decision and cessation of automatic
+local iteration when no safe independent implementation gap remains. Actual38row
+source/test/evidence review classifies32LOCAL_IMPLEMENTATION_COMPLETE_BUT_NOT_
+FORMALLY_VERIFIED and6EXTERNAL_PREREQUISITE (SYS003,ALM003,NET001,NET002,SEC002,TST002).
+No known reproducible independent local implementation defect remains after the
+archive repair. This is not exhaustive absence of bugs or system/formal approval.
+
+Implementation/audit commit:be6bad74e0efacebfd81fa8084c5fd2e53af53f1 on develop;
+parent81e9bfbb36d357a55476bb44d985cd8fa095e4c5. Its53exact files and every committed
+blob/manifest/worktree were verified postcommit PASS;all mandatory scoped gates
+and final current-scope readonly security exit0/0findings/0privacy PASS. Actual
+Git HEAD at resume is obtained with `git rev-parse HEAD`;this checkpoint belongs
+to the subsequent metadata-only closure commit (2handoffs+postcommit proof+
+closure checks/manifest/security). Its own self-hash is intentionally not embedded
+inside these files. The audit/source commit above identifies the tested code;
+the metadata owner commit is identified by Git,not a stale previous HEAD literal.
+
+Both handoffs were automatically updated AFTER the successful substantive audit
+commit. Final metadata closure is reviewed/staged/committed under the same
+fail-closed security/exact-index policy;query Git and the closure manifest for
+actual completion,not a proposed plan. Expected after closure:index EMPTY,no owned
+audit WIP;protected `AGENTS.md`, `firmware/.gitignore`, and
+`firmware/.vscode/extensions.json` remain untracked;old2metadata stat-cache entries can showM but are byte-equal HEAD.
+Do not modify/stage/remove them. Earlier9blocked/static/postcommit records are now
+preserved in the audit commit. One old log extra EOF LF was normalized only after
+a cached whitespace failure;rawSHA/size and append-one-LF byte-exact reconstruction
+proof are preserved. No diagnostic/result was lost and other prior bytes unchanged.
+
+Current38formal/implementation registries stay22IMPLEMENTED_UNVERIFIED/16PARTIAL,
+37formalPASS/1NOT_RUN,15SIM scopedPASS/18SUP PASS/SUP018 PLANNED. Original38LOCKED
+texts/mappings unchanged;no requirement VERIFIED. SYSTEM_PARTIAL/NOT_RUN/
+NOT_APPROVED unchanged;no physical/system/deployment/production approval.
+
+Current actual new local gates:18new+6retained GitZIP safety methods and Bash
+syntax PASS,19relevant integrated commands0fail plus final required code delta,
+core226repeat2/provider/alarm/guard/receipt/Node groups PASS,38/34/185currentref
+and both38tables PASS,independent current-source host-case review PASS. PHP8.2.35
+checked explicitly. Prior matching HTTP81fa45d1/MySQL516446eb/SDKf693b0cb proofs
+retain actual388PHP/248TLS/Chrome155/bothSDK/60047msHOST/broad248commands;those
+DB/runtime/SDK suites are NOT_RERUN in this archive-only repair. No mainDB,manual
+DDL,remote,hardwareupload,physicalcontrol or globalPATH/XAMPP change.
+
+Safe-source archive defects fixed in existing verifier/Bash plus shared Python
+helper/tests/PR source:metadata-before-content exclusions,new exclusive output,
+SDK defaults retained,exact filtered blob checks,ZIP bounds/links/duplicates/
+metadata channels and no binary/large skip. Initial real parent payload privacy
+failure7blobs is preserved;exact historical path/blob omissions disclose filtered
+versions while preserving local originals. Active handoffs redact profile prefixes
+to <LOCAL_HOME>;unknown/changed versions still undergo ordinary content checks.
+No dotenv/password/token/APP_KEY/private coordinates copied or printed.
+
+Actual postcommit sourceZIP PASS:1589files,6exclusions,3152907bytes;
+SHA25648bb8bc88e3d04334bcd18bb1666cdcb09cb398800848c74380e0d54ec4015d2.
+Retained outside repo at <SYSTEM_TEMP>/vg-final-source-snapshot-byudpxgp/
+vessel-monitoring-gateway-source.zip (resolve system temp locally;no profile path
+stored). Commit source is be6bad7;the later closure metadata is not in this ZIP.
+No .env/.env.testing/.git/vendor/.pio or protected untracked copied. Filtered
+review snapshot only,not a full clone,workspace backup,deployment or publication
+permission. New archives default to metadata-only plan;--execute needs reviewed
+clean source/index and fresh unlinked output outside the repo. No overwrite,
+source-cache creation,renaming or deletion;partial own output is retained.
+
+Evidence:docs/testing/final-local-software-audit-20261027.md;38row decision CSV;
+final-local-audit-gate-matrix/files/manual-review/summary/source-and-baseline-proof/
+reference-postformat/final-code-delta/packaging-current-proof and
+final-local-audit-postcommit-be6bad7-20261027.json. Closure evidence is
+final-local-audit-closure-checks/files/security-20261027.*. Earlier initial failed
+privacy/payload/cached-format evidence remains,with explicit corrections.
+
+Cleanup11tracked candidates=5DEFERRED/6PROTECTED/0SAFE_TO_DELETE,0deletions.
+Welcome remains DEFERRED under unchanged security-scanner dependency;Vite inputs/
+bootstrap remain configured. Used migrations,history,golden fixtures,evidence,
+secrets,preexisting untracked and user work preserved. Selective safe-cleanup
+policy supersedes only the old read-only rule;never delete to meet a file count.
+
+Additional7composition GCC analysis remains BLOCKED_TOOL_COVERAGE,ASan/UBSan
+NOT_RUN matching runtimes unavailable;2bounded modular object analyses PASS only
+for scalar measurement validation/network-init admission. No diagnostic suppressed
+or hardware proof inferred;these optional methods are separate from baseline
+mandatory scoped gates and do not justify endless retries.
+
+Remaining EXTERNAL NOT_RUN:actual authorized ESP32/RTOS/WiFi/trusted-clock/PSA/NVS,
+powerloss/wear/fullstack/heap/timing,currentWokwi,hostedCI/SUP018,deployedTLS/direct
+MySQL8/POSIX and graphical/operator/field acceptance. Phase14 checklist PREPARED;
+survey NOT_RUN/physical integration NOT_AUTHORIZED,no FMEA residual risk accepted.
+Future execution needs separately authorized real prerequisites;no control/OEM
+protocol/pin/threshold/TBD answer is invented. NO PUSH or remote trigger.
+
+STOP automatic local implementation/audit iteration after this final metadata
+closure,as explicitly requested by the latest user. Goal local-software completion
+is reconciled only after clean final Git/security checks;read actual Goal service
+state on resume. Reopen only for a newly reproduced local defect,approved scope
+change or available external verification evidence. Do not restart a baseline
+audit,add a mock/admin batch,or infer remaining local defects solely from the
+conservative PARTIAL/UNVERIFIED registry or optional analyzer limit. Future PHP
+work uses explicit8.2.35 and fail-closed approved isolated MariaDB only;never main
+DB or dotenv/credential values in output. Every future authorized change still
+requires relevant tests/security/evidence/exact local commit only mandatoryPASS.
+
+## Historical final local software audit PRECOMMIT checkpoint (2026-10-27)
 
 Audited source HEAD81e9bfbb36d357a55476bb44d985cd8fa095e4c5 on develop; index
 53EXACT files STAGED at this saved precommit checkpoint. Latest user requested a bounded final
