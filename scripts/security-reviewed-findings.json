@@ -1144,6 +1144,22 @@
       "line_sha256": "ca6dcd3e138310f57f7f86f4061f0dd448f949016058e65ba39ff6fb214029d7",
       "classification": "CI_TEST_CONFIGURATION",
       "rationale": "Exact nonsecret source expression byte-equal committed4892054; generated process test input or isolated CI setting. Whole-file pin renewed after reviewed readonly sixty-second resilience mode and dedicated native integration. Detector/privacy gates unchanged."
+    },
+    {
+      "id": "YAML-BLOCK-CI-NONSECRET-001",
+      "path": ".github/workflows/phase9-multi-context-ci.yml",
+      "file_sha256": "8f0cf7a87d828a4b7b7608f57c7a8f73001408bc9c67a2988e1a801c5cf5faca",
+      "line_sha256": "e52d2a0aee17904e9e0b4a21889e572a42d8b99434d44885e2867934c59dbb4b",
+      "classification": "CI_TEST_CONFIGURATION",
+      "rationale": "Exact existing reviewed ephemeral CI setting or runtime-generated environment writer, byte-identical to published 10d8a4e2. Whole-file pin appended only for the PHP run literal-block YAML syntax fix. No detector, privacy rule, secret value, or historical record changed."
+    },
+    {
+      "id": "YAML-BLOCK-CI-NONSECRET-002",
+      "path": ".github/workflows/phase9-multi-context-ci.yml",
+      "file_sha256": "8f0cf7a87d828a4b7b7608f57c7a8f73001408bc9c67a2988e1a801c5cf5faca",
+      "line_sha256": "ca6dcd3e138310f57f7f86f4061f0dd448f949016058e65ba39ff6fb214029d7",
+      "classification": "CI_TEST_CONFIGURATION",
+      "rationale": "Exact existing reviewed ephemeral CI setting or runtime-generated environment writer, byte-identical to published 10d8a4e2. Whole-file pin appended only for the PHP run literal-block YAML syntax fix. No detector, privacy rule, secret value, or historical record changed."
     }
   ]
 }
