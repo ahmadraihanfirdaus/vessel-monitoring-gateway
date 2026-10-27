@@ -60,14 +60,20 @@ class PublicReferenceTest(unittest.TestCase):
             gate.public_reference('public.txt',self.root)
 
     def test_existing_template_reference_uses_metadata_only_and_never_opens_dotenv(self):
+        # An owned empty fixture, never a real checkout's environment file.
+        # Public candidates intentionally do not ship dotenv templates.
+        template=self.root/'backend/laravel/.env.example'
+        template.parent.mkdir(parents=True)
+        template.touch(exist_ok=False)
         real=Path.open
         def opened(path,*args,**kwargs):
             if path.name.startswith('.env'):
                 raise AssertionError('dotenv content must never be opened')
             return real(path,*args,**kwargs)
-        with patch.object(Path,'open',opened):
+        with patch.object(gate,'ROOT',self.root),patch.object(Path,'open',opened):
             result=gate.inventory_reference('backend/laravel/.env.example')
         self.assertIsNone(result['sha256'])
+        self.assertEqual(result['bytes'],0)
         self.assertIn('METADATA_ONLY',result['qualification'])
 
     def test_duplicate_or_malformed_csv_header_and_cardinality_are_refused(self):

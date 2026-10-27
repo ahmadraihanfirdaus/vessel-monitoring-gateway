@@ -1,5 +1,35 @@
 # CHATGPT_CONTEXT - konteks proyek untuk percakapan baru
 
+## PUBLICATION HARNESS PORTABILITY FIX (2026-10-27)
+
+Current follow-up is a real test-harness fix after preparation commit
+`a0a92b0b0b46e64062969c7ae2b8acf3631d7b4a`; source owner hash is obtained from Git.
+The138commit candidate at9888c6b9d4deb410f976b761cb3299c13d4c75e5 passed full
+history/integrity and traceability but its12reference suite failed because the
+metadata-only test depended on the omitted real template. The test now uses an
+owned empty synthetic template/temporary ROOT, retains the no-open guard and all
+negative cases, and checks bytes0. Production validator/LOCKED/statuses unchanged.
+Source and isolated checkout corrections are in portfolio-portable-harness-fix-20261027.json;
+current185reference inventory and exact scope are portfolio-harness-reference-20261027.json
+and portfolio-harness-files-20261027.csv. Earlier failed attempts remain intact.
+
+The original tested Windows worktree and a standard private checkout differed
+only by line endings in5runtime input files. Git blobs/normalized contents are
+identical; original tested raw EOL bytes are reproduced only in the private
+verification checkout, restoring exact3runtime source hashes without a checksum
+waiver. Original source and candidate Git objects remain untouched. This is
+explicitly recorded in the final receipt, not described as a new runtime test.
+
+Only the actual latest final receipt private/portfolio-history-final-receipt-20261027.json
+selects the current candidate_repository and source/tip. Earlier bare candidates
+and private verification attempts are retained; never overwrite/delete them.
+It must include both genuine portfolio/fix commits after the137original commits,
+all original identity/date/message/topology mappings, clean history/fsck, actual
+reference/security PASS, exact binding reproduction and source Git/index checks.
+Absent/failing receipt means PUBLICATION_BLOCKED. No public upload/push/default
+branch change, artificial activity, original history rewrite or database access.
+Stop for independent publication approval after the final receipt PASS.
+
 ## PORTFOLIO HISTORY PREPARATION (2026-10-27)
 
 A new explicit user task authorizes local GitHub portfolio preparation, not
@@ -27,9 +57,10 @@ both full38tables below align. LOCKED texts/mappings, all assessments/formal
 statuses and validator rules are unchanged. Current tooling and reference gates
 are recorded in portfolio-tooling-gates-20261027.json, portfolio-tooling-correction-20261027.json and portfolio-reference-final-20261027.json. A stale one-template test oracle initially failed; it now requires all current references hashed plus the actual SEC002 key-loader path. Dedicated metadata-only template and negative cases remain;12reference tests PASS.
 
-The FINAL actual committed source candidate and verification receipt must exist
-under private/portfolio-history-final-20261027/ and
-private/portfolio-history-final-receipt-20261027.json. These are ignored local
+The FINAL actual committed source candidate is selected only by the
+candidate_repository field of private/portfolio-history-final-receipt-20261027.json.
+Earlier candidates, initially under private/portfolio-history-final-20261027/,
+are preserved attempts and do not select the final publication artifact. These are ignored local
 review artifacts, not public source or a publication authorization. Their receipt
 must show actual final source/tip, every commit mapping, complete clean candidate
 history, exact identity/date/message/topology preservation, strict fsck with no

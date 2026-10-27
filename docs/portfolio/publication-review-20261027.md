@@ -27,7 +27,9 @@ tip and all its ancestors belong to the candidate; no incidental Codex refs,
 other branch refs, reflogs, notes, credentials or original object database are
 cloned into it.
 
-The genuine portfolio preparation commit follows that 137-commit checkpoint.
+The genuine portfolio preparation commit `a0a92b0` follows that 137-commit
+checkpoint. A subsequent real harness portability fix follows it; both genuine
+changes are preserved with their actual author/date metadata in the final build.
 Its owner hash is obtained with Git instead of embedding its own self-hash in
 the files it commits. The final isolated candidate must include this commit,
 not merely the initial 137-commit candidate.
@@ -98,6 +100,24 @@ actual key loader, excluding the template. The dedicated template metadata-only
 and all negative reference tests remain. All 12 reference tests then PASS; the
 initial failed run is preserved alongside the correction, not overwritten.
 
+Final checkout of the 138-commit preparation candidate then exposed a second
+test-harness defect: the metadata-only template test referenced the real
+checkout's excluded template. The corrected test creates its own empty
+synthetic fixture under the existing owned temporary root and patches the
+inventory root there. It still refuses all dotenv content opens and now checks
+the known zero-byte fixture size. No actual environment file is required or
+read, and no negative test or production validator is removed. The source and
+isolated checkout must both pass all 12 reference tests after this fix. The
+failed final-candidate attempt is preserved; it is not the approved candidate.
+
+That checkout also differed from the tested Windows worktree only in line
+endings in five runtime input files. Their committed Git blobs and normalized
+content are identical. Reproducing the original tested line-ending bytes only
+in the private verification checkout restores all three exact raw input hashes;
+no checksum waiver, original-source change or candidate-object change is made.
+The final receipt discloses this reproduction and distinguishes checkout byte
+differences from deliberate profile sanitization.
+
 The final prepared English README explains the real architecture, problem,
 technology, native demo, evidence, historical bug fixes, limitations and
 AI-assisted development. No invented screenshot, vessel installation, hardware
@@ -156,13 +176,17 @@ default branch to obtain contributions.
 - [Unchanged runtime and protected-source bindings](../../evidence/test-results/portfolio-source-bindings-20261027.json).
 - [Working-content security screen](../../evidence/test-results/portfolio-working-security-20261027.txt): zero findings/warnings at that point; the exact final staged content requires its own final screen before commit.
 - [Preparation scope and gate review](../../evidence/test-results/portfolio-preparation-review-20261027.json): both 38-row handoffs, unchanged source bindings/protected files and retained ZIP hash.
+- [Portable harness correction and actual failed candidate](../../evidence/test-results/portfolio-portable-harness-fix-20261027.json).
+- [Reference inventory after the harness correction](../../evidence/test-results/portfolio-harness-reference-20261027.json).
+- [Exact harness follow-up scope](../../evidence/test-results/portfolio-harness-files-20261027.csv).
 - [Exact source preparation file manifest](../../evidence/test-results/portfolio-preparation-files-20261027.csv).
 
 The final build is performed from the actual committed preparation HEAD after
 all mandatory local preparation gates pass. Its full receipt is deliberately
 kept outside the public source, at
-`private/portfolio-history-final-receipt-20261027.json`, beside the isolated bare
-repository `private/portfolio-history-final-20261027/`. Inspect that receipt for
+`private/portfolio-history-final-receipt-20261027.json`. Read its
+`candidate_repository` field for the actual isolated bare repository; retained
+earlier attempts are not overwritten or selected. Inspect that receipt for
 the final source/candidate hashes, complete mapping, actual final history scan,
 identity/date/message/topology and strict object integrity gates. It is not
 enough that the earlier 137-commit candidate passed. A missing or failed final

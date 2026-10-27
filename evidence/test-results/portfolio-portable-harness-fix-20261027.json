@@ -1,0 +1,82 @@
+{
+  "schema": 1,
+  "parent_source_commit": "a0a92b0b0b46e64062969c7ae2b8acf3631d7b4a",
+  "failed_candidate_attempt": {
+    "command": [
+      "python",
+      "-B",
+      "scripts/test_public_reference_audit.py"
+    ],
+    "candidate_tip": "9888c6b9d4deb410f976b761cb3299c13d4c75e5",
+    "exit": 1,
+    "output": "....E.......\n======================================================================\nERROR: test_existing_template_reference_uses_metadata_only_and_never_opens_dotenv (__main__.PublicReferenceTest.test_existing_template_reference_uses_metadata_only_and_never_opens_dotenv)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"<WORKSPACE>\\private\\portfolio-review-final-20261027\\scripts\\test_public_reference_audit.py\", line 69, in test_existing_template_reference_uses_metadata_only_and_never_opens_dotenv\n    result=gate.inventory_reference('backend/laravel/.env.example')\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<WORKSPACE>\\private\\portfolio-review-final-20261027\\scripts\\check_living_traceability.py\", line 74, in inventory_reference\n    if not target.resolve(strict=True).is_relative_to(root) or not target.is_file():\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<LOCAL_HOME>\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\pathlib.py\", line 1240, in resolve\n    s = self._flavour.realpath(self, strict=strict)\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<frozen ntpath>\", line 727, in realpath\nFileNotFoundError: [WinError 2] The system cannot find the file specified: '<WORKSPACE>\\\\private\\\\portfolio-review-final-20261027\\\\backend\\\\laravel\\\\.env.example'\n\n----------------------------------------------------------------------\nRan 12 tests in 0.233s\n\nFAILED (errors=1)\n",
+    "status": "FAIL_RETAINED_NEEDS_FIX"
+  },
+  "defect": "Metadata-only unit case accidentally required the real excluded template, preventing a portable public checkout.",
+  "fix": "Create owned empty synthetic template under temporary ROOT, preserve no-open guard and all negative cases, assert bytes0. No production validator or requirements changed.",
+  "current_reference_test_results": [
+    {
+      "scope": "actual_source",
+      "command": [
+        "python",
+        "-B",
+        "scripts/test_public_reference_audit.py"
+      ],
+      "exit": 0,
+      "output": "............\n----------------------------------------------------------------------\nRan 12 tests in 0.225s\n\nOK\n"
+    },
+    {
+      "scope": "isolated_candidate_worktree_projection",
+      "command": [
+        "python",
+        "-B",
+        "scripts/test_public_reference_audit.py"
+      ],
+      "exit": 0,
+      "output": "............\n----------------------------------------------------------------------\nRan 12 tests in 0.234s\n\nOK\n"
+    }
+  ],
+  "unchanged_other_tool_tests": "RETAIN_12history_23security_18archive_6scanner_PASS_NO_SOURCE_CHANGE",
+  "runtime_EOLevidence": {
+    "initial_gate": "RAW_CHECKOUT_BINDING_MISMATCH",
+    "resolution": "REPRODUCE_ORIGINAL_TESTED_CHECKOUT_EOL_BYTES_ONLY_IN_OWNED_PRIVATE_CLONE",
+    "files": [
+      {
+        "path": "firmware/sdkconfig.defaults",
+        "private_clone_before_sha256": "2ef744f7100024ccc421ab684d3b3d305802a1fd1e8ebdd0c192a45668f3a57e",
+        "reproduced_tested_source_sha256": "3eddf58657fc3648255025a6e33077c38bfac6191d58b22e3f9b5ec030dd264e",
+        "normalized_content_and_committed_blob_identical": true
+      },
+      {
+        "path": "firmware/src/core_measurement.h",
+        "private_clone_before_sha256": "b9b0afd02522d196fccbb31d55836f5289bcc4c8bdbb403739bf6d35a052f047",
+        "reproduced_tested_source_sha256": "aa59d0c59b40b1dec445cfcdad66364937fa6cf38e76845ece0b6632a232724e",
+        "normalized_content_and_committed_blob_identical": true
+      },
+      {
+        "path": "firmware/src/core_range.h",
+        "private_clone_before_sha256": "3ef843f06b4c3873d842165cca9887dda2fdadb8664e8fd8888026ddc654389d",
+        "reproduced_tested_source_sha256": "c9112438b971e67c117bd00533d607f1c4fa5507b6a09b9701300a71a24e3c59",
+        "normalized_content_and_committed_blob_identical": true
+      },
+      {
+        "path": "firmware/src/core_source_mode.h",
+        "private_clone_before_sha256": "83dce14b5f30279dc6c7d2247dd73d0801abb01c1d2a706ce47fd165cbd9400f",
+        "reproduced_tested_source_sha256": "f00bf551afb493b7761901dc4f7a6be77a1d8b9a88c8cd0cf2468e68cda97767",
+        "normalized_content_and_committed_blob_identical": true
+      },
+      {
+        "path": "firmware/src/core_types.h",
+        "private_clone_before_sha256": "0f05924deda5a43c0f73742aefbbfee719f3444b6a26f2097e20b1e9eb83040a",
+        "reproduced_tested_source_sha256": "f2060257f6c18e390ab48cc896070d52d2d03d169cef483390a06a864e35a35d",
+        "normalized_content_and_committed_blob_identical": true
+      }
+    ],
+    "original_repository_or_candidate_Git_objects_modified": false,
+    "global_Git_configuration_modified": false,
+    "raw_checksum_normalization_or_waiver": false,
+    "credentials_or_dotenv_access": false
+  },
+  "hardware_database_or_dotenv_configuration_read": false,
+  "status": "PASS"
+}
