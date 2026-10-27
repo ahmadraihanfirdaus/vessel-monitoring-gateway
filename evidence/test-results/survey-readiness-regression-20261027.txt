@@ -1,0 +1,83 @@
+COMMAND=["python", "-B", "scripts/check_living_traceability.py", "--report", "evidence/test-results/survey-readiness-reference-audit-20261027.json"]
+BASELINE_SHA256: PASS (2/2)
+LIVING_TRACEABILITY: PASS (38/38 mapped, 34 unique planned cases)
+ASSESSMENTS: {'IMPLEMENTED_UNVERIFIED': 22, 'PARTIAL': 16}
+FORMAL_REQUIREMENT_STATUS: {'NOT_RUN': 1, 'PASS': 37}
+FORMAL_SIM_SCENARIOS: PASS=15, NOT_RUN=0
+SUPPLEMENTAL_TESTS: PLANNED=1, PASS=18
+FINAL_REQUIREMENT_APPROVAL: NOT_APPROVED
+TOTAL_SYSTEM_STATUS: PARTIAL
+PUBLIC_REFERENCE_AUDIT: PASS (38 requirements, 176 file references; protected template metadata only; no DB/network)
+PUBLIC_REFERENCE_REPORT: PASS_NEW_ARTIFACT_NO_EXISTING_FILE_OVERWRITE
+
+EXIT=0
+COMMAND=["python", "-B", "scripts/test_public_reference_audit.py"]
+............
+----------------------------------------------------------------------
+Ran 12 tests in 0.297s
+
+OK
+
+EXIT=0
+COMMAND=["python", "-B", "scripts/test_phase9_tst001_scoped_evidence.py"]
+test_five_mapped_scopes (__main__.TraceMapping.test_five_mapped_scopes) ... ok
+test_no_formal_pass_claim (__main__.TraceMapping.test_no_formal_pass_claim) ... ok
+test_unique_and_sha256 (__main__.TraceMapping.test_unique_and_sha256) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.007s
+
+OK
+
+EXIT=0
+COMMAND=["python", "-B", "scripts/phase9_tst001_scoped_evidence.py"]
+TST001_SCOPED_MAPPING=PASS_5_OF_5
+TST001_FORMAL_VERIFICATION=NOT_RUN
+TST001_EVIDENCE_DIGEST=2213f72002c9f7c5c6e2974816e396e564c9e0c6afecaf791d80ac2794906748
+
+EXIT=0
+COMMAND=["python", "-B", "scripts/test_phase9_sec001_patterns.py"]
+test_aws_key (__main__.SecretPatterns.test_aws_key) ... ok
+test_github_token (__main__.SecretPatterns.test_github_token) ... ok
+test_no_raw_secret_in_report (__main__.SecretPatterns.test_no_raw_secret_in_report) ... ok
+test_private_key (__main__.SecretPatterns.test_private_key) ... ok
+test_public_example_not_secret (__main__.SecretPatterns.test_public_example_not_secret) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.000s
+
+OK
+
+EXIT=0
+COMMAND=["python", "-B", "scripts/phase9_sec001_tracked_scan.py"]
+SEC001_TRACKED_SCANNED=1507
+SEC001_CREDENTIAL_PATTERN_FINDINGS=0
+
+EXIT=0
+COMMAND=["python", "-B", "scripts/test_phase9_sys004_no_actuator.py"]
+test_allowlist_and_blocklist (__main__.Sys004TopicGate.test_allowlist_and_blocklist) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.428s
+
+OK
+
+EXIT=0
+COMMAND=["python", "-B", "scripts/test_phase9_b7_sys004.py"]
+test_only_whitelisted_empty_queries (__main__.ReadOnly.test_only_whitelisted_empty_queries) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.252s
+
+OK
+
+EXIT=0
+COMMAND=["python", "-B", "scripts/test_audit_precommit_security.py"]
+.......................
+----------------------------------------------------------------------
+Ran 23 tests in 12.187s
+
+OK
+
+EXIT=0
+RESULT=PASS

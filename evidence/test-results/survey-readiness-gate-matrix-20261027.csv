@@ -1,0 +1,10 @@
+gate,scope,status,actual,evidence
+SIX_AREA_SEMANTIC_REVIEW,MANDATORY,PASS,six actual roadmap areas;existingIF/TBD;no physical authorization or invented numbers,survey-readiness-manual-review-20261027.txt
+CURRENT_REFERENCE38_34_176,MANDATORY,PASS,current links and both38row handoff tables;no formal promotion,survey-readiness-reference-audit-20261027.json
+POSITIVE_NEGATIVE_SECURITY_REGRESSION,MANDATORY,PASS,9commands0fail;45unit methods plus audited tools,survey-readiness-regression-20261027.txt
+RUNTIME_SOURCE_PROOF_BINDING,MANDATORY,PASS,HTTP81fa45d1_MYSQL516446eb_SDKf693b0cb;all actual prior proofs unchanged;NOT_RERUN,survey-readiness-source-review-20261027.json
+LOCKS_PROTECTED_MIGRATIONS_SCOPE,MANDATORY,PASS,LOCKED2_protected3_all6migrations unchanged;no runtime edits;cleanup0,survey-readiness-source-review-20261027.json
+WORKING_SCANNER,MANDATORY,PASS,current0findings0privacy;no detector or reviewed-pin change,survey-readiness-security-final-working-20261027.txt
+EXACT_INDEX_STAGED_SCANNER_FINAL,MANDATORY_AFTER_STAGING,PASS,initial exact20 paths/blobs/manifest/worktree and actual staged scanner0/0 PASS;final metadata-stage recheck and read-only scan required before commit,survey-readiness-security-staged-20261027.txt
+PHP_MYSQL_TLS_CHROME_SDK,UNCHANGED_SOURCE_NOT_RERUN,NOT_RUN,source-matching actual prior executions retained;not new runs,formal-resilience-source-proof-20261027.json
+HARDWARE_HOSTED_CI_DEPLOYED_TLS,EXTERNAL,NOT_RUN,actual prerequisites unavailable;no approval or production claim,

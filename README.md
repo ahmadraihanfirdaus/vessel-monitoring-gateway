@@ -1,5 +1,11 @@
 # Vessel Monitoring Gateway
 
+**Survey preparation, 2026-10-27:** [Phase14 six-area checklist](docs/testing/vessel-survey-readiness.md)
+and [38-requirement local software review](docs/testing/local-software-review-20261027.md)
+are available. Checklist PREPARED; survey NOT_RUN and physical integration
+NOT_AUTHORIZED. Hosted CI, bench hardware and deployed TLS remain open; system
+PARTIAL. Historical checkpoint metrics below retain their dated execution scope.
+
 **Integrated Vessel Monitoring & Diagnostic Gateway**
 
 **Portfolio category:** Embedded firmware prototype and traceable engineering development (simulation only).

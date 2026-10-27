@@ -1,0 +1,25 @@
+{
+  "head": "98455c392562d582d34051b2dfd2171f80a27df2",
+  "scope": "DOCUMENTARY_SIX_TECHNICAL_AREAS_NO_RUNTIME_EDITS",
+  "source_sha256": {
+    "http": "81fa45d15a8f800e85cbf82048df8086640f26dc88a63275746424282ceab49f",
+    "mysql": "516446eb3db89042116ca6ab4a216a06f018e4511af6ebb8a72dbd2b49e08037",
+    "firmware_sdk": "f693b0cb1a77d73b8c8cc97eb65da23703a6da9c1bd7e767dfcc1f6a259631e6"
+  },
+  "runtime_evidence_reuse": "PASS_EXACT_SOURCE_BINDING_NOT_RERUN",
+  "locked_and_protected_sha256": {
+    "requirements/system-requirements.md": "a60167d9f2a1f852a091048447f6f4acf8d2cbfd6d11f04c2a6e2f6896f5b92b",
+    "requirements/traceability-matrix.csv": "bc1fc7ce697fc6180cab760320de2a1bd814f9bc78731d4a22fdae838c303fe3",
+    "AGENTS.md": "421e2b5d5748cf5e4bdac3c189223915850c8894688a7e3ffd090975aa87864b",
+    "firmware/.gitignore": "d952abf002d5e1ec80c8ab1bfc9f38eb5b62fc310667d501cb2ce9f21c3effb2",
+    "firmware/.vscode/extensions.json": "31cc8f05084d96b65be8f147533017c7a1b89b055d85886a2e4ab3ce532f34fb"
+  },
+  "migrations": "UNCHANGED_ALL6",
+  "new_documents_local_links": "PASS",
+  "living_review_both_handoff_38_rows": "PASS",
+  "implementation_status_unchanged": true,
+  "formal_status_unchanged": true,
+  "external_hardware_ci_deployed_tls": "NOT_RUN",
+  "no_push": true,
+  "repo_deletions": 0
+}
