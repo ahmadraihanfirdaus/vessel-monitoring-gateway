@@ -1,0 +1,142 @@
+{
+  "decision": "HOSTED_DIAGNOSTIC_REQUIRED",
+  "scope": "SINGLE_PRIVATE_NATIVE_CAUSALITY_DIAGNOSTIC_CANDIDATE_NO_PRODUCTION_FIX",
+  "parent": "1cdf4c38358656f2d88150b57330b0f7c7ab0087",
+  "parent_commits": 145,
+  "owner": "git log -1 -- evidence/test-results/php-native-causality-20261027.json",
+  "historical_run": "https://github.com/ahmadraihanfirdaus/vessel-monitoring-gateway/actions/runs/40511912041",
+  "causality_audit": {
+    "timeline_ms_from_PHP_start": {
+      "readiness_PASS": 348,
+      "disconnect_ALIVE_no_exit_status": 4946,
+      "gate_failed_capture_EOF": 4946,
+      "before_cleanup_ALIVE_no_termination_requested": 4947,
+      "cleanup_TERMINATE_requested": 4971,
+      "wait_EXITED_minus11_SIGSEGV": 5003
+    },
+    "readonly_comparison": "Earlier readonly server exits -15 after requested SIGTERM.",
+    "proved": "HTTP upstream disconnected before cleanup; full-run PHP ultimately exits via SIGSEGV.",
+    "not_proved": "SIGSEGV caused the disconnect; exact signal initiation time; native function/module/extension; application error versus native crash; shutdown-triggered crash versus earlier request crash.",
+    "poll_semantics": "ALIVE is poll()==None, not proof of healthy request servicing. Cumulative NO_FATAL_REPORTED may belong to an earlier completed request.",
+    "current_captured_stage": "ROWS_ADMITTED; no native stack; no fatal category observed.",
+    "source_cleanup": "Synchronous suite raises gate failure; finally observes state, shuts proxy, then requests PHP termination, waits10s, kill5s fallback, drains log, exact owned DB cleanup and temporary cleanup. No earlier runner terminate proved."
+  },
+  "external_prerequisites": {
+    "local_Linux_MySQL8": "NOT_RUN_DOCKER_PODMAN_UNAVAILABLE_WSL_NOT_INSTALLED",
+    "native_debugger": "NOT_RUN_GDB_UNAVAILABLE",
+    "debug_symbols": "NOT_VERIFIED",
+    "native_backtrace": "NOT_OBTAINED",
+    "hosted_runtime_extension_inventory": "NOT_CAPTURED_ON_PARENT_REQUIRES_NEW_CANDIDATE_RUN",
+    "core_or_memory_access": "NONE"
+  },
+  "new_diagnostic": {
+    "passive_observation": "Only after failed request UPSTREAM_DISCONNECTED. Allocate at most5s of the existing total10s PHP cleanup wait to observe natural exit without signals; remaining wait uses deadline-now. Existing kill5s fallback unchanged. Success path unchanged. No request retry.",
+    "classification": "An exit/signal observed before any terminate call is separate from SIGSEGV only observed after terminate, which remains explicitly causally unresolved. Pre-terminate exit does not alone locate the native fault or prove it caused the original disconnect.",
+    "kernel": "Read at most8192bytes of the owned child status on Linux; emit only State/CoreDumping and boolean selected pending/caught/ignored SIGSEGV/SIGTERM flags. Never raw status,PID,UID,masks,path,environ,memory,core. Missing privilege/platform is honest UNAVAILABLE/NOT_SUPPORTED.",
+    "runtime": "Private CLI-server emits exact scrubbed schema:PHP version,SAPI,ZTS/debug/int width,fixed relevant extension names and numeric versions,allowlisted OPcache/JIT/memory settings and signal-handler categories. No phpinfo,INI paths,environment or addresses.",
+    "regression": "A pre-fix negative shows metadata overhead could consume shared cleanup budget before passive wait. Corrected timeout=min(5,max(0,deadline-now)); negative plus deadline-boundary and main failure-cleanup routing tests PASS. Only new diagnostic code affected."
+  },
+  "results": {
+    "Python_unique_PASS": 135,
+    "Python_breakdown": {
+      "test_live_http_integration_gate-final": 65,
+      "test_mysql_integration_gate": 32,
+      "test_data_ui_contracts": 9,
+      "test_review_formal_data_ui": 6,
+      "test_audit_precommit_security": 23
+    },
+    "native_causality_methods": 11,
+    "main_failure_route_regression": 1,
+    "real_HTTP_TLS_PASS": 248,
+    "HTTP_TLS_FAIL": 0,
+    "runtime_observed_local": {
+      "debug_build": false,
+      "extensions": {
+        "FFI": "NOT_LOADED",
+        "PDO": "8.2.35",
+        "Zend OPcache": "NOT_LOADED",
+        "intl": "8.2.35",
+        "mbstring": "8.2.35",
+        "mysqlnd": "OTHER",
+        "openssl": "8.2.35",
+        "pcov": "NOT_LOADED",
+        "pdo_mysql": "8.2.35",
+        "xdebug": "NOT_LOADED"
+      },
+      "int_bytes": 8,
+      "memory_limit": "128M",
+      "opcache_enable_cli": "OTHER",
+      "opcache_jit": "OTHER",
+      "opcache_jit_buffer_size": "OTHER",
+      "php_version": "8.2.35",
+      "sapi": "CLI_SERVER",
+      "segv_handler": "UNAVAILABLE",
+      "term_handler": "UNAVAILABLE",
+      "zts": true
+    },
+    "native_state_observed_local": "NOT_SUPPORTED_WINDOWS; injected Linux field contracts only, not Linux execution.",
+    "PHP393_regression": {
+      "status": "PASS_SOURCE_AND_DEPENDENCIES_IDENTICAL",
+      "input_count": 276,
+      "public_input_fingerprint": "44c42da4eaa5f8a09a60ddb387ce7a5f52dc7722b67cc0288e1593a54819c503",
+      "cases": 393,
+      "fail": 0,
+      "skip": 0,
+      "actual_prior_evidence": "private/portfolio-php-lifecycle-diagnostics-gates-20261027/mysql-regression.txt",
+      "prior_evidence_sha256": "d6e1648d1b31fc0acc7f3641360e6f0829e8e5d9e1a5cb614e031a5a1a60d06e",
+      "not_rerun": "No changed PHP suite inputs/dependencies; actual new HTTP/TLS gate verifies private router/runtime changes."
+    },
+    "database_preflight_postflight": "PASS_APPROVED_ISOLATED_MariaDB10.4.32_TEN_TABLES_SIX_MIGRATIONS_ZERO_APPLICATION_ROWS",
+    "migration_roundtrip": "NOT_RERUN_NO_SCHEMA_CHANGE",
+    "new_hosted": "NOT_RUN_NO_PUSH_NO_DISPATCH",
+    "GDB_native_signal_reproduction": "NOT_RUN_EXTERNAL_PREREQUISITES_UNAVAILABLE"
+  },
+  "security": {
+    "scoped_findings": 0,
+    "scoped_warnings": 0,
+    "reviews": "Exactly3byte-identical runtime-generated input lines receive new file-hash pins; all prior catalog entries and detector rules retained.",
+    "commit_gate": "Full final worktree/index security and exact scope must PASS before owner commit. Final results/SHA in private final receipt.",
+    "raw_sensitive_artifacts_retained": false
+  },
+  "source_sha256": {
+    "scripts/run_live_http_integration.py": "3b6190832b46ae4f9158c0c70508a94bd3337dbfc67a690e0eba142175235c1d",
+    "scripts/live_http_router.php": "f9af60b143bbf29326822faa643696c8847f209fcc15ad83541a439f15ddacc6",
+    "scripts/live_http_runtime.php": "ba70d7e2668e3adb157ae18b41d70c34fcf303476be47ddc53470c6ce5d4a3fc",
+    "scripts/php_lifecycle_diagnostics.py": "cd518bf1191834134c9209cf61d9724384002bd23affb9279084dd5148a45758",
+    "scripts/php_native_causality.py": "2f9df719c88d4917b8205ba5b74b00548cefae58643f5f15a3d819293fb4c7c8",
+    "scripts/test_php_native_causality.py": "856a992a57dabee6a4c57a9769d938ad9e70eb6a909760e784398d64f4e68cd0",
+    "scripts/test_live_http_integration_gate.py": "20509e1d3f88314cbe2461cf928da1c602db8944933b4b996c279dd144151145",
+    "scripts/security-reviewed-findings.json": "33ea1735f0bab826955cc354fd5d10afaa3271db24a5e250b4f2539032d88e31"
+  },
+  "traceability": "PASS_38_REQUIREMENTS_185_REFERENCES_LOCKED_AND_FORMAL_STATUSES_UNCHANGED_PARTIAL_NOT_APPROVED",
+  "references": {
+    "Python3.12_negative_returncode": "https://docs.python.org/3.12/library/subprocess.html#subprocess.Popen.returncode",
+    "Linux_status_fields": "https://docs.kernel.org/filesystems/proc.html"
+  },
+  "private_evidence_directory": "private/portfolio-php-native-causality-gates-20261027",
+  "evidence_sha256": {
+    "assertion-deadline-review.json": "8d07f5823d71c4955349361b192ad684090b3fa87c45a4a6a52dd2037b0852db",
+    "baseline.json": "66b7319b24975f4e7bd40ab2632d577707181e21804c23a763acc994beaf0021",
+    "budget-before.txt": "942147e9bf0ad54090ad1d99ccbffee638cc108665ab830f2b44cb4e89088c4a",
+    "code-scope.json": "240b5e75d87014eba25cdbbedfadcf1963c7b12341added3b93b72a5d0e0498c",
+    "live-http-causality-final.txt": "f974c466bb605f03bd9fba9489bb06518310a4c10ed304302bb818414552d984",
+    "live-http-causality.txt": "54c63db461359a8775dc56a78424086d9bc6fe9623c8deebcdf3d243cd806161",
+    "PHP-regression-reuse.json": "295527e141dbec03d215e606c9e34215afb69825c4830f98bb03bac6ff08e3e7",
+    "preflight.txt": "3c064cdf83a27e3ddaad458e164c1a78b7c1befca49496f725346ad97ce87265",
+    "resume-preflight.json": "9b5aee09bc3403e064fbca86aedee3a033c7b7aa34908d36a7658f25ee4121a3",
+    "security-line-proof.json": "8be1d411dd5739b43186c6a6347a7df44c34c8e67e1b265b6dc5ba2c9f9ad463",
+    "security-scoped.txt": "591d937297455deaad66892ed82725d18db7eff41b2a8ffb22314de06c941037",
+    "test_audit_precommit_security.txt": "6c157fd82c114608ede210955f771ca5e6afb46b70598e4e8d25c0dd242e0e4d",
+    "test_data_ui_contracts.txt": "13389c1703f24d9d5e7581658cf3b80ecd3cd13df746e8f6f31a05758359a8eb",
+    "test_live_http_integration_gate-final.txt": "2c38c5b59464adf02213d97ed2280ea002f0d491ec184b230e57e514b4542df9",
+    "test_live_http_integration_gate.txt": "02ed89e6777362adcc6e4b66b292869a4c0e49f5bdc98c078c5e3eedde624a2b",
+    "test_mysql_integration_gate.txt": "97cac4217ab264b5c5d82e853be0b29807376695c27075884ab863cd78cf8a08",
+    "test_review_formal_data_ui.txt": "ba9882e9ac323861c4e47fd88f712e12a56b4bd76a6d541faec02026dfe5f209",
+    "traceability.txt": "a724b4b2d6ae58dbab5f9936a19053d8ca12dbff874517adb0800efc973d7adb"
+  },
+  "preservation": "Original develop82ae9f87ee1162bd4b33e101286d0be48418184e,branch/project refs/index/WIP/LOCKED/protected bytes and public145ancestors preserved.",
+  "next_step": "Stop. New explicit approval needed to publish this single candidate and run controlled hosted diagnostics. Obtain Linux runtime/kernel/passive pre-signal evidence; native frame/library still requires an available isolated debugger and symbols. No guessed production fix.",
+  "pushes": 0,
+  "workflow_dispatches": 0,
+  "physical_ESP32_deployedTLS_NVS_RTOS_vessel": "NOT_RUN"
+}

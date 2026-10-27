@@ -12,6 +12,8 @@ if (PHP_SAPI !== 'cli-server' || ($_SERVER['REMOTE_ADDR'] ?? null) !== '127.0.0.
 }
 require __DIR__.'/live_http_lifecycle.php';
 vgLiveRegisterShutdownDiagnostics();
+require __DIR__.'/live_http_runtime.php';
+error_log('VG_PHP_RUNTIME='.json_encode(vgLiveRuntimeFingerprint(), JSON_THROW_ON_ERROR));
 require dirname(__DIR__).'/backend/laravel/vendor/autoload.php';
 error_log('VG_LIVE_STAGE=AUTOLOAD_DONE');
 

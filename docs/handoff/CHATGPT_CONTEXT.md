@@ -1,5 +1,73 @@
 # CHATGPT_CONTEXT - konteks proyek untuk percakapan baru
 
+## Native PHP SIGSEGV causality checkpoint (2026-10-27)
+
+This section supersedes earlier publication/CI status below. GitHub main verified
+read-only at1cdf4c38358656f2d88150b57330b0f7c7ab0087,145sanitized commits.
+Run40511912041:393PHP/MySQL8 and231no-DB PASS;fourjobs PASS,backend HTTP/UI FAIL;
+archive NOT_RUN. Relative to full PHP startup:348ms readiness PASS;4946ms disconnect
+UPSTREAM_DISCONNECTED/UPSTREAM_HEADERS (request1176ms),poll ALIVE;4947ms before
+cleanup ALIVE and no terminate requested;4971ms terminate requested;5003ms wait
+returns-11/SIGSEGV. Earlier readonly server cleanup returns-15/SIGTERM. Last captured
+stage ROWS_ADMITTED,no fatal category;markers cumulative/asynchronous.
+
+Proved:disconnect precedes cleanup,PHP eventually exits via SIGSEGV. NOT proved:
+SIGSEGV caused disconnect,exact signal initiation time,native frame/library,
+extension,request-versus-shutdown trigger,or a MySQL/Blade/application cause.
+ALIVE means no exit status yet;NO_FATAL_REPORTED may be from a previous request.
+No production repair is justified. No backtrace/core/memory obtained or published.
+
+Current isolated checkout:private/portfolio-php-native-causality-20261027,branch
+portfolio,no remotes,parent145ancestors unchanged. Resolve this additive local
+commit with `git log -1 -- evidence/test-results/php-native-causality-20261027.json`;
+private final receipt records exact SHA. Original develop82ae9f87ee1162bd4b33e101286d0be48418184e,
+project refs,index,WIP,protected firmware and LOCKED bytes preserved.
+
+Three new diagnostic files are live_http_runtime.php,php_native_causality.py and
+test_php_native_causality.py under scripts. Private runner/router/log collector
+and existing CI test entrypoint integrate them without workflow changes.
+Only failed request disconnects get a passive observation window of at most5s
+INSIDE the existing total10s PHP cleanup budget. Remaining wait uses deadline-now;
+existing kill5s fallback and success path unchanged. No request retry or arbitrary
+timeout increase. Natural signal exit BEFORE any terminate call is distinct from
+SIGSEGV observed only AFTER terminate (explicit CAUSE_UNRESOLVED). Even a pre-signal
+exit does not by itself identify the native frame or prove disconnect causation.
+
+Bounded Linux child-status probe reports only fixed kernel-state/CoreDumping and
+boolean SIGSEGV/SIGTERM pending/caught/ignored categories. No PID,UID,raw masks,
+status text,environment,memory,core or paths. Private runtime fingerprint reports
+scrubbed PHP/SAPI/ZTS/debug,known extension numeric versions,OPcache/JIT/memory-limit
+and handler categories. Unknown values suppressed. Existing bounded pipe drain,
+redaction,event caps and critical checkpoint reservation retained.
+
+Local regression:135unique Python PASS,including65HTTP/proxy/lifecycle/causality
+cases;11native-contract methods and one main failure-route/cleanup regression.
+Actual Windows/PHP8.2.35/MariaDB10.4.32 HTTP/TLS248PASS,all5dashboard predicates PASS,
+owned fixture cleanup0application rows. Native Linux probes are injected contracts;
+NOT actual Linux execution. PHP393/0FAIL/0SKIP parent regression reused only after
+all276public inputs/dependencies match exactly (source fingerprint44c42da4...);
+no repeated unchanged PHPUnit suite. Existing suite and5predicates byte-identical.
+A negative test found metadata overhead in new passive wait could overrun its
+shared budget; deadline-aware passive timeout fixes it with boundary regression.
+
+Linux/MySQL8 reproduction NOT_RUN:Docker/Podman unavailable,WSL not installed.
+GDB unavailable,debug symbols not verified,native backtrace NOT_OBTAINED. Existing
+local fingerprint CLI_SERVER/PHP8.2.35,ZTS=true,debug=false,memory128M,OPcache not
+loaded is not proof of hosted configuration. Hosted fingerprint still missing.
+No test skip or invented native/hardware verification.
+
+Scoped security0findings/0warnings;3unchanged runtime-input line pins renewed,
+old reviews/scanner preserved. Traceability38requirements/185references PASS;
+formal status unchanged,system PARTIAL/NOT_APPROVED. Before owner commit require
+full security,index,manifest,scope and Git integrity PASS. Evidence:
+evidence/test-results/php-native-causality-20261027.json and its file manifest;
+private gate folder private/portfolio-php-native-causality-gates-20261027.
+
+Decision:HOSTED_DIAGNOSTIC_REQUIRED. Stop after local gated candidate. NO PUSH,
+NO WORKFLOW DISPATCH. New approval required for this one candidate's publication
+and controlled hosted observation. Native fix awaits causal/native-frame evidence;
+no automatic further iteration. PhysicalESP32,NVS/RTOS,deployedTLS,vessel NOT_RUN.
+
 ## PHP upstream lifecycle diagnostic checkpoint (2026-10-27)
 
 This section supersedes earlier publication/CI status below. Read-only GitHub main

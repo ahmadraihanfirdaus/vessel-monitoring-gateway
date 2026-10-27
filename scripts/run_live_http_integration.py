@@ -38,6 +38,7 @@ from build_esp32_port import source_snapshot as firmware_source_snapshot
 from data_ui_contracts import functional_observation
 import browser_monitoring_bridge
 from php_lifecycle_diagnostics import ServerLogCapture, PhpLifecycle
+from php_native_causality import finish_failed_upstream
 
 ROOT = Path(__file__).resolve().parents[1]
 MAX_PROXY_BODY = 8192
@@ -73,6 +74,7 @@ def source_snapshot():
         'test_browser_monitoring_probe.js', 'test_monitoring_freshness.js', 'test_live_http_integration_gate.py',
         'test_http_proxy_diagnostics.py', 'php_lifecycle_diagnostics.py',
         'live_http_lifecycle.php', 'test_php_lifecycle_diagnostics.py',
+        'php_native_causality.py', 'live_http_runtime.php', 'test_php_native_causality.py',
         'data_ui_contracts.py', 'test_data_ui_contracts.py', 'run_formal_data_native.py',
         'review_formal_data_ui.py', 'test_review_formal_data_ui.py', 'test_formal_data_native.py')]
     paths.append(ROOT/'docs/testing/formal-data-ui-cases-20261026.md')
@@ -1084,18 +1086,21 @@ def main():
                 proxy.shutdown(); thread.join(timeout=5)
             proxy.server_close()
         if server is not None:
-            if server.poll() is None:
-                lifecycle.shutdown = 'TERMINATE_REQUESTED'
-                lifecycle.observe('CLEANUP_TERMINATE')
-                server.terminate()
+            if code and lifecycle.request_disconnect:
+                finish_failed_upstream(server, lifecycle)
             else:
-                lifecycle.shutdown = 'ALREADY_EXITED'
-            try:
-                server.wait(timeout=10)
-            except subprocess.TimeoutExpired:
-                lifecycle.shutdown = 'KILL_REQUESTED'
-                lifecycle.observe('CLEANUP_KILL')
-                server.kill(); server.wait(timeout=5)
+                if server.poll() is None:
+                    lifecycle.shutdown = 'TERMINATE_REQUESTED'
+                    lifecycle.observe('CLEANUP_TERMINATE')
+                    server.terminate()
+                else:
+                    lifecycle.shutdown = 'ALREADY_EXITED'
+                try:
+                    server.wait(timeout=10)
+                except subprocess.TimeoutExpired:
+                    lifecycle.shutdown = 'KILL_REQUESTED'
+                    lifecycle.observe('CLEANUP_KILL')
+                    server.kill(); server.wait(timeout=5)
         if capture is not None:
             if not capture.finish():
                 print('LIVE_HTTP_GATE=BLOCKED_LOG_CAPTURE_NOT_DRAINED', flush=True)

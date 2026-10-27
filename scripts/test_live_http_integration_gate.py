@@ -14,6 +14,7 @@ from unittest.mock import MagicMock, patch
 import run_live_http_integration as gate
 from test_http_proxy_diagnostics import ProxyDiagnosticsTest, LoopbackProxyDiagnosticsTest
 from test_php_lifecycle_diagnostics import PhpLifecycleTest
+from test_php_native_causality import NativeCausalityTest
 
 
 class LiveHttpGateTest(unittest.TestCase):
@@ -341,6 +342,21 @@ class LiveHttpGateTest(unittest.TestCase):
         self.assertNotIn('LIVE_HTTP_GATE=PASS_LOCAL_ONLY', output)
         self.assertIn('LIVE_HTTP_CLEANUP=PASS_EXACT_OWNERSHIP_ZERO_APPLICATION_ROWS', output)
         self.assertEqual(command.call_args_list[-1].args[2], ['--cleanup', '--execute'])
+
+    def test_failed_disconnect_selects_passive_observation_without_converting_failure_to_pass(self):
+        def disconnect(*args):
+            args[-1].php_lifecycle.request_disconnect = True
+            raise gate.GateFailure('SYNTHETIC_DISCONNECT')
+        with patch.object(gate, 'finish_failed_upstream') as causal:
+            code, command, _, process, _, output = self.invoke(['--execute'], [self.result()]*4,
+                live=True, suite_error=disconnect)
+        self.assertEqual(code,1)
+        causal.assert_called_once()
+        self.assertIs(causal.call_args.args[0], process.return_value)
+        self.assertTrue(causal.call_args.args[1].request_disconnect)
+        self.assertEqual(command.call_args_list[-1].args[2], ['--cleanup','--execute'])
+        self.assertIn('CLEANUP=PASS_EXACT_OWNERSHIP_ZERO_APPLICATION_ROWS', output)
+        self.assertNotIn('LIVE_HTTP_GATE=PASS_LOCAL_ONLY', output)
 
     def test_blocked_cleanup_cannot_be_a_pass_and_retains_lease_without_private_key(self):
         captured = {}

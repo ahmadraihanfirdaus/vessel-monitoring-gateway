@@ -4,6 +4,8 @@ from time import monotonic
 import json
 import os
 import sys
+import re
+from php_native_causality import native_state
 
 STAGES = ('AUTOLOAD_DONE', 'PROFILE_ADMITTED', 'APPLICATION_ADMITTED', 'ROWS_ADMITTED', 'REQUEST_DONE')
 SHUTDOWNS = ('NO_FATAL_REPORTED', 'FATAL_ERROR', 'PARSE_ERROR', 'CORE_ERROR', 'COMPILE_ERROR',
@@ -11,6 +13,26 @@ SHUTDOWNS = ('NO_FATAL_REPORTED', 'FATAL_ERROR', 'PARSE_ERROR', 'CORE_ERROR', 'C
 CONNECTIONS = ('NONE', 'UPSTREAM_CONNECTION_ERROR', 'UPSTREAM_TIMEOUT', 'UPSTREAM_DISCONNECTED',
                'UPSTREAM_PROTOCOL_ERROR', 'UPSTREAM_INCOMPLETE_RESPONSE', 'UPSTREAM_IO_ERROR',
                'UPSTREAM_RESPONSE_TOO_LARGE', 'UPSTREAM_HTTP_502', 'RELAY_IO_ERROR', 'DOWNSTREAM_IO_ERROR')
+
+
+def valid_runtime(data):
+    keys = {'php_version','sapi','debug_build','zts','int_bytes','extensions','opcache_enable_cli',
+            'opcache_jit','opcache_jit_buffer_size','memory_limit','segv_handler','term_handler'}
+    if not isinstance(data, dict) or set(data) != keys:
+        return False
+    extensions = {'PDO','pdo_mysql','mysqlnd','openssl','mbstring','intl','FFI','Zend OPcache','xdebug','pcov'}
+    if not isinstance(data['extensions'], dict) or set(data['extensions']) != extensions:
+        return False
+    version = lambda v: isinstance(v,str) and (v in ('NOT_LOADED','OTHER') or re.fullmatch(r'[0-9]{1,6}(?:\.[0-9]{1,6}){0,3}',v) is not None)
+    return (data['php_version'] in ('8.2.35','OTHER') and data['sapi'] in ('CLI','CLI_SERVER','OTHER')
+        and type(data['debug_build']) is bool and type(data['zts']) is bool
+        and type(data['int_bytes']) is int and data['int_bytes'] in (4,8)
+        and all(version(v) for v in data['extensions'].values())
+        and all(isinstance(data[k],str) and len(data[k]) <= 20 and
+                (data[k]=='OTHER' or re.fullmatch(r'(?:-1|[0-9]+[KMG]?|off|on|tracing|function)?',data[k],re.I) is not None)
+                for k in ('opcache_enable_cli','opcache_jit','opcache_jit_buffer_size','memory_limit'))
+        and data['segv_handler'] in ('DEFAULT','IGNORED','CUSTOM','UNAVAILABLE')
+        and data['term_handler'] in ('DEFAULT','IGNORED','CUSTOM','UNAVAILABLE'))
 
 
 class ServerLogCapture:
@@ -29,8 +51,16 @@ class ServerLogCapture:
         self.shutdown = 'NONE_OBSERVED'
         self.state = 'NOT_STARTED'
         self.thread = self.stream = None
+        self.runtime = None
 
     def _line(self, line):
+        if b'VG_PHP_RUNTIME=' in line:
+            try:
+                data = json.loads(line.split(b'VG_PHP_RUNTIME=',1)[1])
+                if valid_runtime(data):
+                    self.runtime = data
+            except (ValueError, TypeError, KeyError):
+                pass
         # Only complete, bounded lines are classified. No arbitrary values kept.
         for stage in STAGES:
             if b'VG_LIVE_STAGE='+stage.encode() in line:
@@ -113,13 +143,14 @@ class ServerLogCapture:
                     'last_stage': self.last_stage, 'observed_stages': sorted(self.stages),
                     'error_categories': sorted(self.errors), 'caught_categories': sorted(self.caught),
                     'request_shutdown': self.shutdown,
-                    'capture_scope': 'PROCESS_CUMULATIVE_ASYNCHRONOUS_BEST_EFFORT'}
+                    'runtime': self.runtime, 'capture_scope': 'PROCESS_CUMULATIVE_ASYNCHRONOUS_BEST_EFFORT'}
 
 
 class PhpLifecycle:
     EVENTS = ('SERVER_STARTING', 'SERVER_STARTED', 'READINESS_PASSED', 'READINESS_FAILED',
               'REQUESTS_BEGIN', 'PROXY_FAILURE', 'GATE_FAILED', 'BEFORE_CLEANUP',
-              'CLEANUP_TERMINATE', 'CLEANUP_KILL', 'CLEANUP_COMPLETE')
+              'CLEANUP_TERMINATE', 'CLEANUP_KILL', 'CLEANUP_COMPLETE',
+              'PASSIVE_OBSERVATION_BEGIN', 'PASSIVE_WINDOW_EXPIRED', 'PRE_TERMINATE', 'EXIT_BEFORE_TERMINATE')
 
     def __init__(self, capture, clock=monotonic):
         self.capture, self.clock = capture, clock
@@ -128,12 +159,16 @@ class PhpLifecycle:
         self.process = None
         self.phase = 'STARTUP'
         self.shutdown = 'NONE_REQUESTED'
+        self.native_outcome = 'NOT_ASSESSED'
+        self.request_disconnect = False
         self.lock = Lock()
 
     def observe(self, event, connection='NONE'):
         if event not in self.EVENTS or connection not in CONNECTIONS:
             raise ValueError('invalid lifecycle category')
         with self.lock:
+            if connection == 'UPSTREAM_DISCONNECTED' and self.phase == 'REQUEST':
+                self.request_disconnect = True
             # Reserve32 records for lifecycle/failure/cleanup even during startup retry floods.
             if event == 'PROXY_FAILURE':
                 if self.proxy_events >= 96:
@@ -154,6 +189,8 @@ class PhpLifecycle:
                       'exit_category': 'UNAVAILABLE' if code is None else 'ZERO' if code == 0
                                        else 'SIGNAL' if os.name == 'posix' and code < 0 else 'NONZERO',
                       'connection': connection, 'shutdown': self.shutdown,
+                      'native_state': native_state(self.process) if self.process is not None else None,
+                      'native_outcome': self.native_outcome,
                       'event_limit_reached': self.sequence == 128 or self.proxy_events == 96,
                       'proxy_events_suppressed': self.proxy_events_suppressed, **self.capture.snapshot()}
             sys.stdout.write('LIVE_HTTP_PHP_LIFECYCLE='+json.dumps(record, sort_keys=True)+'\n')
