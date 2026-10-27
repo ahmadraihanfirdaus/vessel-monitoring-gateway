@@ -15,7 +15,9 @@ class MonitoringEvidenceTest extends TestCase
         $this->assertCount(15, $data['simulation']);
         $this->assertCount(19, $data['supplemental']);
         $this->assertSame('PASS', $data['simulation']['SIM-001']);
-        $this->assertSame('NOT_RUN', $data['simulation']['SIM-010']);
+        // Existing source-bound formal-resilience case review supports PASS
+        // for the actual simulator-host protocol, without hardware approval.
+        $this->assertSame('PASS', $data['simulation']['SIM-010']);
         foreach (array_merge($data['simulation'], $data['supplemental']) as $value) {
             $this->assertContains($value, ['PASS', 'FAIL', 'BLOCKED', 'NOT_RUN', 'PLANNED']);
         }

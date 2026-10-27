@@ -102,6 +102,16 @@ class EventIngestService
         MonitoringEvent $event,
         array $payload
     ): bool {
+        $storedAlarm = $event->alarm_metadata;
+        $expectedAlarm = $payload['schema_version'] === '1.1'
+            ? AlarmTransitionMetadata::canonical($payload['alarm']) : null;
+        // MySQL binary JSON can reorder object keys on readback. Ignore only
+        // that order; strict comparison retains types, field set and null/zero.
+        if (is_array($storedAlarm) && is_array($expectedAlarm)) {
+            ksort($storedAlarm, SORT_STRING);
+            ksort($expectedAlarm, SORT_STRING);
+        }
+
         return $event->device_id === (string) $payload['device_id']
             && $event->schema_version === (string) $payload['schema_version']
             && $event->boot_id === (string) $payload['boot_id']
@@ -111,9 +121,7 @@ class EventIngestService
             && $event->source_mode === (string) $payload['source_mode']
             && $event->event_type === (string) $payload['event_type']
             && (string) $event->occurred_at_ms === (string) $payload['occurred_at_ms']
-            && ($payload['schema_version'] === '1.1'
-                ? $event->alarm_metadata === AlarmTransitionMetadata::canonical($payload['alarm'])
-                : $event->alarm_metadata === null);
+            && $storedAlarm === $expectedAlarm;
     }
 
     private function isMySqlDuplicateKey(QueryException $exception): bool

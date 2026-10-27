@@ -1,0 +1,137 @@
+{
+  "scope": "LOCAL_TARGETED_HOSTED_BACKEND_REPAIR",
+  "published_parent": "4e094c1dcb46d8e60a29d451359157cf5b6252be",
+  "published_commits_preserved": 141,
+  "original_develop": "82ae9f87ee1162bd4b33e101286d0be48418184e",
+  "source_owner": "git log -1 -- evidence/test-results/hosted-backend-repair-20261027.json",
+  "failed_hosted_run": "https://github.com/ahmadraihanfirdaus/vessel-monitoring-gateway/actions/runs/40491474585",
+  "six_failures": [
+    {
+      "test": "Tests\\Unit\\MonitoringEvidenceTest::test_actual_registry_statuses_are_read_without_qualifications_or_paths",
+      "category": "STALE_TEST_ORACLE",
+      "diagnosis": "Expected NOT_RUN, actual registry PASS. Existing source-bound formal SIM-010 host-only log and independent review match exact SHA256; registry and formal approval unchanged."
+    },
+    {
+      "test": "Tests\\Feature\\AlarmMetadataIntegrationTest::test_native_recovered_transitions_persist_replay_read_and_render_complete_metadata",
+      "category": "ORDER_SENSITIVE_PERSISTED_JSON_COMPARISON",
+      "diagnosis": "Native metadata-bearing event creates; identical replay incorrectly conflicts after JSON object reordering.",
+      "local_negative": "HTTP 200 expected, HTTP 409 observed with controlled reordered Eloquent JSON readback",
+      "local_after": "PASS with original test assertions retained"
+    },
+    {
+      "test": "Tests\\Feature\\AlarmMetadataIntegrationTest::test_metadata_reorder_is_identical_but_valid_changed_facts_conflict_without_mutation",
+      "category": "ORDER_SENSITIVE_PERSISTED_JSON_COMPARISON",
+      "diagnosis": "Input canonicalization already removes request order; stored JSON key order still made the legitimate replay conflict before changed-fact assertions.",
+      "local_negative": "HTTP 200 expected, HTTP 409 observed with controlled reordered Eloquent JSON readback",
+      "local_after": "PASS with original test assertions retained"
+    },
+    {
+      "test": "Tests\\Feature\\AlarmMetadataIntegrationTest::test_unicode_duplicate_keys_and_nested_shadowing_do_not_bypass_raw_integer_rules",
+      "category": "ORDER_SENSITIVE_PERSISTED_JSON_COMPARISON",
+      "diagnosis": "Hostile duplicate/nested/quoted inputs retain 422 rejection. The later accepted single escaped-key event conflicts when replayed with original key spelling; raw integer admission is not weakened.",
+      "local_negative": "HTTP 200 expected, HTTP 409 observed with controlled reordered Eloquent JSON readback",
+      "local_after": "PASS with original test assertions retained"
+    },
+    {
+      "test": "Tests\\Feature\\AlarmMetadataIntegrationTest::test_metadata_uint64_and_uint32_maxima_preserve_exact_decimal_read_values",
+      "category": "ORDER_SENSITIVE_PERSISTED_JSON_COMPARISON",
+      "diagnosis": "Maximum integer payload is admitted, then the identical metadata replay conflicts. Decimal precision/range validation is retained; the defect is JSON key ordering.",
+      "local_negative": "HTTP 200 expected, HTTP 409 observed with controlled reordered Eloquent JSON readback",
+      "local_after": "PASS with original test assertions retained"
+    },
+    {
+      "test": "Tests\\Feature\\RecoveredReplayIntegrationTest::test_actual_three_boot_recovery_is_idempotent_without_collapsing_ids_or_fabricating_metadata",
+      "category": "ORDER_SENSITIVE_PERSISTED_JSON_COMPARISON",
+      "diagnosis": "Legacy metadata-null replays remain valid; metadata-bearing recovered replay conflicts after reordered JSON. Cross-boot identity and null metadata semantics are retained.",
+      "local_negative": "HTTP 200 expected, HTTP 409 observed with controlled reordered Eloquent JSON readback",
+      "local_after": "PASS with original test assertions retained"
+    }
+  ],
+  "platforms": {
+    "hosted_previous": "Ubuntu 24.04.5 / PHP 8.2.35 / MySQL 8.0.46",
+    "local": "Windows / PHP 8.2.35 / Laravel 12.70.0 / MariaDB 10.4.32 / native GCC C99 fixtures",
+    "difference": "MySQL binary JSON normalizes object key order; MariaDB JSON aliases LONGTEXT. PHP strict array equality also compares order. Process overrides and testing key compatibility independently admitted before DB access. Windows C99 CRLF fixture bytes remain generated, validated and unedited.",
+    "primary_references": [
+      "https://dev.mysql.com/doc/refman/8.0/en/json.html",
+      "https://mariadb.com/docs/server/reference/data-types/string-data-types/json"
+    ],
+    "direct_MySQL8_reexecution": "NOT_RUN_NO_LOCAL_DOCKER_WSL_OR_MYSQL8_RUNTIME",
+    "diagnosis_limit": "Previous hosted wrapper retains test names but withholds detailed assertions. Local five-case probe reproduces the documented MySQL JSON ordering difference using actual Laravel/MariaDB/C99 with only retrieved object key order changed. It is not direct MySQL8 execution."
+  },
+  "local_results": {
+    "focused_cases": 34,
+    "focused_failed": 0,
+    "five_original_feature_cases_under_order_probe": {
+      "before_failed": 5,
+      "after_passed": 5
+    },
+    "laravel_mysql_cases": 391,
+    "failed": 0,
+    "skipped": 0,
+    "no_database_unit_and_http_cases": 229,
+    "live_loopback_tls_checks": 248,
+    "python_unittest_cases": 113,
+    "python_source_contract_gates": 3,
+    "json_key_permutations_in_one_unit_case": 720,
+    "receipt_C99_crosscheck": "PASS",
+    "PHP_lint_four_files": "PASS",
+    "security_worktree_and_index": "PASS_ZERO_FINDINGS_ZERO_WARNINGS",
+    "traceability": "PASS_38_OF_38_BASELINE_HASHES_UNCHANGED",
+    "database_postflight": "PASS_TEN_TABLES_SIX_MIGRATIONS_ZERO_APPLICATION_ROWS",
+    "migration_roundtrip": "NOT_RERUN_UNCHANGED_SIX_MIGRATIONS_PREVIOUS_HOSTED_PASS_REUSED"
+  },
+  "security_review": "Only key order is ignored. Strict field count/set, types, exact decimal values and null-vs-zero comparison remain. No loose equality, coercion of persisted fields, overwritten facts, skipped tests, changed requirements or production operations. No dotenv copied into candidate; approved testing file parsed only in private process and credentials passed only via inherited child environment; fresh compatible application key generated in process.",
+  "external_gates": {
+    "hosted_CI_on_repair": "NOT_RUN_REQUIRES_NEW_PUBLICATION_AND_DISPATCH_APPROVAL",
+    "direct_local_MySQL8": "NOT_RUN_UNAVAILABLE",
+    "ESP32_physical": "NOT_RUN",
+    "deployed_TLS": "NOT_RUN",
+    "ship_trial": "NOT_RUN"
+  },
+  "local_gate_status": "PASS_READY_FOR_PRECOMMIT_SCOPE_SECURITY_AND_HISTORY_VERIFICATION",
+  "private_evidence_directory": "private/portfolio-backend-ci-repair-gates-20261027",
+  "evidence_sha256": {
+    "preflight.txt": "3c064cdf83a27e3ddaad458e164c1a78b7c1befca49496f725346ad97ce87265",
+    "sim010-evidence-verification.json": "24c7f631239d6a8e832586fbd0404d756d85a885ab92161507ff9a15297c6482",
+    "focused-red-final.json": "6b4f9ff6df017c2b4f7ca6175f29c4b92bbbde8c70c8b5be430cfe57183c5129",
+    "focused-after.json": "1171a74a67868b63e7de0c6d4acf68ed8f08cf274af5446a6aba5f61c950c81f",
+    "five-before.json": "7713f9854615b924eb88eacf3c7f01efa7d4e38c7d9be0d6ffb247124433313e",
+    "five-after.json": "f8f3a62e81643f6d3e587d9c90c8ed55871aa6bb0f82f1bfe0f6654aca029fbc",
+    "regression-final.txt": "5a253ac9c708e872e21b790e820a84b2029f69899ace85b62d4bfc16f67c2f0a",
+    "no-db-regression.json": "d6a79ec52350a14e4db7425b348fd5e7e904291347c498a357890b6e3723e45d",
+    "live-http-after.txt": "2bd8eea2859069698d49c3e7718dcf1ad028e0941f5ee6bac052d37d103d7a86",
+    "regression-security-gates.json": "01363d417bb999a1e93dba9a17b721c2b4bd4670b779766fe6a334189a9b430a",
+    "test_mysql_integration_gate.txt": "81d4d8979dcfb2aae172e0d5396a4ce426c6fadd6dacd017da6e771f7a60fa5e",
+    "test_live_http_integration_gate.txt": "b1bfdfc59c25f59fb98ae970573d8dbb2033e973cbe25d56108681b4ea9297df",
+    "test_audit_precommit_security.txt": "57a5920af062876ccfa878a5ab1a404d59915a01b26e30a5fecbaca016f6e50c",
+    "test_alarm_transition.txt": "b34b76cb2620bd0466f15543f99e0e924574d95572e05f92877669e288112fc8",
+    "test_alarm_offline_metadata.txt": "591f8aa8b95395470d8a42afc21953dee760727c60684cf86c2f6f1e9b2c07c4",
+    "test_event_delivery.txt": "1999a20a76a8a8bab375d3adb25ab0cf65bc3ca130bd9982b5d71782bf31d4cb",
+    "test_event_delivery_retry.txt": "6919a91f076b8857e03f6d4ef17b5e254bb59380741d4fd6a9599eda93268cb5",
+    "test_phase9_b15_contract.txt": "4ba8ec7727ea11844b9a33b4ca26b13e5031d9ed9071c610a7506e9d1ecdbef3",
+    "test_phase9_b16_contract.txt": "ba9315397ab33966fc551522130910e5c4f3549ee317172fe1febad590de4438",
+    "test_phase9_b17_contract.txt": "12682f1bce1d5e7e778353032d908eaddc6600d498d458b34db55c42104d3784",
+    "check_living_traceability.txt": "728e03d5d1dfe4f1207ea1b5863a06b79768c9f4cfa6396c1df6a7753d7d50f5",
+    "audit_precommit_security.txt": "015d648503e5be945495bd1abca9467fe321d6c07e6612429a0dd800b99fb5d2"
+  },
+  "source_sha256": {
+    "backend/laravel/app/Services/EventIngestService.php": "23dcc4bc38707e763458c2629720645c205ec296092d4929b3ecbf3d4cd640f1",
+    "backend/laravel/tests/Feature/AlarmMetadataIntegrationTest.php": "385a2763cb8fd6a511c405760f94cb6199218bc16241af430fbcc1cfb5597d9f",
+    "backend/laravel/tests/Unit/MonitoringEvidenceTest.php": "36eda958f096c305910802f587143e481f42b56c23a1e352754dc420d2e4d1b0",
+    "backend/laravel/tests/Unit/EventIngestSemanticEqualityTest.php": "120ed8ecc63add96ac6f7b83dda7c5c8288a1b9f2e3b51b4080856141a910daf"
+  },
+  "no_push_no_actions_dispatch": true,
+  "system_status": "PARTIAL",
+  "final_formal_approval": "NOT_APPROVED",
+  "previous_hosted_jobs": {
+    "phase9_run_40491474585": {
+      "passed": 3,
+      "failed": 2
+    },
+    "separate_archive_run_40492565049": {
+      "passed": 1,
+      "failed": 0
+    },
+    "new_actions_execution": "NONE"
+  }
+}

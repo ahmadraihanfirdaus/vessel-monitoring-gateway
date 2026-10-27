@@ -118,6 +118,28 @@ class AlarmMetadataIntegrationTest extends MySqlTestCase
         $this->assertDatabaseCount('monitoring_events', 1);
     }
 
+    public function test_reordered_persisted_json_replays_without_fact_mutation(): void
+    {
+        [, $token] = $this->deviceAndToken();
+        $wire = $this->frames()[0];
+        $this->send($wire, $token)->assertCreated();
+        $event = MonitoringEvent::query()->firstOrFail();
+        $facts = $event->alarm_metadata;
+        // Persist a different object order on either engine. JSON object order
+        // is not an event fact; MySQL binary JSON may reorder it on readback.
+        $event->forceFill(['alarm_metadata' => array_reverse($facts, true)])->save();
+        $before = $event->fresh()->getRawOriginal();
+        $this->send($wire, $token)->assertOk()->assertJsonPath('result', 'identical_event_duplicate');
+        $this->assertSame($before, $event->fresh()->getRawOriginal());
+        $this->assertDatabaseCount('monitoring_events', 1);
+        $this->assertNull($event->fresh()->alarm_metadata['acknowledged_at_ms']);
+        $this->assertNull($event->fresh()->alarm_metadata['cleared_at_ms']);
+        $payload = json_decode($wire, true, 512, JSON_THROW_ON_ERROR);
+        $payload['alarm']['reason_code']++;
+        $this->send(json_encode($payload, JSON_THROW_ON_ERROR), $token)->assertStatus(409);
+        $this->assertSame($before, $event->fresh()->getRawOriginal());
+    }
+
     public function test_inconsistent_lifecycle_and_codes_reject_before_any_database_write(): void
     {
         [$device, $token] = $this->deviceAndToken();

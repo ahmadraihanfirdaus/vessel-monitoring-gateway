@@ -1,5 +1,43 @@
 # CHATGPT_CONTEXT - konteks proyek untuk percakapan baru
 
+## Hosted backend repair checkpoint (2026-10-27)
+
+This checkpoint supersedes the older 139/140-commit publication notes below.
+GitHub main was verified read-only at `4e094c1dcb46d8e60a29d451359157cf5b6252be`
+(141 sanitized commits). Run 40491474585 has three successful jobs and two failed
+backend jobs; the independent archive workflow 40492565049 supplies the fourth
+successful job across both workflows. The isolated repair checkout is
+`private/portfolio-backend-ci-repair-20261027`, branch `portfolio`, no remotes.
+Resolve this repair's exact owner with `git log -1 -- evidence/test-results/hosted-backend-repair-20261027.json`;
+the additive private receipt records its final HEAD after the gated local commit.
+Original develop remains `82ae9f87ee1162bd4b33e101286d0be48418184e` with its
+pre-existing tracked stat differences and protected untracked files preserved.
+
+The six named failures and individual diagnoses are recorded in
+`evidence/test-results/hosted-backend-repair-20261027.json`. One stale unit assertion
+expected SIM-010 NOT_RUN despite verified source-bound simulator-host PASS evidence.
+The other five replay cases reproduce HTTP409 instead of HTTP200 when persisted
+JSON keys are reordered. MySQL binary JSON may reorder keys; MariaDB LONGTEXT
+retains order. The fix sorts copies of the stored/expected metadata before strict
+comparison. Field set, types, exact uint64 decimals, null versus zero, legacy null
+metadata, conflict rejection and immutable facts remain enforced.
+
+Local PHP8.2.35/MariaDB10.4.32 regression:391 cases/0 failures/0 skips;
+focused34, no-DB229, five-case reordered-readback probe5, actual private-loopback
+TLS/HTTP248 checks and113 Python unittest cases PASS. New coverage checks all720
+JSON field orders, malformed/missing/extra/type-changed stored metadata and persisted
+reorder/conflict immutability. Traceability38/38 and security scanner PASS.
+Private raw diagnostic artifacts remain outside the publication tree; the public
+summary pins their SHA256 values and the changed source hashes.
+
+Direct local MySQL8 execution is NOT_RUN (no available MySQL8/Docker/WSL runtime).
+The five-case probe is controlled storage-order reproduction, not a MySQL8 run.
+Hosted CI for the repair is NOT_RUN and requires new publication/dispatch approval.
+No push or Actions dispatch is authorized in this task. Preserve all141 published
+commits and wait after the local repair checkpoint. Current38 requirements,
+15 scoped SIM PASS,18 SUP PASS/1 PLANNED, system PARTIAL and formal NOT_APPROVED
+remain unchanged. No physical ESP32, deployed TLS or ship-trial verification.
+
 ## SANITIZED CANDIDATE CI REFERENCE FIX (2026-10-27)
 
 This additive checkpoint supersedes the earlier 139-commit publication candidate
