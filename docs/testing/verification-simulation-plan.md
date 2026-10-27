@@ -4,9 +4,9 @@
 
 **Document Status:** Planned Verification Specification
 
-**Implementation Status:** NOT_IMPLEMENTED
+**Implementation Status:** PARTIAL; see living implementation register
 
-**Test Execution Status:** NOT_RUN
+**Test Execution Status:** All15SIM have scoped execution records; hardware/final approval unverified
 
 **Verification Approval:** NOT_APPROVED
 
@@ -16,7 +16,7 @@ This document defines the planned simulation scenarios for the Vessel Monitoring
 
 The scenarios are intended to verify system behavior against applicable requirements, including safety-policy evaluation, alarm handling, simulated propulsion monitoring, navigation data processing, communication resilience, telemetry integrity, and API security.
 
-All scenarios in this document are specifications for future test execution. They do not represent completed testing or successful verification.
+The fixed scenario definitions below are retained from the baseline. This plan alone is not execution evidence; current scoped outcomes are recorded separately in formal-scenario-status.csv and linked case reviews.
 
 The primary execution environment is software simulation. Controlled laboratory tests may be performed separately when suitable prototype hardware becomes available.
 
@@ -151,8 +151,8 @@ Actual evidence must be linked to the corresponding requirement and test case wh
 | Defined simulation scenarios | 15 |
 | Supplemental planned tests | 19 |
 | Total planned test cases | 34 |
-| System implementation | NOT_IMPLEMENTED |
-| Simulation test execution | NOT_RUN |
+| System implementation | PARTIAL;22IMPLEMENTED_UNVERIFIED/16PARTIAL in living register |
+| Simulation test execution | All15SIM scoped PASS; see canonical register/current case reviews |
 | Bench verification | NOT_RUN |
 | Semantic verification coverage | PARTIAL |
 | Final verification approval | NOT_APPROVED |

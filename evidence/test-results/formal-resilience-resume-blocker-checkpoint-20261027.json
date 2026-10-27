@@ -1,0 +1,21 @@
+{
+  "head": "4892054dc4aed578702e102f17f31dc459668a63",
+  "branch": "develop",
+  "index": "EMPTY",
+  "current_source_sha256": {
+    "http": "81fa45d15a8f800e85cbf82048df8086640f26dc88a63275746424282ceab49f",
+    "mysql": "516446eb3db89042116ca6ab4a216a06f018e4511af6ebb8a72dbd2b49e08037",
+    "firmware_sdk": "f693b0cb1a77d73b8c8cc97eb65da23703a6da9c1bd7e767dfcc1f6a259631e6"
+  },
+  "interrupted_run2": "NOT_COMPLETE_NO_TERMINAL_NOT_PASS",
+  "interruption_evidence": "original handle64474 missing; readonly run2 log ends REAL_LOOPBACK_TLS_AND_PHP_READY; no native actor process at resume07:49; normal/browser run2 never created",
+  "current_test_database": "BLOCKED_UNREACHABLE_APPROVED_LOOPBACK_3307",
+  "outside_sandbox_readonly_retry": "BLOCKED_PREFLIGHT_NO_FIXTURES",
+  "safe_error_category": "PDOException",
+  "main_database_access": false,
+  "database_or_service_provisioning": false,
+  "removed_repository_files": 0,
+  "formal_promotion": "NONE",
+  "staging_or_commit": "FORBIDDEN_WHILE_MANDATORY_GATE_BLOCKED",
+  "pending_independent_process": "248command_host_regression session25387"
+}

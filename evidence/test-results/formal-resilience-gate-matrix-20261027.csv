@@ -1,0 +1,17 @@
+gate,scope,status,actual,evidence
+NATIVE_POSITIVE_NEGATIVE_BOUNDARY,MANDATORY,PASS,12actual methods;strict C99/field quality/immutable lifecycle/overflow input;not60s proof,formal-resilience-final-focused-run2-20261027.txt
+HTTP_LIFECYCLE_GUARDS,MANDATORY,PASS,26actual methods incl readonly NO_DB_WRITE success/failure/default guards,formal-resilience-final-focused-run2-20261027.txt
+EXISTING_NEW_INTEGRATED_REGRESSION,MANDATORY,PASS,248commands0failed AFTER latest canonical3SIM/living38/status docs;core226repeat2/native12/HTTP26/Node13/PHP8.2.35,formal-resilience-integrated-regression-final-20261027.txt
+MYSQL_EFFECTIVE_CURRENT_TARGET,MANDATORY,PASS,fresh PHP8.2.35/MariaDB10.4.32 approved target/key/overrides;388/0fail/0skip;10tables6migrations0appRows;source516446eb,formal-resilience-mysql-restored-run1-20261027.txt
+MYSQL_PRIOR_SOURCE_BOUND_PHP388,RECORDED_EARLIER_THIS_BATCH,PASS,388/0fail/0skip;10tables6migrations0appRows;source516446eb unchanged;not current availability proof,formal-resilience-mysql-final-20261027.txt
+CURRENT_SOURCE_REAL60S_READONLY_TLS,MANDATORY,PASS,source81fa45d1;actual60047ms;561cycles/538exhausted/maxgap110ms;3real503 then1explicit reset/up200;NO_DB_WRITE,formal-resilience-readonly-restored-run1-20261027.txt
+CURRENT_SOURCE_REAL_NORMAL_TLS_DB_UI,MANDATORY,PASS,source81fa45d1;248checks;4native frames/4events/API/UI/directDB exact metadata and cleanup0rows,formal-resilience-normal-restored-run1-20261027.txt
+CURRENT_SOURCE_CHROME_COMPONENT,MANDATORY,PASS,unchanged source81fa45d1 and security flags;approved outside-sandbox Chrome155 LIVE_STALE_OFFLINE/fallback/noPolling/securecookie/profileCleanup;earlier sandbox crash retained,formal-resilience-browser-approved-runtime-20261027.txt
+INDEPENDENT_FORMAL_ACCEPTANCE,MANDATORY,PASS,current-source independent host review PASS;3existing SIM accepted with exact NO_DB_WRITE boundaries and separate development integration;all15SIM scopedPASS;37mappedPASS1NOT_RUN,formal-resilience-current-case-review-20261027.json
+CURRENT_LIVING38_LOCKS_REFERENCES,MANDATORY,PASS,38requirements34unique cases173refs;LOCKED2 and15definitions unchanged;15SIM/18SUP PASS;37mappedPASS1NOT_RUN;12current docs/oracle and full248regression PASS,formal-resilience-current-reference-audit-20261027.json
+FRESH_WORKING_SCANNER,MANDATORY,PASS,fresh current working0findings0privacy;5exact nonsecret pins;detector unchanged;manual scope follows,formal-resilience-security-final-working-20261027.txt
+EXACT_INDEX_AND_STAGED_SCANNER,MANDATORY_AFTER_STAGING,PASS,initial70exact paths/blobs/worktree/manifest/branch/parent/diffcheck PASS;actual stagedscanner0findings0privacy;last metadata-stage recheck and readonly final scan REQUIRED before local commit,formal-resilience-security-staged-20261027.txt
+SDK_SOURCE_COMMITTED_PROOF_BINDING,UNCHANGED_SOURCE_NOT_REBUILT,PASS,actual firmware SDK sourcef693b0cb unchanged from both committed candidate/retained real builds;no current rebuild claim,event-delivery-retry-source-proof-20261027.json
+SCHEMA_MIGRATION_ROUNDTRIP,UNCHANGED_SCHEMA_NOT_RERUN,NOT_RUN,all6migrations unchanged;prior committed actual SUP014;no manualDDL,
+HARDWARE_RTOS_WIFI_TLS_PSA_NVS_POWERLOSS,EXTERNAL,NOT_RUN,host/C99/SDKcompile not actual physical runtime/durability,
+HOSTED_CI_SUP018_DEPLOYED_TLS_MYSQL8_POSIX,EXTERNAL,NOT_RUN,CI source registration is not hosted execution;MariaDB not directMySQL8,

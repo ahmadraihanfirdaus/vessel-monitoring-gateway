@@ -1,0 +1,12 @@
+test_actor_command_admission_rejects_malformed_regressing_out_of_bound_inputs (__main__.ResilienceTest.test_actor_command_admission_rejects_malformed_regressing_out_of_bound_inputs) ... ok
+test_actual_native_pending_timeout_and_backoff_boundary (__main__.ResilienceTest.test_actual_native_pending_timeout_and_backoff_boundary) ... ok
+test_actual_native_retry_budget_stops_until_explicit_reset (__main__.ResilienceTest.test_actual_native_retry_budget_stops_until_explicit_reset) ... ok
+test_immutable_prefix_identity_and_no_secret_build_admission (__main__.ResilienceTest.test_immutable_prefix_identity_and_no_secret_build_admission) ... ok
+test_independent_oracle_rejects_bad_types_quality_early_clear_and_empty_events (__main__.ResilienceTest.test_independent_oracle_rejects_bad_types_quality_early_clear_and_empty_events) ... ok
+test_native_actual_provider_policy_metadata_and_valid_gated_recovery (__main__.ResilienceTest.test_native_actual_provider_policy_metadata_and_valid_gated_recovery) ... ok
+test_private_outage_binding_minimum_sixty_seconds_and_no_external_control (__main__.ResilienceTest.test_private_outage_binding_minimum_sixty_seconds_and_no_external_control) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.954s
+
+OK

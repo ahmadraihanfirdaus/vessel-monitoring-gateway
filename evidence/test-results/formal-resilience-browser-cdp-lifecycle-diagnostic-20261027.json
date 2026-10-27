@@ -1,0 +1,48 @@
+{
+  "node": "v22.20.0",
+  "commands": [
+    {
+      "method": "Browser.getBrowserCommandLine",
+      "bytes": 61,
+      "status": "PASS"
+    },
+    {
+      "method": "Browser.getVersion",
+      "bytes": 50,
+      "status": "PASS"
+    },
+    {
+      "method": "Target.createTarget",
+      "bytes": 70,
+      "status": "PASS"
+    },
+    {
+      "method": "Target.attachToTarget",
+      "bytes": 113,
+      "status": "PASS"
+    },
+    {
+      "method": "Page.enable",
+      "bytes": 90,
+      "status": "CDP_CLOSED"
+    }
+  ],
+  "closed_code": 1006,
+  "browser": "Chrome/155.0.8059.85",
+  "owned_profile_closed": true,
+  "failure": "CDP_CLOSED",
+  "child_exit": 2147483651,
+  "stderr_flags": {
+    "invalid frame": false,
+    "mask": false,
+    "reserved": false,
+    "protocol": false,
+    "access denied": false,
+    "permission": false,
+    "out of memory": false,
+    "crash": false,
+    "devtools listening": true
+  },
+  "diagnostic_exit": 1,
+  "raw_stderr_not_copied": true
+}

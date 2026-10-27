@@ -1,0 +1,30 @@
+MANUAL_SCOPE_SECURITY_REVIEW=PASS_SCOPED_CODE_ONLY
+Actual develop4892054; indexEMPTY; tracked7exact paths plus owned new resilience files.
+No unrelated user byte changes; old2metadata stat-cache entries byte-equal HEAD.
+Private API503 control only on server object: exact method/path/owned UA/bodySHA,
+bounded16observations, >=60s restore admission, no public control header/route.
+Native actor contains no network/DB/physical IO: existing C99 provider/policy/
+scheduler/alarm/journal; bounded exact numeric parsing, no sscanf overflow.
+HostAPI worker bounded1/thread/1s request; shared net001 budget3 with explicit
+reset, no automatic exhausted reset, fake receipt/ACK/journal deletion.
+Normal integration read-only DB audit admits only fixed lease boot and bounded
+rows after effective target/ownership guard. Ingest uses existing authenticated
+API; original44channels/fullmetadata semantic comparison, explicit test identity
+mapping only. UI assertions bind exact temperature quality/value and original
+alarm rows; no null->zero/source-mode/control change.
+Independent review enforces source/terminal/config/key/catalog markers, minimum
+60s, nonvacuous counts, exact ordered states and complete original alarm metadata;
+stale proof refused. Host NO_DB_WRITE and real DB integration are distinct modes.
+CI source registration reviewed; no hosted CI or remote operation executed.
+Security5stale exact nonsecret review pins appended with parent byte equality;
+scanner/detector unchanged and fresh0findings0privacy PASS. No copied secrets,
+APP_KEY/env values/cookies/session/MAC/real vessel data; generated test process
+inputs remain ephemeral. New evidence formatting preserves raw/stored SHA and
+every assertion/failure; historical committed evidence untouched.
+Production firmware and6migrations unchanged; current SDK sourcef693 matches
+both committed actual build proofs, not a rebuild or hardware runtime claim.
+Protected3untracked and LOCKED2 unchanged; no repository deletion/mainDB/main
+dotenv/globalPATH/XAMPP/physical control/push/history rewrite. WelcomeDEFERRED.
+FULL_BATCH_ACCEPTANCE=BLOCKED_CURRENT_TEST_DB_AND_REQUIRED_TLS_BROWSER_GATES
+FORMAL_PROMOTION=NONE
+STAGING_OR_COMMIT=FORBIDDEN_WHILE_MANDATORY_BLOCKED

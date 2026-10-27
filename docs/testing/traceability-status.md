@@ -4,7 +4,7 @@
 
 **Engineering Baseline:** Internal Engineering Blueprint v1.0
 
-**Review Date:** 2026-10-27 (actual developbf29a8b and failed-delivery ordering worktree; locked matrix unchanged)
+**Review Date:** 2026-10-27 (actual develop4892054 and source-bound resilience worktree; LOCKED unchanged)
 
 **Matrix Version:** Working v2 — Public Editorial Edition
 
@@ -14,7 +14,7 @@
 
 **Implementation Status:** PHASE3_TO_PHASE8_SCOPED_GATES_COMPLETE / OVERALL_SYSTEM_PARTIAL (locked matrix remains the initial snapshot)
 
-**Verification Status:** PARTIAL — formal SIM-001..SIM-009, SIM-011 and SIM-014/SIM-015 PASS; SIM-010/SIM-012/SIM-013 NOT_RUN; 18 SUP PASS and SUP-018 PLANNED
+**Verification Status:** PARTIAL ? SIM001..015 scoped PASS;18SUP PASS/SUP018 PLANNED; derived37PASS/1NOT_RUN; no requirement VERIFIED
 
 **Final Verification Approval:** NOT_APPROVED
 
@@ -54,14 +54,14 @@ This establishes structural traceability coverage. It does not demonstrate compl
 | Firmware core | Phase 3 scoped core-unit gate COMPLETE; overall system still PARTIAL |
 | Simulator / provider interfaces | Phase 4 scoped development/simulator provider gate COMPLETE; physical bench execution NOT_RUN |
 | Safety policy | Phase 5 scoped software-simulation gate COMPLETE; SIM-001..SIM-006 PASS |
-| Engine model | Phase 6 scoped gate COMPLETE; SIM-007 PASS; ENG-003 also maps to SIM-012 which remains NOT_RUN |
+| Engine model | Phase 6 scoped gate COMPLETE; SIM-007 PASS; ENG-003 also maps to dedicated actual host SIM-012 PASS |
 | Navigation | Phase 7 scoped gate COMPLETE; SIM-008/SIM-009 PASS; SUP-007 now has dedicated host PASS; physical GNSS remains NOT_RUN |
 | Telemetry contract | Phase 8 scoped contract gate COMPLETE; dedicated SUP-011/SUP-012 and SIM-014 PASS locally; no hardware implication |
 | Laravel backend | PARTIAL; ingestion, migrations, authenticated read APIs and historical scoped evidence present |
-| Monitoring dashboard | IMPLEMENTED_UNVERIFIED; grant-scoped connected views, configured freshness, event/health/evidence rendering; SUP-015 dedicated read-only functional review PASS; SIM-010 NOT_RUN |
+| Monitoring dashboard | IMPLEMENTED_UNVERIFIED; grant-scoped connected views, configured freshness, event/health/evidence rendering; SUP-015 read-only functional review and dedicated host SIM-010 PASS; Chrome component separately supported |
 | Network / offline transport | PARTIAL; actual ESP-IDF Wi-Fi/HTTPS adapter compiled locally, host oracles retained; NVS worker/transaction code connected; physical TLS/NVS durability unverified |
 | CI | PARTIAL; PR workflow source present; hosted run unverified here |
-| C99 / Laravel / database integration | PHP 8.2.35 / approved MariaDB migration roundtrip and current382 tests PASS; direct MySQL 8 / hosted CI NOT_RUN |
+| C99 / Laravel / database integration | PHP 8.2.35 / approved MariaDB migration roundtrip and current388 tests PASS; direct MySQL 8 / hosted CI NOT_RUN |
 | Hardware bench verification | NOT_RUN |
 
 Roadmap gate completion is scoped evidence, not a declaration that every mapped mandatory requirement is fully verified.
@@ -73,7 +73,7 @@ Roadmap gate completion is scoped evidence, not a declaration that every mapped 
 | Formal simulation SIM-001..SIM-006 | PASS — Phase 5 E4 dedicated host/Wokwi evidence |
 | Formal simulation SIM-007 | PASS — Phase 6 F2 dedicated host/Wokwi evidence |
 | Formal simulation SIM-008..SIM-009 | PASS — Phase 7 G2 dedicated host/Wokwi evidence |
-| Later SIM cases | SIM-011 dedicated host PASS, SIM-014/SIM-015 backend PASS; SIM-010/SIM-012/SIM-013 NOT_RUN |
+| Later SIM cases | SIM010/011/012/013 dedicated host PASS; SIM014/SIM015 backend PASS; explicit execution boundaries apply |
 | Supplemental tests SUP-001..SUP-019 | 18 PASS / SUP-018 PLANNED; see canonical supplemental registry for exact IDs |
 | Phase 8 telemetry contract fixtures/self-tests | Historical scoped development PASS, followed by dedicated SUP-011/SUP-012 and SIM-014 PASS; see latest data/UI evidence |
 | Final requirement verification approval | NOT_APPROVED |
@@ -235,3 +235,16 @@ PASS within their stated local scope. Four related living rows/full38matrices
 now point to the dated source/tests/evidence, with planned mappings and formal
 32PASS/2PARTIAL/4NOT_RUN unchanged. Physical/remaining formal/hostedCI/deployedTLS
 still NOT_RUN; no requirement VERIFIED or final approval is inferred.
+
+## Current resilience review2026-10-27
+
+[Dedicated source-bound case acceptance](../../evidence/test-results/formal-resilience-case-review-20261027.md)
+records actual60047ms host outage, bounded3requests, continuing561native cycles,
+concurrent one-sensor/engine fault and explicit-reset/VALID-only recovery. Host
+case NO_DB_WRITE, development integration owned DB fixtures, and approved real
+Chrome component are separate observations. All15SIM scoped PASS,18SUP PASS/
+1PLANNED; derived37PASS/1NOT_RUN,22UNVERIFIED/16PARTIAL unchanged. Hardware/RTOS/
+PSA/NVS/powerloss/hostedCI/deployedTLS/directMySQL8/POSIX/graphical operator
+acceptance NOT_RUN; no requirement VERIFIED. Older dated counts above remain
+historical evidence. Current PHP388/TLS248checks/regression248/Chrome PASS; final
+staged/exact-scope/security gates still govern local commit, NO PUSH.

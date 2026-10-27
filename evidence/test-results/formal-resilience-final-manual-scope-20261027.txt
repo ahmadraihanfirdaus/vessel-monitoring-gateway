@@ -1,0 +1,35 @@
+FINAL_PRESTAGE_MANUAL_SCOPE_SECURITY=PASS
+Actual develop4892054; all current functional/native/PHP388/TLS248checks/approved
+Chrome/current248command regression/living38_34_173/working security0_0 PASS.
+HTTP81fa45d1/MySQL516446eb/SDKf693 source bindings rechecked current, exact full
+digests in source-proof JSON. LOCKED2/protected3 and15scenario definitions unchanged.
+Production firmware/6migrations unchanged;no new SDK build or roundtrip claim.
+Reviewed14tracked changes: CI registration,5living status docs,2canonical/living
+CSV registries,both handoffs,private CLI audit/proxy/supervisor/lifecycle tests
+and append-only exact nonsecret review pins. New actual C99/bridge/oracle modules
+are host test infrastructure with no public control/config route or production
+physical IO. Private outage bounded by exact owned method/path/UA/bodySHA and
+>=60s restore;counter bounded16;single network worker1s timeout.
+Formal NO_DB_WRITE mode never prepares/cleans fixtures;normal integration explicit
+owned disposable approved DB fixtures and exact cleanup,identity mapping only.
+Native parser exact bounded digits/no overflow;typed finite outputs,immutable
+event prefix and full original alarm metadata;actual3retry budget stops until
+explicit reset;network alone/STALE cannot clear condition,no ACK/retirement.
+Formal3SIM acceptance limited to prescribed shared-C99 actual host/TLS protocol;
+separate browser2s_4s and DB fast frames cannot replace60s/SDK runtime. Mapped37
+PASS not requirementVERIFIED,implementation22_16 and finalNOT_APPROVED retained.
+Inside-sandbox Page.enable crash reproduced before app/UI;approved SAME browser
+source/security flags outside sandbox PASS,not a hidden test skip or insecure
+flag workaround. No personal profile/kill-by-name/raw stderr/secret/key/cookie/
+session/MAC/private vessel data copied. GUI approval respected.
+Every initial failure/blocked/interrupted record retained;old44file WIP manifest
+is historical blocked checkpoint,final exact manifest supersedes current staging
+authority. New owned log format-only audit preserves raw/stored SHA/assertions.
+No unrelated user byte changes;old2metadata stat-cache byte-equal HEAD excluded.
+No repo deletion/mainDB/main dotenv/globalPATH/XAMPP/remote/push/history action;
+welcomeDEFERRED. Hardware/RTOS/PSA/NVS/powerloss/hostedCI/deployedTLS remain NOT_RUN.
+POSTSTAGE_EXACT_BLOBS_DIFF_SECURITY_FINAL_READONLY=REQUIRED_BEFORE_COMMIT
+
+ACTUAL_POSTSTAGE_EXACT70_PATHS_BLOBS_MANIFEST_BRANCH_PARENT_DIFFCHECK=PASS
+ACTUAL_STAGED_SECURITY=PASS_0_FINDINGS_0_PRIVACY
+LAST_METADATA_RESTAGE_EQUALITY_AND_FINAL_READONLY_SCAN=REQUIRED_BEFORE_COMMIT

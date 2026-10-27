@@ -1,0 +1,51 @@
+{
+  "parent_head": "4892054dc4aed578702e102f17f31dc459668a63",
+  "source_sha256": {
+    "http": "81fa45d15a8f800e85cbf82048df8086640f26dc88a63275746424282ceab49f",
+    "mysql": "516446eb3db89042116ca6ab4a216a06f018e4511af6ebb8a72dbd2b49e08037",
+    "firmware_sdk": "f693b0cb1a77d73b8c8cc97eb65da23703a6da9c1bd7e767dfcc1f6a259631e6"
+  },
+  "actual_current_gates": {
+    "php_cases": 388,
+    "php_failed": 0,
+    "php_skipped": 0,
+    "normal_tls_checks": 248,
+    "normal_tls_failed": 0,
+    "host_regression_commands": 248,
+    "host_regression_failed": 0,
+    "native_adversarial_methods": 12,
+    "http_lifecycle_methods": 26,
+    "core_cases": 226,
+    "core_repetitions": 2,
+    "readonly_outage_elapsed_ms": 60047,
+    "readonly_sampling_cycles": 561,
+    "readonly_exhausted_cycles": 538,
+    "readonly_maximum_sampling_gap_ms": 110,
+    "readonly_actual_responses": [
+      503,
+      503,
+      503,
+      200
+    ],
+    "explicit_reset_count": 1,
+    "database_writes_in_formal_host": false,
+    "browser": "PASS_APPROVED_OUTSIDE_SANDBOX_UNCHANGED_SOURCE_FLAGS",
+    "working_security": "PASS_0_FINDINGS_0_PRIVACY"
+  },
+  "formal_sim": "15_PASS_SCOPED_HOST_BOUNDARIES",
+  "formal_requirement_mapping": {
+    "PASS": 37,
+    "NOT_RUN": 1
+  },
+  "implementation_assessment": {
+    "IMPLEMENTED_UNVERIFIED": 22,
+    "PARTIAL": 16
+  },
+  "sdk_gate": "UNCHANGED_SOURCE_BOUND_TO_BOTH_COMMITTED_REAL_BUILDS_NOT_REBUILT",
+  "sdk_proof": "evidence/test-results/event-delivery-retry-source-proof-20261027.json",
+  "schema": "UNCHANGED_6_MIGRATIONS_NO_ROUNDTRIP_RERUN",
+  "hardware_hosted_ci_deployed_tls": "NOT_RUN",
+  "no_push": true,
+  "repo_deletions": 0,
+  "final_requirement_approval": "NOT_APPROVED"
+}

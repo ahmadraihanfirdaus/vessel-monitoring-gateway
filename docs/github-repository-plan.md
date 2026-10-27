@@ -8,7 +8,7 @@
 
 **Implementation Status:** PHASE9_SCOPED_IMPLEMENTATION_AUDIT_PASS / PHASE9_SCOPED_DOCUMENTARY_CLOSURE_RECORDED / FORMAL_VERIFICATION_OPEN / OVERALL_SYSTEM_PARTIAL
 
-**System Verification Status:** PARTIAL — formal software-simulation SIM-001..SIM-009 PASS; SIM-010..SIM-015 NOT_RUN; 11 SUP PASS (six dedicated host cases added); 8 SUP PLANNED
+**System Verification Status:** PARTIAL ? all15SIM scoped PASS;18SUP PASS, SUP018 PLANNED; no requirement VERIFIED
 
 Current local dashboard integration (2026-10-25): per-grant user sessions, configurable freshness, eight connected views and C99/MariaDB rendering pass 325 Laravel tests with explicit PHP 8.2.35. See [execution matrix](../evidence/test-results/dashboard-summary-20261025.md). Local software implementation is recorded; deployment policy, hosted CI, physical integration and formal verification remain open.
 
@@ -130,7 +130,7 @@ The working traceability state is:
 | Supplemental planned tests | 19 |
 | Total planned test cases | 34 |
 | Requirements with planned verification mappings | 38/38 |
-| Formal SIM execution | SIM-001..SIM-009, SIM-011 and SIM-014/SIM-015 PASS; SIM-010/SIM-012/SIM-013 NOT_RUN |
+| Formal SIM execution | SIM-001..SIM-015 scoped PASS; see current dedicated resilience case review |
 | Supplemental execution | 18 SUP PASS; SUP-018 PLANNED |
 | Requirement-level final approval | NOT_APPROVED |
 | Total system status | PARTIAL |
@@ -255,7 +255,7 @@ The repository is under preparation for continued engineering development and pu
 
 **Implementation Status:** PHASE9_SCOPED_IMPLEMENTATION_AUDIT_PASS / PHASE9_SCOPED_DOCUMENTARY_CLOSURE_RECORDED / FORMAL_VERIFICATION_OPEN / OVERALL_SYSTEM_PARTIAL
 
-**Functional Verification Status:** PARTIAL — SIM-001..SIM-009, SIM-011 and SIM-014/SIM-015 PASS within recorded scopes; SIM-010/SIM-012/SIM-013 NOT_RUN; 18 SUP PASS and SUP-018 PLANNED
+**Functional Verification Status:** PARTIAL ? all15SIM scoped PASS and18SUP PASS; hostedSUP018 PLANNED; physical execution unverified
 
 **Final Requirement Verification Approval:** NOT_APPROVED
 
@@ -293,3 +293,13 @@ is fixed with exact context/source/epoch rewind; PHP388/TLS225/Chrome/regression
 and both current SDK builds have [scoped evidence](../evidence/test-results/event-delivery-retry-summary-20261027.md).
 No new phase, formal scenario promotion, implicit retry policy or physical control.
 SIM010/012/013 and hostedSUP018 remain open; overall systemPARTIAL/finalNOT_APPROVED.
+
+Resilience checkpoint20261027 supersedes older status counts above: all15SIM
+now have scoped software execution records after dedicated actual60047ms host
+TLS outage/multifault/VALID-gated recovery. See
+[case review](../evidence/test-results/formal-resilience-case-review-20261027.md).
+Phase11 simulation-case portfolio is recorded; physical ESP32/RTOS execution,
+Phase12 hostedCI, Phase13 bench and Phase14 survey-readiness still have their own
+exit/authorization gates. Derived37formalPASS/1NOT_RUN and22UNVERIFIED/16PARTIAL
+do not mean VERIFIED/system approval. PHP388/TLS248checks/Chrome155/regression248
+PASS locally; exact staged/final security gate remains required before commit.

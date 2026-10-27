@@ -1,0 +1,25 @@
+Parent develop4892054dc4aed578702e102f17f31dc459668a63.
+First actual strict C99 native bridge probe: COMPILE PASS, runtime bridge FAIL
+ENGINE_STIMULUS on first baseline packet. No database/network/firmware change.
+Cause: new independent Python oracle incorrectly assumed normal engine3 RPM2500;
+actual existing engine_model.h explicit four-engine profile is2000/2020/2010/1990,
+and only engine3 changes to1500 for deviation. Corrected new oracle to2010;
+production profile, policy and LOCKED definitions unchanged. Actual rerun required.
+
+Manual review found the new owned test actor numeric protocol used sscanf on
+finite-width destinations. Although its actual supervisor emits validated finite
+integers, malformed direct stdin could exceed representable numeric ranges.
+Replaced only this new test-actor parser with per-digit pre-multiply bounds and
+exact delimiters; added plus/exponent/64digit overflow/trailing-data negatives.
+No production firmware or input contract changed. Native tests rerun required.
+
+Actual formal-resilience-browser-final run failed CDP_CLOSED at startup before
+upstream TLS/session/UI; own profile closed and exact DB cleanup PASS. Failure
+evidence retained; not counted as current PASS. Separate actual fresh owned
+Chrome startup diagnostic PASS: endpoint/WebSocket/commandline profile attestation/
+Browser.getVersion/Browser.close rc0. No permission/memory/crash diagnostic flags;
+raw Chrome stderr not copied. Root cause of the one closed CDP connection remains
+unproven; no security flags/deadlines/test expectations weakened, no browser source
+change or kill-by-name. Rerun full component gate after the test-actor parser and
+connected alarm-row assertion changes, against current source; do not commit if
+the mandatory browser gate still fails.

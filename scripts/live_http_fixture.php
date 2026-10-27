@@ -15,7 +15,7 @@ try {
     }
     $mode = $argv[1] ?? '--check';
     $mutations = ['--prepare', '--revoke', '--grant', '--disable', '--enable', '--clear-cache', '--cleanup'];
-    if (! in_array($mode, array_merge(['--check', '--inspect-owned', '--session-audit', '--formal-audit', '--retry-audit'], $mutations), true) ||
+    if (! in_array($mode, array_merge(['--check', '--inspect-owned', '--session-audit', '--formal-audit', '--retry-audit', '--resilience-audit'], $mutations), true) ||
         (in_array($mode, $mutations, true) && ($argv[2] ?? '') !== '--execute')) {
         throw new RuntimeException('LIVE_HTTP_BLOCKED: explicit supported fixture action required.');
     }
@@ -89,6 +89,32 @@ try {
         echo json_encode(['database' => config('database.connections.mysql.database'),
             'username' => config('database.connections.mysql.username'),
             'event_count' => (clone $query)->count(), 'facts' => $facts], JSON_THROW_ON_ERROR)."\n";
+        exit(0);
+    }
+    if ($mode === '--resilience-audit') {
+        // Read-only fixed lease boot; no arbitrary query/SQL or sensitive fields.
+        $boot = 'resilience-'.$profile['id'];
+        $samples = DB::table('telemetry_samples')->where('device_id', $profile['device'])->where('boot_id', $boot);
+        $events = DB::table('monitoring_events')->where('device_id', $profile['device'])->where('boot_id', $boot);
+        $sampleFacts = [];
+        foreach ((clone $samples)->orderBy('sequence')->limit(5)->get(['id', 'sequence']) as $sample) {
+            $channels = DB::table('telemetry_channels')->where('telemetry_sample_id', $sample->id);
+            $temperature = (clone $channels)->where('name', 'compartment_temperature_c')->first(['quality', 'value']);
+            $sampleFacts[] = ['sequence' => (string) $sample->sequence, 'channel_count' => (clone $channels)->count(),
+                'temperature' => ['quality' => $temperature?->quality, 'value' => $temperature?->value]];
+        }
+        $eventFacts = (clone $events)->orderBy('event_id')->limit(5)->get([
+            'schema_version', 'device_id', 'boot_id', 'event_id', 'linked_alarm_id', 'source_id',
+            'source_mode', 'event_type', 'occurred_at_ms', 'alarm_metadata'])->map(static fn ($event) => [
+                'schema_version' => $event->schema_version, 'device_id' => $event->device_id, 'boot_id' => $event->boot_id,
+                'event_id' => (string) $event->event_id, 'linked_alarm_id' => (string) $event->linked_alarm_id,
+                'source_id' => (string) $event->source_id, 'source_mode' => $event->source_mode,
+                'event_type' => $event->event_type, 'occurred_at_ms' => (string) $event->occurred_at_ms,
+                'alarm' => json_decode($event->alarm_metadata, true, flags: JSON_THROW_ON_ERROR),
+            ])->all();
+        echo json_encode(['database' => config('database.connections.mysql.database'),
+            'username' => config('database.connections.mysql.username'), 'sample_count' => (clone $samples)->count(),
+            'event_count' => (clone $events)->count(), 'samples' => $sampleFacts, 'events' => $eventFacts], JSON_THROW_ON_ERROR)."\n";
         exit(0);
     }
     if ($mode === '--prepare') {

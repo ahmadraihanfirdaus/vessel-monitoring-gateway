@@ -4,7 +4,7 @@
 
 **Portfolio category:** Embedded firmware prototype and traceable engineering development (simulation only).
 
-This repository contains a **partial development-only monitoring prototype**, not a completed or production-ready vessel system. Roadmap Phases 3 through 8 have closed their scoped development/software-simulation exit gates: firmware core, simulator/bench-interface providers, safety policy, four-engine model, NMEA-style navigation, and telemetry contract. Phase 9 Laravel/MySQL source and historical scoped evidence are present. Dedicated formal software-simulation scenarios **SIM-001 through SIM-009 are recorded PASS**; SIM-011 now has dedicated single-channel host PASS and SIM-014/SIM-015 have local backend PASS; SIM-010/SIM-012/SIM-013 remain NOT_RUN. Eighteen SUP cases are recorded PASS, including bounded host-file, guarded migration and public-reference cases; SUP-018 hosted CI remains PLANNED. See the [dedicated provider evidence](evidence/test-results/formal-provider-summary-20261026.md) for the actual execution scope and navigation time-regression fix. Complete-system backend/dashboard verification, ESP32 network transport, end-to-end validation, physical bench execution, calibration, vessel integration, certification, and production readiness are not complete.
+This repository contains a **partial development-only monitoring prototype**, not a completed or production-ready vessel system. Roadmap Phases 3 through 8 have closed their scoped development/software-simulation exit gates: firmware core, simulator/bench-interface providers, safety policy, four-engine model, NMEA-style navigation, and telemetry contract. Phase 9 Laravel/MySQL source and historical scoped evidence are present. All **SIM-001 through SIM-015 have scoped PASS records**, including dedicated actual simulator-host outage/multifault/valid-data recovery cases; these are not physical ESP32/RTOS or final system approval. Eighteen SUP cases are recorded PASS, including bounded host-file, guarded migration and public-reference cases; SUP-018 hosted CI remains PLANNED. See the [dedicated provider evidence](evidence/test-results/formal-provider-summary-20261026.md) for the actual execution scope and navigation time-regression fix. Complete-system backend/dashboard verification, ESP32 network transport, end-to-end validation, physical bench execution, calibration, vessel integration, certification, and production readiness are not complete.
 
 
 The design emphasizes modular embedded software, sensor quality, fault handling, data-source separation, and requirement traceability. Public examples are intended to use synthetic or laboratory-generated data; no operational vessel deployment is claimed.
@@ -24,6 +24,17 @@ The design emphasizes modular embedded software, sensor quality, fault handling,
 **Available development evidence:** the [firmware evidence index](docs/testing/firmware-evidence-index.md) links the Phase 3 core history and the later Phase 4–8 development/formal-simulation evidence. Phase 5 records SIM-001..SIM-006 PASS, Phase 6 records SIM-007 PASS, and Phase 7 records SIM-008/SIM-009 PASS. Phase 8 records the telemetry-contract development gate; its dedicated backend deduplication case SIM-014 now has actual isolated MariaDB/TLS evidence; broader hardware verification remains open. This evidence does not establish full-system verification, hardware readiness, certification, or production readiness.
 
 ## Project Status
+
+**Current resilience checkpoint2026-10-27:** dedicated actual host SIM010/012/013
+[case review](evidence/test-results/formal-resilience-case-review-20261027.md) PASS:
+60047ms outage,3actual503 requests,561native cycles, explicit-reset and VALID-only
+recovery with4original alarm facts. Fresh PHP388, normalTLS248checks, approved
+Chrome155 component and unchanged-source248command regression PASS. All15SIM
+cases and18SUP have scoped PASS records; SUP018 hostedCI remains PLANNED. Derived
+formal37PASS/1NOT_RUN; implementation22UNVERIFIED/16PARTIAL, no VERIFIED. Host
+NO_DB_WRITE is separate from real owned DB/UI integration. Hardware/RTOS/NVS/PSA/
+powerloss/deployedTLS NOT_RUN. Earlier dated checkpoints below are historical.
+
 
 **Current roadmap position:** scoped Phases 3-8 and pre-Phase-9 R1 gates have committed evidence. Phase 9 implementation and historical scoped closure exist; formal verification remains open. The [guarded integration gate](docs/testing/mysql-integration-gate.md) has historical migration-roundtrip evidence; the [continuous integration checkpoint](evidence/test-results/continuous-simulation-summary-20261025.md) recorded 348 methods before the later [alarm metadata integration](evidence/test-results/alarm-metadata-summary-20261025.md), which passes 362 PHPUnit cases on the approved isolated MariaDB profile after the sixth Laravel migration and guarded roundtrip. [Security content review](docs/testing/security-scanner-review.md) has zero unresolved findings/privacy warnings with exact documented non-secret/metadata reviews; this is not publication authorization. MySQL 8 and hosted CI remain NOT_RUN. System PARTIAL; final approval NOT_APPROVED.
 
@@ -47,10 +58,10 @@ Current development status:
 | Planned verification cases | 15 SIM + 19 SUP = 34 |
 | Requirement-to-test mapping | 38/38 planned |
 | Firmware/provider/safety/engine/navigation/telemetry development | Scoped roadmap gates Phases 3–8 complete; total system still PARTIAL |
-| Formal SIM execution | SIM-001..SIM-009, SIM-011 and SIM-014/SIM-015 PASS; SIM-010/SIM-012/SIM-013 NOT_RUN |
+| Formal SIM execution | SIM-001..SIM-015 scoped PASS; host boundaries and current case review apply |
 | Supplemental SUP execution | 18 recorded PASS; SUP-018 PLANNED; no requirement VERIFIED |
 | Laravel/MySQL backend | PARTIAL; PHP 8.2.35 / approved MariaDB six-migration schema and current 388 tests PASS; prior guarded roundtrip recorded; direct MySQL 8 NOT_RUN |
-| Dashboard / end-to-end integration | Per-grant C99/Laravel/MariaDB views and Chrome expiry/fallback PASS locally; formal SIM010, graphical operator acceptance and deployed browser/network/TLS end-to-end NOT_RUN |
+| Dashboard / end-to-end integration | Per-grant C99/Laravel/MariaDB views, Chrome expiry/fallback and dedicated host SIM010 PASS locally; graphical operator acceptance/deployed browser TLS/physical runtime NOT_RUN |
 | Firmware network / offline recovery | Host-only adapters and B3–B46 development fixtures; ESP32 Wi-Fi/TLS, durable storage and physical recovery unverified |
 | CI | PR workflow source exists; hosted execution not verified in this local session |
 | Physical integration | NOT_AUTHORIZED / NOT_RUN |

@@ -51,6 +51,7 @@ jobs:
           python3 -B scripts/test_event_delivery.py
           python3 -B scripts/test_event_delivery_retry.py
           python3 -B scripts/test_event_retirement_file.py
+          python3 -B scripts/test_formal_resilience.py
       - name: Dedicated alarm and provider host verification
         run: |
           python3 -B scripts/run_formal_provider_verification.py --execute
@@ -374,6 +375,8 @@ jobs:
           VG_PHP_CLI: php
         run: |
           python3 -B scripts/test_live_http_integration_gate.py
+          python3 -B scripts/run_live_http_integration.py --php-binary php --execute --resilience-only | tee evidence/test-results/formal-resilience-ci-readonly.txt
+          python3 -B scripts/review_formal_resilience.py --log evidence/test-results/formal-resilience-ci-readonly.txt --report evidence/test-results/formal-resilience-ci-review.json
           python3 -B scripts/run_live_http_integration.py --php-binary php --execute
 
   # B9 HTTP dispatch: no MySQL service/migrations; tests do not call DB.

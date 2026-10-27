@@ -13,7 +13,7 @@ The historical baseline **49/49 PASS** was one self-test run containing the firs
 
 **Locked traceability snapshot:** `requirements/traceability-matrix.csv` intentionally remains unchanged and has `NOT_IMPLEMENTED/NOT_RUN` placeholders for 38 requirement rows. No requirement is declared verified by this index.
 
-**Remaining:** formal SIM-010..SIM-015, SUP-001..SUP-019, Phase 9+ backend/dashboard/E2E work, independent bench/hardware evidence, calibration and physical integration (not authorized).
+**Remaining:** hostedSUP018, independent ESP32/RTOS/bench/hardware/NVS/powerloss/deployedTLS evidence, calibration and physical integration (not authorized). All15SIM and18SUP have scoped records; this does not approve the system.
 
 ## Additional evidence after the original foundation
 
@@ -39,7 +39,7 @@ Recorded counts are cumulative software self-tests on a single build, **not addi
 - Phase 8 telemetry contract: `evidence/test-results/phase8-h1-summary-20261017.md` and `evidence/test-results/phase8-closure-summary-20261017.md`; versioned schema/fixtures/contract self-tests PASS at the scoped development gate. SUP-011, SUP-012, TEL-003 backend deduplication and SIM-014 remain NOT_RUN.
 - Pre-Phase-9 R1 hardening: `evidence/test-results/pre-phase9-r1-summary-20261017.md`; firmware edge-case fixes and later-verifier boot isolation regression PASS.
 
-Formal test execution is now recorded in `docs/testing/formal-scenario-status.csv`. Current formal SIM result is SIM-001..SIM-009 PASS and SIM-010..SIM-015 NOT_RUN. Current canonical SUP registry records11PASS, including six new dedicated host provider/alarm cases, and8PLANNED; historical C4 evidence alone closes none of them. These records do not imply complete requirement verification, physical readiness, or production readiness.
+Formal execution is recorded in `docs/testing/formal-scenario-status.csv`: all15SIM scoped PASS, canonical18SUP PASS/SUP018 PLANNED. Dedicated current host resilience review is linked below; historical C4 evidence alone closes none of these cases. No requirement VERIFIED, physical or production approval.
 
 ## Dedicated host provider/ACK evidence 2026-10-26
 
@@ -59,3 +59,14 @@ VERIFIED is claimed. Other SIM/SUP and external gates retain their own status.
 ## Dedicated fault/storage/schema/reference gates (2026-10-26)
 
 [Current software gate evidence](../../evidence/test-results/fault-storage-summary-20261026.md) records actual single-channel4frame/44channel isolation,72generation bounded host-file retention/reopen/corruption, guarded6migration rollback/reapply with382PHP cases,215actualTLS checks and241regression commands PASS. SIM011/SUP013/SUP014/SUP017 have prescribed dedicated local evidence; derived formal32PASS/2PARTIAL/4NOT_RUN, no requirement VERIFIED. Three verification-integrity gaps are fixed and negative reproductions preserved. Firmware source unchanged and matches both committed SDK proofs. Physical NVS/ESP32/outage/timing, currentWokwi, hostedCI and deployedTLS remain NOT_RUN. Cleanup removal count0, protected files unchanged, NO PUSH.
+
+## Dedicated resilience host evidence2026-10-27
+
+[SIM010/012/013 actual case review](../../evidence/test-results/formal-resilience-case-review-20261027.md):
+60047ms real private-TLS API outage,561shared C99 cycles,3actual503 attempts then
+explicit reset /up200, temperature invalid then STALE until VALID30, original
+ordered2raise/2clear facts. Independent current-source reviewer PASS. Separate
+real PHP388/TLS248checks/Chrome155/regression248 local evidence; host mode never
+writes DB, normal integration owns disposable fixtures. SDK source unchanged,
+prior both actual SDK builds bound by hash, not rebuilt/hardware executed here.
+All15SIM/18SUP scoped PASS; hostedSUP018 PLANNED,37mapped PASS/1NOT_RUN, no VERIFIED.

@@ -75,6 +75,10 @@ def source_snapshot():
     paths.append(ROOT/'docs/testing/formal-data-ui-cases-20261026.md')
     paths.append(ROOT/'docs/testing/monitoring-receipt-expiry-protocol-20261026.md')
     paths.append(ROOT/'docs/testing/event-delivery-retry-protocol-20261026.md')
+    paths += [ROOT/'scripts'/name for name in ('formal_resilience.py', 'resilience_native_bridge.py',
+        'resilience_host_fixture.c', 'test_formal_resilience.py', 'resilience_live_extension.py',
+        'review_formal_resilience.py')]
+    paths.append(ROOT/'docs/testing/formal-resilience-cases-20261027.md')
     base = ROOT/'backend/laravel'
     paths += [base/'bootstrap/app.php', base/'composer.lock']
     for directory in ('app', 'config', 'routes', 'resources/views', 'tests/Support', 'database/migrations'):
@@ -107,6 +111,40 @@ class LoopbackTLSProxy(http.server.ThreadingHTTPServer):
         self._reply_fault_lock = threading.Lock()
         self._reply_fault = None
         self.commit_reply_drops = 0
+        self._readonly_outage = None
+        self.readonly_outage_responses = []
+
+    def arm_readonly_api_outage(self, agent, body):
+        if (not isinstance(agent, str) or not re.fullmatch(r'vg-live/[a-f0-9]{32}', agent)
+                or not isinstance(body, bytes) or not 0 < len(body) <= MAX_PROXY_BODY):
+            raise GateFailure('INVALID_READONLY_OUTAGE_ADMISSION')
+        with self._reply_fault_lock:
+            if self._readonly_outage is not None:
+                raise GateFailure('READONLY_OUTAGE_ALREADY_ARMED')
+            started = time.monotonic()
+            self._readonly_outage = (agent, hashlib.sha256(body).digest(), started)
+            return started
+
+    def readonly_api_unavailable(self, method, path, agent, body):
+        with self._reply_fault_lock:
+            if self._readonly_outage is None:
+                return False
+            expected_agent, digest, started = self._readonly_outage
+            if (method != 'POST' or path != '/api/v1/telemetry' or agent != expected_agent
+                    or not isinstance(body, bytes) or not hmac.compare_digest(hashlib.sha256(body).digest(), digest)):
+                return False
+            if len(self.readonly_outage_responses) >= 16:
+                raise GateFailure('READONLY_OUTAGE_REQUEST_BOUND_EXCEEDED')
+            self.readonly_outage_responses.append(round((time.monotonic()-started)*1000))
+            return True
+
+    def restore_readonly_api(self):
+        with self._reply_fault_lock:
+            if self._readonly_outage is None or time.monotonic()-self._readonly_outage[2] < 60:
+                raise GateFailure('FULL_SIXTY_SECOND_OUTAGE_REQUIRED')
+            elapsed = time.monotonic()-self._readonly_outage[2]
+            self._readonly_outage = None
+            return elapsed
 
     def arm_commit_reply_drop(self, path, agent, body):
         # Private server-object control only, never an HTTP route/header. Bind
@@ -162,6 +200,16 @@ class ProxyHandler(http.server.BaseHTTPRequestHandler):
         if len(body) != length:
             self.send_error(400)
             return
+        if self.server.readonly_api_unavailable(self.command, self.path,
+                self.headers.get('User-Agent', ''), body):
+            # Private exact owned fault, before any PHP ingress/database action.
+            output = b'{"unavailable":true}'
+            self.send_response(503)
+            self.send_header('Content-Type', 'application/json')
+            self.send_header('Content-Length', str(len(output)))
+            self.end_headers()
+            self.wfile.write(output)
+            return
         headers = {key: value for key, value in self.headers.items()
                    if key.lower() not in {'connection', 'transfer-encoding', 'content-length'}
                    and not key.lower().startswith('x-forwarded-')}
@@ -216,14 +264,14 @@ class Client:
             urllib.request.HTTPSHandler(context=context), NoRedirect(),
             urllib.request.HTTPCookieProcessor(self.cookies))
 
-    def request(self, path, data=None, headers=None, method=None):
+    def request(self, path, data=None, headers=None, method=None, timeout=20):
         if not path.startswith('/') or path.startswith('//'):
             raise GateFailure('NONLOCAL_REQUEST_DENIED')
         all_headers = {'User-Agent': self.agent}
         all_headers.update(headers or {})
         request = urllib.request.Request(self.base+path, data=data, headers=all_headers, method=method)
         try:
-            response = self.opener.open(request, timeout=20)
+            response = self.opener.open(request, timeout=timeout)
         except urllib.error.HTTPError as exception:
             response = exception
         with response:
@@ -726,6 +774,8 @@ def suite(client, binary, env, profile, wire, domain_wire, alarm_wire, replay_wi
            and b'tidak direkonstruksi dari event lain' in body and b'ACK bukan CLEAR' in body)
     event_races(client, binary, env, profile, alarm_wire)
     data_ui_extension(client, binary, env, profile, lines[0], functional)
+    from resilience_live_extension import execute as resilience_development_integration
+    resilience_development_integration(client, binary, env, profile, device_path, api, php_run, expect)
     logout_token = csrf(body)
     status, _, _ = client.request('/monitoring/'+profile['other'])
     expect('UNGRANTED_DEVICE_404', status == 404)
@@ -768,9 +818,12 @@ def main():
     parser.add_argument('--testing-env', action='store_true')
     parser.add_argument('--execute', action='store_true')
     parser.add_argument('--browser-only', action='store_true')
+    parser.add_argument('--resilience-only', action='store_true')
     parser.add_argument('--browser-binary')
     parser.add_argument('--node-binary', default='node')
     args = parser.parse_args()
+    if args.browser_only and args.resilience_only:
+        parser.error('browser and readonly resilience modes are separate gates')
     code = 0
     server = proxy = thread = log = None
     attempted_fixture = False
@@ -826,6 +879,9 @@ def main():
             print('LIVE_HTTP_RECEIPT_NATIVE_VERIFIER=BUILT_BEFORE_DATABASE_FIXTURES', flush=True)
             retirement_fixture = build_retirement_fixture(folder, env)
             print('LIVE_HTTP_RETIREMENT_NATIVE_FILE_DRIVER=BUILT_BEFORE_DATABASE_FIXTURES', flush=True)
+            if args.resilience_only:
+                from resilience_native_bridge import build as build_resilience
+                resilience_exe = build_resilience(folder)
             cert = php_run(args.php_binary, Path('scripts/live_http_tls.php'), [str(folder)], env)
             if cert.returncode:
                 raise GateBlocked('TLS_PREREQUISITE_NO_FIXTURES')
@@ -882,13 +938,20 @@ def main():
                 stages = ['AUTOLOAD_DONE', 'PROFILE_ADMITTED', 'APPLICATION_ADMITTED', 'ROWS_ADMITTED', 'REQUEST_DONE']
                 print('LIVE_HTTP_SERVER_STAGE_FLAGS='+json.dumps({stage: 'vg_live_stage='+stage.lower() in diagnostic for stage in stages}), flush=True)
             expect('REAL_LOOPBACK_TLS_AND_PHP_READY', ready and server.poll() is None)
-            attempted_fixture = True
-            prepared = php_run(args.php_binary, Path('scripts/live_http_fixture.php'), ['--prepare', '--execute'], env)
-            expect('VERIFIED_ISOLATED_FIXTURE_PREPARATION', prepared.returncode == 0)
+            if args.resilience_only:
+                from formal_resilience import execute as execute_resilience
+                execute_resilience(resilience_exe, client, proxy)
+                postflight = php_run(args.php_binary, Path('scripts/live_http_fixture.php'), ['--check'], env)
+                expect('READONLY_RESILIENCE_EXACT_EMPTY_CATALOG_POSTFLIGHT', postflight.returncode == 0)
+                print('LIVE_HTTP_CLEANUP=PASS_NO_DATABASE_FIXTURES_CREATED', flush=True)
+            else:
+                attempted_fixture = True
+                prepared = php_run(args.php_binary, Path('scripts/live_http_fixture.php'), ['--prepare', '--execute'], env)
+                expect('VERIFIED_ISOLATED_FIXTURE_PREPARATION', prepared.returncode == 0)
             if args.browser_only:
                 code = browser_monitoring_bridge.execute(args.node_binary, args.browser_binary, env,
                     folder, profile, wire, base)
-            else:
+            elif not args.resilience_only:
                 suite(client, args.php_binary, env, profile, wire, domain_wire, alarm_wire, replay_wire, receipt_verifier, retirement_fixture, context, port, proxy)
     except GateBlocked as exception:
         print('LIVE_HTTP_GATE=BLOCKED_'+str(exception), flush=True)
@@ -948,8 +1011,10 @@ def main():
         else:
             digest = hashlib.sha256(repr(sorted(inputs.items())).encode()).hexdigest()
             print('LIVE_HTTP_SOURCE_STABILITY=PASS_SHA256_'+digest, flush=True)
-            print('LIVE_HTTP_GATE='+('PASS_BROWSER_ONLY_COMPONENT_FULL_SUITE_NOT_RUN' if args.browser_only
-                  else 'PASS_LOCAL_ONLY_HARDWARE_DEPLOYED_TLS_NOT_RUN'), flush=True)
+            terminal = ('PASS_READONLY_RESILIENCE_HOST_ONLY_FULL_SUITE_NOT_RUN' if args.resilience_only else
+                ('PASS_BROWSER_ONLY_COMPONENT_FULL_SUITE_NOT_RUN' if args.browser_only else
+                 'PASS_LOCAL_ONLY_HARDWARE_DEPLOYED_TLS_NOT_RUN'))
+            print('LIVE_HTTP_GATE='+terminal, flush=True)
     return code
 
 

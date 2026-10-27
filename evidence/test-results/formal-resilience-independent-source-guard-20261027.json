@@ -1,0 +1,8 @@
+{
+  "historical_source": "d2ea200147a198d7153435615b918f0dc67b0fedda1242c1f20979a1d25a759d",
+  "current_source": "81fa45d15a8f800e85cbf82048df8086640f26dc88a63275746424282ceab49f",
+  "historical_internal_consistency": "PASS_ONLY_ITS_TESTED_SOURCE",
+  "current_formal_acceptance": "REFUSED_STALE_SOURCE",
+  "promotion": "NONE",
+  "database_access": false
+}

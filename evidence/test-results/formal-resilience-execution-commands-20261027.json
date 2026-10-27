@@ -1,0 +1,75 @@
+[
+  {
+    "command": [
+      "python",
+      "-B",
+      "scripts/run_live_http_integration.py",
+      "--php-binary",
+      "C:/tools/php-8.2.35/php.exe",
+      "--testing-env"
+    ],
+    "actual_exit": 0,
+    "execution_permissions": "sandbox_readonly",
+    "evidence": "evidence/test-results/formal-resilience-restored-preflight-20261027.txt"
+  },
+  {
+    "command": [
+      "python",
+      "-B",
+      "scripts/run_live_http_integration.py",
+      "--php-binary",
+      "C:/tools/php-8.2.35/php.exe",
+      "--testing-env",
+      "--execute",
+      "--resilience-only"
+    ],
+    "actual_exit": 0,
+    "execution_permissions": "sandbox",
+    "evidence": "evidence/test-results/formal-resilience-readonly-restored-run1-20261027.txt"
+  },
+  {
+    "command": [
+      "python",
+      "-B",
+      "scripts/run_live_http_integration.py",
+      "--php-binary",
+      "C:/tools/php-8.2.35/php.exe",
+      "--testing-env",
+      "--execute"
+    ],
+    "actual_exit": 0,
+    "execution_permissions": "sandbox",
+    "evidence": "evidence/test-results/formal-resilience-normal-restored-run1-20261027.txt"
+  },
+  {
+    "command": [
+      "python",
+      "-B",
+      "scripts/run_live_http_integration.py",
+      "--php-binary",
+      "C:/tools/php-8.2.35/php.exe",
+      "--testing-env",
+      "--execute",
+      "--browser-only",
+      "--browser-binary",
+      "C:/Program Files/Google/Chrome/Application/chrome.exe"
+    ],
+    "actual_exit": 0,
+    "execution_permissions": "approved_outside_sandbox",
+    "evidence": "evidence/test-results/formal-resilience-browser-approved-runtime-20261027.txt"
+  },
+  {
+    "command": [
+      "python",
+      "-B",
+      "scripts/run_mysql_integration.py",
+      "--php-binary",
+      "C:/tools/php-8.2.35/php.exe",
+      "--testing-env",
+      "--execute",
+      "--existing-schema"
+    ],
+    "actual_exit": 0,
+    "evidence": "evidence/test-results/formal-resilience-mysql-restored-run1-20261027.txt"
+  }
+]

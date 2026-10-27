@@ -17,7 +17,8 @@ import run_live_http_integration as gate
 class LiveHttpGateTest(unittest.TestCase):
     def test_formal_read_only_audit_never_accepts_arbitrary_action_or_missing_lease(self):
         env = {key:value for key,value in os.environ.items() if key.upper() in {'PATH','SYSTEMROOT','TEMP','TMP','WINDIR'}}
-        for args in (['--formal-audit-arbitrary'], ['--formal-audit'], ['--retry-audit-arbitrary'], ['--retry-audit']):
+        for args in (['--formal-audit-arbitrary'], ['--formal-audit'], ['--retry-audit-arbitrary'], ['--retry-audit'],
+                     ['--resilience-audit'], ['--resilience-audit-arbitrary']):
             result = subprocess.run([os.environ.get('VG_PHP_CLI','php'),str(gate.ROOT/'scripts/live_http_fixture.php'), *args],
                                     env=env,capture_output=True,text=True,timeout=20)
             self.assertEqual(result.returncode,3)
@@ -107,6 +108,29 @@ class LiveHttpGateTest(unittest.TestCase):
         self.assertEqual(command.call_args.args[3]['LOG_CHANNEL'], '"null"')
         self.assertIn('NOT_RUN_READ_ONLY', output)
         builder.assert_not_called(); popen.assert_not_called(); suite.assert_not_called()
+
+    def test_readonly_resilience_mode_never_prepares_or_cleans_database_fixture(self):
+        with patch('resilience_native_bridge.build',return_value=Path('synthetic-native')) as native, \
+             patch('formal_resilience.execute') as execute:
+            code, command, _, _, suite, output = self.invoke(['--execute','--resilience-only'],
+                [self.result()]*3,live=True)
+        self.assertEqual(code,0)
+        native.assert_called_once();execute.assert_called_once();suite.assert_not_called()
+        self.assertEqual(command.call_count,3)  # readonly preflight, certificate, readonly postflight.
+        actions=[call.args[2] for call in command.call_args_list]
+        self.assertEqual(actions[0],['--check']);self.assertEqual(actions[-1],['--check'])
+        self.assertFalse(any(action[0] in ('--prepare','--cleanup') for action in actions))
+        self.assertIn('PASS_NO_DATABASE_FIXTURES_CREATED',output)
+        self.assertIn('PASS_READONLY_RESILIENCE_HOST_ONLY_FULL_SUITE_NOT_RUN',output)
+
+    def test_failed_readonly_resilience_does_not_attempt_database_mutation(self):
+        with patch('resilience_native_bridge.build',return_value=Path('synthetic-native')), \
+             patch('formal_resilience.execute',side_effect=ValueError('synthetic')):
+            code,command,_,_,suite,output=self.invoke(['--execute','--resilience-only'],[self.result()]*2,live=True)
+        self.assertNotEqual(code,0);suite.assert_not_called()
+        self.assertEqual(command.call_count,2)
+        self.assertFalse(any(call.args[2][0] in ('--prepare','--cleanup') for call in command.call_args_list))
+        self.assertNotIn('PASS_READONLY_RESILIENCE_HOST_ONLY_FULL_SUITE_NOT_RUN',output)
 
     def test_rejected_preflight_never_builds_launches_or_prepares_fixtures(self):
         code, command, builder, popen, suite, output = self.invoke(['--execute'], [self.result(3)])

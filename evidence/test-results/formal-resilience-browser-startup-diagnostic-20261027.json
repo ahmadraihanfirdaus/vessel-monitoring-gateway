@@ -1,0 +1,20 @@
+{
+  "phases": [
+    "owned_endpoint_created",
+    "websocket_open",
+    "owned_profile_attested",
+    "browser_version_received"
+  ],
+  "browser": "Chrome/155.0.8059.85",
+  "child_exit": 0,
+  "diagnostic_flags": {
+    "access denied": false,
+    "permission": false,
+    "out of memory": false,
+    "crash": false,
+    "devtools listening": true
+  },
+  "owned_profile_closed": true,
+  "diagnostic_exit": 0,
+  "raw_stderr_not_copied": true
+}

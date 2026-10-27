@@ -1,0 +1,21 @@
+{
+  "goal_status": "blocked",
+  "head": "4892054dc4aed578702e102f17f31dc459668a63",
+  "branch": "develop",
+  "index": "EMPTY",
+  "consecutive_goal_turns_with_same_blocker": 3,
+  "latest_verified_utc": "2026-10-27T01:24:14.114475+00:00",
+  "approved_test_target": "127.0.0.1:3307/vessel_gateway_codex_test",
+  "latest_socket_probe": "UNAVAILABLE_TimeoutError",
+  "database_process": "NO_MYSQLD_OR_MARIADBD_DETECTED",
+  "prior_approved_outside_sandbox_readonly_retry": "BLOCKED_PREFLIGHT_NO_FIXTURES",
+  "independent_host_regression": "PASS_248_OF_248",
+  "working_security": "PASS_0_FINDINGS_0_PRIVACY",
+  "formal_promotion": "NONE",
+  "required_external_action": "Restore only the approved isolated test instance or supply an unambiguous test-only service/start command; no credentials in chat",
+  "main_database_access": false,
+  "new_commit": false,
+  "push": false,
+  "repo_deletions": 0,
+  "completion": "NOT_ACHIEVED"
+}

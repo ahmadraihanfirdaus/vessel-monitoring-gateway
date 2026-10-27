@@ -1,0 +1,43 @@
+{
+  "node": "v22.20.0",
+  "selection": "existing_owned_initial_about_blank",
+  "commands": [
+    {
+      "method": "Browser.getBrowserCommandLine",
+      "status": "PASS"
+    },
+    {
+      "method": "Browser.getVersion",
+      "status": "PASS"
+    },
+    {
+      "method": "Target.getTargets",
+      "status": "PASS"
+    },
+    {
+      "method": "Target.attachToTarget",
+      "status": "PASS"
+    },
+    {
+      "method": "Page.enable",
+      "status": "CDP_CLOSED"
+    }
+  ],
+  "owned_profile_closed": true,
+  "browser": "Chrome/155.0.8059.85",
+  "initial_page_count": 1,
+  "failure": "CDP_CLOSED",
+  "child_exit": 2147483651,
+  "stderr_flags": {
+    "fatal": true,
+    "check failed": false,
+    "assert": false,
+    "sandbox": true,
+    "gpu": true,
+    "invalid frame": false,
+    "out of memory": false,
+    "devtools listening": true
+  },
+  "diagnostic_exit": 1,
+  "raw_stderr_not_copied": true
+}
