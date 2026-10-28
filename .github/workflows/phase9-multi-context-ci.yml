@@ -367,6 +367,11 @@ jobs:
         run: python3 -B ../../scripts/test_phase9_b4_api001.py
       - name: Verify isolated runner failure behavior
         run: python3 -B ../../scripts/test_mysql_integration_gate.py
+      - name: Real Docker formatter against owned API fixtures (no daemon or database)
+        working-directory: .
+        env:
+          VG_PHP_CLI: php
+        run: python3 -B scripts/test_docker_inspect_contract.py
       - name: C99 through Laravel and real isolated MySQL with migration roundtrip
         # Guarded equivalent of php artisan migrate --force; no dotenv loading.
         env:

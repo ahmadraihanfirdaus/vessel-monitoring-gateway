@@ -1,0 +1,71 @@
+{
+  "decision": "READY_FOR_DOCKER_INSPECT_CI_APPROVAL",
+  "parent": "090ccccc8796c65659b0dc6af83f1061591c67d3",
+  "parent_commits": 148,
+  "hosted_root_cause": "UNKNOWN",
+  "confirmed_local_defect": "Exact published Go template fails on null Binds in real Docker CLI formatter with owned synthetic API;child1,not runner3.",
+  "local_reproduction_scope": "REAL_DOCKER_CLI_WITH_OWNED_SYNTHETIC_API_NOT_REAL_DAEMON_OR_HOSTED_REPRODUCTION",
+  "actual_daemon_Linux_hosted_reproduction": "NOT_RUN",
+  "fix": "Only nil-safe Binds count in selected-fields template;existing policy predicates unchanged.",
+  "diagnostics": "One fixed-schema bounded inspect failure record;no raw stderr/environment/path/argv/credentials.",
+  "gates": {
+    "formatter": {
+      "pass": 13,
+      "fail": 0,
+      "skip": 0
+    },
+    "focused_PHP": {
+      "pass": 112,
+      "fail": 0,
+      "skip": 0
+    },
+    "PHP_MariaDB": {
+      "pass": 465,
+      "fail": 0,
+      "skip": 0
+    },
+    "PHP_no_DB": {
+      "pass": 303,
+      "fail": 0,
+      "skip": 0
+    },
+    "policy_equivalence": {
+      "comparisons": 234,
+      "differences": 0
+    },
+    "YAML_actionlint": "PASS_BOTH_WORKFLOWS",
+    "receipt_crosscheck": "PASS",
+    "fixture_cleanup": "PASS_ZERO_APPLICATION_ROWS"
+  },
+  "reuse": {
+    "migration_roundtrip": "REUSED_UNCHANGED_MIGRATION_INPUTS_PRIOR_PASS",
+    "firmware_dashboard": "UNCHANGED_SOURCE_NO_LOCAL_RERUN",
+    "full_HTTP_TLS": "NOT_RUN_TEST_SUPPORT_ONLY;HOSTED_REQUIRED_AFTER_NEW_APPROVAL"
+  },
+  "runtime": {
+    "PHP": "8.2.35",
+    "Laravel": "12.70.0",
+    "local_database": "10.4.32-MariaDB",
+    "formatter_CLI": "28.0.4"
+  },
+  "evidence_sha256": {
+    "formatter-before-fix.json": "4d49ca202dda3af7b7f77685fcf82c412ebf65ee921d3dfbde03aed52e8c603d",
+    "formatter-gates.json": "6e440b0effedda5735611e270f658c6ef29c64d09045b21ef27f553057ba592b",
+    "read-only-hosted-audit.json": "f21ebe6c9655095fe9916209b0917ee7461bf84add7b49849c108f7535955d3d",
+    "admission-equivalence.json": "7666944efe979f1d05ebc0d9ad3aa37f2b3276b9123ad61360f5a5ef842a4eff",
+    "focused-final.json": "6696458cfd5ada24e4ff8556bc3a2a695eab24e843e4fe4bf362500efe0e59e5",
+    "mysql-regression.txt": "d859cf7e358d52da81fe8b51badd7be5ea1b302b031139b811206a3b81925930",
+    "no-db-regression.json": "eb311fe9f48fdf2a3ac35261844f69b9af1eaf8b2ab2d00814af01d3479c0d6b",
+    "yaml-actionlint.json": "e8eca30c364970be6c3a89b2e3eb45ab5f4f04ba40ab234312b8ed647d9decb3",
+    "development-failure-resolved.json": "c64f559cf623591d2b1562dcd44ec980d8c18a510b6317cf3838a52f5c8c6bc0",
+    "security-line-proof.json": "c882f694941eb085a45bb5209bedf5d40429768969bb4332bea985048ac1181b"
+  },
+  "operations": {
+    "push": 0,
+    "workflow_dispatch": 0,
+    "production": 0,
+    "hardware": 0
+  },
+  "stop": "AWAIT_NEW_APPROVAL_NO_AUTOMATIC_PUBLICATION",
+  "security_review": "Two byte-identical previously reviewed workflow lines repinned to the new workflow hash;scanner rules unchanged."
+}

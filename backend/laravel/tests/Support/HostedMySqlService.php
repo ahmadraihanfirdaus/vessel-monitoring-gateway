@@ -3,6 +3,9 @@
 namespace Tests\Support;
 
 use RuntimeException;
+use Symfony\Component\Process\Exception\ProcessStartFailedException;
+use Symfony\Component\Process\Exception\ProcessTimedOutException;
+use Symfony\Component\Process\ExecutableFinder;
 use Symfony\Component\Process\Process;
 
 /** Test-only runner/service proof. Environment selection is not authorization. */
@@ -89,20 +92,75 @@ final class HostedMySqlService
 
     private static function command(array $command, string $reason): string
     {
+        $started = microtime(true);
+        $process = null;
+        $overLimit = false;
         try {
             $process = new Process($command);
             $process->setTimeout(5);
             $process->run();
             $out = $process->getOutput();
-            if (! $process->isSuccessful() || strlen($out) > 8192) {
+            $overLimit = strlen($out) > 8192;
+            if (! $process->isSuccessful() || $overLimit) {
                 throw new RuntimeException();
             }
 
             return trim($out);
         } catch (\Throwable $exception) {
+            if ($reason === 'DOCKER_INSPECT_FAILED') {
+                self::inspectDiagnostic($process, $exception, $command, $started, $overLimit);
+            }
             // Never expose command failure output, environment, paths or Docker metadata.
             throw self::blocked($reason);
         }
+    }
+
+    /** Closed classification only; supplied stderr/exception messages are never returned. */
+    private static function inspectFailureClass(\Throwable $error, bool $available, bool $procOpen, ?int $exit, bool $overLimit, string $stderr): string
+    {
+        if (! $procOpen) { return 'PROC_OPEN_UNAVAILABLE'; }
+        if ($error instanceof ProcessTimedOutException) { return 'TIMEOUT'; }
+        if (! $available) { return 'EXECUTABLE_NOT_FOUND'; }
+        if ($error instanceof ProcessStartFailedException) { return 'PROCESS_START_EXCEPTION'; }
+        if ($overLimit) { return 'OUTPUT_LIMIT'; }
+        if ($exit !== null && $exit !== 0) {
+            if (str_contains($stderr, 'template parsing error:')) {
+                return str_contains($stderr, 'error calling len:') ? 'TEMPLATE_NIL_LENGTH' : 'TEMPLATE_ERROR';
+            }
+            if (str_contains($stderr, 'No such container:') || str_contains($stderr, 'No such object:')) { return 'CONTAINER_NOT_FOUND'; }
+            if (str_contains($stderr, 'Cannot connect to the Docker daemon') || str_contains($stderr, 'error during connect:')
+                || str_contains($stderr, 'permission denied while trying to connect')) { return 'DAEMON_UNREACHABLE'; }
+            return 'CHILD_NONZERO';
+        }
+        return 'PROCESS_RUNTIME_EXCEPTION';
+    }
+
+    private static function inspectDiagnostic(?Process $process, \Throwable $error, array $command, float $started, bool $overLimit): void
+    {
+        $exit = null;
+        $stdoutBytes = 0;
+        $stderr = '';
+        try {
+            $exit = $process?->getExitCode();
+            $stdoutBytes = strlen($process?->getOutput() ?? '');
+            $stderr = $process?->getErrorOutput() ?? '';
+        } catch (\Throwable $ignored) { /* No raw subprocess exception details. */ }
+        $available = false;
+        try {
+            $executable = $command[0] ?? '';
+            $available = is_string($executable) && (is_file($executable) || (new ExecutableFinder)->find($executable) !== null);
+        } catch (\Throwable $ignored) { /* Lookup failure remains fail-closed. */ }
+        $elapsed = max(0, (int) ((microtime(true) - $started) * 1000));
+        $diagnostic = [
+            'phase' => 'DOCKER_INSPECT_COMMAND',
+            'class' => self::inspectFailureClass($error, $available, function_exists('proc_open'), $exit, $overLimit, $stderr),
+            'child_exit' => $exit !== null && $exit >= -2147483648 && $exit <= 4294967295 ? $exit : null,
+            'elapsed_ms' => min($elapsed, 10000), 'elapsed_capped' => $elapsed > 10000,
+            'stdout_bytes_observed' => min($stdoutBytes, 8193), 'stdout_capped' => $stdoutBytes > 8193,
+            'stdout_limit_bytes' => 8192,
+        ];
+        // No argv, paths, addresses, stderr, env, body or exception chain is emitted.
+        @fwrite(STDERR, 'MYSQL_INSPECT_DIAGNOSTIC='.json_encode($diagnostic, JSON_THROW_ON_ERROR).PHP_EOL);
     }
 
     public static function verify(array $env): string
@@ -129,7 +187,7 @@ final class HostedMySqlService
         self::assertContainerId($id);
         // Select safe properties in Docker itself: never request Config.Env or mount source paths.
         $format = '{"id":{{json .Id}},"image":{{json .Config.Image}},"running":{{json .State.Running}},'
-            .'"binds":{{len .HostConfig.Binds}},"privileged":{{json .HostConfig.Privileged}},'
+            .'"binds":{{if .HostConfig.Binds}}{{len .HostConfig.Binds}}{{else}}0{{end}},"privileged":{{json .HostConfig.Privileged}},'
             .'"network":{{json .HostConfig.NetworkMode}},"ports":{{json .NetworkSettings.Ports}},'
             .'"mounts":[{{range $i, $m := .Mounts}}{{if $i}},{{end}}{"type":{{json $m.Type}},"destination":{{json $m.Destination}}}{{end}}]}';
         try {

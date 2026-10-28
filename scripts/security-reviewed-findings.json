@@ -1312,6 +1312,22 @@
       "line_sha256": "c7ea48f0a77a1ec24edf8224103819e92ba4484526ad615364cdbba731f9bfe8",
       "classification": "ENVIRONMENT_VARIABLE_NAME",
       "rationale": "Existing credential-name mapping only; primary effective configuration/server/grant methods byte-identical, secondary overrides and schema checks strengthened. No credential value."
+    },
+    {
+      "id": "DOCKER-INSPECT-WORKFLOW-PIN-1",
+      "path": ".github/workflows/phase9-multi-context-ci.yml",
+      "file_sha256": "5fb1b1a5f987aa167785459caeafa30a450e04d38a342e55399ef13509879acc",
+      "line_sha256": "e52d2a0aee17904e9e0b4a21889e572a42d8b99434d44885e2867934c59dbb4b",
+      "classification": "CI_TEST_CONFIGURATION",
+      "rationale": "Exact byte-identical previously reviewed CI-only configuration or ephemeral runtime key assignment. Only owned-API formatter gate added elsewhere; no secret value or scanner rule changed."
+    },
+    {
+      "id": "DOCKER-INSPECT-WORKFLOW-PIN-2",
+      "path": ".github/workflows/phase9-multi-context-ci.yml",
+      "file_sha256": "5fb1b1a5f987aa167785459caeafa30a450e04d38a342e55399ef13509879acc",
+      "line_sha256": "ca6dcd3e138310f57f7f86f4061f0dd448f949016058e65ba39ff6fb214029d7",
+      "classification": "CI_TEST_CONFIGURATION",
+      "rationale": "Exact byte-identical previously reviewed CI-only configuration or ephemeral runtime key assignment. Only owned-API formatter gate added elsewhere; no secret value or scanner rule changed."
     }
   ]
 }

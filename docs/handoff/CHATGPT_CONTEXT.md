@@ -1,5 +1,53 @@
 # CHATGPT_CONTEXT - konteks proyek untuk percakapan baru
 
+## Docker inspect isolation checkpoint (2026-10-28)
+
+Current published parent: `090ccccc8796c65659b0dc6af83f1061591c67d3`,148 commits;local candidate branch portfolio.
+This section supersedes older current-status sections. The final local commit SHA
+must be read from Git or the private FINAL_RECEIPT; this text is committed with it.
+Task: no push,no workflow dispatch,no develop change. Preserve all148 ancestors.
+
+Latest run40555976413:four jobs PASS;MySQL preflight DOCKER_INSPECT_FAILED,runner
+exit3,449MySQL cases NOT_RUN. One forwarded64hex service ID matches cleanup.
+Child Docker exit and actual Binds value were NOT_LOGGED. Hosted root cause UNKNOWN.
+No HTTP lifecycle ran;historical disconnect/SIGSEGV causality remains UNRESOLVED.
+
+CONFIRMED local defect:official Docker CLI28.0.4 against an owned synthetic API
+returns child exit1 for the exact published template with Binds=null (len error),
+but exit0 for Binds=[]. Its typed template execution can fall back to a JSON map.
+The minimal template guard maps legitimate null/no binds to numeric0;nonempty
+binds still count and fail unchanged admission. Missing fields and malformed bind
+types are rejected. This is NOT actual Docker daemon/Linux/hosted reproduction.
+
+13actual CLI/PHP formatter/parser tests PASS,including pinned old-template negative
+oracle,null/empty/nonempty binds,malformed types/missing field,identity mismatch,
+unformatted array rejection,malformed API/template,404 and timeout/resource cleanup.
+112focused PHP PASS;465isolated MariaDB PASS;303no-DB PASS;all0FAIL0SKIP.
+234pure policy comparisons show0acceptance differences. Actual container/socket,
+MySQL UUID/TCP identity,target/ACK,lease/device/token,receipt/metadata guards stay.
+Command5s timeout and8192-byte output bound are unchanged.
+
+One bounded MYSQL_INSPECT_DIAGNOSTIC JSON is emitted only on actual inspect command
+failure. Closed classes distinguish executable,proc_open/start/runtime exception,
+daemon/container,template/nil length,timeout,nonzero andoutput cap. Numeric child
+exit is separate from runner3;only phase,capped duration/byte counts andlimits are
+retained. No stderr,argv,environment,private path,body or exception chain is logged.
+Classification never grants access. Existing MYSQL_TEST_BLOCKED reason retained.
+
+Workflow adds an owned-API formatter regression before DB preflight. Both YAML and
+actionlint PASS;pull_request/workflow_dispatch,contents:read,no production,secrets
+or hardware operation. Existing workflows have no push trigger. A future publication
+and controlled hosted verification require new explicit approval;stop on failure.
+MySQL8daemon proof/full hosted HTTP remains NOT_RUN for this local candidate.
+
+Protocol:docs/testing/docker-inspect-isolation-20261028.md;public evidence and
+scope manifest:evidence/test-results/docker-inspect-isolation-20261028.json and
+docker-inspect-isolation-files-20261028.csv. Private gates:
+private/portfolio-docker-inspect-isolation-gates-20261028. Before any publication,
+verify final HEAD/clean portfolio,all gates/security/checksums andremote FF.
+Do not rerun firmware or unchanged software goal. LOCKED requirements unchanged;
+38requirement traceability remains separate from formal production approval.
+
 ## Hosted MySQL service-proof diagnostics (2026-10-28)
 
 This supersedes older current-status sections below. GitHub main was verified
